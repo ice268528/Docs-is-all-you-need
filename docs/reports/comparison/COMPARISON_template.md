@@ -1,14 +1,14 @@
 ---
 文档定位: "对比报告。"
-作者: "Claude Code"
+作者: "Code Agent"
 目标对象:
-  - "yiyi"
-  - "Web 端 AI"
-Claude权限: "询问后可改"
+  - "Owner"
+  - "Planning AI"
+Agent权限: "询问后可改"
 当前操作者提醒:
   - "本文件用于对比两个方案、两条实现路径或两个项目的差异与取舍条件。"
   - "报告默认不直接驱动执行；若结论要落地，需同步回正式执行文档。"
-  - "若已作为阶段记录或审阅版本保存，后续修改前应先得到 yiyi 确认。"
+  - "若已作为阶段记录或审阅版本保存，后续修改前应先得到 Owner 确认。"
 ---
 
 <!-- 另存为 /docs/reports/comparison/COMPARISON_YYYYMMDD_xxx.md -->

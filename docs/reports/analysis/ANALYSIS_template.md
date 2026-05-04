@@ -1,14 +1,14 @@
 ---
 文档定位: "单对象分析报告。"
-作者: "Claude Code"
+作者: "Code Agent"
 目标对象:
-  - "yiyi"
-  - "Web 端 AI"
-Claude权限: "询问后可改"
+  - "Owner"
+  - "Planning AI"
+Agent权限: "询问后可改"
 当前操作者提醒:
   - "本文件用于分析单个方案、模块或技术点的可行性、优点、风险与适用性。"
   - "报告默认不直接驱动执行；若结论要落地，需同步回 stage / REQ / BUG / TODO。"
-  - "若该报告已被保存为正式记录或审阅版本，后续修改前应先得到 yiyi 确认。"
+  - "若该报告已被保存为正式记录或审阅版本，后续修改前应先得到 Owner 确认。"
 ---
 
 <!-- 另存为 /docs/reports/analysis/ANALYSIS_YYYYMMDD_xxx.md -->

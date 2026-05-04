@@ -1,15 +1,15 @@
 ---
 文档定位: "技术与实现约束。"
-作者: "Web 端 AI 起草，yiyi 定稿"
+作者: "Planning AI 起草，Owner 定稿"
 目标对象:
-  - "yiyi"
-  - "Claude Code"
-  - "Web 端 AI"
-Claude权限: "只读"
+  - "Owner"
+  - "Code Agent"
+  - "Planning AI"
+Agent权限: "只读"
 当前操作者提醒:
   - "本文件只写长期有效的实现限制与硬约束，不写当前阶段任务。"
   - "测试命令细节可在 /docs/testing/test_strategy.md 维护；阶段边界写入 stage_XX_goal.md。"
-  - "Claude Code 需严格按本文件执行，不能静默突破限制。"
+  - "Code Agent 需严格按本文件执行，不能静默突破限制。"
 ---
 
 <!-- 本模板建议另存为 /docs/project/implementation_constraints.md -->
@@ -85,8 +85,8 @@ Claude权限: "只读"
 
 ## 10. 例外审批记录
 
-<!-- 只有得到 yiyi 明确批准的例外，才应记录在此。 -->
+<!-- 只有得到 Owner 明确批准的例外，才应记录在此。 -->
 
 | 日期 | 例外内容 | 原因 | 批准人 | 失效条件 |
 |---|---|---|---|---|
-| `<此处填写>` | `<此处填写>` | `<此处填写>` | `<yiyi>` | `<此处填写>` |
+| `<此处填写>` | `<此处填写>` | `<此处填写>` | `<Owner>` | `<此处填写>` |
