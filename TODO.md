@@ -1,118 +1,104 @@
 ---
-文档定位: "当前阶段任务执行真相，记录阶段任务、测试任务、等待 Owner 手动测试的事项、已验收事项。"
-作者: "Code Agent"
+文档定位: "当前任务看板，记录当前阶段、当前 Batch、当前任务状态、OwnerGate 摘要、ready_for_e2e 与下一步。"
+作者: "Coding Agent"
 目标对象:
-  - "Code Agent"
+  - "Coding Agent"
   - "Owner"
 Agent权限: "自动可改"
 当前操作者提醒:
-  - "本文件只维护执行状态与验证结果，不定义阶段边界。"
+  - "本文件只保留当前看板、简短验证摘要和下一步建议，不定义阶段边界。"
   - "阶段范围以 /docs/stages/stage_XX_goal.md 为准；技术限制以 /docs/project/implementation_constraints.md 为准。"
-  - "不得用本文件覆盖 Owner 的最新明确指令。"
+  - "详细任务字段使用 /docs/templates/task_board_template.md。"
+  - "长篇执行过程进入 worklog；决策讨论全文进入 owner_questions；阶段交接进入 handoff。"
 ---
 
-<!-- 本模板用于现行工作文档；不要在这里重写项目背景、阶段目标正文或长期技术约束。 -->
+<!-- 本模板用于现行工作文档；不要在这里重写项目背景、阶段目标正文、长期技术约束或完整执行日志。 -->
 # TODO
 
 ## 1. 当前执行上下文
 
 - 当前阶段：`<此处填写 stage_XX>`
-- 当前主任务：`<此处填写本轮主任务>`
-- 当前状态：`<此处填写 in_progress / paused / waiting_Owner / done>`
-- 最近一次更新时间：`<此处填写 YYYY-MM-DD HH:mm>`
-- 当前维护者：`<此处填写 Code Agent / Owner>`
+- 当前 Batch：`<此处填写 B-XX-YY / 无>`
+- 当前主线：`<此处填写本轮主线>`
+- 当前状态：`<todo / doing / auto_verified / owner_gate / ready_for_e2e / accepted / blocked / archived / dropped>`
+- 最近更新时间：`<YYYY-MM-DD HH:mm>`
+- 当前维护者：`<Coding Agent / Owner>`
 
-### 1.1 关联正式文档
+## 2. 关联正式文档
 
-- 阶段目标：`/docs/stages/<此处填写 stage_XX_goal.md>`
+- 项目目标：`/docs/project/project_brief.md`
 - 实现约束：`/docs/project/implementation_constraints.md`
+- 当前阶段目标：`/docs/stages/<stage_XX_goal.md>`
+- 当前 Batch：`<复制自 /docs/templates/batch_template.md 的实际 Batch 文档路径；无则写 无>`
 - 测试策略：`/docs/testing/test_strategy.md`
-- 手动测试文档：`/docs/testing/<此处填写 stage_XX_manual_test.md>`
-- 相关需求：`<此处填写 /docs/changes/REQ_*.md；无则写 无>`
-- 相关缺陷：`<此处填写 /docs/bugs/open/BUG_*.md；无则写 无>`
+- 手动验收说明：`/docs/testing/<stage_XX_manual_test.md；无则写 无>`
+- Handoff：`/docs/handoffs/<stage_XX_summary.md 或 batch handoff；无则写 无>`
+- Owner Questions：`<复制自 /docs/templates/owner_questions_template.md 的实际文件路径；无则写 无>`
+- Worklog：`<复制自 /docs/templates/worklog_template.md 的实际文件路径；无则写 无>`
 
-## 2. 状态约定
+## 3. 状态约定
 
-- `todo`：已确认、可开始。
-- `doing`：正在执行。
-- `blocked`：被依赖、环境或决策阻塞。
-- `waiting_verify`：实现已完成，待补充验证。
-- `waiting_Owner_test`：待 Owner 手测或验收。
-- `accepted`：已通过 Owner 验收。
-- `dropped`：确认不做、移出当前阶段或被替代。
+状态语义的权威说明见 `/docs/meta/agent_execution_workflows.md`。本看板只使用状态名：
+`todo`、`doing`、`auto_verified`、`owner_gate`、`ready_for_e2e`、`accepted`、`blocked`、
+`archived`、`dropped`。
 
-## 3. 前置依赖与阻塞项
+兼容说明：历史项目中的 `waiting_Owner_test` / `waiting_verify` 可保留为迁移前状态，但新任务不应默认使用。已自动验证但不需要 Owner 逐项手测的任务，应使用 `auto_verified`。
 
-<!-- 只记录会影响当前阶段推进的依赖；不要把普通备注写成阻塞项。 -->
+## 4. 当前任务看板
 
-### D-001 `<此处填写依赖/阻塞标题>`
+<!-- TODO 只保留当前看板和一句话验证摘要；任务完整字段请写入实际 task board。 -->
 
-- 状态：`<此处填写 open / resolved>`
-- 类型：`<此处填写 环境 / 外部依赖 / Owner决策 / 需求澄清 / 数据准备 / 其他>`
-- 影响任务：`<此处填写 T-001, T-003>`
-- 描述：`<此处填写阻塞内容>`
-- 解除条件：`<此处填写何时算解除>`
-- Owner：`<此处填写 Owner / Code Agent / 外部>`
-- 备注：`<此处填写补充说明；无则写 无>`
-
-## 4. 任务总览
-
-| ID | 状态 | 类型 | 来源 | 标题 | 前置依赖 | 验收标准（Verify）摘要 |
+| ID | 状态 | 类型 | 来源 | 标题 | 当前验证摘要 | 下一步 |
 |---|---|---|---|---|---|---|
-| T-001 | `<todo>` | `<feature>` | `<stage_XX_goal / REQ / BUG>` | `<此处填写任务标题>` | `<无 / D-001 / T-000>` | `<此处填写一句话验证口径>` |
+| `T-001` | `<todo>` | `<feature / bugfix / docs / test / chore>` | `<stage / batch / REQ / BUG>` | `<此处填写>` | `<verification + evidence 一句话摘要>` | `<此处填写>` |
 
-## 5. 任务明细
+## 5. 当前 OwnerGate
 
-<!-- 每个任务必须可追溯到正式文档，并包含前置依赖与 Verify。 -->
+<!-- 详细内容进入 owner_questions。 -->
 
-### T-001 `<此处填写任务标题>`
+| ID | 状态 | 问题 | 影响范围 | Owner 需要回复 |
+|---|---|---|---|---|
+| `Q-001` | `<waiting_owner_decision / answered / archived>` | `<此处填写>` | `<阶段 / Batch / Task / contract / schema / API>` | `<请回复的明确指令>` |
 
-- 状态：`<此处填写 todo / doing / blocked / waiting_verify / waiting_Owner_test / accepted / dropped>`
-- 类型：`<此处填写 feature / bugfix / refactor / test / docs / chore>`
-- 来源：`<此处填写 stage_XX_goal / REQ_xxx / BUG_xxx / 验收反馈>`
-- 前置依赖：`<此处填写 无 / D-001 / T-000 / 待 Owner 决策>`
-- 目标：`<此处填写此任务完成后必须成立的结果>`
-- 不做事项：`<此处填写明确不在本任务内的内容>`
-- 执行说明：`<此处填写实现/处理要点>`
-- 涉及文件：`<此处填写关键文件或目录；未知则写 待补充>`
+## 6. Ready for E2E
 
-#### 验收标准（Verify）
+| ID | 用户路径 | 包含任务 | 自动验证摘要 | Owner 验收入口 |
+|---|---|---|---|---|
+| `E2E-001` | `<此处填写用户路径>` | `<T-001, T-002>` | `<auto_verified evidence 摘要>` | `<页面 / 命令 / 环境 / 步骤>` |
 
-- [ ] `<此处填写自动化验证命令、测试或检查方式>`
-- [ ] `<此处填写手动验证步骤或观察口径>`
-- [ ] `<此处填写是否需要 Owner 手测以及关注点>`
+## 7. 本轮摘要
 
-#### 完成证据
+- 已完成：`<简短摘要；无则写 无>`
+- 已自动验证：`<命令 / 检查 / evidence 摘要；无则写 无>`
+- 进入 OwnerGate：`<Q-001 / 无>`
+- 进入 ready_for_e2e：`<E2E-001 / 无>`
+- 未完成：`<简短摘要；无则写 无>`
+- 下一步建议：`<下一条最合适的指令或动作>`
 
-- 自动验证结果：`<此处填写通过/失败/未执行 + 摘要>`
-- 手动验证结果：`<此处填写通过/失败/待验证>`
-- 备注：`<此处填写风险、限制或后续动作>`
+## 8. TODO 职责边界
 
-#### 更新记录
+TODO 只保留：
 
-- `<YYYY-MM-DD HH:mm>`：`<此处填写新增/开始/完成/阻塞/恢复说明>`
+- 当前阶段。
+- 当前 Batch。
+- 当前任务看板。
+- 当前 OwnerGate 摘要。
+- 当前 `ready_for_e2e`。
+- 下一步建议。
+- 简短验证摘要。
 
-## 6. 待 Owner 手测 / 验收
+TODO 不保存：
 
-<!-- 此处只列需要 Owner 介入的事项，避免与“任务明细”重复描述实现细节。 -->
+- 长篇执行过程。
+- 多轮命令输出。
+- 历史任务全部详情。
+- 阶段总结正文。
+- 决策讨论全文。
+- 已归档任务的完整说明。
 
-- [ ] `T-001`：`<此处填写入口、测试步骤摘要、预期结果>`
-- [ ] `<此处填写其他待 Owner 确认事项>`
+这些内容分别进入：
 
-## 7. 已完成待确认 / 已验收
-
-### 7.1 已完成待确认
-
-- [ ] `T-001`：`<此处填写已完成内容 + 已做 Verify + 仍待什么确认>`
-
-### 7.2 已验收
-
-- [ ] `T-000`：`<此处填写已验收事项>`
-
-## 8. 本轮执行摘要
-
-- 已完成：`<此处填写本轮完成内容>`
-- 已验证：`<此处填写命令、测试或观察结果>`
-- 未完成：`<此处填写剩余事项>`
-- 是否需要 Owner 决策：`<此处填写 是 / 否>`
-- 需要的决策内容：`<此处填写具体问题；无则写 无>`
+- `worklog`：详细执行记录、验证命令、失败尝试、evidence 索引。
+- `owner_questions`：Owner 决策、授权、澄清或验收问题。
+- `handoff`：阶段或 Batch 交接。
+- `archive` 或 `TODO_backup`：历史快照和已归档任务。

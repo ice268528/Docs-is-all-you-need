@@ -3,7 +3,7 @@
 作者: "Owner 主导"
 目标对象:
   - "Owner"
-  - "Code Agent"
+  - "Coding Agent"
 Agent权限: "询问后可改"
 当前操作者提醒:
   - "本文件定义自动测试覆盖原则、手动测试与自动测试分工、测试命令与约定。"
@@ -24,11 +24,15 @@ Agent权限: "询问后可改"
 
 | 角色 | 职责 |
 |---|---|
-| `Code Agent` | `<此处填写自动化验证、回归验证、测试说明维护职责>` |
+| `Coding Agent` | `<此处填写自动化验证、回归验证、测试说明维护职责>` |
 | `Owner` | `<此处填写手动验收、关键决策、验收确认职责>` |
 | `Planning AI` | `<此处填写如参与时的分析/整理职责；无则写 不参与执行>` |
 
 ## 3. 测试层次与覆盖原则
+
+测试策略默认遵循自动验证优先：低风险任务应由 Coding Agent 通过自动测试、本地校验、
+mock run、schema validation、lint、typecheck、构建等方式完成，并记录 evidence。
+Owner 不应为每个小 Task 做人工测试。
 
 ### 3.1 自动化测试
 
@@ -39,9 +43,12 @@ Agent权限: "询问后可改"
 
 ### 3.2 手动测试
 
-- 必须由 Owner 执行的场景：`<此处填写>`
-- Code Agent 需提供的手测说明粒度：`<此处填写>`
+- 必须由 Owner 执行的场景：`<端到端用户路径验收 / 阶段级验收 / 高风险变更验收 / 真实 provider 或外部服务 smoke 结果判断 / 架构或 contract 接受与否判断>`
+- Coding Agent 需提供的手测说明粒度：`<聚焦 ready_for_e2e、关键路径、风险点和预期结果；不要为每个小 Task 生成手测步骤>`
 - 手测失败后的反馈方式：`<此处填写，如创建 BUG 文档>`
+
+当多个 `auto_verified` 任务组成完整用户路径时，Coding Agent 可将 Batch 或任务组标为
+`ready_for_e2e`，并提供 Owner 端到端验收说明。
 
 ## 4. 触发时机与必做检查
 
@@ -74,9 +81,9 @@ Agent权限: "询问后可改"
 
 ## 8. 验收、回归与停止规则
 
-- 验收前最低要求：`<此处填写>`
-- 回归范围原则：`<此处填写>`
-- 可以声明“完成”的前提：`<此处填写>`
+- 验收前最低要求：`<此处填写 verification 已执行、evidence 已记录、TODO / worklog / owner_questions 已同步的要求>`
+- 回归范围原则：`<此处填写优先覆盖直接相关路径；高风险变更扩大回归范围>`
+- 可以声明“完成”的前提：`<满足 behavior / expected outcome、verification、evidence；Owner 未验收前只能是 auto_verified 或 ready_for_e2e，不能是 accepted>`
 - 遇到无法验证情况的汇报要求：`<此处填写>`
 
 ## 9. 不纳入自动测试的范围

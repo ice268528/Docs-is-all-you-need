@@ -3,7 +3,7 @@
 作者: "Planning AI 起草，Owner 确认"
 目标对象:
   - "Owner"
-  - "Code Agent"
+  - "Coding Agent"
 Agent权限: "只读"
 当前操作者提醒:
   - "本文件是需求输入文档，不自动等于执行指令。"
@@ -79,6 +79,6 @@ Agent权限: "只读"
 
 - 是否纳入当前阶段：`<此处填写 是 / 否 / 待定>`
 - 目标阶段文档：`<此处填写 /docs/stages/stage_XX_goal.md / 待定>`
-- 是否已指示 Code Agent 更新阶段文档与 TODO：`<此处填写 否 / 是>`
-- 是否已指示 Code Agent 继续执行开发：`<此处填写 否 / 是>`
+- 是否已指示 Coding Agent 更新阶段文档与 TODO：`<此处填写 否 / 是>`
+- 是否已指示 Coding Agent 继续执行开发：`<此处填写 否 / 是>`
 - Owner 决定说明：`<此处填写>`

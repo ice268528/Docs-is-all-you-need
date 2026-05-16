@@ -1,142 +1,99 @@
-# AGENTS.md
+# Agent Entry File
 
-本文件是项目内 **code agent 的规则入口**。
+本文件是 coding agent 的轻量着陆页。当前仓库用 `AGENTS.md` 作为默认入口文件名；
+实际使用时，请按所用 agent 的约定调整文件名，例如 Claude Code 可改为 `CLAUDE.md`。
 
-适用对象包括 Codex、opencode，以及任何会在仓库内读取 `AGENTS.md` 后执行代码修改、
-测试、文档维护和交接工作的本地或云端编程代理。
+入口文件不保存全部项目知识，只帮助新 agent 快速回答：
 
-本文档负责定义 agent 的读取顺序、文档权威性、执行边界、自动动作、测试要求和
-停止交接规则。它不替代阶段目标、需求、Bug、测试策略或 TODO 文档。
+1. 这是什么项目？
+2. 怎么运行？
+3. 怎么验证？
 
-## 1. 角色与协作边界
+详细规则、阶段状态、任务状态、执行日志、Owner 决策和模块级约束，应链接到对应文档，
+不要复制进本文件正文。
 
-- **Owner**：项目负责人、任务发起者、阶段边界决定者、最终验收者。
-- **Planning AI**：负责规划、分析、比较、起草文档；在内容进入正式文档前，其输出只算草案或建议。
-- **Code Agent**：读取正式文档后执行实现、修改、修复、测试、状态维护和授权范围内的归档辅助。
+## 1. 项目概览
 
-Code Agent 是文档驱动执行者，不是项目方向决定者。它可以提出建议，但不应替
-Owner 决定阶段边界、需求是否纳入当前阶段、验收结论、架构路线或正式归档结论。
+- 项目名称：`<project name>`
+- 项目目标：见 `docs/project/project_brief.md`
+- 当前阶段：见 `docs/stages/stage_XX_goal.md`
+- 当前任务看板：见 `TODO.md`
+- 长期实现约束：见 `docs/project/implementation_constraints.md`
 
-## 2. 文档权威性与优先级
+若以上文档缺失或互相冲突，先说明缺口；若缺口会影响执行边界、验收或验证，应暂停并询问 Owner。
 
-发生冲突时，按以下顺序处理：
+## 2. 安装、运行与验证
 
-1. Owner 在当前会话中的明确最新指令。
-2. 当前任务直接适用的正式执行文档：
-   - `docs/stages/stage_XX_goal.md`
-   - `docs/project/implementation_constraints.md`
-   - `docs/changes/REQ_*.md`
-   - `docs/bugs/open/BUG_*.md`
-3. 当前任务直接适用的专项细则文档。
-4. `AGENTS.md`。
-5. `TODO.md`。
-6. `docs/project/project_brief.md`。
-7. `docs/project/architecture_overview.md`、`docs/project/file_index.md`、测试文档。
-8. `docs/reports/**` 与归档文档。
+请在项目初始化后补齐本节命令。不要让 agent 依赖聊天记录猜测运行方式。
 
-补充规则：
+```bash
+# install
+<install command>
 
-- `AGENTS.md` 管执行流程与 agent 行为边界，不覆盖阶段范围、验收标准或技术约束。
-- `TODO.md` 是当前任务执行真相，但不能覆盖阶段边界、实现约束或 Owner 的明确最新指令。
-- `REQ_*.md` 是需求输入，不自动等于执行指令。
-- `BUG_*.md` 是问题输入，不自动等于立即修复命令。
-- `docs/reports/**` 默认只作为认知辅助文档，不能直接驱动实现。
-- 普通讨论性对话不自动构成项目结论；若对话中的新结论会长期影响项目，应建议同步进正式文档。
+# run
+<run command>
 
-## 3. 默认读取规则
+# test
+<test command>
 
-每次开始实现、修改、修复、测试、归档或文档维护前，Code Agent 默认先读取
-`AGENTS.md`。
+# lint / typecheck
+<lint or typecheck command>
+```
 
-遵循最小阅读原则：
+验证策略与人工验收分工见 `docs/testing/test_strategy.md`。
 
-- 小范围、局部、低风险任务：读取 `AGENTS.md` 和直接相关文件即可。
-- 阶段执行任务：读取 `docs/stages/stage_XX_goal.md`、
-  `docs/project/implementation_constraints.md`、`TODO.md`。
-- Bug 修复任务：读取对应 `BUG_*.md`、阶段文档、实现约束、`TODO.md`。
-- 需求并入任务：读取对应 `REQ_*.md`、阶段文档、实现约束、`TODO.md`。
-- 阶段收尾任务：读取阶段文档、`TODO.md`、实现约束、当前阶段测试文档，以及相关
-  `REQ_*.md` / `BUG_*.md`。
-- 涉及文档权限、归档、汇报或代码风格时，再按需读取 `docs/meta/agent_*.md`。
+## 3. 全局硬约束
 
-不要为了“看起来完整”而把所有文档都读入上下文。若继续执行需要更多信息，先说明缺少哪些上下文。
+- Owner 的当前会话最新明确指令优先。
+- 仓库正式文档是长期事实来源；聊天记录不替代正式文档。
+- 只做当前任务需要的最小改动，不引入无关功能、依赖、抽象或格式 churn。
+- 不自行决定阶段边界、验收结论、需求是否纳入当前阶段或长期架构路线。
+- 不静默修改只读文档；文档权限见 `docs/meta/agent_doc_permissions.md`。
+- 不在未获明确指令时执行 commit、发布、删除、迁移、真实外部调用或不可轻易回滚的操作。
+- 未验证前，不表述为已完成；验证不足时说明已验证什么、未验证什么和原因。
 
-## 4. 细则文件索引
+## 4. 必读索引
 
-按需读取以下细则：
+按任务最小必要原则读取：
 
-| 细则文件 | 主题 | 读取时机 |
-|---|---|---|
-| `docs/meta/agent_execution_workflows.md` | 动作触发模型、阶段执行、Bug 修复、需求并入、阶段收尾 | 涉及对应任务时 |
-| `docs/meta/agent_doc_permissions.md` | 文档权限、归档方式、修改边界 | 涉及文档更新或归档时 |
-| `docs/meta/agent_code_style_guide.md` | 代码注释、docstring、最小改动与风格边界 | 涉及新增或修改代码时 |
-| `docs/meta/agent_reporting_guide.md` | 停止交接模板、测试表述、TODO 同步与下一步建议 | 任务完成需要汇报时 |
+| 场景 | 必读文档 |
+|---|---|
+| 任意任务冷启动 | 当前 agent entry file、`TODO.md`、当前任务直接相关文件 |
+| 阶段执行 | `docs/stages/stage_XX_goal.md`、`docs/project/implementation_constraints.md` |
+| 需求并入 | 对应 `docs/changes/REQ_*.md`、阶段文档、`TODO.md` |
+| Bug 修复 | 对应 `docs/bugs/open/BUG_*.md`、阶段文档、验证文档 |
+| 测试或验收 | `docs/testing/test_strategy.md`、相关手动测试文档 |
+| 交接或收尾 | `docs/handoffs/**`、worklog、owner_questions、`docs/meta/agent_reporting_guide.md` |
+| 执行流程不清 | `docs/meta/agent_execution_workflows.md` |
+| 文档能否修改不清 | `docs/meta/agent_doc_permissions.md` |
+| 代码风格不清 | `docs/meta/agent_code_style_guide.md` |
 
-## 5. 文档权限模型
+`docs/templates/**` 只是 template files，不代表当前项目事实。实际使用时复制到对应 stage /
+batch / handoff 目录或项目约定位置，形成 active instance files 后再驱动执行。
 
-- **自动可改**：`TODO.md`、`docs/testing/stage_XX_manual_test.md`。
-- **询问后可改**：`AGENTS.md`、`docs/stages/stage_XX_goal.md`、
-  `docs/testing/test_strategy.md`、`docs/handoffs/stage_XX_summary.md`、
-  `docs/project/file_index.md`、`docs/project/architecture_overview.md`、
-  `docs/reports/**`、其他未被标记为自动可改或只读的专项细则文档。
-- **只读**：`docs/project/project_brief.md`、
-  `docs/project/implementation_constraints.md`、`docs/changes/REQ_*.md`、
-  `docs/bugs/open/BUG_*.md`。
-- **仅归档操作**：`docs/bugs/closed/BUG_*.md`、`docs/TODO_backup/TODO_*.md`。
+## 5. 知识靠近代码
 
-即使某项修改看起来合理，只要会改变阶段范围、验收边界、需求是否纳入本阶段或技术限制，都不得静默修改。
+模块相关知识应靠近模块，而不是集中塞进根目录 agent entry file。
 
-## 6. 执行原则
+- API 端点认证规则优先放在 API 模块目录附近。
+- 数据库操作硬约束优先放在 DB 模块目录附近。
+- Provider 特殊限制优先放在对应 provider 模块附近。
 
-- 先确认目标和验收口径，再实现，再验证，再汇报。
-- 只做当前任务需要的最小改动。
-- 匹配现有项目风格，不做无关重构、格式 churn 或命名调整。
-- 不添加未被要求的功能、依赖、抽象、配置项或未来假设。
-- 不用猜测补全项目事实；不确定时明确指出缺失信息。
-- 发现无关历史问题时可以记录或汇报，但不主动改动。
-- 不在未获明确触发时提交 commit、发布版本、移动归档文件、删除文件或执行不可轻易回滚的仓库操作。
+当模块规则会影响 agent 决策时，可在模块目录放简短文档，例如 `ARCHITECTURE.md`、
+`CONSTRAINTS.md` 或 `README.md`，说明模块职责、对外接口、特殊约束和重要实现边界。
+不是所有项目都必须创建这些文件；只有当规则存在且会影响修改判断时才需要。
 
-## 7. 自动动作边界
+代码变更若影响模块职责、接口、约束或验证方式，应同步更新对应模块文档。
+agent entry file 只链接这些文档，不复制其细节。
 
-在 Owner 已明确发起主任务后，Code Agent 可自动完成以下直接衍生动作：
+## 6. 冷启动最小检查
 
-- 维护 `TODO.md` 中与当前任务直接相关的状态、验证结果、待测项和待验收项。
-- 更新当前阶段手动测试文档中与本轮任务直接相关的内容。
-- 执行必要的测试、构建、类型检查、lint、运行验证。
-- 对当前任务直接相关的失败项继续修复并再次验证。
-- 在已触发的 Bug 修复任务中，读取对应 Bug 文档、复现、分析、修复、验证并更新 TODO。
-- 在已触发的需求并入任务中，按 Owner 指定范围更新阶段文档与 TODO。
-- 在已触发的阶段收尾任务中，生成阶段总结初稿和 TODO 快照。
+开始实现前，coding agent 应能从仓库中找到：
 
-未被明确授权的动作，完成当前明确任务后应停止并等待 Owner 下一步指令。
+- 项目目标、当前阶段、当前任务和权威输入。
+- 安装、运行、测试和验收方式。
+- 当前不能做的事、需要 OwnerGate 的事、未解决问题在哪里。
+- 相关模块是否有靠近代码的架构或约束文档。
 
-## 8. 测试与完成表述
-
-- 未验证前，不说“已完成”或“已修好”；应说“已修改，尚未验证”。
-- 验证优先级：直接相关测试 > 回归测试 > 构建 / 类型检查 / lint > 运行验证 > 手动测试说明。
-- 若环境、权限或依赖不足，应说明已做哪些验证、未做哪些验证、未做原因和 Owner 需要补做什么。
-- 对文档类任务，验证通常是路径检查、引用检查、关键术语残留检查和人工阅读核对。
-
-## 9. 停止交接
-
-每轮有实际动作的任务结束时，应简洁说明：
-
-- 本轮主线是什么，是否完成。
-- 改了哪些文件。
-- 如何验证，验证结果是什么。
-- `TODO.md` 是否已同步；若未同步，说明原因。
-- 是否需要 Owner 检查、决策或补充信息。
-- 建议下一条最合适的指令。
-
-不要把 `TODO.md` 的全部内容复制到聊天输出里；阶段剩余事项统一指向 `TODO.md`。
-
-## 10. 项目初始化提示
-
-把本脚手架放入具体项目后，Owner 应优先补齐：
-
-- `docs/project/project_brief.md`
-- `docs/project/implementation_constraints.md`
-- `docs/stages/stage_01_goal.md`
-- `docs/testing/test_strategy.md`
-
-在这些文档确认前，Code Agent 不应假设项目目标、技术约束、阶段范围或验收标准。
+每条入口规则都应有明确使用场景。若删掉某条规则不影响 agent 的决策质量，就不应保留在
+agent entry file 中；但冷启动关键问题必须能在仓库中找到答案。

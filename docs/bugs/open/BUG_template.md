@@ -3,12 +3,12 @@
 作者: "Owner 主导"
 目标对象:
   - "Owner"
-  - "Code Agent"
+  - "Coding Agent"
 Agent权限: "只读"
 当前操作者提醒:
   - "本文件只记录 bug 的复现、当前输出、问题描述、期望输出、修复要求与补充测试要求。"
   - "不要在此写阶段目标、TODO 拆解或实现方案。"
-  - "Code Agent 可读取并执行修复，但不直接修改 open bug 文档正文。"
+  - "Coding Agent 可读取并执行修复，但不直接修改 open bug 文档正文。"
 ---
 
 <!-- 另存为 /docs/bugs/open/BUG_YYYYMMDD_xxx.md -->

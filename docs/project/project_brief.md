@@ -3,7 +3,7 @@
 作者: "Planning AI 起草，Owner 定稿"
 目标对象:
   - "Owner"
-  - "Code Agent"
+  - "Coding Agent"
   - "Planning AI"
 Agent权限: "只读"
 当前操作者提醒:

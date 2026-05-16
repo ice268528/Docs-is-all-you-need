@@ -1,6 +1,6 @@
 ---
 文档定位: "复盘总结。"
-作者: "Code Agent"
+作者: "Coding Agent"
 目标对象:
   - "Owner"
 Agent权限: "询问后可改"

@@ -1,6 +1,6 @@
 ---
 文档定位: "现状调查报告。"
-作者: "Code Agent"
+作者: "Coding Agent"
 目标对象:
   - "Owner"
   - "Planning AI"

@@ -1,6 +1,6 @@
 ---
 文档定位: "对比报告。"
-作者: "Code Agent"
+作者: "Coding Agent"
 目标对象:
   - "Owner"
   - "Planning AI"

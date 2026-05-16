@@ -1,22 +1,24 @@
 # Agent 文档权限细则
 
-> 本文件定义 AGENTS.md-first 项目中各类文档的权限级别、归档方式与修改边界。
+> 本文件定义 agent-entry-file-first 项目中各类文档的权限级别、归档方式与修改边界。
 
 ## 1. 权限级别
 
-- **自动可改**：Code Agent 可在当前任务范围内直接更新正文。
-- **询问后可改**：Code Agent 可提出修改或生成初稿；修改已确认版本前，应说明范围并等待 Owner 确认。
-- **只读**：Code Agent 可读取、引用、总结、提出建议，但不得修改正文。
-- **仅归档操作**：Code Agent 只能在明确触发后创建快照、移动归档或保存历史副本。
+- **自动可改**：Coding Agent 可在当前任务范围内直接更新正文。
+- **询问后可改**：Coding Agent 可提出修改或生成初稿；修改已确认版本前，应说明范围并等待 Owner 确认。
+- **只读**：Coding Agent 可读取、引用、总结、提出建议，但不得修改正文。
+- **仅归档操作**：Coding Agent 只能在明确触发后创建快照、移动归档或保存历史副本。
 
 ## 2. 文档权限表
 
 | 文档 | 权限 | 说明 |
 |---|---|---|
-| `AGENTS.md` | 询问后可改 | 影响所有 agent 后续行为，不能静默修改 |
-| `TODO.md` | 自动可改 | 当前任务执行真相，记录状态、验证、待测与待验收 |
+| Agent entry file | 询问后可改 | 影响所有 agent 后续行为，默认名可为 `AGENTS.md`，也可按工具约定改为 `CLAUDE.md` 等 |
+| `TODO.md` | 自动可改 | 当前任务看板，记录当前阶段、Batch、任务状态、OwnerGate 摘要、ready_for_e2e 与下一步 |
 | `docs/testing/stage_XX_manual_test.md` | 自动可改 | 与当前阶段直接相关的手动测试说明 |
+| active task board / worklog / owner_questions | 自动可改 | 由 `docs/templates/**` 复制到当前已授权 stage / batch / handoff 目录或项目约定位置后的实例文件 |
 | `docs/meta/**` | 询问后可改 | 规则类文档，影响长期协作方式 |
+| `docs/templates/**` | 询问后可改 | 通用模板体系，影响后续实例化结构 |
 | `docs/stages/stage_XX_goal.md` | 询问后可改 | 阶段边界与验收标准，必须保持 Owner 可控 |
 | `docs/testing/test_strategy.md` | 询问后可改 | 测试策略与验收最低要求 |
 | `docs/handoffs/stage_XX_summary.md` | 询问后可改 | 阶段收尾时可生成初稿，确认后再改需询问 |

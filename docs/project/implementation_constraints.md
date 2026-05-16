@@ -3,13 +3,13 @@
 作者: "Planning AI 起草，Owner 定稿"
 目标对象:
   - "Owner"
-  - "Code Agent"
+  - "Coding Agent"
   - "Planning AI"
 Agent权限: "只读"
 当前操作者提醒:
   - "本文件只写长期有效的实现限制与硬约束，不写当前阶段任务。"
   - "测试命令细节可在 /docs/testing/test_strategy.md 维护；阶段边界写入 stage_XX_goal.md。"
-  - "Code Agent 需严格按本文件执行，不能静默突破限制。"
+  - "Coding Agent 需严格按本文件执行，不能静默突破限制。"
 ---
 
 <!-- 本模板建议另存为 /docs/project/implementation_constraints.md -->
