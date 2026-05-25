@@ -1,0 +1,233 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Owner Decision HTML Aid</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --bg: #f7f7f5;
+      --panel: #ffffff;
+      --text: #1d2329;
+      --muted: #5b6670;
+      --line: #d8ddd8;
+      --accent: #1f6f64;
+      --accent-soft: #e4f1ee;
+      --warn: #8a5a16;
+      --warn-soft: #fff2d8;
+    }
+    * {
+      box-sizing: border-box;
+    }
+    body {
+      margin: 0;
+      font-family: Arial, Helvetica, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.55;
+    }
+    main {
+      max-width: 1080px;
+      margin: 0 auto;
+      padding: 32px 20px 48px;
+    }
+    header {
+      margin-bottom: 24px;
+    }
+    h1 {
+      margin: 0 0 8px;
+      font-size: 32px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+    h2 {
+      margin: 28px 0 12px;
+      font-size: 21px;
+      letter-spacing: 0;
+    }
+    h3 {
+      margin: 0 0 8px;
+      font-size: 17px;
+      letter-spacing: 0;
+    }
+    p {
+      margin: 0 0 12px;
+    }
+    .muted {
+      color: var(--muted);
+    }
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 12px;
+      margin: 18px 0;
+    }
+    .panel,
+    .option,
+    .feedback {
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      padding: 16px;
+    }
+    .option.recommended {
+      border-color: var(--accent);
+      background: var(--accent-soft);
+    }
+    .options {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 14px;
+    }
+    .label {
+      display: inline-block;
+      margin-bottom: 8px;
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .warning {
+      background: var(--warn-soft);
+      border-color: #edc46d;
+      color: var(--warn);
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      background: var(--panel);
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    th,
+    td {
+      padding: 10px 12px;
+      border-bottom: 1px solid var(--line);
+      text-align: left;
+      vertical-align: top;
+    }
+    th {
+      background: #eef1ee;
+    }
+    code,
+    pre {
+      font-family: Consolas, Monaco, monospace;
+    }
+    pre {
+      white-space: pre-wrap;
+      background: #172026;
+      color: #f4f7f5;
+      padding: 14px;
+      border-radius: 8px;
+      overflow: auto;
+    }
+  </style>
+</head>
+<body>
+  <main>
+    <header>
+      <p class="label">DIAYN Owner Decision Aid</p>
+      <h1>&lt;decision question&gt;</h1>
+      <p class="muted">&lt;plain-language reason this decision is needed now&gt;</p>
+    </header>
+
+    <section class="summary">
+      <div class="panel">
+        <h2>Recommended</h2>
+        <p>&lt;Option A/B/C&gt; because &lt;short non-technical reason&gt;.</p>
+      </div>
+      <div class="panel">
+        <h2>What Changes</h2>
+        <p>&lt;what the Owner or users will notice&gt;</p>
+      </div>
+      <div class="panel warning">
+        <h2>Main Risk</h2>
+        <p>&lt;biggest risk or tradeoff in plain language&gt;</p>
+      </div>
+    </section>
+
+    <section>
+      <h2>Options</h2>
+      <div class="options">
+        <article class="option recommended">
+          <span class="label">A Recommended</span>
+          <h3>&lt;short option title&gt;</h3>
+          <p><strong>Owner impact:</strong> &lt;business or user experience impact&gt;</p>
+          <p><strong>Delivery impact:</strong> &lt;effort, timing, or coordination impact&gt;</p>
+          <p><strong>Risk:</strong> &lt;risk&gt;</p>
+          <p><strong>Future impact:</strong> &lt;maintenance or extension impact&gt;</p>
+        </article>
+        <article class="option">
+          <span class="label">B</span>
+          <h3>&lt;short option title&gt;</h3>
+          <p><strong>Owner impact:</strong> &lt;business or user experience impact&gt;</p>
+          <p><strong>Delivery impact:</strong> &lt;effort, timing, or coordination impact&gt;</p>
+          <p><strong>Risk:</strong> &lt;risk&gt;</p>
+          <p><strong>Future impact:</strong> &lt;maintenance or extension impact&gt;</p>
+        </article>
+        <article class="option">
+          <span class="label">C Optional</span>
+          <h3>&lt;short option title&gt;</h3>
+          <p><strong>Owner impact:</strong> &lt;business or user experience impact&gt;</p>
+          <p><strong>Delivery impact:</strong> &lt;effort, timing, or coordination impact&gt;</p>
+          <p><strong>Risk:</strong> &lt;risk&gt;</p>
+          <p><strong>Future impact:</strong> &lt;maintenance or extension impact&gt;</p>
+        </article>
+      </div>
+    </section>
+
+    <section>
+      <h2>Comparison</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Choice</th>
+            <th>Best for</th>
+            <th>Tradeoff</th>
+            <th>Next step</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>A</td>
+            <td>&lt;best case&gt;</td>
+            <td>&lt;tradeoff&gt;</td>
+            <td>&lt;what the agent will do next&gt;</td>
+          </tr>
+          <tr>
+            <td>B</td>
+            <td>&lt;best case&gt;</td>
+            <td>&lt;tradeoff&gt;</td>
+            <td>&lt;what the agent will do next&gt;</td>
+          </tr>
+          <tr>
+            <td>C</td>
+            <td>&lt;best case&gt;</td>
+            <td>&lt;tradeoff&gt;</td>
+            <td>&lt;what the agent will do next&gt;</td>
+          </tr>
+        </tbody>
+      </table>
+    </section>
+
+    <section class="feedback">
+      <h2>Copy Back To The Agent</h2>
+      <p>Choose one option and paste this back:</p>
+      <pre>Owner decision feedback
+Decision ID: &lt;decision_id&gt;
+Selected option: &lt;A/B/C&gt;
+Notes: &lt;short Owner note&gt;</pre>
+    </section>
+
+    <section>
+      <h2>Record Keeping</h2>
+      <p>This HTML page is an aid. The final decision must be recorded in <code>decision.md</code> or the appropriate project document.</p>
+      <p>Commit this HTML only when the decision has long-term product, architecture, process, cost, risk, contract, or maintenance value.</p>
+    </section>
+  </main>
+</body>
+</html>

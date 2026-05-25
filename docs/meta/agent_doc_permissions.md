@@ -1,49 +1,94 @@
-# Agent 文档权限细则
+# Agent Document Permissions
 
-> 本文件定义 agent-entry-file-first 项目中各类文档的权限级别、归档方式与修改边界。
+> This document defines document write boundaries for multi-session collaboration. It complements `docs/meta/session_roles.md`.
 
-## 1. 权限级别
+## 1. Permission Levels
 
-- **自动可改**：Coding Agent 可在当前任务范围内直接更新正文。
-- **询问后可改**：Coding Agent 可提出修改或生成初稿；修改已确认版本前，应说明范围并等待 Owner 确认。
-- **只读**：Coding Agent 可读取、引用、总结、提出建议，但不得修改正文。
-- **仅归档操作**：Coding Agent 只能在明确触发后创建快照、移动归档或保存历史副本。
+- **Read only**: The session may read, quote, summarize, or propose changes, but must not edit the document.
+- **Role-local write**: The session may update the document only for its own role, lane, or current authorized task.
+- **Controller write**: The Controller may update the document as part of planning, dispatch, synchronization, or integration.
+- **Review write**: A review session may update review results and review status for its target lane.
+- **Owner controlled**: Changes require Owner authorization or must be recorded through an OwnerGate / decision flow.
+- **Archive only**: The session may create snapshots or move records only when explicitly authorized.
 
-## 2. 文档权限表
+## 2. General Rules
 
-| 文档 | 权限 | 说明 |
-|---|---|---|
-| Agent entry file | 询问后可改 | 影响所有 agent 后续行为，默认名可为 `AGENTS.md`，也可按工具约定改为 `CLAUDE.md` 等 |
-| `TODO.md` | 自动可改 | 当前任务看板，记录当前阶段、Batch、任务状态、OwnerGate 摘要、ready_for_e2e 与下一步 |
-| `docs/testing/stage_XX_manual_test.md` | 自动可改 | 与当前阶段直接相关的手动测试说明 |
-| active task board / worklog / owner_questions | 自动可改 | 由 `docs/templates/**` 复制到当前已授权 stage / batch / handoff 目录或项目约定位置后的实例文件 |
-| `docs/meta/**` | 询问后可改 | 规则类文档，影响长期协作方式 |
-| `docs/templates/**` | 询问后可改 | 通用模板体系，影响后续实例化结构 |
-| `docs/stages/stage_XX_goal.md` | 询问后可改 | 阶段边界与验收标准，必须保持 Owner 可控 |
-| `docs/testing/test_strategy.md` | 询问后可改 | 测试策略与验收最低要求 |
-| `docs/handoffs/stage_XX_summary.md` | 询问后可改 | 阶段收尾时可生成初稿，确认后再改需询问 |
-| `docs/project/file_index.md` | 询问后可改 | 可由 agent 初稿维护，但结构变化需说明 |
-| `docs/project/architecture_overview.md` | 询问后可改 | 架构认知文档，不能静默改变系统边界 |
-| `docs/reports/**` | 询问后可改 | 报告是认知辅助，默认不直接驱动执行 |
-| `docs/project/project_brief.md` | 只读 | 项目目标、范围、非目标 |
-| `docs/project/implementation_constraints.md` | 只读 | 长期技术与实现硬约束 |
-| `docs/changes/REQ_*.md` | 只读 | 需求输入，不自动等于执行指令 |
-| `docs/bugs/open/BUG_*.md` | 只读 | 缺陷输入和验收依据，不直接修改正文 |
-| `docs/bugs/closed/BUG_*.md` | 仅归档操作 | 已关闭 Bug 的历史记录 |
-| `docs/TODO_backup/TODO_*.md` | 仅归档操作 | TODO 历史快照 |
+- Global `TODO.md` is a Controller-owned summary. Worker sessions do not update it by default.
+- Lane documents are lane-local. A backend session does not write frontend lane documents, and a frontend session does not write backend lane documents.
+- Shared contracts and project constraints are controlled documents. Worker sessions may propose changes but must stop before changing them unless explicitly authorized.
+- Review sessions write review logs and lane status decisions; they do not implement fixes by default.
+- Integration issues are written by the Controller to the responsible lane board or shared issue document.
+- `.diayn/local/**` is local identity information and should not be treated as shared project state.
 
-## 3. 归档规则
+## 3. Document Permission Table
 
-- Bug 文档归档采用 **move**：验收通过后从 `docs/bugs/open/` 移动到 `docs/bugs/closed/`。
-- `TODO.md` 归档采用 **snapshot**：阶段收尾时生成 `docs/TODO_backup/TODO_YYYYMMDD_HH.md`。
-- `REQ_*.md` 默认原位保留在 `docs/changes/`，作为需求来源记录。
+| Document or area | Default permission | Primary writers | Notes |
+| --- | --- | --- | --- |
+| `AGENTS.md`, `CLAUDE.md` | Owner controlled | Owner, Controller with authorization | Entry files stay short and link to deeper docs. |
+| `TODO.md` | Controller write | Controller | Global summary only; lane details belong in lane boards. |
+| `docs/meta/**` | Owner controlled | Owner, Controller with authorization | Protocol layer. Changes affect all sessions. |
+| `docs/project/project_brief.md` | Owner controlled | Owner, Planning / Controller during authorized initialization | Confirmed project goals are not silently changed. |
+| `docs/project/implementation_constraints.md` | Owner controlled | Owner, Planning / Controller during authorized initialization | Long-term constraints require OwnerGate to change. |
+| `docs/project/architecture_overview.md` | Owner controlled | Owner, Planning / Controller with authorization | Architecture changes require explicit approval. |
+| `docs/project/file_index.md` | Controller write | Controller | Should reflect structure without becoming execution authority. |
+| `docs/stages/stage_XX_goal.md` | Owner controlled | Owner, Controller with authorization | Stage scope and acceptance criteria are controlled. |
+| `docs/shared/contracts/**` | Owner controlled | Controller with Owner authorization | Worker sessions may propose changes but must not silently edit. |
+| `docs/shared/shared_types/**` | Controller write or Owner controlled | Controller; workers only when explicitly authorized | Treat as shared contract when it affects multiple lanes. |
+| `docs/shared/integration_issues.md` | Controller write | Controller Integration Review | Used for cross-lane or contract issues. |
+| `docs/lanes/<lane>/board.md` | Role-local write | Same-lane worker, same-lane reviewer, Controller | Worker may mark up to `candidate_done`; reviewer may mark `done` / `rejected`. |
+| `docs/lanes/<lane>/evidence.md` | Role-local write | Same-lane worker; reviewer may append review evidence | Evidence must be factual and reproducible. |
+| `docs/lanes/<lane>/worklog.md` | Role-local write | Same-lane worker | Process record for lane work. |
+| `docs/lanes/<lane>/handoff.md` | Controller write and role-local append | Controller, same-lane worker | Controller dispatches; worker appends implementation handoff notes. |
+| `docs/lanes/<lane>/review_log.md` | Review write | Same-lane review session | Review decision and rationale. |
+| `docs/testing/test_strategy.md` | Owner controlled | Owner, Controller with authorization | Testing policy and minimum gates. |
+| Active manual test or acceptance docs | Role-local or Controller write | Controller, worker, or acceptance support as authorized | Owner-facing acceptance remains separate from test internals. |
+| `docs/templates/**` | Owner controlled | Owner, Controller with authorization | Templates are not active project facts. |
+| `docs/handoffs/**` | Controller write | Controller; worker may append only when authorized | Handoffs must be visible to the receiving session. |
+| `docs/reports/**` | Read only unless authorized | Planning, Controller, or assigned session | Reports inform decisions but do not directly authorize work. |
+| `docs/changes/REQ_*.md` | Read only | Owner or Planning | Requirement input; not automatic execution scope. |
+| `docs/bugs/open/BUG_*.md` | Read only | Owner or bug triage role | Bug input and acceptance source. |
+| `docs/bugs/closed/BUG_*.md` | Archive only | Controller with explicit trigger | Historical record. |
+| `docs/TODO_backup/**` | Archive only | Controller with explicit trigger | Snapshots, not active state. |
+| `.diayn/worktree_manifest.md` | Controller write | Controller | Shared control metadata when present. |
+| `.diayn/session_registry.md` | Controller write | Controller | Shared session registry when present. |
+| `.diayn/sync_log.md` | Controller write | Controller | Sync history when present. |
+| `.diayn/local/session_identity.md` | Local only | Current local session setup | Should not be committed or used as shared authority. |
 
-## 4. 禁止静默修改的内容
+## 4. Status Write Authority
 
-即使文档处于“询问后可改”，以下内容也必须等待 Owner 明确确认：
+| Status | Default authority |
+| --- | --- |
+| `todo` | Controller or lane owner |
+| `doing` | Responsible lane worker |
+| `candidate_done` | Responsible lane worker |
+| `reviewing` | Review session |
+| `done` | Review session |
+| `rejected` | Review session |
+| `owner_gate` | Any session, with a clear question or decision need |
+| `ready_for_e2e` | Controller Integration Review |
+| `owner_accepted` | Owner Acceptance, recorded by Controller or authorized session |
+| `blocked` | Any session, within its scope |
+| `archived` | Controller |
+| `dropped` | Controller with Owner authority when scope is affected |
 
-- 阶段范围、交付项、验收标准。
-- 需求是否纳入当前阶段。
-- 技术栈、依赖、架构、安全或部署硬约束。
-- 自动动作范围和 agent 权限。
-- 是否关闭 Bug、是否阶段收尾、是否进入下一阶段。
+See `docs/meta/status_model.md` for definitions and transitions.
+
+## 5. Forbidden Silent Modifications
+
+All sessions must stop before silently changing:
+
+- Project goals, non-goals, stage scope, acceptance criteria, or long-term constraints.
+- Shared contracts, schemas, APIs, security posture, deployment behavior, provider choices, or cost-bearing services.
+- Another lane's board, worklog, evidence, handoff, or review log.
+- Global `TODO.md`, unless the active role is Controller.
+- Review results, unless the active role is the corresponding Review Session.
+- Owner acceptance state, unless the Owner has explicitly accepted the result.
+
+## 6. Conflict Handling
+
+If document permissions conflict with a task request:
+
+1. Stop before editing.
+2. Identify the target file and the conflicting permission rule.
+3. Ask the Controller or Owner for explicit authorization.
+4. Record the decision in the appropriate document if it has durable impact.
