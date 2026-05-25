@@ -29,6 +29,14 @@ If a skill name below does not exist in the current project yet, treat it as a p
 
 The upstream `agent-skills` project is a method library for single-session engineering behavior. DIAYN remains the multi-session control plane. When upstream guidance conflicts with DIAYN role, status, or document authority, DIAYN protocol wins.
 
+Stage 07 vendors the upstream snapshot under `third_party/agent-skills/` for maintainer reference. Ordinary `/diayn` users do not need to understand vendor sync details. Maintainers must review upstream changes through `maintainers/upstream-agent-skills/` before adapting them into DIAYN docs or skills.
+
+Watched upstream areas:
+
+- Direct tracking: `test-driven-development`, `incremental-implementation`, `code-review-and-quality`, `git-workflow-and-versioning`.
+- Needs DIAYN adaptation: `planning-and-task-breakdown`, `context-engineering`, `documentation-and-adrs`, `api-and-interface-design`.
+- Reference only: orchestration patterns, tool-specific setup docs, and slash command implementations.
+
 | Role | Useful upstream skill categories |
 | --- | --- |
 | Controller Session | `planning-and-task-breakdown`, `context-engineering`, `documentation-and-adrs`, `git-workflow-and-versioning` |
