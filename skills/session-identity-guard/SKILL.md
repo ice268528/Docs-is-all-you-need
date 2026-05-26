@@ -1,6 +1,6 @@
 ---
 name: session-identity-guard
-description: "Use at the start of every DIAYN /diayn command or whenever role, lane, path, manifest, session registry, local identity, or write-boundary consistency is uncertain. Stops on identity mismatch and explains the correct directory and command without silently editing identity files."
+description: "Use at the start of every DIAYN command workflow or whenever role, lane, path, manifest, session registry, local identity, or write-boundary consistency is uncertain. Stops on identity mismatch and explains the correct directory and command without silently editing identity files."
 ---
 
 # Session Identity Guard

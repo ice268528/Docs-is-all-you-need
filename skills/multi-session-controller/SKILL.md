@@ -1,6 +1,6 @@
 ---
 name: multi-session-controller
-description: "Use for DIAYN Controller Session commands and planning workflows, especially /diayn init, /diayn plan, /diayn worktrees, /diayn sync, /diayn integration, /diayn bug, and /diayn new. Coordinates requirements, lane planning, worktree metadata, handoffs, state summaries, integration triage, and owner-facing scope decisions without defaulting to business-code implementation."
+description: "Use for DIAYN Controller Session planning, worktree setup, sync, integration, bug triage, and new-requirement workflows. Coordinates requirements, lane planning, worktree metadata, handoffs, state summaries, integration triage, and owner-facing scope decisions without defaulting to business-code implementation."
 ---
 
 # Multi-Session Controller

@@ -1,6 +1,6 @@
 ---
 name: multi-session-reviewer
-description: "Use for DIAYN review commands such as /diayn review backend and /diayn review frontend. Reviews a pasted worker report together with diff, evidence, tests, acceptance criteria, and permission boundaries, then decides done or rejected without merging or defaulting to code fixes."
+description: "Use for DIAYN backend or frontend review workflows. Reviews a pasted worker report together with diff, evidence, tests, acceptance criteria, and permission boundaries, then decides done or rejected without merging or defaulting to code fixes."
 ---
 
 # Multi-Session Reviewer

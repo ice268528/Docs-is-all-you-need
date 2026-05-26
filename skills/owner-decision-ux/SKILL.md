@@ -1,6 +1,6 @@
 ---
 name: owner-decision-ux
-description: "Use for DIAYN Owner decisions, OwnerGate prompts, business-facing acceptance, and /diayn html. Handles short decisions with popup or concise Markdown fallback, long decisions with user-triggered HTML only, report-explanation HTML, archive decisions, and Owner acceptance that avoids requiring test-code knowledge."
+description: "Use for DIAYN Owner decisions, OwnerGate prompts, business-facing acceptance, and user-triggered HTML decision or report aids. Handles short decisions with popup or concise Markdown fallback, long decisions with user-triggered HTML only, report-explanation HTML, archive decisions, and Owner acceptance that avoids requiring test-code knowledge."
 ---
 
 # Owner Decision UX

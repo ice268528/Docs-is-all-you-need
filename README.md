@@ -51,9 +51,9 @@ The current repository has Codex plugin preparation and draft documents only. It
 | Role | Main responsibility |
 | --- | --- |
 | Owner | Provides goals, decisions, acceptance feedback, and business experience judgment. |
-| Controller Session | Runs `/diayn init`, `/diayn plan`, `/diayn worktrees`, `/diayn sync`, `/diayn integration`, `/diayn bug`, and `/diayn new`. |
-| Worker Session | Runs lane work such as `/diayn backend` or `/diayn frontend`; completes one task slice and stops. |
-| Review Session | Runs `/diayn review backend` or `/diayn review frontend`; decides whether reviewed work is `done` or `rejected`. |
+| Controller Session | Handles initialization, planning, worktree setup, sync, integration, bug triage, and new-requirement triage. |
+| Worker Session | Handles lane work such as backend or frontend; completes one task slice and stops. |
+| Review Session | Reviews backend or frontend lane work; decides whether reviewed work is `done` or `rejected`. |
 | Integration Session | Checks cross-lane readiness and only marks integrated work ready when evidence supports it. |
 
 Every `/diayn ...` workflow should start with the Session Identity Guard so the current command, role, lane, path, manifest, registry, and write boundary match.

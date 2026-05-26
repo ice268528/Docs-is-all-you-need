@@ -1,6 +1,6 @@
 ---
 name: multi-session-integrator
-description: "Use for Controller-owned DIAYN sync and integration workflows, especially /diayn sync and /diayn integration. Aggregates lane state, checks cross-lane and shared contract consistency, records integration issues, and marks ready_for_e2e only with evidence."
+description: "Use for Controller-owned DIAYN sync and integration workflows. Aggregates lane state, checks cross-lane and shared contract consistency, records integration issues, and marks ready_for_e2e only with evidence."
 ---
 
 # Multi-Session Integrator

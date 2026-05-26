@@ -1,6 +1,6 @@
 ---
 name: multi-session-executor
-description: "Use for DIAYN lane executor commands such as /diayn backend, /diayn frontend, and future /diayn lane <name>. Guides a worker session to verify identity, read lane board and handoff docs, evaluate one task slice, implement only within lane boundaries, write evidence, and stop at candidate_done for review."
+description: "Use for DIAYN lane executor workflows, including backend, frontend, and future named lanes. Guides a worker session to verify identity, read lane board and handoff docs, evaluate one task slice, implement only within lane boundaries, write evidence, and stop at candidate_done for review."
 ---
 
 # Multi-Session Executor
