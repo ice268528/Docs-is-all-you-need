@@ -101,17 +101,28 @@ The checklist should include:
 - Known limitations.
 - Feedback choices.
 
-## 6. Status Rules
+## 6. Canonical Status Rules
 
 - `done` means independent review accepted the work.
 - `ready_for_e2e` means the Controller Integration Review believes the work is ready for Owner-level acceptance.
 - `owner_accepted` means the Owner accepted the business or experience result.
-- `rework_requested` should be routed back through `/diayn bug` or a Controller-managed rework path.
 - `owner_gate` means the Owner needs to decide before acceptance can proceed.
+- `blocked` means acceptance cannot proceed because an issue, dependency, environment gap, or missing fact blocks progress.
 
 Never mark `owner_accepted` based only on agent tests.
 
-## 7. Explaining Agent Reports
+## 7. Owner Feedback And Follow-up Routing
+
+Owner feedback is separate from canonical status.
+
+- Owner decision `accept` can support recording `owner_accepted`.
+- Owner decision `request_rework` means the Owner wants changes before acceptance. It is not a status.
+- When the Owner chooses `request_rework`, keep or set the status to `blocked` if acceptance cannot proceed, or `owner_gate` if a decision or clarification is needed before rework can be routed.
+- Follow-up for `request_rework` should route through `/diayn bug` for failed business acceptance, or through Controller-managed rework when the issue is already inside current scope.
+
+Do not introduce another status vocabulary for Owner feedback.
+
+## 8. Explaining Agent Reports
 
 When the Owner wants help understanding a report, `/diayn html` may create a report explanation page using `docs/templates/agent_report_html_explanation_template.html`.
 
@@ -123,7 +134,7 @@ The explanation should translate engineering status into Owner language:
 - Feedback needed: what the Owner can choose or test next.
 - Next command: what the Owner can run or paste back.
 
-## 8. Feedback Format
+## 9. Feedback Format
 
 Owner-facing acceptance should end with a copyable response format:
 
@@ -138,7 +149,7 @@ If the feedback is a failed business acceptance, the Controller should route it 
 
 If the feedback is a new requirement or direction change, the Controller should route it through `/diayn new`.
 
-## 9. Boundaries
+## 10. Boundaries
 
 Do not:
 

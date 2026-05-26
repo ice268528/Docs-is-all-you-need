@@ -1,152 +1,99 @@
-# Agent 汇报与停止细则
+# Agent Reporting Guide
 
-> 本文件定义 Coding Agent 的完成定义、evidence、clean state、停止交接和下一步建议规则。
+This guide defines how DIAYN sessions report progress, evidence, stopping
+points, and next actions without confusing worker verification, review,
+integration, and Owner acceptance.
 
-## 1. 测试与完成表述
+## 1. Status Language
 
-- 未验证前，不应说“已经修好”或“已经完成”；应说“已修改，尚未验证”。
-- 验证优先级：直接相关测试 > 回归测试 > 构建 / 类型检查 / lint / 运行验证 > 手动测试说明。
-- 若环境、权限或依赖不足，应说明已做哪些验证、未做哪些验证、未做原因、Owner 还需要补做什么。
-- 文档类任务应至少检查路径、引用、术语和核心内容一致性。
-- 已自动验证但不需要 Owner 逐项手测的任务，应表述为 `auto_verified`。
-- 多个 `auto_verified` 任务组成完整用户路径、等待 Owner 做端到端验收时，应表述为 `ready_for_e2e`。
-- 只有 Owner 明确验收通过后，才可表述为 `accepted`。
+Use the canonical status model from `docs/meta/status_model.md`.
 
-## 2. 完成定义
+| Situation | Correct status language |
+| --- | --- |
+| Worker finished its slice and recorded evidence | `candidate_done` |
+| Review approved candidate work | `done` |
+| Review found required rework | `rejected` |
+| Controller found reviewed work ready for Owner-level checks | `ready_for_e2e` |
+| Owner approved the business or experience result | `owner_accepted` |
+| Missing dependency, permission, fact, or environment blocks progress | `blocked` |
+| Human decision is needed | `owner_gate` |
 
-完成不是“代码写完”。任务进入完成态前必须满足：
+Workers must not report lane work as `done`. Reviewers must not mark
+`owner_accepted`. Controller sync must not convert missing evidence into a pass.
 
-- behavior / expected outcome 已满足。
-- verification 已执行。
-- evidence 已记录。
-- TODO 或 task board 已更新。
-- worklog 已记录必要细节。
-- handoff 已记录交接信息。
-- 未解决问题已进入 owner_questions 或 OwnerGate。
-- 无未解释的大规模改动。
-- 无残留临时调试代码。
+## 2. Evidence Before Claims
 
-规则：
+Do not say a task is complete unless the report states:
 
-- 没有 verification plan / 验证方式的任务不能进入 `doing`。
-- 没有执行 verification 并记录 evidence 的任务不能进入 `auto_verified`。
-- 没有 Owner 明确验收的任务不能进入 `accepted`。
-- 环境不足导致无法验证时，必须说明已验证什么、未验证什么、原因是什么。
+- what changed;
+- what verification was performed;
+- where evidence is recorded;
+- what was not verified and why;
+- what status is being claimed;
+- what review, integration, or Owner action is needed next.
 
-## 3. `TODO.md`、worklog、owner_questions 与停止汇报
+If verification could not run, say so directly and record the limitation.
 
-- `TODO.md` 是当前阶段剩余任务、当前 Batch / Task、状态、下一步和最小验证摘要的权威来源。
-- `TODO.md` 不应膨胀成完整执行日志。
-- worklog 记录必要执行细节、重要尝试、验证证据索引和历史过程。
-- owner_questions 记录待 Owner 决策、授权、澄清或验收的问题。
-- handoff 记录跨会话接手信息。
-- 停止汇报不替代上述文件，只说明本轮是否同步，以及哪些状态变化值得 Owner 注意。
-- 不要把 `TODO.md` 的全部内容复制到聊天输出里。
+## 3. Document Updates
 
-## 4. 停止条件
+Use the document permission model in `docs/meta/agent_doc_permissions.md`.
 
-以下情况应完成当前明确任务后停止，等待 Owner 下一步指令：
+- Controller updates `TODO.md` as the global summary.
+- Worker sessions update same-lane board, evidence, worklog, and handoff notes.
+- Review sessions update same-lane review logs and review status.
+- Controller Integration Review records cross-lane issues and readiness.
+- Owner acceptance is recorded through Owner-facing acceptance or decision docs.
 
-- 下一步会改变阶段边界、需求范围、验收标准或实现约束。
-- 下一步会修改只读文档。
-- 下一步会修改询问后可改文档，但尚未获得确认。
-- 下一步未被当前 agent entry file、细则或已授权 Batch 文档授权为自动衍生动作。
-- 继续执行依赖猜测。
-- 发现新的独立 Bug、跨阶段问题或边界变化。
-- 测试或验收仍未完成，且是否继续推进需要 Owner 决策。
+## 4. Stop Conditions
 
-若触发 OwnerGate，使用 `docs/meta/agent_execution_workflows.md` 中的 OwnerGate 请求格式。
+Stop and report instead of continuing when:
 
-## 5. Clean State
+- the next step would change scope, acceptance criteria, architecture, shared
+  contracts, provider choices, cost, security posture, or deployment behavior;
+- required documents are not visible to the responsible session;
+- evidence is missing for a status claim;
+- a worker would need to mark `done`;
+- a reviewer would need to implement fixes by default;
+- Owner judgement is required.
 
-每轮会话结束前，Coding Agent 应检查：
+## 5. Report Template
 
-- 构建 / 测试 / lint / typecheck 是否已运行，或说明无法运行原因。
-- TODO / task board 是否同步。
-- worklog 是否记录必要执行细节。
-- owner_questions 是否记录未决决策。
-- handoff 是否记录下一轮接手信息。
-- 是否存在临时调试代码。
-- 是否存在未解释的大规模改动。
-- 是否越过 OwnerGate。
-- 是否仍有多个任务处于 `doing`。
+```markdown
+# Task Report: <short title>
 
-## 6. 停止交接模板
+## 1. Role And Scope
 
-每轮有实际动作的任务结束时，建议使用以下结构：
+- Session role: <Controller / Worker / Review / Integration / Owner support>
+- Lane: <lane or n/a>
+- Authorized task: <task id or summary>
 
-````markdown
-# 任务主线：<本轮目标>
+## 2. Changes
 
-## 1. 主线状态
+| Type | Summary | Files or docs |
+| --- | --- | --- |
+| <code/docs/test/review> | <what changed> | <paths> |
 
-| 项目 | 结论 |
-|---|---|
-| 主线目标 | <本轮要解决的核心目标> |
-| 主线是否完成 | <未完成 / 已修改待验证 / auto_verified / ready_for_e2e / accepted / blocked / owner_gate> |
-| 是否已验证 | <已验证 / 部分验证 / 未验证> |
-| `TODO.md` 是否已同步 | <已同步 / 未同步 / 不适用，并说明原因> |
-| worklog 是否已同步 | <已同步 / 未同步 / 不适用，并说明原因> |
-| owner_questions 是否已同步 | <已同步 / 未同步 / 不适用，并说明原因> |
-| handoff 是否已同步 | <已同步 / 未同步 / 不适用，并说明原因> |
-| 是否需要 Owner 决策 | <需要 / 不需要> |
+## 3. Verification And Evidence
 
-## 2. 本轮完成内容
+| Check | Result | Evidence |
+| --- | --- | --- |
+| <test/build/review/inspection> | <pass/fail/not run> | <path or reason> |
 
-| 类型 | 完成内容 | 涉及文件 | 验证情况 | evidence |
-|---|---|---|---|---|
-| <实现/修复/文档/测试/重构> | <具体做了什么> | <路径> | <结果> | <命令、日志摘要、截图、路径或未执行原因> |
+## 4. Status Claim
 
-## 3. 需要 Owner 检查的内容
+- Claimed status: <candidate_done / done / rejected / ready_for_e2e / owner_gate / blocked / owner_accepted>
+- Authority for this claim: <worker / reviewer / Controller Integration Review / Owner>
 
-| 检查项 | 建议查看位置 | 检查目的 |
-|---|---|---|
-| <检查项> | <文件/命令/页面/步骤> | <原因> |
+## 5. Next Action
 
-如果没有，写：暂无必须检查的内容。
-
-## 4. 需要 Owner 决策或补充的内容
-
-| 类型 | 需要提供/决定的内容 | 原因 | 建议 |
-|---|---|---|---|
-| <决策/补充/确认> | <具体问题> | <为什么影响下一步> | <建议方案> |
-
-如果没有，写：暂无需要 Owner 决策或补充的内容。
-
-## 5. 验证结果
-
-| 验证项 | 命令/方式 | 结果 |
-|---|---|---|
-| <测试/lint/运行/审阅> | <命令或方法> | <通过/失败/未执行及原因> |
-
-## 6. Clean State
-
-| 检查项 | 结果 |
-|---|---|
-| 构建/测试/lint/typecheck | <已运行 / 未运行及原因> |
-| TODO / task board | <已同步 / 未同步 / 不适用> |
-| worklog | <已同步 / 未同步 / 不适用> |
-| owner_questions | <已同步 / 未同步 / 不适用> |
-| handoff | <已同步 / 未同步 / 不适用> |
-| 临时调试代码 | <无 / 有并说明> |
-| 未解释的大规模改动 | <无 / 有并说明> |
-| OwnerGate | <未触发 / 已触发并等待> |
-| 多个 `doing` | <无 / 有并说明> |
-
-## 7. 建议下一条指令
-
-```text
-<一条可直接复制发送的指令>
+<one clear next action or command>
 ```
-````
 
-## 7. 下一条指令建议规则
+## 6. Clean State Checklist
 
-根据当前状态给出一条最合适的下一步指令：
-
-1. 缺失信息或关键决策：建议 Owner 先确认方案。
-2. 实现已完成但验证不足：建议执行测试。
-3. 业务需求完成但缺少手动验收流程：建议建立手动测试文档。
-4. 阶段主要功能完成且验证通过：建议检查后提交 commit。
-5. commit 已完成：建议进入代码优化或下一阶段规划。
-6. 当前任务未完成但下一步明确：建议继续当前 TODO 项。
+- [ ] Verification run or limitation recorded.
+- [ ] Evidence path recorded.
+- [ ] Correct lane or Controller document updated.
+- [ ] No unauthorized global TODO update by a worker.
+- [ ] No review status claimed by a worker.
+- [ ] No Owner acceptance claimed without Owner confirmation.

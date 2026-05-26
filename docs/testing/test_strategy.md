@@ -1,92 +1,87 @@
 ---
-文档定位: "测试策略。"
-作者: "Owner 主导"
-目标对象:
+document_role: "Testing and acceptance strategy"
+primary_writer: "Owner or Controller with authorization"
+audience:
+  - "Controller Session"
+  - "Worker Session"
+  - "Review Session"
   - "Owner"
-  - "Coding Agent"
-Agent权限: "询问后可改"
-当前操作者提醒:
-  - "本文件定义自动测试覆盖原则、手动测试与自动测试分工、测试命令与约定。"
-  - "不要在此写阶段专属测试清单；阶段手测内容请写入 stage_XX_manual_test.md。"
-  - "若该文档已被 Owner 作为正式策略确认，后续修改前应先说明拟改内容。"
+permission: "Owner controlled"
 ---
 
-<!-- 本模板建议另存为 /docs/testing/test_strategy.md -->
-# test_strategy
+# Test Strategy
 
-## 1. 测试目标与适用范围
+This document defines the verification and acceptance layers used by the DIAYN
+multi-session workflow.
 
-- 目标：`<此处填写测试工作的核心目标>`
-- 适用范围：`<此处填写哪些仓库/模块/阶段适用>`
-- 不在本策略内的内容：`<此处填写；如阶段专属手测脚本>`
+## 1. Verification Layers
 
-## 2. 角色分工
+| Layer | Purpose | Typical owner | Status impact |
+| --- | --- | --- | --- |
+| Agent Engineering Verification | Check the worker's own changes with tests, builds, lint, typecheck, inspection, or documented manual observation. | Worker Session | Supports `candidate_done`. |
+| Review Evidence | Independently check diff, evidence, scope, and acceptance criteria. | Review Session | Supports `done` or `rejected`. |
+| Controller Integration Review | Check reviewed lanes together, including shared contracts and end-to-end readiness. | Controller Session | Supports `ready_for_e2e`. |
+| Owner Experience Acceptance | Confirm the business or user-facing result from the Owner's point of view. | Owner, recorded by Controller or authorized session | Supports `owner_accepted`. |
 
-| 角色 | 职责 |
-|---|---|
-| `Coding Agent` | `<此处填写自动化验证、回归验证、测试说明维护职责>` |
-| `Owner` | `<此处填写手动验收、关键决策、验收确认职责>` |
-| `Planning AI` | `<此处填写如参与时的分析/整理职责；无则写 不参与执行>` |
+## 2. Worker Verification
 
-## 3. 测试层次与覆盖原则
+Workers should verify the task slice they actually changed. Appropriate checks
+may include:
 
-测试策略默认遵循自动验证优先：低风险任务应由 Coding Agent 通过自动测试、本地校验、
-mock run、schema validation、lint、typecheck、构建等方式完成，并记录 evidence。
-Owner 不应为每个小 Task 做人工测试。
+- unit or integration tests;
+- lint, typecheck, build, or static checks;
+- local smoke checks;
+- schema or contract validation;
+- focused manual observation when automated checks are not available.
 
-### 3.1 自动化测试
+Workers record factual evidence in the lane evidence or worklog file. Worker
+verification does not by itself create `done`, `ready_for_e2e`, or
+`owner_accepted`.
 
-- 单元测试：`<此处填写覆盖原则>`
-- 集成测试：`<此处填写覆盖原则>`
-- E2E / 冒烟测试：`<此处填写覆盖原则>`
-- 类型检查 / lint / 构建：`<此处填写是否属于必跑项>`
+## 3. Review Evidence
 
-### 3.2 手动测试
+Review sessions inspect:
 
-- 必须由 Owner 执行的场景：`<端到端用户路径验收 / 阶段级验收 / 高风险变更验收 / 真实 provider 或外部服务 smoke 结果判断 / 架构或 contract 接受与否判断>`
-- Coding Agent 需提供的手测说明粒度：`<聚焦 ready_for_e2e、关键路径、风险点和预期结果；不要为每个小 Task 生成手测步骤>`
-- 手测失败后的反馈方式：`<此处填写，如创建 BUG 文档>`
+- the worker's latest report;
+- the relevant diff;
+- evidence and worklog entries;
+- acceptance criteria;
+- permission boundaries;
+- whether the work stayed inside the lane.
 
-当多个 `auto_verified` 任务组成完整用户路径时，Coding Agent 可将 Batch 或任务组标为
-`ready_for_e2e`，并提供 Owner 端到端验收说明。
+Review sessions decide `done` or `rejected`. They do not mark
+`owner_accepted`.
 
-## 4. 触发时机与必做检查
+## 4. Controller Integration Review
 
-| 场景 | 必做验证 | 通过标准 | 备注 |
-|---|---|---|---|
-| `<新增功能>` | `<此处填写>` | `<此处填写>` | `<此处填写>` |
-| `<修复 bug>` | `<此处填写>` | `<此处填写>` | `<此处填写>` |
-| `<重构>` | `<此处填写>` | `<此处填写>` | `<此处填写>` |
+The Controller checks reviewed lane work together. This may include:
 
-## 5. 测试环境、数据与账号约定
+- cross-lane contract consistency;
+- build, smoke, or end-to-end evidence when defined;
+- shared issue status;
+- lane board and review log consistency;
+- missing evidence or unresolved blockers.
 
-- 本地环境要求：`<此处填写>`
-- 测试环境要求：`<此处填写>`
-- 测试数据准备：`<此处填写>`
-- 测试账号：`<此处填写>`
-- 特殊权限要求：`<此处填写>`
+Only the Controller Integration Review may move integrated reviewed work toward
+`ready_for_e2e`. Missing evidence is not a pass.
 
-## 6. 测试命令清单
+## 5. Owner Experience Acceptance
 
-| 命令 | 用途 | 何时执行 | 预期输出 |
-|---|---|---|---|
-| `<此处填写命令>` | `<此处填写>` | `<此处填写>` | `<此处填写>` |
+Owner acceptance is business-facing. The Owner should be asked whether the
+intended user-visible outcome works, not whether internal tests were written in
+a particular way.
 
-## 7. 缺陷记录与升级路径
+Use `docs/templates/owner_experience_acceptance_template.md` for Owner-facing
+acceptance records. Do not require the Owner to understand unit tests, mocks,
+coverage, or implementation internals.
 
-- 缺陷记录入口：`<此处填写 /docs/bugs/open/BUG_*.md>`
-- 什么情况下必须记为 Bug：`<此处填写>`
-- 什么情况下可直接记入 TODO：`<此处填写>`
-- 升级/阻塞处理方式：`<此处填写>`
+## 6. Reporting Minimums
 
-## 8. 验收、回归与停止规则
+Every report that claims progress should state:
 
-- 验收前最低要求：`<此处填写 verification 已执行、evidence 已记录、TODO / worklog / owner_questions 已同步的要求>`
-- 回归范围原则：`<此处填写优先覆盖直接相关路径；高风险变更扩大回归范围>`
-- 可以声明“完成”的前提：`<满足 behavior / expected outcome、verification、evidence；Owner 未验收前只能是 auto_verified 或 ready_for_e2e，不能是 accepted>`
-- 遇到无法验证情况的汇报要求：`<此处填写>`
-
-## 9. 不纳入自动测试的范围
-
-- [ ] `<此处填写当前明确不做自动化覆盖的部分>`
-- [ ] `<此处填写当前明确不做自动化覆盖的部分>`
+- what changed;
+- what was verified;
+- where evidence is recorded;
+- what was not verified and why;
+- current status using the canonical status model;
+- what review, integration, or Owner action is needed next.

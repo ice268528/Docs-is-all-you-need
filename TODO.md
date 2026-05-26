@@ -1,104 +1,103 @@
 ---
-文档定位: "当前任务看板，记录当前阶段、当前 Batch、当前任务状态、OwnerGate 摘要、ready_for_e2e 与下一步。"
-作者: "Coding Agent"
-目标对象:
-  - "Coding Agent"
+document_role: "Controller-owned global summary"
+primary_writer: "Controller Session"
+audience:
   - "Owner"
-Agent权限: "自动可改"
-当前操作者提醒:
-  - "本文件只保留当前看板、简短验证摘要和下一步建议，不定义阶段边界。"
-  - "阶段范围以 /docs/stages/stage_XX_goal.md 为准；技术限制以 /docs/project/implementation_constraints.md 为准。"
-  - "详细任务字段使用 /docs/templates/task_board_template.md。"
-  - "长篇执行过程进入 worklog；决策讨论全文进入 owner_questions；阶段交接进入 handoff。"
+  - "Controller Session"
+  - "Review Session"
+permission: "Controller write"
+notes:
+  - "Worker sessions do not update this file by default."
+  - "Lane details belong in docs/lanes/<lane>/board.md, evidence.md, worklog.md, and review_log.md."
 ---
 
-<!-- 本模板用于现行工作文档；不要在这里重写项目背景、阶段目标正文、长期技术约束或完整执行日志。 -->
 # TODO
 
-## 1. 当前执行上下文
+This file is the Controller-owned global summary for the current project.
+It is not the detailed workspace for backend, frontend, or other worker
+sessions.
 
-- 当前阶段：`<此处填写 stage_XX>`
-- 当前 Batch：`<此处填写 B-XX-YY / 无>`
-- 当前主线：`<此处填写本轮主线>`
-- 当前状态：`<todo / doing / auto_verified / owner_gate / ready_for_e2e / accepted / blocked / archived / dropped>`
-- 最近更新时间：`<YYYY-MM-DD HH:mm>`
-- 当前维护者：`<Coding Agent / Owner>`
+## 1. Current Execution Context
 
-## 2. 关联正式文档
+- Project slug: `<project_slug>`
+- Current stage or milestone: `<stage_id or n/a>`
+- Current focus: `<short summary>`
+- Last updated: `<YYYY-MM-DD HH:mm>`
+- Maintainer: `Controller Session`
 
-- 项目目标：`/docs/project/project_brief.md`
-- 实现约束：`/docs/project/implementation_constraints.md`
-- 当前阶段目标：`/docs/stages/<stage_XX_goal.md>`
-- 当前 Batch：`<复制自 /docs/templates/batch_template.md 的实际 Batch 文档路径；无则写 无>`
-- 测试策略：`/docs/testing/test_strategy.md`
-- 手动验收说明：`/docs/testing/<stage_XX_manual_test.md；无则写 无>`
-- Handoff：`/docs/handoffs/<stage_XX_summary.md 或 batch handoff；无则写 无>`
-- Owner Questions：`<复制自 /docs/templates/owner_questions_template.md 的实际文件路径；无则写 无>`
-- Worklog：`<复制自 /docs/templates/worklog_template.md 的实际文件路径；无则写 无>`
+## 2. Canonical Statuses
 
-## 3. 状态约定
+Use only the multi-session status model from
+`docs/meta/status_model.md`:
 
-状态语义的权威说明见 `/docs/meta/agent_execution_workflows.md`。本看板只使用状态名：
-`todo`、`doing`、`auto_verified`、`owner_gate`、`ready_for_e2e`、`accepted`、`blocked`、
-`archived`、`dropped`。
+```text
+todo
+doing
+candidate_done
+reviewing
+done
+rejected
+owner_gate
+ready_for_e2e
+owner_accepted
+blocked
+archived
+dropped
+```
 
-兼容说明：历史项目中的 `waiting_Owner_test` / `waiting_verify` 可保留为迁移前状态，但新任务不应默认使用。已自动验证但不需要 Owner 逐项手测的任务，应使用 `auto_verified`。
+Summary rules:
 
-## 4. 当前任务看板
+- Workers may move same-lane work at most to `candidate_done`, `blocked`, or
+  `owner_gate`.
+- Review sessions decide `done` or `rejected`.
+- Controller Integration Review may mark `ready_for_e2e` only with evidence.
+- Owner Acceptance authorizes `owner_accepted`.
+- Legacy state names are migration inputs only; see
+  `docs/meta/legacy_migration_guide.md`.
 
-<!-- TODO 只保留当前看板和一句话验证摘要；任务完整字段请写入实际 task board。 -->
+## 3. Global Summary Board
 
-| ID | 状态 | 类型 | 来源 | 标题 | 当前验证摘要 | 下一步 |
-|---|---|---|---|---|---|---|
-| `T-001` | `<todo>` | `<feature / bugfix / docs / test / chore>` | `<stage / batch / REQ / BUG>` | `<此处填写>` | `<verification + evidence 一句话摘要>` | `<此处填写>` |
+| ID | Lane | Status | Source | Title | Evidence or review summary | Next action |
+| --- | --- | --- | --- | --- | --- | --- |
+| `G-001` | `<controller/backend/frontend/<lane>>` | `<todo>` | `<plan/REQ/BUG/review/integration>` | `<short title>` | `<path or summary>` | `<next command or decision>` |
 
-## 5. 当前 OwnerGate
+## 4. Lane Snapshot
 
-<!-- 详细内容进入 owner_questions。 -->
+| Lane | Board | Current focus | Highest reviewed status | Blockers |
+| --- | --- | --- | --- | --- |
+| `backend` | `docs/lanes/backend/board.md` | `<summary>` | `<done/rejected/n/a>` | `<none or links>` |
+| `frontend` | `docs/lanes/frontend/board.md` | `<summary>` | `<done/rejected/n/a>` | `<none or links>` |
 
-| ID | 状态 | 问题 | 影响范围 | Owner 需要回复 |
-|---|---|---|---|---|
-| `Q-001` | `<waiting_owner_decision / answered / archived>` | `<此处填写>` | `<阶段 / Batch / Task / contract / schema / API>` | `<请回复的明确指令>` |
+## 5. Owner Gates
 
-## 6. Ready for E2E
+| ID | Status | Question | Impact | Owner response needed |
+| --- | --- | --- | --- | --- |
+| `Q-001` | `<owner_gate/blocked/answered/archived>` | `<question>` | `<scope/lane/contract/UX>` | `<copyable answer format>` |
 
-| ID | 用户路径 | 包含任务 | 自动验证摘要 | Owner 验收入口 |
-|---|---|---|---|---|
-| `E2E-001` | `<此处填写用户路径>` | `<T-001, T-002>` | `<auto_verified evidence 摘要>` | `<页面 / 命令 / 环境 / 步骤>` |
+## 6. Ready For Owner Experience Acceptance
 
-## 7. 本轮摘要
+| ID | User path or acceptance topic | Reviewed lane work | Integration evidence | Owner acceptance entry |
+| --- | --- | --- | --- | --- |
+| `E2E-001` | `<user-visible path>` | `<lane review links>` | `<sync/integration evidence>` | `docs/templates/owner_experience_acceptance_template.md` |
 
-- 已完成：`<简短摘要；无则写 无>`
-- 已自动验证：`<命令 / 检查 / evidence 摘要；无则写 无>`
-- 进入 OwnerGate：`<Q-001 / 无>`
-- 进入 ready_for_e2e：`<E2E-001 / 无>`
-- 未完成：`<简短摘要；无则写 无>`
-- 下一步建议：`<下一条最合适的指令或动作>`
+## 7. Responsibility Boundary
 
-## 8. TODO 职责边界
+`TODO.md` keeps:
 
-TODO 只保留：
+- current Controller summary;
+- lane status snapshot;
+- global blockers and Owner gates;
+- integration readiness summary;
+- next recommended command or decision.
 
-- 当前阶段。
-- 当前 Batch。
-- 当前任务看板。
-- 当前 OwnerGate 摘要。
-- 当前 `ready_for_e2e`。
-- 下一步建议。
-- 简短验证摘要。
+`TODO.md` does not keep:
 
-TODO 不保存：
+- full lane task details;
+- worker process logs;
+- raw command output;
+- review evidence details;
+- complete Owner decision discussions;
+- historical archived task bodies.
 
-- 长篇执行过程。
-- 多轮命令输出。
-- 历史任务全部详情。
-- 阶段总结正文。
-- 决策讨论全文。
-- 已归档任务的完整说明。
-
-这些内容分别进入：
-
-- `worklog`：详细执行记录、验证命令、失败尝试、evidence 索引。
-- `owner_questions`：Owner 决策、授权、澄清或验收问题。
-- `handoff`：阶段或 Batch 交接。
-- `archive` 或 `TODO_backup`：历史快照和已归档任务。
+Those belong in lane boards, evidence, worklogs, review logs, Owner decision
+records, handoff packets, or archived snapshots.

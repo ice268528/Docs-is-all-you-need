@@ -19,7 +19,7 @@ Agent权限: "询问后可改"
 
 - 阶段编号：`<stage_XX>`
 - 阶段名称：`<此处填写>`
-- 当前状态：`<draft / confirmed / in_progress / ready_for_e2e / accepted / blocked>`
+- 当前状态：`<todo / doing / candidate_done / reviewing / done / rejected / owner_gate / ready_for_e2e / owner_accepted / blocked / archived / dropped>`
 - 阶段一句话目标：`<此处填写>`
 - 关联项目说明：`/docs/project/project_brief.md`
 - 关联实现约束：`/docs/project/implementation_constraints.md`
@@ -51,7 +51,7 @@ Agent权限: "询问后可改"
 
 | Batch ID | Batch 目标 | 允许 Agent 自动做 | 不允许 Agent 自动做 | 验证出口 |
 |---|---|---|---|---|
-| `B-XX-01` | `<此处填写>` | `<此处填写摘要>` | `<OwnerGate 摘要>` | `<auto_verified / ready_for_e2e 标准>` |
+| `B-XX-01` | `<此处填写>` | `<此处填写摘要>` | `<OwnerGate 摘要>` | `<candidate_done 证据 / done 审查结论 / ready_for_e2e 集成条件>` |
 
 ## 6. 本阶段交付项
 
@@ -87,7 +87,7 @@ Agent权限: "询问后可改"
 
 ## 9. ready_for_e2e 判断
 
-- 进入条件：`<哪些 Batch / Task 达到 auto_verified 后可组成完整用户路径>`
+- 进入条件：`<哪些 Batch / Task 已达到 done，并经过 Controller Integration Review 后可组成完整用户路径>`
 - 用户路径：`<此处填写主要端到端路径>`
 - Owner 验收入口：`<页面 / 命令 / 环境 / 步骤>`
 - 不需要逐项手测的内容：`<此处填写已由自动验证覆盖的低风险任务>`
@@ -112,4 +112,3 @@ Agent权限: "询问后可改"
 - [ ] `/docs/TODO_backup/<TODO_YYYYMMDD_HH.md>`
 - [ ] `<worklog 实例路径>`
 - [ ] `<owner_questions 实例路径；无则写 无>`
-

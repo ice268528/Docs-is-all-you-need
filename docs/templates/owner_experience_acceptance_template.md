@@ -9,7 +9,7 @@ This document is for the Owner. It should not require the Owner to read test cod
 | Field | Value |
 | --- | --- |
 | Acceptance ID | `<owner_acceptance_id>` |
-| Status | `<ready_for_e2e / owner_accepted / rework_requested / owner_gate>` |
+| Status | `<ready_for_e2e / owner_accepted / owner_gate / blocked>` |
 | Prepared by | `<Controller or acceptance support session>` |
 | Related lane(s) | `<lane or n/a>` |
 | Related review logs | `<paths>` |
@@ -63,7 +63,7 @@ This is an example pattern only. It must not become a required feature for every
 
 | Limit | Owner-visible impact | Recommended feedback |
 | --- | --- | --- |
-| `<limit>` | `<impact>` | `<accept / request rework / ask question>` |
+| `<limit>` | `<impact>` | `<accept / request_rework / ask_question>` |
 
 ## What The Owner Does Not Need To Review
 
@@ -102,9 +102,8 @@ Notes: <short Owner note>
 
 ## Result Record
 
-| Decision | Meaning | Owner note | Recorded by | Follow-up |
-| --- | --- | --- | --- | --- |
-| `owner_accepted` | Owner accepts the business or experience result. | `<note>` | `<session>` | `<next action or n/a>` |
-| `rework_requested` | Owner requests changes before acceptance. | `<note>` | `<session>` | `<route through /diayn bug or lane rework>` |
-| `owner_gate` | Owner needs more information or a decision record before accepting. | `<note>` | `<session>` | `<decision or question path>` |
-
+| Owner decision | Status to record | Meaning | Owner note | Recorded by | Follow-up |
+| --- | --- | --- | --- | --- | --- |
+| `accept` | `owner_accepted` | Owner accepts the business or experience result. | `<note>` | `<session>` | `<next action or n/a>` |
+| `request_rework` | `blocked / owner_gate` | Owner requests changes before acceptance; this is feedback, not a status. | `<note>` | `<session>` | `<route through /diayn bug or Controller-managed rework>` |
+| `ask_question` | `owner_gate` | Owner needs more information or a decision record before accepting. | `<note>` | `<session>` | `<decision or question path>` |

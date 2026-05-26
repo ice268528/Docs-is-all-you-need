@@ -1,75 +1,62 @@
 ---
-文档定位: "通用 Batch 模板。"
-模板说明:
-  - "这是通用模板，不是当前项目实例。"
-  - "实际项目应复制到对应 stage / batch 目录后再填写。"
-  - "模板内的 stage_XX、B-XX-YY、T-001 等只是占位示例，不代表真实任务。"
+document_role: "Batch authorization template"
+template_status: "Generic template"
+permission: "Owner controlled template"
 ---
 
-# B-XX-YY：<Batch 标题>
+# B-XX-YY: `<batch title>`
 
-## 1. Batch 目标
+This template describes a bounded package of work. It does not override
+`docs/meta/status_model.md`, `docs/meta/session_roles.md`, or
+`docs/meta/agent_doc_permissions.md`.
 
-`<此处填写 Owner 一次授权 Coding Agent 连续推进的任务包目标>`
+## 1. Goal
 
-## 2. 背景与关联文档
+`<Write the user-visible or project-visible goal of this batch.>`
 
-- 阶段目标：`/docs/stages/<stage_XX_goal.md>`
-- 任务看板：`/TODO.md`
-- 实现约束：`/docs/project/implementation_constraints.md`
-- 测试策略：`/docs/testing/test_strategy.md`
-- Owner Questions：`<owner_questions 实例路径；无则写 无>`
-- Worklog：`<worklog 实例路径；无则写 无>`
+## 2. Authority And Scope
 
-## 3. 允许 Coding Agent 自动做
+- Controller owner: `<session or person>`
+- Lanes involved: `<backend / frontend / other lanes>`
+- Related stage or milestone: `<stage_id or n/a>`
+- Related global summary: `TODO.md`
+- Related lane boards:
+  - `docs/lanes/<lane>/board.md`
+- Related handoff packets:
+  - `docs/lanes/<lane>/handoff.md`
 
-- `<此处填写可自动实现、修改、验证或修复的范围>`
-- `<此处填写可自动同步的 TODO / worklog / handoff 范围>`
-- `<此处填写可自动修复的直接相关失败>`
+## 3. Allowed Work
 
-## 4. 不允许 Coding Agent 自动做
+- `<Allowed implementation, documentation, verification, or review work.>`
+- `<Allowed lane-local updates.>`
+- `<Allowed evidence and worklog updates.>`
 
-- `<此处填写需要 OwnerGate 的范围>`
-- `<此处填写不能修改的 contract / schema / API / 目录结构>`
-- `<此处填写不能调用的真实外部服务、secret 或不可逆操作>`
+## 4. Forbidden Or Gated Work
 
-## 5. 自动验收标准
+- `<Scope changes requiring OwnerGate.>`
+- `<Shared contract, schema, API, security, deployment, or cost-bearing changes requiring authorization.>`
+- `<External services, credentials, destructive operations, or releases requiring explicit approval.>`
 
-- `<此处填写自动测试、lint、typecheck、构建或本地验证方式>`
-- `<此处填写 behavior / expected outcome>`
-- `<此处填写 evidence 记录位置>`
+## 5. Verification And Evidence
 
-## 6. OwnerGate 条件
+- Agent Engineering Verification: `<commands, checks, or inspection steps>`
+- Evidence location: `<docs/lanes/<lane>/evidence.md or equivalent>`
+- Review evidence: `<docs/lanes/<lane>/review_log.md or equivalent>`
+- Integration evidence: `<.diayn/sync_log.md / docs/shared/integration_issues.md / other>`
 
-- `<此处填写触发 Owner 决策、授权、验收或澄清的条件>`
-- `<此处填写自动验证无法覆盖的判断>`
-- `<此处填写影响后续扩展成本的路线选择>`
+## 6. Status Boundary
 
-## 7. Owner E2E 验收点
+- Worker sessions stop at `candidate_done`, `blocked`, or `owner_gate`.
+- Review sessions decide `done` or `rejected`.
+- Controller Integration Review may mark `ready_for_e2e` only with evidence.
+- Owner Acceptance is required for `owner_accepted`.
 
-- `<此处填写完整用户路径>`
-- `<此处填写高风险变更验收点>`
-- `<此处填写真实 provider / 外部服务 smoke 判断点>`
+## 7. Completion Checklist
 
-## 8. 完成后应更新的文件
-
-- `/TODO.md`
-- `worklog`
-- `handoff`
-- `owner_questions`，如有新增决策点
-
-## 9. 不应更新的文件
-
-- 只读项目约束文档，除非 Owner 明确授权。
-- 与当前 Batch 无关的业务代码。
-- 与当前 Batch 无关的模板或历史归档。
-
-## 10. 收尾要求
-
-- verification 已执行或说明无法执行原因。
-- evidence 已记录。
-- TODO 状态已同步。
-- worklog 已同步。
-- handoff 已同步。
-- Owner 未明确验收前，不标记为 `accepted`。
-- 无未解释的大规模改动。
+- [ ] Lane board updated.
+- [ ] Evidence recorded.
+- [ ] Worklog updated when implementation or verification occurred.
+- [ ] Handoff updated when a later session must continue.
+- [ ] Review decision recorded for candidate work.
+- [ ] Integration issues recorded when cross-lane problems exist.
+- [ ] OwnerGate or Owner acceptance items recorded when needed.
