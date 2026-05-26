@@ -17,6 +17,7 @@ Use this skill when the user enters `/diayn review backend`, `/diayn review fron
 - `docs/meta/agent_doc_permissions.md`
 - `docs/meta/agent_execution_workflows.md`
 - `docs/meta/diayn_command_reference.md`
+- `docs/meta/diayn_commands/review_backend.md` or `docs/meta/diayn_commands/review_frontend.md`
 - `docs/templates/review_log_template.md`
 - The user-pasted latest worker report.
 - The active lane board, handoff, evidence, worklog, review log, diff, and relevant shared docs.

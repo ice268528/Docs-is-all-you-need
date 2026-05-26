@@ -8,7 +8,7 @@ current_stage: "<stage_id>"
 
 > Controller-owned registry of planned or active collaboration sessions.
 
-This file records intended session roles and lanes. It does not launch agents and does not replace the future command reference.
+This file records intended session roles and lanes. It does not launch agents. Command semantics live in `docs/meta/diayn_command_reference.md`.
 
 ## Sessions
 
@@ -31,4 +31,3 @@ Each role-specific session should confirm:
 - Last verified time.
 
 Local identity notes belong under `.diayn/local/` and must not be committed.
-

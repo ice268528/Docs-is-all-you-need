@@ -16,6 +16,13 @@ Use this skill when the current session is acting as the Controller for DIAYN mu
 - `docs/meta/status_model.md`
 - `docs/meta/agent_doc_permissions.md`
 - `docs/meta/diayn_command_reference.md`
+- `docs/meta/diayn_commands/init.md`
+- `docs/meta/diayn_commands/plan.md`
+- `docs/meta/diayn_commands/worktrees.md`
+- `docs/meta/diayn_commands/sync.md`
+- `docs/meta/diayn_commands/integration.md`
+- `docs/meta/diayn_commands/bug.md`
+- `docs/meta/diayn_commands/new.md`
 - `docs/meta/diayn_worktree_workflow.md`
 - `docs/meta/controller_sync_integration_protocol.md`
 - `docs/meta/session_identity_protocol.md`

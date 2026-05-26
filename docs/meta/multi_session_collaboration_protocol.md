@@ -39,11 +39,11 @@ Reports, examples, and templates can inform work, but they do not directly autho
 | Document write permissions | `docs/meta/agent_doc_permissions.md` |
 | Execution workflow boundaries | `docs/meta/agent_execution_workflows.md` |
 | Status names and transitions | `docs/meta/status_model.md` |
-| Skill mapping, without implementing skills | `docs/meta/session_skill_mapping.md` |
+| Skill mapping and skill/vendor boundary | `docs/meta/session_skill_mapping.md` |
 | Progressive disclosure | `docs/meta/progressive_disclosure_rules.md` |
-| Future `/diayn` command semantics | `docs/meta/diayn_command_reference.md` |
+| `/diayn` command semantics | `docs/meta/diayn_command_reference.md` |
 
-The final row is a reserved future location. This protocol establishes the link and boundary only; command-level semantics are defined in a later command reference.
+Command-level semantics are defined in `docs/meta/diayn_command_reference.md`. This protocol keeps only cross-cutting role, status, identity, and document-control boundaries.
 
 ## 4. Standard Roles
 
@@ -142,7 +142,7 @@ Important rules:
 
 Entry files such as `AGENTS.md` and `CLAUDE.md` are landing pages and indexes. They must not contain the full protocol.
 
-Long rules belong in `docs/meta/**`. Long examples belong in examples or references. Future `SKILL.md` files should describe workflows and link to references rather than duplicate the full manual.
+Long rules belong in `docs/meta/**`. Long examples belong in examples or references. `SKILL.md` files should describe workflows and link to references rather than duplicate the full manual.
 
 The detailed rule set is in `docs/meta/progressive_disclosure_rules.md`.
 
@@ -155,5 +155,5 @@ Stop and ask the Controller or Owner when:
 - A worker would need to modify global `TODO.md`, another lane, shared contract, stage boundary, or project constraints.
 - A reviewer would need to implement fixes instead of reviewing.
 - A controller would need to mark Owner acceptance or silently change business scope.
-- A command or workflow detail belongs to a later stage and has not been defined yet.
+- A command or workflow detail is not defined in the current canonical documents.
 - Existing documents conflict in a way that would force a product, architecture, or acceptance decision.

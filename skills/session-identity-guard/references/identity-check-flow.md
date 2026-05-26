@@ -9,7 +9,7 @@ Run this before command-specific work.
 - `.diayn/local/session_identity.md` when available.
 - `.diayn/worktree_manifest.md` when available.
 - `.diayn/session_registry.md` when available.
-- Expected lane and role from `docs/meta/diayn_command_reference.md`.
+- Expected lane and role from `docs/meta/diayn_command_reference.md` and the relevant file under `docs/meta/diayn_commands/`.
 - Write boundary from `docs/meta/agent_doc_permissions.md`.
 
 ## Flow

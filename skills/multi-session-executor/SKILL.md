@@ -17,6 +17,7 @@ Use this skill when the user asks a worker session to run `/diayn backend`, `/di
 - `docs/meta/agent_doc_permissions.md`
 - `docs/meta/agent_execution_workflows.md`
 - `docs/meta/diayn_command_reference.md`
+- `docs/meta/diayn_commands/backend.md` or `docs/meta/diayn_commands/frontend.md`
 - `docs/templates/handoff_packet_template.md`
 - `docs/templates/lane_board_template.md`
 - The active lane board, handoff, evidence, worklog, and relevant shared docs.

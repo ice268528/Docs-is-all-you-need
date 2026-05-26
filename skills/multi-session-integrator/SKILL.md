@@ -17,6 +17,7 @@ Use this skill when a Controller-owned session runs `/diayn sync`, `/diayn integ
 - `docs/meta/session_roles.md`
 - `docs/meta/agent_doc_permissions.md`
 - `docs/meta/diayn_command_reference.md`
+- `docs/meta/diayn_commands/sync.md` or `docs/meta/diayn_commands/integration.md`
 - `docs/templates/sync_log_template.md`
 - Active lane boards, review logs, evidence records, shared contracts, and integration issues.
 

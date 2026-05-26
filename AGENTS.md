@@ -45,6 +45,7 @@ When using multi-session collaboration, read:
 - `docs/meta/agent_execution_workflows.md`
 - `docs/meta/status_model.md`
 - `docs/meta/diayn_command_reference.md`
+- `docs/meta/diayn_commands/`
 - `docs/meta/session_identity_protocol.md`
 - `docs/meta/owner_decision_ux_protocol.md`
 - `docs/meta/owner_acceptance_protocol.md`
@@ -76,7 +77,7 @@ Read the smallest set needed for the current task.
 | Execution workflow | `docs/meta/agent_execution_workflows.md` |
 | Document write permission | `docs/meta/agent_doc_permissions.md` |
 | Status meaning | `docs/meta/status_model.md` |
-| `/diayn` commands | `docs/meta/diayn_command_reference.md` |
+| `/diayn` commands | `docs/meta/diayn_command_reference.md` and the relevant file under `docs/meta/diayn_commands/` |
 | Session identity guard | `docs/meta/session_identity_protocol.md` |
 | Worktree lane startup | `docs/meta/diayn_worktree_workflow.md` |
 | Owner decisions | `docs/meta/owner_decision_ux_protocol.md` |

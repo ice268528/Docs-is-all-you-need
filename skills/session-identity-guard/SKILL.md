@@ -12,6 +12,8 @@ Use this skill before every `/diayn ...` command and whenever the current sessio
 ## Read First
 
 - `docs/meta/session_identity_protocol.md`
+- `docs/meta/diayn_command_reference.md`
+- The relevant command detail file under `docs/meta/diayn_commands/`.
 - `docs/meta/diayn_worktree_workflow.md`
 - `docs/meta/session_roles.md`
 - `docs/meta/agent_doc_permissions.md`

@@ -20,10 +20,10 @@ controller_baseline: "<commit-or-branch>"
 
 ## Worktrees
 
-| Lane | Expected path | Branch | Baseline | Current stage | Status | Startup instruction placeholder |
+| Lane | Expected path | Branch | Baseline | Current stage | Status | Startup instruction |
 | --- | --- | --- | --- | --- | --- | --- |
-| `backend` | `../worktrees/<project_slug>/backend` | `<branch>` | `<commit-or-branch>` | `<stage_id>` | `planned` | `<open session in expected path; enter allowed command after command docs exist>` |
-| `frontend` | `../worktrees/<project_slug>/frontend` | `<branch>` | `<commit-or-branch>` | `<stage_id>` | `planned` | `<open session in expected path; enter allowed command after command docs exist>` |
+| `backend` | `../worktrees/<project_slug>/backend` | `<branch>` | `<commit-or-branch>` | `<stage_id>` | `planned` | `cd ../worktrees/<project_slug>/backend; start the selected agent; run /diayn backend` |
+| `frontend` | `../worktrees/<project_slug>/frontend` | `<branch>` | `<commit-or-branch>` | `<stage_id>` | `planned` | `cd ../worktrees/<project_slug>/frontend; start the selected agent; run /diayn frontend` |
 
 ## Required Shared Documents
 

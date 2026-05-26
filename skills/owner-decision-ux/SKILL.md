@@ -14,6 +14,7 @@ Use this skill when an Owner decision, OwnerGate, Owner business acceptance, or 
 - `docs/meta/owner_decision_ux_protocol.md`
 - `docs/meta/owner_acceptance_protocol.md`
 - `docs/meta/diayn_command_reference.md`
+- `docs/meta/diayn_commands/html.md`
 - `docs/meta/status_model.md`
 - `docs/templates/owner_decision_record_template.md`
 - `docs/templates/owner_decision_html_template.html`

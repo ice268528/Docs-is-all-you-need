@@ -13,7 +13,7 @@ Before implementation, review, integration, testing, or document maintenance, th
 - Confirm the task does not cross role, lane, or OwnerGate boundaries.
 - Record factual evidence rather than relying on completion claims.
 
-If a future `/diayn ...` workflow is used, perform the Session Identity Guard check described in `docs/meta/multi_session_collaboration_protocol.md` before role-specific work begins.
+If a `/diayn ...` workflow is used, perform the Session Identity Guard check described in `docs/meta/session_identity_protocol.md` before role-specific work begins.
 
 ## 2. Cold Start Check
 
@@ -186,4 +186,3 @@ At the end of meaningful work, report or record:
 - Which board or status was updated.
 - Whether any OwnerGate, blocker, or review item remains.
 - Whether the session stayed inside its role and lane permissions.
-

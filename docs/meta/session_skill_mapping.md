@@ -1,20 +1,21 @@
 # Session Skill Mapping
 
-> This document maps multi-session roles to future DIAYN skills and optional upstream engineering skills. It does not implement, vendor, or install skills.
+> This document maps multi-session roles to DIAYN-owned skills and optional upstream engineering skill references. DIAYN-owned skills and the upstream vendor snapshot already exist in this repository; ordinary `/diayn` users do not need to understand vendor sync details.
 
 ## 1. Current Boundary
 
-This file defines the mapping layer only. The following are intentionally deferred:
+This file defines the mapping layer only. It does not install, invoke, overwrite, or replace any skill, adapter, or vendor content.
 
-- Creating `skills/**`.
-- Importing or vendoring `third_party/agent-skills/**`.
-- Creating tool adapters or plugin manifests.
+Current facts:
 
-If a skill name below does not exist in the current project yet, treat it as a planned mapping, not as an available executable capability.
+- DIAYN-owned skills live under `skills/**`.
+- The upstream `agent-skills` snapshot lives under `third_party/agent-skills/**` for maintainer reference.
+- Tool adapters and plugin preparation notes live under `integrations/**`.
+- If a listed skill is missing in a downstream scaffold, treat the row as a mapping expectation, not as an executable capability.
 
 ## 2. Local DIAYN Skill Mapping
 
-| Role | Planned DIAYN skill | Purpose |
+| Role | DIAYN-owned skill | Purpose |
 | --- | --- | --- |
 | Controller Session | `multi-session-controller` | Planning, lane dispatch, sync, integration readiness, global summaries |
 | Backend Session | `multi-session-executor` | Lane-local execution and evidence writing |
@@ -58,9 +59,9 @@ Watched upstream areas:
 | Controller Integration Review | Entry file, `docs/meta/multi_session_collaboration_protocol.md`, `docs/meta/status_model.md`, reviewed lane logs, shared contracts, integration evidence |
 | Owner Acceptance support | Owner acceptance path, engineering evidence summary, OwnerGate or decision record, stage acceptance criteria |
 
-## 5. Future Skill Design Rules
+## 5. Skill Design Rules
 
-Future `SKILL.md` files should be short workflow entry points. They should include:
+`SKILL.md` files should be short workflow entry points. They should include:
 
 - Use When.
 - Read First.

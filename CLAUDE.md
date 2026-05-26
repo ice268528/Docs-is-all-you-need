@@ -12,7 +12,8 @@ Use this file as a short index only. Do not copy the full protocol into this fil
 - Document permissions: `docs/meta/agent_doc_permissions.md`
 - Execution workflows: `docs/meta/agent_execution_workflows.md`
 - Status model: `docs/meta/status_model.md`
-- `/diayn` command reference: `docs/meta/diayn_command_reference.md`
+- `/diayn` command reference index: `docs/meta/diayn_command_reference.md`
+- `/diayn` command details: `docs/meta/diayn_commands/`
 - Session identity guard: `docs/meta/session_identity_protocol.md`
 - Worktree lane startup: `docs/meta/diayn_worktree_workflow.md`
 - Owner decision UX: `docs/meta/owner_decision_ux_protocol.md`

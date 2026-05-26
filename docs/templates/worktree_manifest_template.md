@@ -20,9 +20,9 @@ controller_baseline: "<commit-or-branch>"
 
 ## Worktrees
 
-| Lane | Expected path | Branch | Baseline | Current stage | Status | Startup instruction placeholder |
+| Lane | Expected path | Branch | Baseline | Current stage | Status | Startup instruction |
 | --- | --- | --- | --- | --- | --- | --- |
-| `<lane>` | `../worktrees/<project_slug>/<lane>` | `<branch>` | `<commit-or-branch>` | `<stage_id>` | `planned` | `<open session in expected path; enter allowed command after command docs exist>` |
+| `<lane>` | `../worktrees/<project_slug>/<lane>` | `<branch>` | `<commit-or-branch>` | `<stage_id>` | `planned` | `cd ../worktrees/<project_slug>/<lane>; start the selected agent; run <allowed_command>` |
 
 ## Required Docs By Lane
 
