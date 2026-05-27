@@ -1,92 +1,69 @@
 ---
-文档定位: "技术与实现约束。"
-作者: "Planning AI 起草，Owner 定稿"
-目标对象:
+document_role: "Project implementation constraints"
+primary_writer: "Owner or Controller during authorized initialization"
+audience:
   - "Owner"
-  - "Coding Agent"
-  - "Planning AI"
-Agent权限: "只读"
-当前操作者提醒:
-  - "本文件只写长期有效的实现限制与硬约束，不写当前阶段任务。"
-  - "测试命令细节可在 /docs/testing/test_strategy.md 维护；阶段边界写入 stage_XX_goal.md。"
-  - "Coding Agent 需严格按本文件执行，不能静默突破限制。"
+  - "Controller Session"
+  - "Worker Session"
+  - "Review Session"
+permission: "Owner controlled"
 ---
 
-<!-- 本模板建议另存为 /docs/project/implementation_constraints.md -->
-# implementation_constraints
+# Implementation Constraints
 
-## 1. 约束总览
+This file records long-lived implementation constraints. It should not contain
+lane task breakdown, worker notes, or temporary TODO items.
 
-| 约束类别 | 约束内容 | 级别 | 备注 |
-|---|---|---|---|
-| `<技术栈>` | `<此处填写约束>` | `<hard / preferred / forbidden>` | `<此处填写>` |
+## 1. Constraint Summary
 
-## 2. 技术栈与版本约束
+| Constraint area | Rule | Strength | Notes |
+| --- | --- | --- | --- |
+| `<area>` | `<constraint>` | `<hard / preferred / forbidden>` | `<notes>` |
 
-- 前端：`<此处填写框架/版本>`
-- 后端：`<此处填写框架/版本；无则写 无>`
-- 运行时：`<此处填写 Node / Bun / Python / 其他>`
-- 包管理器：`<此处填写>`
-- 数据库 / 存储：`<此处填写>`
-- 三方服务：`<此处填写>`
-- 不允许替换的基础设施：`<此处填写；无则写 无>`
+## 2. Runtime And Tooling
 
-## 3. 架构与实现限制
+| Concern | Decision or allowed range | Unknowns |
+| --- | --- | --- |
+| Frontend stack | `<framework/version or Unknown>` | `<notes>` |
+| Backend stack | `<framework/version or Unknown>` | `<notes>` |
+| Runtime | `<Node / Python / other / Unknown>` | `<notes>` |
+| Package manager | `<tool or Unknown>` | `<notes>` |
+| Database or storage | `<choice or Unknown>` | `<notes>` |
+| Third-party services | `<allowed / forbidden / Unknown>` | `<notes>` |
 
-- 模块边界限制：`<此处填写>`
-- 状态管理限制：`<此处填写>`
-- 接口/数据流限制：`<此处填写>`
-- 目录/分层约束：`<此处填写>`
-- 不允许的实现方式：`<此处填写>`
+## 3. Architecture And Module Boundaries
 
-## 4. 依赖与第三方库限制
+- Module boundaries: `<rules or Unknown>`
+- Data flow constraints: `<rules or Unknown>`
+- API or contract constraints: `<rules or Unknown>`
+- Directory or layering constraints: `<rules or Unknown>`
+- Forbidden implementation approaches: `<rules or Unknown>`
 
-- 新依赖引入规则：`<此处填写>`
-- 已批准依赖范围：`<此处填写>`
-- 禁止依赖：`<此处填写>`
-- License / 合规要求：`<此处填写>`
+## 4. Dependency And License Policy
 
-## 5. 兼容性要求
+- New dependency rule: `<rule or Unknown>`
+- Approved dependency scope: `<scope or Unknown>`
+- Forbidden dependencies: `<items or none>`
+- License or attribution requirements: `<requirements or Unknown>`
 
-- 浏览器 / 终端兼容范围：`<此处填写>`
-- 响应式 / 设备要求：`<此处填写>`
-- 国际化 / 本地化要求：`<此处填写>`
-- 无障碍要求：`<此处填写>`
+## 5. Security, Privacy, And Operations
 
-## 6. 部署与运行环境要求
+| Concern | Constraint | OwnerGate trigger |
+| --- | --- | --- |
+| Credentials and secrets | `<rule>` | `<when to stop>` |
+| Data handling | `<rule>` | `<when to stop>` |
+| External services | `<rule>` | `<when to stop>` |
+| Migrations or destructive actions | `<rule>` | `<when to stop>` |
+| Release or deployment | `<rule>` | `<when to stop>` |
 
-- 环境划分：`<此处填写 本地 / 测试 / 生产>`
-- 环境变量约束：`<此处填写>`
-- 构建产物要求：`<此处填写>`
-- 发布限制：`<此处填写>`
-- 观测/日志要求：`<此处填写>`
+## 6. Verification Constraints
 
-## 7. 性能与稳定性门槛
+- Required technical checks: `<test/build/lint/typecheck/manual checks or Unknown>`
+- Required Owner-facing checks: `<business or experience acceptance focus>`
+- Known unverified areas: `<items or none>`
 
-- 性能指标：`<此处填写>`
-- 首屏/接口时延要求：`<此处填写>`
-- 稳定性要求：`<此处填写>`
-- 容错要求：`<此处填写>`
+## 7. Approved Exceptions
 
-## 8. 安全 / 隐私 / 合规要求
-
-- 认证与授权要求：`<此处填写>`
-- 数据安全要求：`<此处填写>`
-- 隐私要求：`<此处填写>`
-- 审计要求：`<此处填写>`
-- 不能触碰的安全边界：`<此处填写>`
-
-## 9. 质量门槛
-
-- 类型检查 / lint / 构建要求：`<此处填写>`
-- 自动测试要求：`<此处填写>`
-- 手动测试要求：`<此处填写>`
-- 代码评审或验收前提：`<此处填写>`
-
-## 10. 例外审批记录
-
-<!-- 只有得到 Owner 明确批准的例外，才应记录在此。 -->
-
-| 日期 | 例外内容 | 原因 | 批准人 | 失效条件 |
-|---|---|---|---|---|
-| `<此处填写>` | `<此处填写>` | `<此处填写>` | `<Owner>` | `<此处填写>` |
+| Date | Exception | Reason | Approved by | Expiration or revisit condition |
+| --- | --- | --- | --- | --- |
+| `<date>` | `<exception>` | `<reason>` | `<Owner or authority>` | `<condition>` |

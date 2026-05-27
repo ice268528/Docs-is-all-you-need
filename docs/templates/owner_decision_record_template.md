@@ -7,10 +7,10 @@
 | Field | Value |
 | --- | --- |
 | Decision ID | `<decision_id>` |
-| Status | `<draft / owner_selected / superseded / archived>` |
+| Record state | `<draft / owner_selected / superseded / archived>` |
 | Owner | `<Owner or decision authority>` |
 | Prepared by | `<Controller or Owner-support session>` |
-| Related command | `<command, such as /diayn plan or /diayn html>` |
+| Related command | `<command, such as /diayn-plan or /diayn-html>` |
 | Related OwnerGate | `<owner_gate_id or n/a>` |
 | Related lane(s) | `<lane or n/a>` |
 | Related docs | `<paths>` |
@@ -42,7 +42,7 @@ Decision time: <timestamp>
 
 | Question | Answer |
 | --- | --- |
-| Was `/diayn html` used? | `<yes/no>` |
+| Was `/diayn-html` used? | `<yes/no>` |
 | Should the HTML be committed? | `<yes/no>` |
 | Reason | `<long-lived decision / temporary explanation / other>` |
 | HTML path | `<path or n/a>` |
@@ -64,7 +64,7 @@ Rules:
 
 ## Follow-Up
 
-| Item | Owner | Status | Notes |
+| Item | Owner | Follow-up status | Notes |
 | --- | --- | --- | --- |
 | `<follow_up_id>` | `<Controller / lane / Owner>` | `<todo / blocked / done>` | `<notes>` |
 

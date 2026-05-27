@@ -4,7 +4,7 @@
 
 ## 1. Scope
 
-Every `/diayn ...` command must run the Session Identity Guard before performing role-specific work.
+Every `/diayn-*` command must run the Session Identity Guard before performing role-specific work.
 
 The guard is not a security sandbox. It is a protocol check that helps the agent stop before it edits the wrong documents or code.
 
@@ -27,18 +27,18 @@ Do not silently rewrite `.diayn/local/session_identity.md` or shared manifest fi
 
 | Command | Expected role | Expected lane | Expected location |
 | --- | --- | --- | --- |
-| `/diayn init` | Controller Session | none | Controller repository path |
-| `/diayn plan` | Controller Session | none | Controller repository path |
-| `/diayn worktrees` | Controller Session | none | Controller repository path |
-| `/diayn backend` | Backend Session | `backend` | `../worktrees/<project_slug>/backend` |
-| `/diayn frontend` | Frontend Session | `frontend` | `../worktrees/<project_slug>/frontend` |
-| `/diayn review backend` | Backend Review Session | `backend` | backend worktree or authorized review path |
-| `/diayn review frontend` | Frontend Review Session | `frontend` | frontend worktree or authorized review path |
-| `/diayn sync` | Controller Session | none | Controller repository path |
-| `/diayn integration` | Controller Integration Review | none or affected lanes | Controller repository path |
-| `/diayn bug` | Controller Session | none or affected lanes after triage | Controller repository path |
-| `/diayn new` | Controller Session | none or affected lanes after triage | Controller repository path |
-| `/diayn html` | Controller Session or Owner-support session | none unless explaining a lane report | Controller-approved path |
+| `/diayn-init` | Controller Session | none | Controller repository path |
+| `/diayn-plan` | Controller Session | none | Controller repository path |
+| `/diayn-worktrees` | Controller Session | none | Controller repository path |
+| `/diayn-backend` | Backend Session | `backend` | `../worktrees/<project_slug>/backend` |
+| `/diayn-frontend` | Frontend Session | `frontend` | `../worktrees/<project_slug>/frontend` |
+| `/diayn-review-backend` | Backend Review Session | `backend` | backend worktree or authorized review path |
+| `/diayn-review-frontend` | Frontend Review Session | `frontend` | frontend worktree or authorized review path |
+| `/diayn-sync` | Controller Session | none | Controller repository path |
+| `/diayn-integration` | Controller Integration Review | none or affected lanes | Controller repository path |
+| `/diayn-bug` | Controller Session | none or affected lanes after triage | Controller repository path |
+| `/diayn-new` | Controller Session | none or affected lanes after triage | Controller repository path |
+| `/diayn-html` | Controller Session or Owner-support session | none unless explaining a lane report | Controller-approved path |
 
 ## 4. Guard Steps
 
@@ -61,7 +61,7 @@ Critical fields:
 
 ## 5. First Initialization
 
-`/diayn init` may be the first command in a repository with no `.diayn/` files.
+`/diayn-init` may be the first command in a repository with no `.diayn/` files.
 
 In that case:
 
@@ -131,8 +131,8 @@ Unknown identity is not always a blocker.
 
 Allowed:
 
-- `/diayn init` in a repository that has not been initialized.
-- `/diayn html` when the user only asks for an explanation and no project state will be changed.
+- `/diayn-init` in a repository that has not been initialized.
+- `/diayn-html` when the user only asks for an explanation and no project state will be changed.
 - A read-only investigation that stops before state changes.
 
 Blocked:
@@ -150,4 +150,3 @@ Every command output should include:
 - Sources used for identity.
 - Role and lane used for the command.
 - Any mismatch or assumption.
-

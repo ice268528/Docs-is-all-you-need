@@ -1,41 +1,35 @@
 ---
-文档定位: "通用 Cold Start Check 模板。"
-模板说明:
-  - "这是通用模板，不是当前项目实例。"
-  - "实际项目应复制到对应 stage / batch 目录后再填写。"
-  - "模板内的 stage_XX、B-XX-YY、T-001 等只是占位示例，不代表真实任务。"
+document_role: "Reusable cold-start check template"
+template_note:
+  - "This is a template, not active project state."
+  - "Copy it into an authorized project, stage, batch, or handoff location before filling it."
 ---
 
-# Cold Start Check
+# Cold Start Check Template
 
-## 1. Agent 应能回答的问题
+Use this template to answer the original five project-level cold-start questions.
+Do not mix this with the DIAYN execution preflight. Cold start is for
+understanding the project; execution preflight is for checking whether the
+current session may act.
 
-- 这是什么项目？
-- 当前阶段是什么？
-- 当前 Batch 是什么？
-- 当前 doing 任务是什么？
-- 怎么安装？
-- 怎么运行？
-- 怎么测试？
-- 哪些文档是权威输入？
-- 哪些操作禁止？
-- 哪些事项需要 OwnerGate？
-- 当前未解决问题在哪里？
+## 1. Five Cold-Start Questions
 
-## 2. 检查结论
+| Question | Answer | Evidence path |
+| --- | --- | --- |
+| What system is this? | `<short answer>` | `<README.md or docs/project/project_brief.md>` |
+| How is it organized? | `<short answer>` | `<AGENTS.md, docs/project/file_index.md, docs/lanes/**, docs/shared/**>` |
+| How do I run it? | `<short answer or Unknown>` | `<entry file or project docs>` |
+| How do I verify it? | `<short answer or Unknown>` | `<docs/testing/test_strategy.md, evidence docs, acceptance docs>` |
+| Where is the work now? | `<short answer>` | `<TODO.md, lane board, handoff, review log>` |
 
-- 结论：`<pass / partial / fail>`
-- 说明：`<此处填写简短说明>`
+## 2. Missing Information
 
-## 3. 缺失信息
+| Missing information | Impact | Blocks execution? | Where to record it |
+| --- | --- | --- | --- |
+| `<item>` | `<scope / run / verify / current work / other>` | `<yes/no>` | `<path>` |
 
-| 缺失项 | 影响 | 是否阻塞执行 |
-|---|---|---|
-| `<此处填写>` | `<此处填写>` | `<是 / 否>` |
+## 3. Next Step
 
-## 4. 建议补充到哪个文档
-
-| 信息 | 建议文档 | 原因 |
-|---|---|---|
-| `<此处填写>` | `<路径>` | `<此处填写>` |
-
+- Cold-start conclusion: `<ready / partial / blocked>`
+- If ready, run the relevant DIAYN execution preflight before acting.
+- If blocked, ask the Controller or Owner for the missing project fact.

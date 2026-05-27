@@ -41,7 +41,8 @@ Reports, examples, and templates can inform work, but they do not directly autho
 | Status names and transitions | `docs/meta/status_model.md` |
 | Skill mapping and skill/vendor boundary | `docs/meta/session_skill_mapping.md` |
 | Progressive disclosure | `docs/meta/progressive_disclosure_rules.md` |
-| `/diayn` command semantics | `docs/meta/diayn_command_reference.md` |
+| `/diayn-*` command semantics | `docs/meta/diayn_command_reference.md` |
+| Document architecture and repository authority | `docs/meta/docs_framework_overview.md` |
 
 Command-level semantics are defined in `docs/meta/diayn_command_reference.md`. This protocol keeps only cross-cutting role, status, identity, and document-control boundaries.
 
@@ -103,12 +104,12 @@ Session Identity Guard is a soft safety mechanism above ordinary coding agents. 
 
 Identity checks may use these sources when present:
 
-- The user-entered `/diayn ...` command.
+- The user-entered `/diayn-*` command.
 - The current working directory.
 - `.diayn/local/session_identity.md`.
 - `.diayn/worktree_manifest.md`.
 
-Before any `/diayn ...` workflow runs, the active session should compare the intended role, lane, worktree, and project identity against the available sources.
+Before any `/diayn-*` workflow runs, the active session should compare the intended role, lane, worktree, and project identity against the available sources.
 
 If identity is inconsistent, the session must stop and explain the mismatch plus the corrective action, such as moving to the correct worktree or starting the matching session role. If identity cannot be confirmed, the session must ask the Owner or Controller instead of continuing a role-specific task.
 

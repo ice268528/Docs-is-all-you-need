@@ -1,6 +1,6 @@
 # Session Skill Mapping
 
-> This document maps multi-session roles to DIAYN-owned skills and optional upstream engineering skill references. DIAYN-owned skills and the upstream vendor snapshot already exist in this repository; ordinary `/diayn` users do not need to understand vendor sync details.
+> This document maps multi-session roles to DIAYN-owned skills and optional upstream engineering skill references. DIAYN-owned skills and the upstream vendor snapshot already exist in this repository; ordinary `/diayn-*` users do not need to understand vendor sync details.
 
 ## 1. Current Boundary
 
@@ -23,14 +23,14 @@ Current facts:
 | Backend Review Session | `multi-session-reviewer` | Lane diff, evidence, permission, and acceptance review |
 | Frontend Review Session | `multi-session-reviewer` | Lane diff, evidence, permission, and acceptance review |
 | Controller Integration Review | `multi-session-integrator` | Cross-lane contract and integration checks |
-| All `/diayn ...` sessions | `session-identity-guard` | Soft preflight against role, lane, directory, and manifest mismatch |
+| All `/diayn-*` sessions | `session-identity-guard` | Soft preflight against role, lane, directory, and manifest mismatch |
 | Owner Acceptance and OwnerGate support | `owner-decision-ux` | Human-readable decision and acceptance support |
 
 ## 3. Upstream Skill Mapping
 
 The upstream `agent-skills` project is a method library for single-session engineering behavior. DIAYN remains the multi-session control plane. When upstream guidance conflicts with DIAYN role, status, or document authority, DIAYN protocol wins.
 
-Stage 07 vendors the upstream snapshot under `third_party/agent-skills/` for maintainer reference. Ordinary `/diayn` users do not need to understand vendor sync details. Maintainers must review upstream changes through `maintainers/upstream-agent-skills/` before adapting them into DIAYN docs or skills.
+Stage 07 vendors the upstream snapshot under `third_party/agent-skills/` for maintainer reference. Ordinary `/diayn-*` users do not need to understand vendor sync details. Maintainers must review upstream changes through `maintainers/upstream-agent-skills/` before adapting them into DIAYN docs or skills.
 
 Watched upstream areas:
 

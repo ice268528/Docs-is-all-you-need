@@ -1,6 +1,6 @@
 # DIAYN Command Output Template
 
-> Use this template for the final response of a `/diayn ...` workflow. It is a response structure, not an active project fact until copied into a report or log.
+> Use this template for the final response of a `/diayn-*` workflow. It is a response structure, not an active project fact until copied into a report or log.
 
 ## Command Result
 
@@ -10,7 +10,7 @@
 | Role | `<confirmed_role>` |
 | Lane | `<lane-or-none>` |
 | Identity check | `<pass / mismatch / read-only unknown>` |
-| Status | `<completed / blocked / owner_gate / rejected / not_ready>` |
+| Command outcome | `<completed / blocked / owner_gate / rejected / not_ready>` |
 
 ## Documents Read
 
@@ -79,4 +79,3 @@ cd <expected_path>
 Then run:
 <correct_command>
 ```
-

@@ -12,7 +12,7 @@ This file records intended session roles and lanes. It does not launch agents. C
 
 ## Sessions
 
-| Session ID | Role | Lane | Expected path | Status | Started by | Notes |
+| Session ID | Role | Lane | Expected path | Session state | Started by | Notes |
 | --- | --- | --- | --- | --- | --- | --- |
 | `<session_id>` | `Controller Session` | `<none>` | `<controller_repo_path>` | `planned` | `<Owner or Controller>` | `<notes>` |
 | `<session_id>` | `Backend Session` | `backend` | `../worktrees/<project_slug>/backend` | `planned` | `Controller` | `<notes>` |

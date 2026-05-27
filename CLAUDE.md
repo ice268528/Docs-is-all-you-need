@@ -4,6 +4,8 @@ This is the Claude Code landing page for the same Docs-is-all-you-need workflow 
 
 Use this file as a short index only. Do not copy the full protocol into this file.
 
+Use `AGENTS.md` for the five project-level cold-start questions first. For `/diayn-*` work, run Session Identity Guard as the second-layer execution preflight.
+
 ## Read First
 
 - General entry rules: `AGENTS.md`

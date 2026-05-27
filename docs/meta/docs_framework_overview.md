@@ -27,7 +27,21 @@ Durable project facts, scope, status, evidence, decisions, and handoffs must
 be recorded in repository documents. Chat summaries help the current session,
 but they do not replace repository state.
 
-## 3. Document Layers
+## 3. Cold Start And DIAYN Preflight
+
+Use the original five cold-start questions to understand the project:
+
+1. What system is this?
+2. How is it organized?
+3. How do I run it?
+4. How do I verify it?
+5. Where is the work now?
+
+Then use DIAYN execution preflight to confirm role, lane, worktree, document
+permissions, stop conditions, and reporting requirements before acting. Keep
+these layers separate so entry files remain readable.
+
+## 4. Document Layers
 
 | Layer | Purpose | Examples |
 | --- | --- | --- |
@@ -40,7 +54,7 @@ but they do not replace repository state.
 | Templates | Copyable structures, not active state | `docs/templates/**` |
 | Examples | Non-core examples | `docs/examples/**` |
 
-## 4. TODO.md Authority
+## 5. TODO.md Authority
 
 `TODO.md` is a Controller-owned global summary. It should show:
 
@@ -54,7 +68,7 @@ but they do not replace repository state.
 Worker sessions do not update global `TODO.md` by default. Detailed execution
 belongs in lane boards, evidence, worklogs, and review logs.
 
-## 5. Status Authority
+## 6. Status Authority
 
 Use the canonical states from `docs/meta/status_model.md`.
 
@@ -66,7 +80,7 @@ Use the canonical states from `docs/meta/status_model.md`.
 Legacy state names are migration inputs only and are documented in
 `docs/meta/legacy_migration_guide.md`.
 
-## 6. Permission Levels
+## 7. Permission Levels
 
 Use the permission model from `docs/meta/agent_doc_permissions.md`:
 
@@ -79,14 +93,14 @@ Use the permission model from `docs/meta/agent_doc_permissions.md`:
 
 When permissions conflict, stop and ask the Controller or Owner before editing.
 
-## 7. Template And Active Instance Boundary
+## 8. Template And Active Instance Boundary
 
 `docs/templates/**` stores reusable structures. Templates are not active
 project state and do not directly authorize work. Copy a template into the
 authorized project, lane, handoff, review, or acceptance location before using
 it as an active record.
 
-## 8. Minimum Useful Scaffold
+## 9. Minimum Useful Scaffold
 
 A new DIAYN project should have at least:
 

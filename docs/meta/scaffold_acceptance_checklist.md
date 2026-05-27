@@ -7,20 +7,20 @@ and usable by an Owner and multiple agent sessions.
 
 - [ ] `AGENTS.md` exists and points agents to the multi-session protocol.
 - [ ] `CLAUDE.md` exists for Claude-style entry where relevant.
-- [ ] The Owner can start with `/diayn init`.
-- [ ] `/diayn init` supports both an existing requirements document and a fuzzy
+- [ ] The Owner can start with `/diayn-init`.
+- [ ] `/diayn-init` supports both an existing requirements document and a fuzzy
       idea.
 - [ ] The Owner is asked to confirm `project_slug`.
-- [ ] Long decisions offer `/diayn html` but do not auto-generate HTML.
+- [ ] Long decisions offer `/diayn-html` but do not auto-generate HTML.
 
 ## Controller Flow
 
-- [ ] `/diayn plan` creates lane-level work rather than one global task pile.
-- [ ] `/diayn worktrees` records planned worktree metadata and launch prompts.
+- [ ] `/diayn-plan` creates lane-level work rather than one global task pile.
+- [ ] `/diayn-worktrees` records planned worktree metadata and launch prompts.
 - [ ] Worktree paths use `../worktrees/<project_slug>/<lane>`.
 - [ ] The Controller verifies that required docs are visible to target sessions.
-- [ ] `/diayn sync` aggregates lane state without hiding missing evidence.
-- [ ] `/diayn integration` marks `ready_for_e2e` only with evidence.
+- [ ] `/diayn-sync` aggregates lane state without hiding missing evidence.
+- [ ] `/diayn-integration` marks `ready_for_e2e` only with evidence.
 
 ## Worker Flow
 

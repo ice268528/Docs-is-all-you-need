@@ -1,90 +1,74 @@
 ---
-文档定位: "架构总览。"
-作者: "Planning AI 起草，Owner 定稿"
-目标对象:
+document_role: "Project architecture overview"
+primary_writer: "Owner or Controller with authorization"
+audience:
   - "Owner"
-  - "Coding Agent"
-  - "Planning AI"
-Agent权限: "询问后可改"
-当前操作者提醒:
-  - "本文件描述系统架构、模块关系、数据流与服务边界。"
-  - "不要把阶段任务拆解写入本文件；阶段交付请写入 stage_XX_goal.md。"
-  - "若已作为正式架构说明使用，后续修改前应先取得 Owner 确认。"
+  - "Controller Session"
+  - "Worker Session"
+  - "Review Session"
+permission: "Owner controlled"
 ---
 
-<!-- 本模板建议另存为 /docs/project/architecture_overview.md -->
-# architecture_overview
+# Architecture Overview
 
-## 1. 文档范围与阅读入口
+This file answers the cold-start question: "How is it organized?" at the
+system-architecture level. It records durable architecture facts and boundaries.
+It is not a stage plan, lane board, or implementation worklog.
 
-- 当前覆盖范围：`<此处填写本架构文档覆盖的系统/模块>`
-- 当前版本/基线：`<此处填写版本、分支或提交；未知则写 待补充>`
-- 推荐先读：`<此处填写 project_brief / implementation_constraints / 其他>`
-- 不在本文档定义的内容：`<此处填写阶段任务、TODO、具体 bug 修复方案>`
+## 1. Scope And Reading Order
 
-## 2. 系统上下文（System Context）
+| Field | Value |
+| --- | --- |
+| Covered system or module | `<system_or_module>` |
+| Current baseline | `<branch / commit / version / Unknown>` |
+| Read first | `docs/project/project_brief.md`, `docs/project/implementation_constraints.md` |
+| Not defined here | Stage tasks, lane task slices, bug fixes, temporary TODO items |
 
-### 2.1 参与者与外部系统
+## 2. System Context
 
-| 对象 | 类型 | 作用 | 与本系统的关系 |
-|---|---|---|---|
-| `<此处填写>` | `<用户 / 服务 / 系统>` | `<此处填写>` | `<此处填写>` |
+| Actor or external system | Type | Role | Boundary |
+| --- | --- | --- | --- |
+| `<actor_or_system>` | `<user / service / system>` | `<role>` | `<interaction boundary>` |
 
-### 2.2 上下文图占位
+Optional diagram placeholder:
 
 ```text
-<此处填写系统上下文图、Mermaid 或 ASCII 草图>
+<ASCII or Mermaid context diagram>
 ```
 
-## 3. 核心模块与职责
+## 3. Core Modules
 
-| 模块/子系统 | 核心职责 | 输入 | 输出 | 依赖 |
-|---|---|---|---|---|
-| `<此处填写>` | `<此处填写>` | `<此处填写>` | `<此处填写>` | `<此处填写>` |
+| Module or subsystem | Responsibility | Inputs | Outputs | Dependencies |
+| --- | --- | --- | --- | --- |
+| `<module>` | `<responsibility>` | `<inputs>` | `<outputs>` | `<dependencies>` |
 
-## 4. 关键数据流 / 状态流
+## 4. Key Flows
 
-### Flow-01 `<此处填写流程名称>`
+| Flow ID | Start | Steps | End state | Failure or fallback |
+| --- | --- | --- | --- | --- |
+| `FLOW-001` | `<start>` | `<summary>` | `<end state>` | `<fallback>` |
 
-1. `<此处填写步骤 1>`
-2. `<此处填写步骤 2>`
-3. `<此处填写步骤 3>`
+## 5. Lane Boundaries
 
-- 输入：`<此处填写>`
-- 输出：`<此处填写>`
-- 关键状态变化：`<此处填写>`
-- 失败/异常分支：`<此处填写>`
+| Lane | Owns | Must not change silently | Shared dependencies |
+| --- | --- | --- | --- |
+| `backend` | `<backend responsibilities>` | `<frontend/shared/project constraints>` | `<contracts/types/issues>` |
+| `frontend` | `<frontend responsibilities>` | `<backend/shared/project constraints>` | `<contracts/types/issues>` |
 
-## 5. 页面流 / 用户流（适用于前端或全栈项目）
+## 6. Shared Contracts And Data
 
-| 场景 | 入口 | 关键页面/节点 | 结束状态 |
-|---|---|---|---|
-| `<此处填写>` | `<此处填写>` | `<此处填写>` | `<此处填写>` |
+| Contract or type | Path | Owner | Affected lanes |
+| --- | --- | --- | --- |
+| `<contract>` | `<docs/shared/...>` | `<Controller / Owner>` | `<lanes>` |
 
-## 6. 接口与服务边界
+## 7. Architecture Decisions
 
-- 前端边界：`<此处填写>`
-- 后端边界：`<此处填写>`
-- BFF / API Gateway / Server Action 约束：`<此处填写>`
-- 外部服务集成边界：`<此处填写>`
-- 权限/身份边界：`<此处填写>`
+| Decision | Rationale | Tradeoff | Related docs |
+| --- | --- | --- | --- |
+| `<decision>` | `<why>` | `<cost or constraint>` | `<paths>` |
 
-## 7. 持久化 / 缓存 / 消息机制
+## 8. Risks And Open Questions
 
-- 数据存储：`<此处填写>`
-- 缓存：`<此处填写>`
-- 队列 / 事件：`<此处填写>`
-- 一致性策略：`<此处填写>`
-
-## 8. 关键架构决策与原因
-
-| 决策 | 原因 | 代价/限制 | 相关文档 |
-|---|---|---|---|
-| `<此处填写>` | `<此处填写>` | `<此处填写>` | `<此处填写>` |
-
-## 9. 风险、薄弱点与待确认问题
-
-- 风险点：`<此处填写>`
-- 已知薄弱点：`<此处填写>`
-- 待 Owner 决策：`<此处填写；无则写 无>`
-- 待补充资料：`<此处填写；无则写 无>`
+| Item | Impact | OwnerGate needed? | Target document |
+| --- | --- | --- | --- |
+| `<risk_or_question>` | `<impact>` | `<yes/no>` | `<path>` |

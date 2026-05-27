@@ -21,6 +21,7 @@ Do not copy the same long explanation into multiple places.
 `AGENTS.md` and `CLAUDE.md` are landing pages and indexes. They should contain:
 
 - A short project orientation.
+- A compact five-question cold-start surface or link to it.
 - Install, run, test, and verification placeholders or links.
 - Hard constraints and stop conditions.
 - A small read-first index.
@@ -93,9 +94,10 @@ Use guides or references for:
 | Status definitions | `docs/meta/status_model.md` |
 | Role write boundaries | `docs/meta/session_roles.md` and `docs/meta/agent_doc_permissions.md` |
 | Workflow shape | `docs/meta/agent_execution_workflows.md` |
+| Cold start and DIAYN preflight split | `docs/meta/agent_execution_workflows.md` |
 | Identity guard concept | `docs/meta/session_identity_protocol.md` |
 | Entry file size and content | `docs/meta/progressive_disclosure_rules.md` |
-| `/diayn` command semantics | `docs/meta/diayn_command_reference.md` |
+| `/diayn-*` command semantics | `docs/meta/diayn_command_reference.md` |
 
 When editing one authority file, update only the short links in other files unless a real contradiction must be fixed.
 

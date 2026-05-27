@@ -1,91 +1,72 @@
 ---
-文档定位: "项目目标与范围定义。"
-作者: "Planning AI 起草，Owner 定稿"
-目标对象:
+document_role: "Project goals and scope"
+primary_writer: "Owner or Controller during authorized initialization"
+audience:
   - "Owner"
-  - "Coding Agent"
-  - "Planning AI"
-Agent权限: "只读"
-当前操作者提醒:
-  - "本文件定义项目级目标、范围与非目标，不承载阶段任务。"
-  - "不要把当前阶段交付、TODO 拆解或具体实现约束写进本文件。"
-  - "若项目边界发生长期变化，应由 Owner 确认后更新。"
+  - "Controller Session"
+  - "Worker Session"
+  - "Review Session"
+permission: "Owner controlled"
 ---
 
-<!-- 本模板建议另存为 /docs/project/project_brief.md -->
-# project_brief
+# Project Brief
 
-## 1. 项目概览
+This file answers the cold-start question: "What system is this?"
+It defines project-level purpose, scope, non-goals, users, and acceptance focus.
+It is not a lane board, execution log, or stage task list.
 
-- 项目名称：`<此处填写项目名称>`
-- 一句话目标：`<此处填写项目要达成什么>`
-- 问题陈述：`<此处填写当前要解决的核心问题>`
-- 价值主张：`<此处填写为什么值得做>`
-- 当前版本定位：`<此处填写 MVP / 内测版 / 正式版 / 其他>`
+## 1. Project Overview
 
-## 2. 目标用户与角色
+| Field | Value |
+| --- | --- |
+| Project name | `<project name>` |
+| Project slug | `<project_slug>` |
+| One-sentence goal | `<what this project should accomplish>` |
+| Problem statement | `<problem or need>` |
+| Value proposition | `<why this matters>` |
+| Current product phase | `<MVP / prototype / internal / production / other>` |
 
-| 用户/角色 | 主要诉求 | 典型场景 | 成功标准 |
-|---|---|---|---|
-| `<此处填写>` | `<此处填写>` | `<此处填写>` | `<此处填写>` |
+## 2. Users And Roles
 
-## 3. 核心使用场景
+| User or role | Main need | Typical scenario | Success signal |
+| --- | --- | --- | --- |
+| `<user_or_role>` | `<need>` | `<scenario>` | `<observable success>` |
 
-### Scene-01 `<此处填写场景名称>`
+## 3. Core User Scenarios
 
-- 触发条件：`<此处填写>`
-- 用户目标：`<此处填写>`
-- 关键动作：`<此处填写>`
-- 理想结果：`<此处填写>`
+| Scenario ID | Trigger | User goal | Key action | Expected result |
+| --- | --- | --- | --- | --- |
+| `SC-001` | `<trigger>` | `<goal>` | `<action>` | `<result>` |
 
-### Scene-02 `<此处填写场景名称>`
+## 4. Project Scope
 
-- 触发条件：`<此处填写>`
-- 用户目标：`<此处填写>`
-- 关键动作：`<此处填写>`
-- 理想结果：`<此处填写>`
+### In Scope
 
-## 4. 项目范围（Project Scope）
+- `<project-level capability or boundary>`
 
-### 4.1 在范围内
+### Out Of Scope
 
-- [ ] `<此处填写项目级能力或边界>`
-- [ ] `<此处填写项目级能力或边界>`
+- `<explicit non-goal or excluded capability>`
 
-### 4.2 明确不在范围内
+## 5. Acceptance Focus
 
-- [ ] `<此处填写当前项目不做的事项>`
-- [ ] `<此处填写当前项目不做的事项>`
+Owner acceptance should be described as user-visible business or experience
+outcomes, not test internals.
 
-## 5. 核心功能清单
+| Acceptance area | User-visible outcome | Supporting evidence |
+| --- | --- | --- |
+| `<area>` | `<what the user can do or observe>` | `<simple evidence path or note>` |
 
-| 功能 | 用户价值 | 是否必须 | 备注 |
-|---|---|---|---|
-| `<此处填写>` | `<此处填写>` | `<此处填写 是 / 否>` | `<此处填写>` |
+## 6. Assumptions, Dependencies, And Risks
 
-## 6. 非目标（Non-goals）
+| Type | Item | Owner decision needed? | Notes |
+| --- | --- | --- | --- |
+| Assumption | `<assumption>` | `<yes/no>` | `<notes>` |
+| Dependency | `<dependency>` | `<yes/no>` | `<notes>` |
+| Risk | `<risk>` | `<yes/no>` | `<notes>` |
 
-<!-- 这里写“明确不追求什么”，避免项目被无限扩展。 -->
+## 7. Terms
 
-- [ ] `<此处填写非目标>`
-- [ ] `<此处填写非目标>`
-
-## 7. 成功判断与验收关注点
-
-- 业务/使用结果：`<此处填写项目完成后如何判断有效>`
-- 用户体验结果：`<此处填写>`
-- 交付结果：`<此处填写>`
-- 不在此处定义的内容：`<阶段验收标准请写入 stage_XX_goal.md>`
-
-## 8. 关键假设与外部依赖
-
-- 关键假设：`<此处填写>`
-- 外部依赖：`<此处填写>`
-- 主要风险：`<此处填写>`
-- 需 Owner 持续决策的事项：`<此处填写；无则写 无>`
-
-## 9. 术语表 / 关键定义
-
-| 术语 | 定义 |
-|---|---|
-| `<此处填写>` | `<此处填写>` |
+| Term | Meaning |
+| --- | --- |
+| `<term>` | `<definition>` |

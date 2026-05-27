@@ -118,13 +118,13 @@ Owner feedback is separate from canonical status.
 - Owner decision `accept` can support recording `owner_accepted`.
 - Owner decision `request_rework` means the Owner wants changes before acceptance. It is not a status.
 - When the Owner chooses `request_rework`, keep or set the status to `blocked` if acceptance cannot proceed, or `owner_gate` if a decision or clarification is needed before rework can be routed.
-- Follow-up for `request_rework` should route through `/diayn bug` for failed business acceptance, or through Controller-managed rework when the issue is already inside current scope.
+- Follow-up for `request_rework` should route through `/diayn-bug` for failed business acceptance, or through Controller-managed rework when the issue is already inside current scope.
 
 Do not introduce another status vocabulary for Owner feedback.
 
 ## 8. Explaining Agent Reports
 
-When the Owner wants help understanding a report, `/diayn html` may create a report explanation page using `docs/templates/agent_report_html_explanation_template.html`.
+When the Owner wants help understanding a report, `/diayn-html` may create a report explanation page using `docs/templates/agent_report_html_explanation_template.html`.
 
 The explanation should translate engineering status into Owner language:
 
@@ -145,9 +145,9 @@ Notes: <short Owner note>
 Observed issue, if any: <what happened from the user point of view>
 ```
 
-If the feedback is a failed business acceptance, the Controller should route it through `/diayn bug`.
+If the feedback is a failed business acceptance, the Controller should route it through `/diayn-bug`.
 
-If the feedback is a new requirement or direction change, the Controller should route it through `/diayn new`.
+If the feedback is a new requirement or direction change, the Controller should route it through `/diayn-new`.
 
 ## 10. Boundaries
 

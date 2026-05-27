@@ -91,12 +91,12 @@ Notes: <short Owner note>
 ```
 
 ```text
-/diayn bug
+/diayn-bug
 "<what failed from the user point of view; expected result; actual result; where it happened>"
 ```
 
 ```text
-/diayn new
+/diayn-new
 "<new requirement, dependency change, direction change, or priority change>"
 ```
 
@@ -105,5 +105,5 @@ Notes: <short Owner note>
 | Owner decision | Status to record | Meaning | Owner note | Recorded by | Follow-up |
 | --- | --- | --- | --- | --- | --- |
 | `accept` | `owner_accepted` | Owner accepts the business or experience result. | `<note>` | `<session>` | `<next action or n/a>` |
-| `request_rework` | `blocked / owner_gate` | Owner requests changes before acceptance; this is feedback, not a status. | `<note>` | `<session>` | `<route through /diayn bug or Controller-managed rework>` |
+| `request_rework` | `blocked / owner_gate` | Owner requests changes before acceptance; this is feedback, not a status. | `<note>` | `<session>` | `<route through /diayn-bug or Controller-managed rework>` |
 | `ask_question` | `owner_gate` | Owner needs more information or a decision record before accepting. | `<note>` | `<session>` | `<decision or question path>` |

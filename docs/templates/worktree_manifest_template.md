@@ -20,9 +20,9 @@ controller_baseline: "<commit-or-branch>"
 
 ## Worktrees
 
-| Lane | Expected path | Branch | Baseline | Current stage | Status | Startup instruction |
+| Lane | Expected path | Branch | Baseline | Current stage | Worktree state | Startup instruction |
 | --- | --- | --- | --- | --- | --- | --- |
-| `<lane>` | `../worktrees/<project_slug>/<lane>` | `<branch>` | `<commit-or-branch>` | `<stage_id>` | `planned` | `cd ../worktrees/<project_slug>/<lane>; start the selected agent; run <allowed_command>` |
+| `<lane>` | `../worktrees/<project_slug>/<lane>` | `<branch>` | `<commit-or-branch>` | `<stage_id>` | `planned` | `cd ../worktrees/<project_slug>/<lane>; start the selected agent; run <allowed_command such as /diayn-backend or /diayn-frontend>` |
 
 ## Required Docs By Lane
 

@@ -41,6 +41,13 @@
 | --- | --- | --- | --- | --- | --- | --- |
 | `<task_id>` | `todo` | `<task summary>` | `<paths>` | `<verification_command>` | `<evidence anchor>` | `<review log anchor>` |
 
+Status authority:
+
+- Backend workers may mark at most `candidate_done`, `blocked`, or `owner_gate` for same-lane tasks.
+- Backend Review Sessions decide `done` or `rejected`.
+- Controller Integration Review records `ready_for_e2e` in Controller or sync records, not as worker completion.
+- Owner Acceptance records `owner_accepted` only through Owner-facing acceptance records.
+
 ## Blockers
 
 | ID | Status | Blocking reason | Needed decision or action | Owner |
@@ -52,4 +59,3 @@
 | Task ID | Candidate done time | Worker evidence | Remaining risk | Reviewer |
 | --- | --- | --- | --- | --- |
 | `<task_id>` | `<timestamp>` | `<evidence link>` | `<risk or none>` | `<review session>` |
-

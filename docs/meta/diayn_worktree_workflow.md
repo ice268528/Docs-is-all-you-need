@@ -1,6 +1,6 @@
 # DIAYN Worktree Workflow
 
-> This document defines the worktree collaboration workflow for `/diayn worktrees`. It records protocol and launch guidance; it does not implement a CLI or create worktrees by itself.
+> This document defines the worktree collaboration workflow for `/diayn-worktrees`. It records protocol and launch guidance; it does not implement a CLI or create worktrees by itself.
 
 ## 1. Purpose
 
@@ -35,7 +35,7 @@ Do not put a stage identifier in the long-lived worktree directory name. Put sta
 
 ## 3. Controller Preflight
 
-Before `/diayn worktrees` outputs launch instructions, the Controller checks:
+Before `/diayn-worktrees` outputs launch instructions, the Controller checks:
 
 - `project_slug` is confirmed by the Owner.
 - Backend and frontend lane boards exist or are intentionally omitted.
@@ -56,7 +56,7 @@ Each lane entry should record:
 - Branch.
 - Baseline commit or branch.
 - Current stage or batch placeholder.
-- Status: `planned`, `ready`, `blocked`, or `archived`.
+- Worktree state: `planned`, `ready`, `blocked`, or `archived`.
 - Startup instruction.
 - Required documents and visibility result.
 
@@ -64,7 +64,7 @@ Use `docs/templates/worktree_manifest_template.md` when creating or refreshing t
 
 ## 5. Worktree Creation Boundary
 
-`/diayn worktrees` may explain or propose worktree creation commands for a real project, but actual execution requires explicit user authorization in the active environment.
+`/diayn-worktrees` may explain or propose worktree creation commands for a real project, but actual execution requires explicit user authorization in the active environment.
 
 The default output is guidance, not hidden execution.
 
@@ -111,24 +111,24 @@ For each ready worker lane, output a command sequence with placeholders:
 ```text
 cd ../worktrees/<project_slug>/backend
 codex
-/diayn backend
+/diayn-backend
 ```
 
 ```text
 cd ../worktrees/<project_slug>/frontend
 codex
-/diayn frontend
+/diayn-frontend
 ```
 
 For review sessions, include the user-pasted report requirement:
 
 ```text
-/diayn review backend
+/diayn-review-backend
 "<paste latest backend session report here>"
 ```
 
 ```text
-/diayn review frontend
+/diayn-review-frontend
 "<paste latest frontend session report here>"
 ```
 
@@ -159,7 +159,6 @@ Review sessions do not merge or implement fixes by default.
 
 ## 11. Sync Back
 
-After worker or review activity, the Controller uses `/diayn sync` to import lane state and `/diayn integration` to check cross-lane readiness.
+After worker or review activity, the Controller uses `/diayn-sync` to import lane state and `/diayn-integration` to check cross-lane readiness.
 
 Do not treat unreviewed lane work as integrated.
-

@@ -32,7 +32,7 @@
 
 - Short decision path:
 - Markdown fallback:
-- `/diayn html` behavior:
+- `/diayn-html` behavior:
 
 ## Known Limits
 

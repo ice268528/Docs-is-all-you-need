@@ -19,7 +19,7 @@ Owner Decision UX decides how to ask:
 
 - Short decisions should be quick.
 - Long decisions should start short.
-- HTML decision aids are user-triggered through `/diayn html`.
+- HTML decision aids are user-triggered through `/diayn-html`.
 - Final decisions must be recorded in Markdown or formal project documents.
 
 ## 2. Decision Categories
@@ -28,7 +28,7 @@ Owner Decision UX decides how to ask:
 | --- | --- | --- |
 | No question needed | Small implementation detail inside confirmed scope and permissions. | Agent proceeds and records evidence if relevant. |
 | Short decision | 2-3 clear options; each option can be understood in one sentence. | Use a decision popup when available; otherwise use a short Markdown choice. |
-| Long decision | A choice affects architecture, cost, risk, schedule, maintenance, shared contracts, user experience, or long-term direction. | Start with short options and offer `/diayn html`; generate HTML only after the user asks. |
+| Long decision | A choice affects architecture, cost, risk, schedule, maintenance, shared contracts, user experience, or long-term direction. | Start with short options and offer `/diayn-html`; generate HTML only after the user asks. |
 
 Do not use long explanations as the default OwnerGate format.
 
@@ -60,7 +60,7 @@ Rules:
 - If more context would help, include this option or note:
 
 ```text
-You can run /diayn html to generate a visual decision aid.
+You can run /diayn-html to generate a visual decision aid.
 ```
 
 After the Owner chooses, record the result in a decision record or the appropriate formal project document.
@@ -84,14 +84,14 @@ Options:
 - C: <short outcome, optional>
 
 For a visual explanation, run:
-/diayn html
+/diayn-html
 ```
 
-The agent must not generate HTML just because the topic feels long or complex. HTML is generated only after the user explicitly runs `/diayn html` or otherwise asks for the HTML decision aid.
+The agent must not generate HTML just because the topic feels long or complex. HTML is generated only after the user explicitly runs `/diayn-html` or otherwise asks for the HTML decision aid.
 
-## 5. `/diayn html` Decision Aid
+## 5. `/diayn-html` Decision Aid
 
-When the user triggers `/diayn html` for a decision, the HTML page should be written for a non-technical Owner.
+When the user triggers `/diayn-html` for a decision, the HTML page should be written for a non-technical Owner.
 
 It should explain:
 
@@ -108,9 +108,9 @@ It should explain:
 
 The HTML should not become the decision authority. It is an explanation aid.
 
-## 6. `/diayn html` Report Explanation
+## 6. `/diayn-html` Report Explanation
 
-The user may also provide the previous agent report to `/diayn html`.
+The user may also provide the previous agent report to `/diayn-html`.
 
 In that case, the HTML should explain:
 

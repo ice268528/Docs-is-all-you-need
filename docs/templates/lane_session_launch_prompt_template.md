@@ -1,6 +1,6 @@
 # Lane Session Launch Prompt Template
 
-> Use this template when `/diayn worktrees` prepares instructions for a worker lane session. It does not launch an agent.
+> Use this template when `/diayn-worktrees` prepares instructions for a worker lane session. It does not launch an agent.
 
 ## Launch Metadata
 
@@ -10,7 +10,7 @@
 | Lane | `<backend-or-frontend-or-other-lane>` |
 | Expected worktree | `../worktrees/<project_slug>/<lane>` |
 | Expected role | `<Backend Session / Frontend Session>` |
-| Allowed command | `/diayn <lane>` |
+| Allowed command | `/diayn-<lane>` |
 | Controller | `<controller_session_id>` |
 | Handoff | `docs/lanes/<lane>/handoff.md` |
 | Lane board | `docs/lanes/<lane>/board.md` |
@@ -22,7 +22,7 @@ Use placeholders until instantiated by the Controller:
 ```text
 cd ../worktrees/<project_slug>/<lane>
 codex
-/diayn <lane>
+/diayn-<lane>
 ```
 
 ## Prompt To Paste Into The Worker Session
@@ -34,7 +34,7 @@ Current worktree:
 ../worktrees/<project_slug>/<lane>
 
 Run:
-/diayn <lane>
+/diayn-<lane>
 
 Before implementation:
 - Perform the Session Identity Guard.
@@ -67,4 +67,3 @@ Execute only one clear task slice. After that slice, update same-lane evidence, 
 ## Stop Reminder
 
 The worker does not continue through the full lane automatically. It stops after one task slice and waits for review.
-

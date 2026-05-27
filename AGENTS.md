@@ -15,7 +15,21 @@ Docs-is-all-you-need uses repository documents as the long-lived collaboration c
 
 If required documents are missing or contradict each other, state the gap. Stop when the gap affects scope, authorization, verification, session identity, or acceptance.
 
-## 2. Install, Run, Verify
+## 2. Fast Cold Start
+
+Before DIAYN role preflight, answer the five project-level cold-start questions:
+
+| Question | Primary source |
+| --- | --- |
+| What system is this? | `README.md`, `docs/project/project_brief.md` |
+| How is it organized? | This file, `docs/project/file_index.md`, `docs/lanes/**`, `docs/shared/**` |
+| How do I run it? | This file, project tool files, project docs |
+| How do I verify it? | `docs/testing/test_strategy.md`, lane evidence, Owner acceptance docs |
+| Where is the work now? | `TODO.md`, lane boards, handoffs, review logs |
+
+These questions are for understanding the project. The DIAYN execution preflight is a second layer for role, lane, worktree, permission, stop condition, and reporting checks.
+
+## 3. Install, Run, Verify
 
 Fill these commands during project initialization. Do not infer them from chat history.
 
@@ -35,7 +49,7 @@ Fill these commands during project initialization. Do not infer them from chat h
 
 Verification policy: `docs/testing/test_strategy.md`.
 
-## 3. Multi-Session Rules
+## 4. Multi-Session Rules
 
 When using multi-session collaboration, read:
 
@@ -55,7 +69,7 @@ For worktree-based lane startup, also read `docs/meta/diayn_worktree_workflow.md
 
 Before any role-specific `/diayn-*` workflow, perform the Session Identity Guard in `docs/meta/session_identity_protocol.md`. If the requested role, lane, directory, or manifest identity does not match, stop and ask the Controller or Owner.
 
-## 4. Hard Constraints
+## 5. Hard Constraints
 
 - Follow the Owner's latest explicit instruction for the current session.
 - Treat repository documents as the system of record for durable facts.
@@ -66,13 +80,13 @@ Before any role-specific `/diayn-*` workflow, perform the Session Identity Guard
 - Worker sessions may mark at most `candidate_done`; review sessions decide `done` or `rejected`; Owner Acceptance decides `owner_accepted`.
 - If required evidence is missing, say what was and was not verified.
 
-## 5. Read-First Index
+## 6. Read-First Index
 
 Read the smallest set needed for the current task.
 
 | Situation | Read |
 | --- | --- |
-| Any cold start | This file, `TODO.md`, and directly relevant task documents |
+| Any cold start | This file, `TODO.md`, `docs/project/project_brief.md`, `docs/project/file_index.md`, and directly relevant task documents |
 | Install and support truth | `docs/install/README.md` |
 | Multi-session protocol | `docs/meta/multi_session_collaboration_protocol.md` |
 | Role authority | `docs/meta/session_roles.md` |
@@ -91,7 +105,7 @@ Read the smallest set needed for the current task.
 
 `docs/templates/**` contains reusable templates only. A template does not become current project fact until copied or instantiated into an active project, stage, lane, handoff, or acceptance document.
 
-## 6. Stop Conditions
+## 7. Stop Conditions
 
 Stop and ask when:
 

@@ -70,9 +70,9 @@ Summary rules:
 
 ## 5. Owner Gates
 
-| ID | Status | Question | Impact | Owner response needed |
-| --- | --- | --- | --- | --- |
-| `Q-001` | `<owner_gate/blocked/answered/archived>` | `<question>` | `<scope/lane/contract/UX>` | `<copyable answer format>` |
+| ID | Status | Owner response state | Question | Impact | Owner response needed |
+| --- | --- | --- | --- | --- | --- |
+| `Q-001` | `<owner_gate/blocked/archived>` | `<open/answered/n/a>` | `<question>` | `<scope/lane/contract/UX>` | `<copyable answer format>` |
 
 ## 6. Ready For Owner Experience Acceptance
 

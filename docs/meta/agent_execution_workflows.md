@@ -2,7 +2,40 @@
 
 > This document defines execution workflow boundaries for Docs-is-all-you-need. It preserves Stage / Batch / Task, OwnerGate, evidence, worklog, handoff, and clean-state discipline while adding multi-session lane and review flow.
 
-## 1. Default Preflight
+## 1. Two-Layer Start Model
+
+Every session starts with two separate layers:
+
+| Layer | Purpose | Output |
+| --- | --- | --- |
+| Cold start | Understand the project and current work. | Short answers to the five project-level questions. |
+| DIAYN execution preflight | Confirm whether this session is allowed to act. | Role, lane, worktree, permission, stop condition, and reporting check. |
+
+Do not merge these into one large checklist. Cold start answers what the system is; execution preflight decides whether the current `/diayn-*` workflow may proceed.
+
+## 2. Cold Start Questions
+
+A fresh session should first answer:
+
+1. What system is this?
+2. How is it organized?
+3. How do I run it?
+4. How do I verify it?
+5. Where is the work now?
+
+Primary sources:
+
+| Question | Typical source |
+| --- | --- |
+| What system is this? | `README.md`, `docs/project/project_brief.md` |
+| How is it organized? | `AGENTS.md`, `docs/project/file_index.md`, `docs/lanes/**`, `docs/shared/**` |
+| How do I run it? | Entry files, project tool files, project docs |
+| How do I verify it? | `docs/testing/test_strategy.md`, lane evidence, Owner acceptance docs |
+| Where is the work now? | `TODO.md`, lane boards, handoffs, review logs |
+
+Cold start is lightweight. Do not print a long checklist unless useful. If missing information affects scope, authorization, verification, identity, or acceptance, stop and ask.
+
+## 3. DIAYN Execution Preflight
 
 Before implementation, review, integration, testing, or document maintenance, the active session should:
 
@@ -13,25 +46,9 @@ Before implementation, review, integration, testing, or document maintenance, th
 - Confirm the task does not cross role, lane, or OwnerGate boundaries.
 - Record factual evidence rather than relying on completion claims.
 
-If a `/diayn ...` workflow is used, perform the Session Identity Guard check described in `docs/meta/session_identity_protocol.md` before role-specific work begins.
+If a `/diayn-*` workflow is used, perform the Session Identity Guard check described in `docs/meta/session_identity_protocol.md` before role-specific work begins.
 
-## 2. Cold Start Check
-
-A fresh session should be able to answer:
-
-- What project is this?
-- What role is this session expected to play?
-- What lane, stage, batch, or task is active?
-- Which documents are authoritative for the current task?
-- Which documents may this role write?
-- What status transitions may this role make?
-- What verification is required?
-- What must trigger OwnerGate?
-- What unresolved blockers or decisions exist?
-
-Cold Start Check is lightweight. Do not print a long checklist unless useful. If missing information affects scope, authorization, verification, identity, or acceptance, stop and ask.
-
-## 3. Work Units
+## 4. Work Units
 
 - **Stage**: A project phase with scope, non-scope, deliverables, and acceptance criteria.
 - **Batch**: A group of tasks explicitly authorized for continuous work.
@@ -41,7 +58,7 @@ Cold Start Check is lightweight. Do not print a long checklist unless useful. If
 
 Templates are not active work units until they are instantiated into project, stage, lane, handoff, or acceptance documents.
 
-## 4. Lane-Level WIP
+## 5. Lane-Level WIP
 
 WIP=1 applies inside each lane.
 
@@ -51,7 +68,7 @@ WIP=1 applies inside each lane.
 - If a lane has multiple `doing` items, reconcile the lane board before implementing more work.
 - The global `TODO.md` summarizes controller state; it is not every lane's detailed workspace.
 
-## 5. Controller Workflow
+## 6. Controller Workflow
 
 The Controller Session:
 
@@ -65,7 +82,7 @@ The Controller Session:
 
 The Controller should not directly implement lane code by default. It should not mark `owner_accepted`.
 
-## 6. Worker Lane Workflow
+## 7. Worker Lane Workflow
 
 Backend and Frontend Sessions:
 
@@ -79,7 +96,7 @@ Backend and Frontend Sessions:
 
 Worker sessions do not mark `done`, `rejected`, `ready_for_e2e`, or `owner_accepted`.
 
-## 7. Review Workflow
+## 8. Review Workflow
 
 Backend and Frontend Review Sessions:
 
@@ -91,7 +108,7 @@ Backend and Frontend Review Sessions:
 
 Review sessions do not implement fixes by default. If a fix is needed, write a rejection reason or rework item and stop.
 
-## 8. Integration Workflow
+## 9. Integration Workflow
 
 Controller Integration Review:
 
@@ -103,7 +120,7 @@ Controller Integration Review:
 
 Integration review must not bypass lane review or treat missing evidence as passing.
 
-## 9. Owner Acceptance Workflow
+## 10. Owner Acceptance Workflow
 
 Owner Acceptance:
 
@@ -114,7 +131,7 @@ Owner Acceptance:
 
 `owner_accepted` is distinct from `done`. `done` is a review result; `owner_accepted` is a human acceptance result.
 
-## 10. Single-Session Compatibility
+## 11. Single-Session Compatibility
 
 A single coding-agent session may still use this scaffold. In that case:
 
@@ -123,7 +140,7 @@ A single coding-agent session may still use this scaffold. In that case:
 - Use `candidate_done` for self-verified work unless an independent review step exists.
 - Do not collapse Owner Acceptance into self-verification.
 
-## 11. OwnerGate
+## 12. OwnerGate
 
 Stop and ask the Owner when the next step would:
 
@@ -152,7 +169,7 @@ Suggested OwnerGate format:
 - Explicit reply needed:
 ```
 
-## 12. Automatic Follow-On Actions
+## 13. Automatic Follow-On Actions
 
 Only continue automatically when the current role and authorized task allow it.
 
@@ -165,7 +182,7 @@ Examples:
 
 If the follow-on action would cross role boundaries, stop.
 
-## 13. Completion Claims
+## 14. Completion Claims
 
 Do not claim a stronger status than the evidence supports.
 
@@ -175,7 +192,7 @@ Do not claim a stronger status than the evidence supports.
 - Use `owner_accepted` only after Owner acceptance.
 - Use `blocked` or `owner_gate` when progress depends on a missing fact, permission, environment, or human decision.
 
-## 14. Clean State
+## 15. Clean State
 
 At the end of meaningful work, report or record:
 

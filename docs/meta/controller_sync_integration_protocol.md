@@ -10,14 +10,14 @@ The Controller owns:
 - Preparing worktree instructions.
 - Synchronizing lane state.
 - Running integration review after lane review.
-- Triage for `/diayn bug` and `/diayn new`.
+- Triage for `/diayn-bug` and `/diayn-new`.
 - Owner-facing summaries and decision prompts.
 
 The Controller should not directly implement lane code by default.
 
 ## 2. Sync Inputs
 
-For `/diayn sync`, read:
+For `/diayn-sync`, read:
 
 - Backend lane board, worklog, evidence, handoff, and review log.
 - Frontend lane board, worklog, evidence, handoff, and review log.
@@ -48,7 +48,7 @@ Sync result categories:
 
 ## 4. Integration Inputs
 
-For `/diayn integration`, read:
+For `/diayn-integration`, read:
 
 - Lane review logs for affected work.
 - Lane evidence.
@@ -72,9 +72,9 @@ If integration finds a lane issue:
 3. Set the affected status to `todo`, `blocked`, or `rejected`.
 4. Summarize the issue in `.diayn/sync_log.md`.
 
-## 6. `/diayn bug` Triage
+## 6. `/diayn-bug` Triage
 
-Use `/diayn bug` when Owner end-to-end business acceptance does not pass.
+Use `/diayn-bug` when Owner end-to-end business acceptance does not pass.
 
 Triage steps:
 
@@ -87,9 +87,9 @@ Triage steps:
 
 Do not hide a current-scope failure as future work.
 
-## 7. `/diayn new` Triage
+## 7. `/diayn-new` Triage
 
-Use `/diayn new` when the Owner adds a requirement, dependency change, direction change, or priority change.
+Use `/diayn-new` when the Owner adds a requirement, dependency change, direction change, or priority change.
 
 Triage steps:
 
@@ -102,9 +102,9 @@ Triage steps:
 
 Do not silently expand current scope.
 
-## 8. `/diayn html` Controller Boundary
+## 8. `/diayn-html` Controller Boundary
 
-`/diayn html` is user-triggered.
+`/diayn-html` is user-triggered.
 
 Use it for:
 
@@ -135,4 +135,3 @@ Stop and ask the Owner or Controller when:
 - Evidence required for a readiness claim is missing.
 - Lane documents conflict.
 - The next step would require credentials, real external services, destructive actions, release actions, or a merge not already authorized.
-
