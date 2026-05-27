@@ -49,10 +49,11 @@ When using multi-session collaboration, read:
 - `docs/meta/session_identity_protocol.md`
 - `docs/meta/owner_decision_ux_protocol.md`
 - `docs/meta/owner_acceptance_protocol.md`
+- `docs/install/README.md`
 
 For worktree-based lane startup, also read `docs/meta/diayn_worktree_workflow.md`.
 
-Before any role-specific `/diayn ...` workflow, perform the Session Identity Guard in `docs/meta/session_identity_protocol.md`. If the requested role, lane, directory, or manifest identity does not match, stop and ask the Controller or Owner.
+Before any role-specific `/diayn-*` workflow, perform the Session Identity Guard in `docs/meta/session_identity_protocol.md`. If the requested role, lane, directory, or manifest identity does not match, stop and ask the Controller or Owner.
 
 ## 4. Hard Constraints
 
@@ -72,12 +73,13 @@ Read the smallest set needed for the current task.
 | Situation | Read |
 | --- | --- |
 | Any cold start | This file, `TODO.md`, and directly relevant task documents |
+| Install and support truth | `docs/install/README.md` |
 | Multi-session protocol | `docs/meta/multi_session_collaboration_protocol.md` |
 | Role authority | `docs/meta/session_roles.md` |
 | Execution workflow | `docs/meta/agent_execution_workflows.md` |
 | Document write permission | `docs/meta/agent_doc_permissions.md` |
 | Status meaning | `docs/meta/status_model.md` |
-| `/diayn` commands | `docs/meta/diayn_command_reference.md` and the relevant file under `docs/meta/diayn_commands/` |
+| `/diayn-*` commands | `docs/meta/diayn_command_reference.md` and the relevant file under `docs/meta/diayn_commands/` |
 | Session identity guard | `docs/meta/session_identity_protocol.md` |
 | Worktree lane startup | `docs/meta/diayn_worktree_workflow.md` |
 | Owner decisions | `docs/meta/owner_decision_ux_protocol.md` |

@@ -1,4 +1,4 @@
-# `/diayn frontend`
+# `/diayn-frontend`
 ## Role
 
 Frontend Session.
@@ -8,13 +8,13 @@ Frontend Session.
 The user has opened the frontend worktree and started a new coding-agent session.
 
 ```text
-/diayn frontend
+/diayn-frontend
 ```
 
 ## Preconditions
 
 - Current directory matches `../worktrees/<project_slug>/frontend` or the manifest's frontend path.
-- Local identity, if present, allows `/diayn frontend`.
+- Local identity, if present, allows `/diayn-frontend`.
 - Frontend board and handoff are visible.
 
 ## Required Reading
@@ -77,7 +77,7 @@ Report:
 - Verification run or not run.
 - Evidence and worklog written.
 - Status, at most `candidate_done`.
-- Ask the user to send the report to `/diayn review frontend`.
+- Ask the user to send the report to `/diayn-review-frontend`.
 
 Identity mismatch output: `../diayn_command_reference.md#2-common-identity-mismatch-output`.
 

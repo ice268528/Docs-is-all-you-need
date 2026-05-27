@@ -1,4 +1,4 @@
-# `/diayn review frontend`
+# `/diayn-review-frontend`
 ## Role
 
 Frontend Review Session.
@@ -8,7 +8,7 @@ Frontend Review Session.
 The user pastes the latest frontend worker report under the command.
 
 ```text
-/diayn review frontend
+/diayn-review-frontend
 "<latest frontend session report>"
 ```
 

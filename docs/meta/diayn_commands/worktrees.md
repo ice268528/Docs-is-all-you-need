@@ -1,4 +1,4 @@
-# `/diayn worktrees`
+# `/diayn-worktrees`
 ## Role
 
 Controller Session.
@@ -8,7 +8,7 @@ Controller Session.
 Stage, batch, or lane planning is confirmed enough to prepare separate lane sessions.
 
 ```text
-/diayn worktrees
+/diayn-worktrees
 ```
 
 ## Preconditions
@@ -69,13 +69,13 @@ Use placeholder commands only:
 ```text
 cd ../worktrees/<project_slug>/backend
 codex
-/diayn backend
+/diayn-backend
 ```
 
 ```text
 cd ../worktrees/<project_slug>/frontend
 codex
-/diayn frontend
+/diayn-frontend
 ```
 
 Report which worktrees are planned, ready, or blocked.

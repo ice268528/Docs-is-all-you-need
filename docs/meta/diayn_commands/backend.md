@@ -1,4 +1,4 @@
-# `/diayn backend`
+# `/diayn-backend`
 ## Role
 
 Backend Session.
@@ -8,13 +8,13 @@ Backend Session.
 The user has opened the backend worktree and started a new coding-agent session.
 
 ```text
-/diayn backend
+/diayn-backend
 ```
 
 ## Preconditions
 
 - Current directory matches `../worktrees/<project_slug>/backend` or the manifest's backend path.
-- Local identity, if present, allows `/diayn backend`.
+- Local identity, if present, allows `/diayn-backend`.
 - Backend board and handoff are visible.
 
 ## Required Reading
@@ -77,7 +77,7 @@ Report:
 - Verification run or not run.
 - Evidence and worklog written.
 - Status, at most `candidate_done`.
-- Ask the user to send the report to `/diayn review backend`.
+- Ask the user to send the report to `/diayn-review-backend`.
 
 Identity mismatch output: `../diayn_command_reference.md#2-common-identity-mismatch-output`.
 

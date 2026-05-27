@@ -1,4 +1,4 @@
-# `/diayn html`
+# `/diayn-html`
 ## Role
 
 Controller Session or Owner-support session authorized by the Controller.
@@ -8,14 +8,14 @@ Controller Session or Owner-support session authorized by the Controller.
 Decision aid:
 
 ```text
-/diayn html
+/diayn-html
 "<decision topic or options to explain>"
 ```
 
 Report explanation:
 
 ```text
-/diayn html
+/diayn-html
 "<agent report to explain or source path>"
 ```
 

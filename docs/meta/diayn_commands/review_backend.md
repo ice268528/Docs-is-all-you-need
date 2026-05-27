@@ -1,4 +1,4 @@
-# `/diayn review backend`
+# `/diayn-review-backend`
 ## Role
 
 Backend Review Session.
@@ -8,7 +8,7 @@ Backend Review Session.
 The user pastes the latest backend worker report under the command.
 
 ```text
-/diayn review backend
+/diayn-review-backend
 "<latest backend session report>"
 ```
 

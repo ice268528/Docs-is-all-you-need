@@ -1,6 +1,6 @@
 # DIAYN Command Reference
 
-> `/diayn ...` commands are document-driven workflow triggers for existing coding agents. They are not a built-in CLI, plugin, shell command, or runtime.
+> `/diayn-*` commands are document-driven workflow triggers for existing coding agents. They are not a built-in CLI, plugin, shell command, native slash-command runtime, or hidden agent launcher.
 
 Use this reference with:
 
@@ -12,6 +12,25 @@ Use this reference with:
 - `docs/meta/agent_doc_permissions.md`
 
 ## 1. Command Rules
+
+Canonical DIAYN commands are one-segment names:
+
+```text
+/diayn-init
+/diayn-plan
+/diayn-worktrees
+/diayn-backend
+/diayn-frontend
+/diayn-review-backend
+/diayn-review-frontend
+/diayn-sync
+/diayn-integration
+/diayn-bug
+/diayn-new
+/diayn-html
+```
+
+Older two-segment forms such as `/diayn init` are migration or historical wording only. Current user-facing instructions should use `/diayn-*`.
 
 Every command must start with the Session Identity Guard.
 
@@ -60,7 +79,7 @@ Lane-specific example:
 ```text
 Detected a session identity mismatch.
 
-Requested command: /diayn backend
+Requested command: /diayn-backend
 But the current directory is registered as: frontend lane
 Current path: ../worktrees/<project_slug>/frontend
 
@@ -70,7 +89,7 @@ To start the backend session, open:
 cd ../worktrees/<project_slug>/backend
 
 Then run:
-/diayn backend
+/diayn-backend
 ```
 
 ## 3. Common Success Output
@@ -92,18 +111,18 @@ The response must include:
 
 | Command | Evidence | Worklog | Review log | Sync log or Controller record |
 | --- | --- | --- | --- | --- |
-| `/diayn init` | Source paths and quality findings when useful | Not required unless the project has a Controller worklog | Not applicable | Controller summary, Owner questions, draft project docs |
-| `/diayn plan` | Planning rationale and acceptance criteria sources | Not required unless the project has a Controller worklog | Not applicable | Controller summary, lane boards, lane handoffs |
-| `/diayn worktrees` | Visibility check results | Not required unless the project has a Controller worklog | Not applicable | `.diayn/worktree_manifest.md`, `.diayn/session_registry.md` |
-| `/diayn backend` | `docs/lanes/backend/evidence.md` | `docs/lanes/backend/worklog.md` | Not written by worker | Backend board and handoff notes |
-| `/diayn frontend` | `docs/lanes/frontend/evidence.md` | `docs/lanes/frontend/worklog.md` | Not written by worker | Frontend board and handoff notes |
-| `/diayn review backend` | Evidence checked, recorded in review entry | Not required | `docs/lanes/backend/review_log.md` | Backend board review status |
-| `/diayn review frontend` | Evidence checked, recorded in review entry | Not required | `docs/lanes/frontend/review_log.md` | Frontend board review status |
-| `/diayn sync` | Source lane states and review records | Not required | Not written by Controller sync | `.diayn/sync_log.md`, Controller summary |
-| `/diayn integration` | Build, lint, typecheck, smoke, E2E, contract, and lane evidence checked | Not required | Lane review logs are read, not overwritten | `.diayn/sync_log.md`, `docs/shared/integration_issues.md`, Controller summary |
-| `/diayn bug` | Owner feedback and acceptance failure details | Not required unless routed to a lane | Not applicable | Controller triage record, lane board/handoff, backlog or future preparation |
-| `/diayn new` | Owner request and scope impact details | Not required unless routed to a lane | Not applicable | Controller triage record, lane board/handoff, backlog or future preparation |
-| `/diayn html` | Source report or decision docs used | Not required | Not applicable | HTML output pointer and any later Owner decision record |
+| `/diayn-init` | Source paths and quality findings when useful | Not required unless the project has a Controller worklog | Not applicable | Controller summary, Owner questions, draft project docs |
+| `/diayn-plan` | Planning rationale and acceptance criteria sources | Not required unless the project has a Controller worklog | Not applicable | Controller summary, lane boards, lane handoffs |
+| `/diayn-worktrees` | Visibility check results | Not required unless the project has a Controller worklog | Not applicable | `.diayn/worktree_manifest.md`, `.diayn/session_registry.md` |
+| `/diayn-backend` | `docs/lanes/backend/evidence.md` | `docs/lanes/backend/worklog.md` | Not written by worker | Backend board and handoff notes |
+| `/diayn-frontend` | `docs/lanes/frontend/evidence.md` | `docs/lanes/frontend/worklog.md` | Not written by worker | Frontend board and handoff notes |
+| `/diayn-review-backend` | Evidence checked, recorded in review entry | Not required | `docs/lanes/backend/review_log.md` | Backend board review status |
+| `/diayn-review-frontend` | Evidence checked, recorded in review entry | Not required | `docs/lanes/frontend/review_log.md` | Frontend board review status |
+| `/diayn-sync` | Source lane states and review records | Not required | Not written by Controller sync | `.diayn/sync_log.md`, Controller summary |
+| `/diayn-integration` | Build, lint, typecheck, smoke, E2E, contract, and lane evidence checked | Not required | Lane review logs are read, not overwritten | `.diayn/sync_log.md`, `docs/shared/integration_issues.md`, Controller summary |
+| `/diayn-bug` | Owner feedback and acceptance failure details | Not required unless routed to a lane | Not applicable | Controller triage record, lane board/handoff, backlog or future preparation |
+| `/diayn-new` | Owner request and scope impact details | Not required unless routed to a lane | Not applicable | Controller triage record, lane board/handoff, backlog or future preparation |
+| `/diayn-html` | Source report or decision docs used | Not required | Not applicable | HTML output pointer and any later Owner decision record |
 
 ## 5. Command Detail Index
 
@@ -111,17 +130,17 @@ Read the command detail file for the requested workflow after applying the globa
 
 | Command | Detail file |
 | --- | --- |
-| `/diayn init` | `docs/meta/diayn_commands/init.md` |
-| `/diayn plan` | `docs/meta/diayn_commands/plan.md` |
-| `/diayn worktrees` | `docs/meta/diayn_commands/worktrees.md` |
-| `/diayn backend` | `docs/meta/diayn_commands/backend.md` |
-| `/diayn frontend` | `docs/meta/diayn_commands/frontend.md` |
-| `/diayn review backend` | `docs/meta/diayn_commands/review_backend.md` |
-| `/diayn review frontend` | `docs/meta/diayn_commands/review_frontend.md` |
-| `/diayn sync` | `docs/meta/diayn_commands/sync.md` |
-| `/diayn integration` | `docs/meta/diayn_commands/integration.md` |
-| `/diayn bug` | `docs/meta/diayn_commands/bug.md` |
-| `/diayn new` | `docs/meta/diayn_commands/new.md` |
-| `/diayn html` | `docs/meta/diayn_commands/html.md` |
+| `/diayn-init` | `docs/meta/diayn_commands/init.md` |
+| `/diayn-plan` | `docs/meta/diayn_commands/plan.md` |
+| `/diayn-worktrees` | `docs/meta/diayn_commands/worktrees.md` |
+| `/diayn-backend` | `docs/meta/diayn_commands/backend.md` |
+| `/diayn-frontend` | `docs/meta/diayn_commands/frontend.md` |
+| `/diayn-review-backend` | `docs/meta/diayn_commands/review_backend.md` |
+| `/diayn-review-frontend` | `docs/meta/diayn_commands/review_frontend.md` |
+| `/diayn-sync` | `docs/meta/diayn_commands/sync.md` |
+| `/diayn-integration` | `docs/meta/diayn_commands/integration.md` |
+| `/diayn-bug` | `docs/meta/diayn_commands/bug.md` |
+| `/diayn-new` | `docs/meta/diayn_commands/new.md` |
+| `/diayn-html` | `docs/meta/diayn_commands/html.md` |
 
 Detailed command behavior lives in the files above so agents can load only the command they are executing. Keep shared rules in this index instead of copying them into every command file.

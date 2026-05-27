@@ -1,4 +1,4 @@
-# `/diayn integration`
+# `/diayn-integration`
 ## Role
 
 Controller Integration Review.
@@ -8,7 +8,7 @@ Controller Integration Review.
 The Controller checks cross-lane integration after lane review has accepted enough work.
 
 ```text
-/diayn integration
+/diayn-integration
 ```
 
 ## Preconditions

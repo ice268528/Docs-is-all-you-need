@@ -1,4 +1,4 @@
-# `/diayn sync`
+# `/diayn-sync`
 ## Role
 
 Controller Session.
@@ -8,7 +8,7 @@ Controller Session.
 The Controller needs to summarize lane state after worker or review activity.
 
 ```text
-/diayn sync
+/diayn-sync
 ```
 
 ## Preconditions
@@ -63,7 +63,7 @@ Report:
 - Lane statuses.
 - Review outcomes.
 - Blockers and OwnerGate items.
-- Whether the project is ready for `/diayn integration`.
+- Whether the project is ready for `/diayn-integration`.
 
 Identity mismatch output: `../diayn_command_reference.md#2-common-identity-mismatch-output`.
 

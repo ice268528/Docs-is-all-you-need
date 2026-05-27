@@ -1,4 +1,4 @@
-# `/diayn new`
+# `/diayn-new`
 ## Role
 
 Controller Session.
@@ -8,7 +8,7 @@ Controller Session.
 The Owner adds a requirement, dependency, direction change, or priority change.
 
 ```text
-/diayn new
+/diayn-new
 "<new requirement, dependency change, or direction change>"
 ```
 

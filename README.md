@@ -1,50 +1,64 @@
 # Docs-is-all-you-need
 
-Docs-is-all-you-need, or DIAYN, is a document-driven multi-session coding agent collaboration scaffold.
+Docs-is-all-you-need, or DIAYN, is a document-driven multi-session coding-agent collaboration control plane.
 
-It turns repository documents into the control plane for Controller, worker, reviewer, integration, and Owner acceptance sessions. The goal is not to replace a coding agent. The goal is to give existing agents stable project facts, role boundaries, task state, evidence, handoff records, and review gates.
+DIAYN is for users who want multiple coding-agent sessions to work on one project without losing role boundaries, task state, evidence, review authority, or Owner acceptance. It is not a custom coding agent, not a shell CLI, and not a published plugin.
 
-## Start Here
+## Start With Codex First
 
-Use DIAYN when you want more than one coding-agent session to work on the same project without losing scope, evidence, or review authority.
+The current practical path is a manual document workflow in Codex or another coding-agent chat. Type the DIAYN command as a workflow trigger, then the agent reads the repository documents and follows the role protocol.
 
-The shortest path is:
+Shortest current path:
 
 ```text
-/diayn init
-/diayn plan
-/diayn worktrees
+/diayn-init
+/diayn-plan
+/diayn-worktrees
 cd ../worktrees/<project_slug>/backend
-/diayn backend
+/diayn-backend
 cd ../worktrees/<project_slug>/frontend
-/diayn frontend
-/diayn review backend
-/diayn review frontend
-/diayn sync
-/diayn integration
+/diayn-frontend
+/diayn-review-backend
+/diayn-review-frontend
+/diayn-sync
+/diayn-integration
 ```
 
-Important first-run notes:
+First-run notes:
 
-- `/diayn init` must ask the Owner to confirm `project_slug`.
-- `/diayn worktrees` uses `../worktrees/<project_slug>/<lane>` as the default path pattern.
-- The default lanes are `backend` and `frontend`; other lane names can be introduced by project documents.
+- `/diayn-init` must ask the Owner to confirm `project_slug`; do not silently use the repository folder name as final truth.
+- `/diayn-worktrees` uses `../worktrees/<project_slug>/<lane>` as the default path pattern.
+- The default lanes are `backend` and `frontend`; project documents may introduce later lane names.
 - A worker session does one clear task slice, reports, and stops for review.
 - A review session needs the latest worker report pasted by the user, then checks diff, evidence, tests, and acceptance criteria.
 - The Controller does not silently launch hidden interactive agent subprocesses.
 
-## What `/diayn` Is
+## Support Levels
 
-`/diayn ...` is a workflow trigger for an existing coding agent that reads this repository's documents and skills.
+| Surface | Current support level | Truthful meaning |
+| --- | --- | --- |
+| Manual document workflow | `manual_fallback` | Usable today by asking an existing coding agent to read this repo and follow `/diayn-*` workflow triggers. |
+| Codex Skills | `documented_only` | DIAYN skill source folders exist, but this repo does not yet provide a verified Codex install/discovery path. |
+| Codex plugin | `draft_only` | Plugin preparation notes exist only as drafts. There is no installable or published Codex plugin. |
+| Claude Code CLI | `draft_only` | Adapter planning docs exist, but this repo does not yet provide `.claude/commands/*.md` command files. |
+| OpenCode CLI | `draft_only` | Adapter planning docs exist, but this repo does not yet provide `.opencode/**` adapter artifacts. |
+| Cursor / Copilot | out of V1 scope | Existing notes are future planning only unless DDDV5 is revised. |
 
-It is not:
+See `docs/install/README.md` for the support matrix and first-use guidance.
 
-- a shell CLI provided by this repository;
+## What `/diayn-*` Is
+
+`/diayn-*` commands are workflow triggers for existing coding agents. They are prompts to read DIAYN documents, confirm session identity, and execute the relevant role workflow.
+
+They are not:
+
+- shell commands provided by this repository;
 - a built-in slash-command runtime;
-- a published or installable Codex plugin;
-- a hidden launcher for backend, frontend, or reviewer agents.
+- an installable Codex plugin;
+- Claude Code or OpenCode native command files in the current repo;
+- hidden launchers for backend, frontend, or reviewer agents.
 
-The current repository has Codex plugin preparation and draft documents only. It does not provide an installable or publishable Codex plugin.
+Older two-segment forms such as `/diayn init` may appear in historical notes or migration records. Current canonical usage is the one-segment `/diayn-*` form.
 
 ## Roles At A Glance
 
@@ -56,13 +70,13 @@ The current repository has Codex plugin preparation and draft documents only. It
 | Review Session | Reviews backend or frontend lane work; decides whether reviewed work is `done` or `rejected`. |
 | Integration Session | Checks cross-lane readiness and only marks integrated work ready when evidence supports it. |
 
-Every `/diayn ...` workflow should start with the Session Identity Guard so the current command, role, lane, path, manifest, registry, and write boundary match.
+Every `/diayn-*` workflow should start with the Session Identity Guard so the current command, role, lane, path, manifest, registry, and write boundary match.
 
 ## Status Model
 
 DIAYN separates worker progress, review authority, integration readiness, and Owner acceptance.
 
-Use these statuses in the new multi-session flow:
+Use these statuses in the multi-session flow:
 
 - `candidate_done`: a worker believes one task slice is complete and has evidence.
 - `reviewing`: a reviewer is checking worker output.
@@ -75,7 +89,7 @@ Worker sessions may mark at most `candidate_done`. Review sessions decide `done`
 
 ## Owner Acceptance
 
-Owner acceptance is about 业务体验 / business experience, not test implementation.
+Owner acceptance is about business experience, not test implementation.
 
 The Owner should be asked things like:
 
@@ -88,24 +102,23 @@ The Owner does not need to understand test code, mock setup, coverage, internal 
 
 ## Extra User Commands
 
-These commands are short entry points. See the command reference for full details.
+These commands are short entry points. See `docs/meta/diayn_command_reference.md` for details.
 
-- `/diayn bug`: use when Owner business experience acceptance fails. The Controller decides whether the issue belongs in the current scope or a later backlog.
-- `/diayn new`: use when the Owner introduces a new requirement, dependency change, or direction change. The Controller decides whether it enters the current plan or a future preparation record.
-- `/diayn html`: use only when the user asks for an HTML aid. It can help compare a complex decision or explain the previous agent report in Owner-friendly language.
+- `/diayn-bug`: use when Owner business experience acceptance fails. The Controller decides whether the issue belongs in the current scope or a later backlog.
+- `/diayn-new`: use when the Owner introduces a new requirement, dependency change, or direction change. The Controller decides whether it enters the current plan or a future preparation record.
+- `/diayn-html`: use only when the user asks for an HTML aid. It can help compare a complex decision or explain the previous agent report in Owner-friendly language.
 
 ## Skills And Adapters
 
-DIAYN-owned skills live in `skills/**`. They package the core multi-session roles, identity guard, Owner decision UX, and context-compaction reminder.
+DIAYN-owned skills live in `skills/**`. They package the current multi-session role guidance, identity guard, Owner decision UX, and context-compaction reminder, but Codex installation is not yet verified in this repo.
 
 `third_party/agent-skills/**` is an upstream method-library vendor copy for maintainers. It is not the DIAYN adapter layer and should not replace DIAYN's own multi-session harness.
 
-Tool adapters live in `integrations/**`:
+Tool adapter material lives in `integrations/**` as documentation-level planning:
 
-- Codex adapter and plugin preparation documents.
-- Claude Code adapter and command planning notes.
-- OpenCode adapter and rules planning notes.
-- Cursor and Copilot lightweight rules export plans.
+- Codex adapter and plugin preparation documents are draft or documented-only, not installable plugin support.
+- Claude Code and OpenCode files are adapter plans, not current native adapter artifacts.
+- Cursor and Copilot notes are future-only and out of DDDV5 V1 active scope.
 
 Adapters point back to core DIAYN documents. They do not change command semantics or turn the core workflow into a tool-specific protocol.
 
@@ -117,7 +130,8 @@ README is only the front door. Read the smallest document set needed for your se
 | --- | --- |
 | General agent entry | `AGENTS.md` |
 | Claude Code entry | `CLAUDE.md` |
-| `/diayn` command details | `docs/meta/diayn_command_reference.md` |
+| Install and support truth | `docs/install/README.md` |
+| `/diayn-*` command details | `docs/meta/diayn_command_reference.md` |
 | Worktree lane startup | `docs/meta/diayn_worktree_workflow.md` |
 | Session identity guard | `docs/meta/session_identity_protocol.md` |
 | Role authority | `docs/meta/session_roles.md` |

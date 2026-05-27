@@ -7,13 +7,14 @@ Use this file as a short index only. Do not copy the full protocol into this fil
 ## Read First
 
 - General entry rules: `AGENTS.md`
+- Install and support truth: `docs/install/README.md`
 - Multi-session protocol: `docs/meta/multi_session_collaboration_protocol.md`
 - Role authority: `docs/meta/session_roles.md`
 - Document permissions: `docs/meta/agent_doc_permissions.md`
 - Execution workflows: `docs/meta/agent_execution_workflows.md`
 - Status model: `docs/meta/status_model.md`
-- `/diayn` command reference index: `docs/meta/diayn_command_reference.md`
-- `/diayn` command details: `docs/meta/diayn_commands/`
+- `/diayn-*` command reference index: `docs/meta/diayn_command_reference.md`
+- `/diayn-*` command details: `docs/meta/diayn_commands/`
 - Session identity guard: `docs/meta/session_identity_protocol.md`
 - Worktree lane startup: `docs/meta/diayn_worktree_workflow.md`
 - Owner decision UX: `docs/meta/owner_decision_ux_protocol.md`
@@ -22,7 +23,7 @@ Use this file as a short index only. Do not copy the full protocol into this fil
 
 ## Claude-Specific Reminder
 
-Before acting as a Controller, Backend, Frontend, Review, Integration, or Owner Acceptance support session, confirm the intended role and lane from repository documents. For `/diayn ...` workflows, perform the Session Identity Guard in `docs/meta/session_identity_protocol.md`.
+Before acting as a Controller, Backend, Frontend, Review, Integration, or Owner Acceptance support session, confirm the intended role and lane from repository documents. For `/diayn-*` workflows, perform the Session Identity Guard in `docs/meta/session_identity_protocol.md`.
 
 If identity, task scope, permissions, or verification expectations are unclear, stop and ask the Controller or Owner.
 

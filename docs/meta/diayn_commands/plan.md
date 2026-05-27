@@ -1,4 +1,4 @@
-# `/diayn plan`
+# `/diayn-plan`
 ## Role
 
 Controller Session.
@@ -8,7 +8,7 @@ Controller Session.
 The Owner has confirmed enough project facts to plan work.
 
 ```text
-/diayn plan
+/diayn-plan
 ```
 
 ## Preconditions
@@ -66,7 +66,7 @@ Report:
 - Planned lanes and task slices.
 - Shared contracts or dependencies.
 - OwnerGate items.
-- Whether `/diayn worktrees` is ready.
+- Whether `/diayn-worktrees` is ready.
 
 Identity mismatch output: `../diayn_command_reference.md#2-common-identity-mismatch-output`.
 

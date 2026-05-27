@@ -1,4 +1,4 @@
-# `/diayn bug`
+# `/diayn-bug`
 ## Role
 
 Controller Session.
@@ -8,7 +8,7 @@ Controller Session.
 The Owner reports that end-to-end business acceptance failed.
 
 ```text
-/diayn bug
+/diayn-bug
 "<what failed, expected behavior, actual behavior, context>"
 ```
 
@@ -72,7 +72,7 @@ Report:
 - Whether the bug is current scope or future scope.
 - Documents updated.
 - Responsible lane.
-- Next command, for example `/diayn backend`, `/diayn frontend`, or `/diayn sync`.
+- Next command, for example `/diayn-backend`, `/diayn-frontend`, or `/diayn-sync`.
 
 Identity mismatch output: `../diayn_command_reference.md#2-common-identity-mismatch-output`.
 

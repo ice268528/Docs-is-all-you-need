@@ -1,4 +1,4 @@
-# `/diayn init`
+# `/diayn-init`
 ## Role
 
 Controller Session.
@@ -10,13 +10,13 @@ If no DIAYN identity exists yet, this command may establish the Controller ident
 Existing requirement document:
 
 ```text
-/diayn init "<requirements_doc_path>"
+/diayn-init "<requirements_doc_path>"
 ```
 
 Fuzzy idea or fuzzy requirement:
 
 ```text
-/diayn init
+/diayn-init
 "<short idea, rough goal, or incomplete requirement>"
 ```
 
@@ -59,7 +59,7 @@ For a fuzzy idea, first turn it into Owner-readable material:
 Use short decision options by default. When a decision would benefit from a visual explanation, offer this option without executing it automatically:
 
 ```text
-Run /diayn html to generate a visual HTML decision aid.
+Run /diayn-html to generate a visual HTML decision aid.
 ```
 
 ## Allowed Writes
@@ -110,7 +110,7 @@ Report:
 - Quality and completeness findings.
 - Draft documents created or updated.
 - Open Owner decisions.
-- Whether `/diayn plan` is ready.
+- Whether `/diayn-plan` is ready.
 - If not ready, the minimum questions needed.
 
 Identity mismatch output: `../diayn_command_reference.md#2-common-identity-mismatch-output`.
