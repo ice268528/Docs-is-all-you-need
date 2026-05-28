@@ -50,6 +50,12 @@ First-run notes:
 
 See `docs/install/README.md` for the support matrix and first-use guidance.
 
+## Validation Status
+
+D5-11 adds a controlled full-stack fixture under `validation/minimal-fullstack-fixture/`. The fixture validates a small register/login flow with frontend HTML, backend API, and SQLite persistence. This is controlled fixture validation only; real-project validation has not yet been performed.
+
+See `docs/meta/release_validation.md` for the current validation boundary.
+
 ## What `/diayn-*` Is
 
 `/diayn-*` commands are workflow triggers for existing coding agents. They are prompts to read DIAYN documents, confirm session identity, and execute the relevant role workflow.
