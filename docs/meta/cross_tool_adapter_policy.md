@@ -44,6 +44,14 @@ D5 adapter priority:
 3. OpenCode
 4. Cursor and Copilot remain out of V1 active scope unless a later DDDV5 stage changes that decision.
 
+## Current Adapter Support Summary
+
+| Surface | Current level | Adapter location | Notes |
+| --- | --- | --- | --- |
+| Codex Skills | `manual_fallback` | `skills/**` | Manual copy install; no marketplace package or custom runtime. |
+| Claude Code | `manual_fallback` | `integrations/claude-code/commands/` | Command files exist; no local Claude Code smoke test. |
+| OpenCode | `manual_fallback` | `integrations/opencode/.opencode/` | Command files and skill wrappers exist; no local OpenCode smoke test. |
+
 ## Agent Skills Boundary
 
 `third_party/agent-skills/` is an upstream method-library vendor copy. It can be cited as reference material through `vendor.lock.md` and maintainer docs, but it is not a DIAYN adapter layer.

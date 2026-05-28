@@ -45,7 +45,7 @@ First-run notes:
 | Codex Skills | `manual_fallback` | The canonical DIAYN skill folders are usable by copying them into the Codex skills directory. There is no installer or marketplace package yet. |
 | Codex plugin | `draft_only` | Plugin preparation notes exist only as drafts. There is no installable or published Codex plugin. |
 | Claude Code CLI | `manual_fallback` | Command files exist under `integrations/claude-code/commands/` with manual copy/link install instructions. They have not been locally smoke-tested in Claude Code. |
-| OpenCode CLI | `draft_only` | Adapter planning docs exist, but this repo does not yet provide `.opencode/**` adapter artifacts. |
+| OpenCode CLI | `manual_fallback` | Adapter files exist under `integrations/opencode/.opencode/` with manual copy/link install instructions. They have not been locally smoke-tested in OpenCode. |
 | Cursor / Copilot | out of V1 scope | Existing notes are future planning only unless DDDV5 is revised. |
 
 See `docs/install/README.md` for the support matrix and first-use guidance.
@@ -135,7 +135,7 @@ Tool adapter material lives in `integrations/**` as documentation-level planning
 
 - Codex adapter and plugin preparation documents are draft or documented-only, not installable plugin support.
 - Claude Code command files exist under `integrations/claude-code/commands/` for manual copy/link install; see `docs/install/claude-code.md`.
-- OpenCode files are adapter plans, not current native adapter artifacts.
+- OpenCode command and skill-wrapper files exist under `integrations/opencode/.opencode/` for manual copy/link install; see `docs/install/opencode.md`.
 - Cursor and Copilot notes are future-only and out of DDDV5 V1 active scope.
 
 Adapters point back to core DIAYN documents. They do not change command semantics or turn the core workflow into a tool-specific protocol.
@@ -149,6 +149,7 @@ README is only the front door. Read the smallest document set needed for your se
 | General agent entry | `AGENTS.md` |
 | Claude Code entry | `CLAUDE.md` |
 | Install and support truth | `docs/install/README.md` |
+| OpenCode adapter install | `docs/install/opencode.md` |
 | `/diayn-*` command details | `docs/meta/diayn_command_reference.md` |
 | Worktree lane startup | `docs/meta/diayn_worktree_workflow.md` |
 | Session identity guard | `docs/meta/session_identity_protocol.md` |

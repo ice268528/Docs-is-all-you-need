@@ -17,6 +17,11 @@ Use DIAYN in Codex first by manually installing the canonical DIAYN skill folder
 
 Codex install details: `docs/install/codex_skills.md`.
 
+Other manual adapters:
+
+- Claude Code command adapter: `docs/install/claude-code.md`
+- OpenCode command and skill-wrapper adapter: `docs/install/opencode.md`
+
 ## Support Matrix
 
 | Surface | Support level | What exists | What does not exist yet |
@@ -25,7 +30,7 @@ Codex install details: `docs/install/codex_skills.md`.
 | Manual document workflow | `manual_fallback` | README, AGENTS, command docs, lane docs, and templates for tools without installed DIAYN skills. | Native automation, guaranteed platform command parsing, or runtime enforcement. |
 | Codex plugin | `draft_only` | Draft preparation docs under `integrations/codex/**`. | Installable, published, or supported plugin. |
 | Claude Code CLI | `manual_fallback` | Command-file bundle under `integrations/claude-code/commands/` and install instructions in `docs/install/claude-code.md`. | Packaged installer, local Claude Code smoke-test evidence, or guaranteed discovery in every environment. |
-| OpenCode CLI | `draft_only` | Adapter and rules planning docs under `integrations/opencode/**`. | `.opencode/**` DIAYN adapter artifacts or verified OpenCode behavior. |
+| OpenCode CLI | `manual_fallback` | Adapter bundle under `integrations/opencode/.opencode/` with command files and skill wrappers, plus install instructions in `docs/install/opencode.md`. | Local OpenCode discovery/execution smoke-test evidence, package installer, custom runtime, or guaranteed behavior in every environment. |
 | Cursor | out of V1 scope | Future planning notes may exist. | Active V1 support claim. |
 | Copilot | out of V1 scope | Future planning notes may exist. | Active V1 support claim. |
 
@@ -58,7 +63,7 @@ Do not claim that this repository currently provides:
 - a native slash-command runtime;
 - an installable Codex plugin;
 - automatically installed or locally smoke-tested Claude Code command support;
-- OpenCode adapter support;
+- working OpenCode adapter support before local discovery/execution is smoke-tested;
 - Cursor or Copilot V1 support;
 - hidden child-agent auto-launch;
 - global shell commands for the deterministic helper scripts. The helpers exist only as local skill support scripts.
