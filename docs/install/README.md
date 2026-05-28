@@ -4,23 +4,25 @@ This file describes what a new user can actually use today. It does not claim na
 
 ## Current Best Path
 
-Use DIAYN in Codex or another coding-agent chat as a manual document workflow:
+Use DIAYN in Codex first by manually installing the canonical DIAYN skill folders, then run the `/diayn-*` workflows in Codex chat:
 
 ```text
-1. Open this repository in the coding-agent workspace.
-2. Ask the agent to read `README.md`, `AGENTS.md`, and `docs/meta/diayn_command_reference.md`.
-3. Type `/diayn-init` as the workflow trigger.
-4. Continue with `/diayn-plan`, `/diayn-worktrees`, lane work, review, sync, and integration as the documents instruct.
+1. Install the eight DIAYN Codex Skills from `skills/`.
+2. Open the target project in Codex.
+3. Type `/diayn-init` or explicitly ask Codex to use `diayn-controller` for `/diayn-init`.
+4. Continue with `/diayn-plan`, `/diayn-worktrees`, lane work, review, sync, and integration as the skills and documents instruct.
 ```
 
-`/diayn-*` entries are workflow triggers, not shell commands. If a tool does not provide native slash-command support, paste the command text into chat and ask the agent to follow the referenced DIAYN documents.
+`/diayn-*` entries are workflow triggers, not shell commands. If Codex does not auto-select the intended skill, name it explicitly in chat. If a non-Codex tool does not support skills, use the manual document workflow fallback.
+
+Codex install details: `docs/install/codex_skills.md`.
 
 ## Support Matrix
 
 | Surface | Support level | What exists | What does not exist yet |
 | --- | --- | --- | --- |
-| Manual document workflow | `manual_fallback` | README, AGENTS, command docs, lane docs, templates, and DIAYN-owned skill source files. | Native automation, guaranteed platform command parsing, or runtime enforcement. |
-| Codex Skills | `documented_only` | `skills/**/SKILL.md` source folders and protocol docs. | Verified Codex install path, packaged distribution, discovery instructions, or end-to-end validation. |
+| Codex Skills | `manual_fallback` | Eight canonical Codex Skill folders, concise `SKILL.md` files, references, and manual copy install instructions. | Automatic installer, marketplace package, or custom runtime enforcement. |
+| Manual document workflow | `manual_fallback` | README, AGENTS, command docs, lane docs, and templates for tools without installed DIAYN skills. | Native automation, guaranteed platform command parsing, or runtime enforcement. |
 | Codex plugin | `draft_only` | Draft preparation docs under `integrations/codex/**`. | Installable, published, or supported plugin. |
 | Claude Code CLI | `draft_only` | Adapter and command planning docs under `integrations/claude-code/**`. | `.claude/commands/*.md` files or verified Claude Code command behavior. |
 | OpenCode CLI | `draft_only` | Adapter and rules planning docs under `integrations/opencode/**`. | `.opencode/**` DIAYN adapter artifacts or verified OpenCode behavior. |
@@ -55,7 +57,6 @@ Do not claim that this repository currently provides:
 - a shell CLI;
 - a native slash-command runtime;
 - an installable Codex plugin;
-- verified Codex skill installation;
 - Claude Code `.claude/commands` support;
 - OpenCode adapter support;
 - Cursor or Copilot V1 support;

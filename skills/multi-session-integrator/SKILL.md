@@ -7,7 +7,7 @@ description: "Use for Controller-owned DIAYN sync and integration workflows. Agg
 
 ## Use When
 
-Use this skill when a Controller-owned session runs `/diayn sync`, `/diayn integration`, or a cross-lane integration review.
+Use this skill when a Controller-owned session runs `/diayn-sync`, `/diayn-integration`, or a cross-lane integration review.
 
 ## Read First
 

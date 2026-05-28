@@ -1,6 +1,6 @@
 # HTML Decision Page Patterns
 
-Generate a decision aid only after the user runs `/diayn html`.
+Generate a decision aid only after the user runs `/diayn-html`.
 
 ## Page Must Explain
 

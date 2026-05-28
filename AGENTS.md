@@ -87,7 +87,7 @@ Read the smallest set needed for the current task.
 | Situation | Read |
 | --- | --- |
 | Any cold start | This file, `TODO.md`, `docs/project/project_brief.md`, `docs/project/file_index.md`, and directly relevant task documents |
-| Install and support truth | `docs/install/README.md` |
+| Install and support truth | `docs/install/README.md`; for Codex Skills, `docs/install/codex_skills.md` |
 | Multi-session protocol | `docs/meta/multi_session_collaboration_protocol.md` |
 | Role authority | `docs/meta/session_roles.md` |
 | Execution workflow | `docs/meta/agent_execution_workflows.md` |

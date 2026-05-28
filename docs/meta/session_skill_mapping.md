@@ -8,7 +8,8 @@ This file defines the mapping layer only. It does not install, invoke, overwrite
 
 Current facts:
 
-- DIAYN-owned skills live under `skills/**`.
+- D5 canonical DIAYN Codex Skills live under `skills/diayn-*` plus `skills/update-diayn-scaffold/`.
+- Older Stage 06 skill folders may exist for historical source compatibility; do not use them as the D5 install set.
 - The upstream `agent-skills` snapshot lives under `third_party/agent-skills/**` for maintainer reference.
 - Tool adapters and plugin preparation notes live under `integrations/**`.
 - If a listed skill is missing in a downstream scaffold, treat the row as a mapping expectation, not as an executable capability.
@@ -17,14 +18,16 @@ Current facts:
 
 | Role | DIAYN-owned skill | Purpose |
 | --- | --- | --- |
-| Controller Session | `multi-session-controller` | Planning, lane dispatch, sync, integration readiness, global summaries |
-| Backend Session | `multi-session-executor` | Lane-local execution and evidence writing |
-| Frontend Session | `multi-session-executor` | Lane-local execution and evidence writing |
-| Backend Review Session | `multi-session-reviewer` | Lane diff, evidence, permission, and acceptance review |
-| Frontend Review Session | `multi-session-reviewer` | Lane diff, evidence, permission, and acceptance review |
-| Controller Integration Review | `multi-session-integrator` | Cross-lane contract and integration checks |
-| All `/diayn-*` sessions | `session-identity-guard` | Soft preflight against role, lane, directory, and manifest mismatch |
-| Owner Acceptance and OwnerGate support | `owner-decision-ux` | Human-readable decision and acceptance support |
+| Controller Session | `diayn-controller` | Planning, lane dispatch, sync, integration readiness, global summaries |
+| Backend Session | `diayn-executor` | Lane-local execution and evidence writing |
+| Frontend Session | `diayn-executor` | Lane-local execution and evidence writing |
+| Backend Review Session | `diayn-reviewer` | Lane diff, evidence, permission, and acceptance review |
+| Frontend Review Session | `diayn-reviewer` | Lane diff, evidence, permission, and acceptance review |
+| Controller Integration Review | `diayn-integrator` | Cross-lane contract and integration checks |
+| All `/diayn-*` sessions | `diayn-identity-guard` | Soft preflight against role, lane, directory, and manifest mismatch |
+| Owner Acceptance and OwnerGate support | `diayn-owner-ux` | Human-readable decision and acceptance support |
+| Any DIAYN session needing optional engineering guidance | `diayn-skill-router` | Explicitly routes to vendored upstream `agent-skills` guidance while DIAYN authority remains in control |
+| Existing project upgrade | `update-diayn-scaffold` | Dry-run-first scaffold migration and patch proposal |
 
 ## 3. Upstream Skill Mapping
 

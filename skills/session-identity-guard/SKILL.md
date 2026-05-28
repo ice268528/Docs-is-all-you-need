@@ -7,7 +7,7 @@ description: "Use at the start of every DIAYN command workflow or whenever role,
 
 ## Use When
 
-Use this skill before every `/diayn ...` command and whenever the current session's role, lane, directory, manifest, local identity, or write boundary may not match the requested action.
+Use this skill before every `/diayn-*` command and whenever the current session's role, lane, directory, manifest, local identity, or write boundary may not match the requested action.
 
 ## Read First
 

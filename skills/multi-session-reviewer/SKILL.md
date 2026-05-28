@@ -7,7 +7,7 @@ description: "Use for DIAYN backend or frontend review workflows. Reviews a past
 
 ## Use When
 
-Use this skill when the user enters `/diayn review backend`, `/diayn review frontend`, or asks a review session to judge candidate lane work.
+Use this skill when the user enters `/diayn-review-backend`, `/diayn-review-frontend`, or asks a review session to judge candidate lane work.
 
 ## Read First
 

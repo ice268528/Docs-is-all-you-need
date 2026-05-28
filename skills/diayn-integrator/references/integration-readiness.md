@@ -1,6 +1,6 @@
-# Integration Checklist
+# Integration Readiness
 
-Use this for `/diayn-sync` and `/diayn-integration`.
+Use for `/diayn-sync` and `/diayn-integration`.
 
 ## Sync
 
@@ -20,9 +20,4 @@ Use this for `/diayn-sync` and `/diayn-integration`.
 
 ## Ready For E2E
 
-Use `ready_for_e2e` only when:
-
-- Required lane reviews are complete.
-- Integration evidence exists.
-- No unresolved shared contract blockers remain.
-- Owner-facing acceptance criteria can be checked.
+Use `ready_for_e2e` only when required lane reviews are complete, integration evidence exists, no unresolved shared contract blockers remain, and Owner-facing acceptance criteria can be checked.

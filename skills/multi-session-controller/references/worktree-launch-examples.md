@@ -7,7 +7,7 @@ Use these as patterns for Controller launch material. Replace every placeholder 
 ```text
 You are the <lane> Session for this DIAYN project.
 
-Run: /diayn <lane>
+Run: /diayn-<lane>
 
 Read first:
 - .diayn/local/session_identity.md
@@ -24,7 +24,7 @@ Execute one task slice only. Stop after candidate_done, blocked, or owner_gate a
 ```text
 You are the <lane> Review Session for this DIAYN project.
 
-Run: /diayn review <lane>
+Run: /diayn-review-<lane>
 
 The user will paste the latest worker report below the command.
 Review the report against diff, evidence, tests/checks, acceptance criteria, and write boundaries.

@@ -1,6 +1,6 @@
 # HTML Report Explanation Patterns
 
-Use this only after the user runs `/diayn html` with a previous agent report or asks for an HTML explanation of that report.
+Use this only after the user runs `/diayn-html` with a previous agent report or asks for an HTML explanation of that report.
 
 ## Page Must Explain
 
@@ -26,4 +26,4 @@ Report feedback:
 
 - Turn engineering test details into Owner homework.
 - Claim acceptance when only engineering verification exists.
-- Generate HTML without the user's explicit `/diayn html` request.
+- Generate HTML without the user's explicit `/diayn-html` request.

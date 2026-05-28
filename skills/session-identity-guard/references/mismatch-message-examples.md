@@ -7,13 +7,13 @@ Keep mismatch messages short and corrective.
 ```text
 Session identity mismatch.
 
-Requested: /diayn <requested-lane>
+Requested: /diayn-<requested-lane>
 Detected lane: <detected-lane>
 Current path: <path>
 
 I will not run the requested lane command here.
 Use the <requested-lane> worktree and run:
-/diayn <requested-lane>
+/diayn-<requested-lane>
 ```
 
 ## Controller Command In Worker
@@ -33,7 +33,7 @@ This command is Controller-owned. Open the Controller workspace and run:
 ```text
 Session identity mismatch.
 
-Requested: /diayn review <lane>
+Requested: /diayn-review-<lane>
 Detected role: <detected-role>
 
 I will not perform review from this session. Start the <lane> Review Session and paste the worker report under the review command.

@@ -7,7 +7,7 @@ description: "Use for DIAYN lane executor workflows, including backend, frontend
 
 ## Use When
 
-Use this skill when the user asks a worker session to run `/diayn backend`, `/diayn frontend`, or a future `/diayn lane <name>` command.
+Use this skill when the user asks a worker session to run `/diayn-backend`, `/diayn-frontend`, or a future lane-specific DIAYN command.
 
 ## Read First
 

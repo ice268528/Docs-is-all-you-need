@@ -7,7 +7,7 @@ description: "Use for DIAYN Owner decisions, OwnerGate prompts, business-facing 
 
 ## Use When
 
-Use this skill when an Owner decision, OwnerGate, Owner business acceptance, or `/diayn html` flow is needed.
+Use this skill when an Owner decision, OwnerGate, Owner business acceptance, or `/diayn-html` flow is needed.
 
 ## Read First
 
@@ -32,9 +32,9 @@ Load references only when needed:
 
 1. Decide whether the Owner needs no question, a short decision, a long decision, report explanation, or business acceptance.
 2. For short decisions, use a popup when the tool supports it; otherwise use a concise Markdown choice with short, concrete options.
-3. For long decisions, first present a short recommendation and options, plus a visible note that the Owner may run `/diayn html`.
-4. Generate HTML only after the user actively runs `/diayn html`.
-5. For `/diayn html`, choose either decision aid or previous agent report explanation, then include copyable quick feedback.
+3. For long decisions, first present a short recommendation and options, plus a visible note that the Owner may run `/diayn-html`.
+4. Generate HTML only after the user actively runs `/diayn-html`.
+5. For `/diayn-html`, choose either decision aid or previous agent report explanation, then include copyable quick feedback.
 6. Decide whether generated HTML should be committed or treated as temporary using the protocol; do not push that burden to the Owner.
 7. Record final decisions in `decision.md` or the appropriate formal project document regardless of HTML handling.
 8. For Owner acceptance, describe business-visible actions and expected outcomes, not internal test code.
@@ -45,7 +45,7 @@ Write Owner decision records, OwnerGate records, Owner experience acceptance rec
 
 ## Stop Conditions
 
-- The user has not requested `/diayn html` but HTML generation would be the next step.
+- The user has not requested `/diayn-html` but HTML generation would be the next step.
 - The decision cannot be explained without inventing project facts.
 - The Owner would need to understand unit tests, integration tests, mocks, coverage, or internal verification details to answer.
 - The final decision has not been recorded in Markdown or a formal project doc.

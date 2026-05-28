@@ -4,13 +4,16 @@ Docs-is-all-you-need, or DIAYN, is a document-driven multi-session coding-agent 
 
 DIAYN is for users who want multiple coding-agent sessions to work on one project without losing role boundaries, task state, evidence, review authority, or Owner acceptance. It is not a custom coding agent, not a shell CLI, and not a published plugin.
 
-## Start With Codex First
+## Start With Codex Skills First
 
-The current practical path is a manual document workflow in Codex or another coding-agent chat. Type the DIAYN command as a workflow trigger, then the agent reads the repository documents and follows the role protocol.
+The current first supported path is Codex Skills with a manual copy install. Install the eight DIAYN skill folders from `skills/` into your Codex skills directory, then use the `/diayn-*` text as workflow triggers inside Codex chat.
+
+Install guide: `docs/install/codex_skills.md`.
 
 Shortest current path:
 
 ```text
+Install Codex Skills from docs/install/codex_skills.md
 /diayn-init
 /diayn-plan
 /diayn-worktrees
@@ -32,13 +35,14 @@ First-run notes:
 - A worker session does one clear task slice, reports, and stops for review.
 - A review session needs the latest worker report pasted by the user, then checks diff, evidence, tests, and acceptance criteria.
 - The Controller does not silently launch hidden interactive agent subprocesses.
+- If Codex does not auto-select a DIAYN skill, explicitly ask it to use the matching skill, such as `diayn-controller`, `diayn-executor`, or `diayn-reviewer`.
 
 ## Support Levels
 
 | Surface | Current support level | Truthful meaning |
 | --- | --- | --- |
 | Manual document workflow | `manual_fallback` | Usable today by asking an existing coding agent to read this repo and follow `/diayn-*` workflow triggers. |
-| Codex Skills | `documented_only` | DIAYN skill source folders exist, but this repo does not yet provide a verified Codex install/discovery path. |
+| Codex Skills | `manual_fallback` | The canonical DIAYN skill folders are usable by copying them into the Codex skills directory. There is no installer or marketplace package yet. |
 | Codex plugin | `draft_only` | Plugin preparation notes exist only as drafts. There is no installable or published Codex plugin. |
 | Claude Code CLI | `draft_only` | Adapter planning docs exist, but this repo does not yet provide `.claude/commands/*.md` command files. |
 | OpenCode CLI | `draft_only` | Adapter planning docs exist, but this repo does not yet provide `.opencode/**` adapter artifacts. |
@@ -110,7 +114,20 @@ These commands are short entry points. See `docs/meta/diayn_command_reference.md
 
 ## Skills And Adapters
 
-DIAYN-owned skills live in `skills/**`. They package the current multi-session role guidance, identity guard, Owner decision UX, and context-compaction reminder, but Codex installation is not yet verified in this repo.
+The current D5 Codex install set is:
+
+```text
+skills/diayn-controller/
+skills/diayn-executor/
+skills/diayn-reviewer/
+skills/diayn-integrator/
+skills/diayn-skill-router/
+skills/diayn-identity-guard/
+skills/diayn-owner-ux/
+skills/update-diayn-scaffold/
+```
+
+These are Codex Skill folders with concise `SKILL.md` entry points and deeper `references/` files. Install them by following `docs/install/codex_skills.md`. They are skills, not a plugin, shell CLI, or custom runtime.
 
 `third_party/agent-skills/**` is an upstream method-library vendor copy for maintainers. It is not the DIAYN adapter layer and should not replace DIAYN's own multi-session harness.
 
