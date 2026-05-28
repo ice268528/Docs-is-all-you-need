@@ -129,6 +129,8 @@ skills/update-diayn-scaffold/
 
 These are Codex Skill folders with concise `SKILL.md` entry points and deeper `references/` files. Install them by following `docs/install/codex_skills.md`. They are skills, not a plugin, shell CLI, or custom runtime.
 
+Use `update-diayn-scaffold` when you want to retrofit an existing project into DIAYN. It starts with a dry-run audit, conflict report, migration plan, and patch proposal; it does not silently overwrite README, AGENTS.md, CLAUDE.md, docs, `.diayn/`, or user project content.
+
 `third_party/agent-skills/**` is an upstream method-library vendor copy for maintainers. It is not the DIAYN adapter layer and should not replace DIAYN's own multi-session harness.
 
 Tool adapter material lives in `integrations/**` as documentation-level planning:

@@ -75,6 +75,7 @@ Example prompts:
 Use diayn-controller to run /diayn-init for this project.
 Use diayn-executor to run /diayn-backend for this backend lane.
 Use diayn-reviewer to run /diayn-review-frontend using the worker report below.
+Use update-diayn-scaffold to dry-run a DIAYN migration plan for this existing project.
 ```
 
 ## First Use
@@ -105,3 +106,15 @@ Then continue with the canonical flow:
 ```
 
 The commands are workflow triggers inside chat. They are not shell commands and do not create a hidden agent runtime.
+
+## Existing Project Upgrade
+
+`update-diayn-scaffold` is included in the Codex Skill install set. Use it when a project already has README, AGENTS.md, CLAUDE.md, docs, or `.diayn/` content and needs a safe DIAYN retrofit.
+
+The skill's bundled helper is local to the skill folder:
+
+```powershell
+python skills/update-diayn-scaffold/scripts/scaffold_upgrade_audit.py --project-root <project>
+```
+
+It is a dry-run audit helper, not a global CLI. It outputs inventory, conflicts, a migration plan, and a patch proposal. It does not overwrite files, apply patches, create worktrees, or commit.
