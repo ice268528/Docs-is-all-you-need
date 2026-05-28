@@ -17,16 +17,16 @@ Use this skill after a DIAYN role skill has confirmed identity, scope, and write
 4. `docs/meta/status_model.md`
 5. `vendor.lock.md` when upstream provenance matters
 
-Load `references/upstream-routing-map.md` only when selecting an upstream skill.
+Load `references/upstream-routing-map.md` when selecting an upstream skill or documenting a routing decision.
 
 ## Workflow
 
 1. Confirm a DIAYN role skill is already in control.
 2. Identify the task type, lane, status boundary, and evidence need.
-3. Select at most the relevant upstream `third_party/agent-skills/skills/<name>/SKILL.md` guidance.
-4. Read upstream guidance only if the folder exists locally.
-5. Apply upstream engineering advice only within DIAYN permissions and stop conditions.
-6. Record routed guidance in the report when it materially influenced the work.
+3. Use the route matrix to choose only the upstream `third_party/agent-skills/skills/<name>/SKILL.md` files that fit the current task.
+4. Confirm each routed upstream skill exists in the local vendor snapshot before relying on it.
+5. Apply upstream engineering advice only within DIAYN permissions, lane ownership, status authority, evidence rules, and stop conditions.
+6. Record routed guidance in the active workflow report when it materially influenced the work.
 
 ## Allowed Writes
 
@@ -38,6 +38,7 @@ This skill normally writes nothing by itself. It may update the current command 
 - The upstream skill is missing or provenance is uncertain and the task depends on it.
 - Upstream guidance conflicts with DIAYN role, status, permission, worktree, or Owner acceptance rules.
 - Routing would require modifying vendor files or hiding the selected guidance from the user.
+- The task would require a hidden automatic call to a third-party skill instead of explicit reading and reporting.
 
 ## Expected Output
 

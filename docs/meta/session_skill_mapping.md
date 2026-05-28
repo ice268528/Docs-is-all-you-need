@@ -35,21 +35,52 @@ The upstream `agent-skills` project is a method library for single-session engin
 
 Stage 07 vendors the upstream snapshot under `third_party/agent-skills/` for maintainer reference. Ordinary `/diayn-*` users do not need to understand vendor sync details. Maintainers must review upstream changes through `maintainers/upstream-agent-skills/` before adapting them into DIAYN docs or skills.
 
+D5-05 audited the actual vendor snapshot and found 23 upstream skills under `third_party/agent-skills/skills/**/SKILL.md`. Do not assume a different count in downstream copies. Route only to upstream skills that exist locally.
+
+Audited upstream skills:
+
+```text
+api-and-interface-design
+browser-testing-with-devtools
+ci-cd-and-automation
+code-review-and-quality
+code-simplification
+context-engineering
+debugging-and-error-recovery
+deprecation-and-migration
+documentation-and-adrs
+doubt-driven-development
+frontend-ui-engineering
+git-workflow-and-versioning
+idea-refine
+incremental-implementation
+interview-me
+performance-optimization
+planning-and-task-breakdown
+security-and-hardening
+shipping-and-launch
+source-driven-development
+spec-driven-development
+test-driven-development
+using-agent-skills
+```
+
 Watched upstream areas:
 
 - Direct tracking: `test-driven-development`, `incremental-implementation`, `code-review-and-quality`, `git-workflow-and-versioning`.
 - Needs DIAYN adaptation: `planning-and-task-breakdown`, `context-engineering`, `documentation-and-adrs`, `api-and-interface-design`.
 - Reference only: orchestration patterns, tool-specific setup docs, and slash command implementations.
 
-| Role | Useful upstream skill categories |
-| --- | --- |
-| Controller Session | `planning-and-task-breakdown`, `context-engineering`, `documentation-and-adrs`, `git-workflow-and-versioning` |
-| Backend Session | `incremental-implementation`, `test-driven-development`, `source-driven-development`, `api-and-interface-design` |
-| Frontend Session | `incremental-implementation`, `test-driven-development`, `source-driven-development`, `frontend-ui-engineering` |
-| Backend Review Session | `code-review-and-quality`, `security-and-hardening`, `debugging-and-error-recovery` |
-| Frontend Review Session | `code-review-and-quality`, `browser-testing-with-devtools`, `frontend-ui-engineering` |
-| Controller Integration Review | `code-review-and-quality`, `api-and-interface-design`, `git-workflow-and-versioning`, `ci-cd-and-automation` |
-| Owner Acceptance support | `idea-refine`, `documentation-and-adrs`, `shipping-and-launch` |
+| Role | Useful upstream skill categories | Routing reference |
+| --- | --- | --- |
+| Controller Session | `interview-me`, `idea-refine`, `spec-driven-development`, `planning-and-task-breakdown`, `context-engineering`, `documentation-and-adrs`, `git-workflow-and-versioning` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
+| Backend Session | `incremental-implementation`, `test-driven-development`, `source-driven-development`, `api-and-interface-design`, `debugging-and-error-recovery`, `security-and-hardening` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
+| Frontend Session | `incremental-implementation`, `test-driven-development`, `source-driven-development`, `frontend-ui-engineering`, `browser-testing-with-devtools`, `performance-optimization` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
+| Backend Review Session | `code-review-and-quality`, `doubt-driven-development`, `security-and-hardening`, `debugging-and-error-recovery` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
+| Frontend Review Session | `code-review-and-quality`, `doubt-driven-development`, `browser-testing-with-devtools`, `frontend-ui-engineering`, `security-and-hardening` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
+| Controller Integration Review | `code-review-and-quality`, `api-and-interface-design`, `git-workflow-and-versioning`, `ci-cd-and-automation`, `shipping-and-launch` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
+| Owner Acceptance support | `idea-refine`, `interview-me`, `documentation-and-adrs`, `shipping-and-launch` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
+| Existing project upgrade | `deprecation-and-migration`, `documentation-and-adrs`, `context-engineering`, `git-workflow-and-versioning` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
 
 ## 4. Read-First Mapping
 

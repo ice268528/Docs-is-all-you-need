@@ -20,3 +20,13 @@ Final decisions must be preserved in Markdown or formal project docs whether HTM
 ## Owner Acceptance
 
 Ask about business-visible outcomes: whether the user can complete the intended action, whether the result looks correct, whether messages make sense, and whether expected records or side effects are visible. Do not ask the Owner to inspect test code, mocks, coverage, or implementation details.
+
+## Optional Upstream Routing
+
+Use `diayn-skill-router` only when Owner-facing wording or decision framing benefits from an upstream method.
+
+| Owner UX context | Consider upstream skills | DIAYN override |
+| --- | --- | --- |
+| Fuzzy requirement explanation | `idea-refine`, `interview-me`, `spec-driven-development` | The final decision must be recorded in DIAYN Markdown or project docs. |
+| Long-lived product or architecture decision | `documentation-and-adrs`, `idea-refine` | `/diayn-html` is user-triggered; do not auto-generate HTML. |
+| Release or acceptance summary | `shipping-and-launch`, `documentation-and-adrs` | Owner acceptance remains business-experience focused, not test-implementation focused. |

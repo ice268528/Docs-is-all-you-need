@@ -24,3 +24,16 @@ Use after DIAYN Identity Guard passes.
 - Link evidence and checks.
 - Stop and report for review.
 - Do not start another task slice unless the user starts a new worker cycle.
+
+## Optional Upstream Routing
+
+Use `diayn-skill-router` only after Identity Guard passes and the lane handoff is visible.
+
+| Lane context | Consider upstream skills | DIAYN override |
+| --- | --- | --- |
+| Backend API or contract work | `api-and-interface-design`, `source-driven-development`, `test-driven-development` | Shared contract edits require explicit handoff authority. |
+| Backend implementation slice | `incremental-implementation`, `debugging-and-error-recovery`, `security-and-hardening` | Execute one slice only and stop at `candidate_done`, `blocked`, or `owner_gate`. |
+| Frontend UI work | `frontend-ui-engineering`, `browser-testing-with-devtools`, `performance-optimization` | Browser evidence must be honest; unavailable tools become evidence gaps. |
+| Any lane code change | `incremental-implementation`, `test-driven-development`, `source-driven-development` | Worker cannot mark `done`, merge, or change another lane. |
+
+Name any routed upstream skill in the worker report when it materially shaped the implementation or verification approach.

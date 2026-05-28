@@ -25,3 +25,7 @@ Next safe action: cd <correct path> and run /diayn-<command>, or ask Controller 
 ```
 
 Never rewrite identity files just to make the check pass.
+
+## Optional Upstream Routing
+
+Identity Guard normally does not need upstream `agent-skills` guidance. If the session context itself is confusing, `diayn-skill-router` may point to `context-engineering` only to help summarize visible context. DIAYN identity, lane, path, manifest, and write-boundary checks still decide whether the workflow may continue.

@@ -19,3 +19,16 @@ For `/diayn-init`, always ask for `project_slug`. A repo folder name may be sugg
 When the Owner provides an existing requirements document, inspect quality, completeness, decision gaps, lane split feasibility, and evidence paths before planning.
 
 When the Owner provides a fuzzy idea, first summarize user-visible goals, non-goals, unknowns, risks, candidate lanes, and required Owner decisions.
+
+## Optional Upstream Routing
+
+Use `diayn-skill-router` only after Controller identity and write authority are confirmed.
+
+| Controller context | Consider upstream skills | DIAYN override |
+| --- | --- | --- |
+| Fuzzy idea during `/diayn-init` | `interview-me`, `idea-refine`, `spec-driven-development` | Owner decisions, `project_slug`, and repository records remain Controller-owned. |
+| `/diayn-plan` decomposition | `planning-and-task-breakdown`, `context-engineering`, `documentation-and-adrs` | Controller owns global task split and lane WIP=1. |
+| `/diayn-sync` or `/diayn-integration` | `code-review-and-quality`, `api-and-interface-design`, `ci-cd-and-automation`, `git-workflow-and-versioning` | Missing lane review or evidence blocks readiness. |
+| `/diayn-bug` or `/diayn-new` triage | `debugging-and-error-recovery`, `deprecation-and-migration`, `documentation-and-adrs` | Current-scope insertion vs backlog is a Controller/Owner decision. |
+
+Do not claim upstream guidance was applied unless the local `third_party/agent-skills/skills/<name>/SKILL.md` file was read or intentionally skipped with a reason.

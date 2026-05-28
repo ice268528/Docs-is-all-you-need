@@ -30,3 +30,13 @@ Use this reference before modifying an existing project.
 - Keep command names canonical as `/diayn-*`.
 - Keep status names canonical.
 - Do not create plugin, runtime, adapter, helper scripts, real worktrees, commits, or vendor changes as part of this skill.
+
+## Optional Upstream Routing
+
+Use `diayn-skill-router` after the dry-run inventory identifies the type of migration problem.
+
+| Upgrade context | Consider upstream skills | DIAYN override |
+| --- | --- | --- |
+| Existing docs need migration | `deprecation-and-migration`, `documentation-and-adrs` | Preserve user content and propose patches before editing. |
+| Existing agent context/rules are inconsistent | `context-engineering`, `using-agent-skills` | DIAYN entry files stay lightweight; do not install upstream skills as DIAYN skills. |
+| Branch or checkpoint planning | `git-workflow-and-versioning` | This skill remains dry-run-first and does not create commits by itself. |
