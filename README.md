@@ -44,7 +44,7 @@ First-run notes:
 | Manual document workflow | `manual_fallback` | Usable today by asking an existing coding agent to read this repo and follow `/diayn-*` workflow triggers. |
 | Codex Skills | `manual_fallback` | The canonical DIAYN skill folders are usable by copying them into the Codex skills directory. There is no installer or marketplace package yet. |
 | Codex plugin | `draft_only` | Plugin preparation notes exist only as drafts. There is no installable or published Codex plugin. |
-| Claude Code CLI | `draft_only` | Adapter planning docs exist, but this repo does not yet provide `.claude/commands/*.md` command files. |
+| Claude Code CLI | `manual_fallback` | Command files exist under `integrations/claude-code/commands/` with manual copy/link install instructions. They have not been locally smoke-tested in Claude Code. |
 | OpenCode CLI | `draft_only` | Adapter planning docs exist, but this repo does not yet provide `.opencode/**` adapter artifacts. |
 | Cursor / Copilot | out of V1 scope | Existing notes are future planning only unless DDDV5 is revised. |
 
@@ -59,7 +59,7 @@ They are not:
 - shell commands provided by this repository;
 - a built-in slash-command runtime;
 - an installable Codex plugin;
-- Claude Code or OpenCode native command files in the current repo;
+- automatically installed Claude Code or OpenCode native command files;
 - hidden launchers for backend, frontend, or reviewer agents.
 
 Older two-segment forms such as `/diayn init` may appear in historical notes or migration records. Current canonical usage is the one-segment `/diayn-*` form.
@@ -134,7 +134,8 @@ These are Codex Skill folders with concise `SKILL.md` entry points and deeper `r
 Tool adapter material lives in `integrations/**` as documentation-level planning:
 
 - Codex adapter and plugin preparation documents are draft or documented-only, not installable plugin support.
-- Claude Code and OpenCode files are adapter plans, not current native adapter artifacts.
+- Claude Code command files exist under `integrations/claude-code/commands/` for manual copy/link install; see `docs/install/claude-code.md`.
+- OpenCode files are adapter plans, not current native adapter artifacts.
 - Cursor and Copilot notes are future-only and out of DDDV5 V1 active scope.
 
 Adapters point back to core DIAYN documents. They do not change command semantics or turn the core workflow into a tool-specific protocol.

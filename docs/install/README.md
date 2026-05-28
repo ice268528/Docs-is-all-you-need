@@ -24,7 +24,7 @@ Codex install details: `docs/install/codex_skills.md`.
 | Codex Skills | `manual_fallback` | Eight canonical Codex Skill folders, concise `SKILL.md` files, references, and manual copy install instructions. | Automatic installer, marketplace package, or custom runtime enforcement. |
 | Manual document workflow | `manual_fallback` | README, AGENTS, command docs, lane docs, and templates for tools without installed DIAYN skills. | Native automation, guaranteed platform command parsing, or runtime enforcement. |
 | Codex plugin | `draft_only` | Draft preparation docs under `integrations/codex/**`. | Installable, published, or supported plugin. |
-| Claude Code CLI | `draft_only` | Adapter and command planning docs under `integrations/claude-code/**`. | `.claude/commands/*.md` files or verified Claude Code command behavior. |
+| Claude Code CLI | `manual_fallback` | Command-file bundle under `integrations/claude-code/commands/` and install instructions in `docs/install/claude-code.md`. | Packaged installer, local Claude Code smoke-test evidence, or guaranteed discovery in every environment. |
 | OpenCode CLI | `draft_only` | Adapter and rules planning docs under `integrations/opencode/**`. | `.opencode/**` DIAYN adapter artifacts or verified OpenCode behavior. |
 | Cursor | out of V1 scope | Future planning notes may exist. | Active V1 support claim. |
 | Copilot | out of V1 scope | Future planning notes may exist. | Active V1 support claim. |
@@ -57,10 +57,10 @@ Do not claim that this repository currently provides:
 - a shell CLI;
 - a native slash-command runtime;
 - an installable Codex plugin;
-- Claude Code `.claude/commands` support;
+- automatically installed or locally smoke-tested Claude Code command support;
 - OpenCode adapter support;
 - Cursor or Copilot V1 support;
 - hidden child-agent auto-launch;
-- deterministic helper scripts for HTML generation, identity checking, or worktree dry-run.
+- global shell commands for the deterministic helper scripts. The helpers exist only as local skill support scripts.
 
 Those claims require later implementation and validation stages.

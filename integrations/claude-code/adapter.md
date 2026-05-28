@@ -2,7 +2,11 @@
 
 ## Status
 
-Draft adapter for Stage 08. This adapter does not implement `.claude/commands/`; it records how Claude Code should carry DIAYN workflows.
+D5-07 manual command adapter.
+
+Support level: `manual_fallback`.
+
+This repository now provides a Claude Code command-file bundle under `integrations/claude-code/commands/`. The files are intended to be copied or linked into a target project's `.claude/commands/` directory. The command-file shape has been checked against available Claude Code slash-command documentation, including the current note that custom commands have moved into skills while existing `.claude/commands/` files keep working. A local Claude Code discovery/execution smoke test has not been run, so this adapter is not classified as `working`.
 
 ## Entry Point
 
@@ -20,18 +24,23 @@ Read first:
 
 ## Command Handling
 
-`/diayn ...` commands are canonical DIAYN workflow intents. Claude Code command files, if added later, must point back to `docs/meta/diayn_command_reference.md` instead of redefining command behavior.
+`/diayn-*` commands are canonical DIAYN workflow intents. Claude Code command files must point back to `docs/meta/diayn_command_reference.md`, the matching file under `docs/meta/diayn_commands/`, and the relevant `skills/` entry point instead of redefining command behavior.
 
-Fallback when native command support is unavailable or unconfirmed:
+Command files are stored in:
 
 ```text
-Execute /diayn <command> using DIAYN protocol.
-Run session identity guard first.
-Read CLAUDE.md and the canonical command reference.
-Do not change role, status, permission, or worktree rules for this tool.
+integrations/claude-code/commands/
 ```
 
-Native Claude Code command capability for this scaffold is `Unknown / To be confirmed`.
+Install instructions live in `docs/install/claude-code.md`.
+
+Fallback when command discovery does not work:
+
+```text
+Run /diayn-init using .claude/commands/diayn-init.md and the DIAYN docs it references.
+Run Session Identity Guard first.
+Do not change role, status, permission, or worktree rules for this tool.
+```
 
 ## Skill Handling
 
@@ -41,11 +50,12 @@ The upstream `.claude/` and `.claude-plugin/` directories under `third_party/age
 
 ## Owner Decision UX
 
-Short decisions should use any available compact choice UI if confirmed. If not confirmed, use concise Markdown choices. Long decisions only create HTML after the user runs `/diayn html`.
+Short decisions should use any available compact choice UI if confirmed. If not confirmed, use concise Markdown choices. Long decisions only create HTML after the user runs `/diayn-html`.
 
 ## Limits
 
-- No `.claude/commands/` implementation is created in Stage 08.
+- Command files are adapter artifacts, not a Claude Code plugin or package.
+- Local Claude Code command discovery and execution are not yet smoke-tested.
 - This adapter does not publish a Claude Code plugin or package.
-- This adapter does not alter core `/diayn` semantics.
+- This adapter does not alter core `/diayn-*` semantics.
 - Unknown capabilities must remain marked `Unknown / To be confirmed`.

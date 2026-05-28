@@ -20,7 +20,7 @@ Adapters do not define new role authority, state transitions, worktree rules, or
 Each adapter may explain:
 
 - Which entry file the tool should read first.
-- How the tool can carry `/diayn ...` command intent.
+- How the tool can carry `/diayn-*` command intent.
 - How the tool can surface or approximate DIAYN skills.
 - How short Owner decisions should use available interaction UI or fall back to Markdown.
 - What the tool cannot reliably support yet.
@@ -37,12 +37,12 @@ When a capability is unclear, write `Unknown / To be confirmed`.
 
 ## Tool Priority
 
-Stage 08 adapter priority:
+D5 adapter priority:
 
 1. Codex
 2. Claude Code
 3. OpenCode
-4. Cursor and Copilot lightweight rule exports
+4. Cursor and Copilot remain out of V1 active scope unless a later DDDV5 stage changes that decision.
 
 ## Agent Skills Boundary
 
