@@ -17,6 +17,24 @@
 - Included scope:
 - Excluded paths:
 
+## Dry-Run Report
+
+- Helper used: `maintainers/scripts/agent_skills_vendor_sync_report.py`
+- Report path:
+- Verification level: local snapshot / network freshness not checked / blocked
+- Limitations:
+- Vendor lock update allowed after review: yes / no
+
+## Skill Map Diff
+
+- Expected skill count:
+- Vendor skill count:
+- Source skill count:
+- Added upstream skills:
+- Removed upstream skills:
+- Changed upstream skills:
+- Expected map deviations:
+
 ## Watched Skill Review
 
 | Path | Category | Change type | Decision | Notes |
@@ -37,6 +55,7 @@
 - Status model preserved:
 - OwnerGate preserved:
 - User `/diayn` workflow unaffected:
+- Maintainer sync kept separate from `update-diayn-scaffold`:
 
 ## Decisions
 
@@ -61,5 +80,5 @@
 
 ## Stage Readiness
 
-- Stage 08 blocker:
+- Stage blocker:
 - Notes:

@@ -13,7 +13,9 @@ Use this checklist only for maintainer-side upstream sync.
    - Review adaptation-required skills.
    - Review reference-only areas for awareness.
 4. Generate a difference report.
-   - Summarize file additions, removals, and material behavior changes.
+   - Run `python maintainers/scripts/agent_skills_vendor_sync_report.py --repo-root . --source-path ../agent-skills --output maintainers/upstream-agent-skills/latest_dry_run_report.md`.
+   - Summarize skill additions, removals, changed skill directories, lock information, and material behavior changes.
+   - If the source path or network freshness cannot be verified, record the report as limited dry-run verification.
    - Keep the report maintainer-facing.
 5. Classify each material change.
    - `direct_sync`
@@ -30,6 +32,7 @@ Use this checklist only for maintainer-side upstream sync.
    - Use vendor copy.
    - Do not create submodules or subtrees.
    - Do not overwrite DIAYN protected paths.
+   - Do not let the dry-run helper copy files; it is report-only.
 8. Update `vendor.lock.md`.
    - Source URL and commit.
    - sync date and method.
@@ -37,6 +40,7 @@ Use this checklist only for maintainer-side upstream sync.
    - watched skills.
    - license and attribution result.
    - latest sync summary.
+   - Update only after maintainer review confirms the vendor copy actually changed.
 9. Update `docs/meta/session_skill_mapping.md`.
    - Add or refine only upstream skill mapping.
    - Do not change DIAYN role authority unless the stage explicitly authorizes it.
