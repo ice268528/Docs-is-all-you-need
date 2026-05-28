@@ -28,7 +28,7 @@ Load `references/identity-check.md` only when mismatch handling detail is needed
 1. Identify the requested command.
 2. Determine expected role and lane for that command.
 3. Check current path, manifest, session registry, local identity, branch expectations when available, and allowed write paths.
-4. Compare requested command, role, lane, path, manifest, registry, local identity, and write boundary.
+4. Compare requested command, role, lane, path, manifest, registry, local identity, and write boundary. Use `scripts/identity_guard_check.py` for deterministic soft checks when local files are available.
 5. Continue only when checks align.
 6. If any check conflicts, stop and tell the user the detected identity, expected identity, correct directory, and correct command.
 

@@ -17,6 +17,15 @@ Support two cases:
 
 Final decisions must be preserved in Markdown or formal project docs whether HTML is temporary or committed.
 
+Optional deterministic helper:
+
+```text
+python skills/diayn-owner-ux/scripts/diayn_html_generator.py --mode decision --output <path.html> --data <decision.json>
+python skills/diayn-owner-ux/scripts/diayn_html_generator.py --mode report --output <path.html> --data <report.json>
+```
+
+The helper formats provided facts only. It does not infer missing decisions or summarize a report by itself. If only raw report text is provided, the page must say which facts still need human or agent interpretation.
+
 ## Owner Acceptance
 
 Ask about business-visible outcomes: whether the user can complete the intended action, whether the result looks correct, whether messages make sense, and whether expected records or side effects are visible. Do not ask the Owner to inspect test code, mocks, coverage, or implementation details.

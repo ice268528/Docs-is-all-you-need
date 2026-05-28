@@ -32,3 +32,15 @@ Use `diayn-skill-router` only after Controller identity and write authority are 
 | `/diayn-bug` or `/diayn-new` triage | `debugging-and-error-recovery`, `deprecation-and-migration`, `documentation-and-adrs` | Current-scope insertion vs backlog is a Controller/Owner decision. |
 
 Do not claim upstream guidance was applied unless the local `third_party/agent-skills/skills/<name>/SKILL.md` file was read or intentionally skipped with a reason.
+
+## Worktree Dry-Run Helper
+
+Use the bundled helper for `/diayn-worktrees` when the Controller needs deterministic launch evidence:
+
+```text
+python skills/diayn-controller/scripts/worktree_dry_run.py --repo-root <repo> --project-slug <project_slug>
+```
+
+Pass `--base <branch-or-commit>` when the current git branch cannot be inspected in the active environment.
+
+The helper prints proposed backend/frontend worktree paths, branch names, path-collision checks, generated `git worktree add` commands, and `.diayn/local/session_identity.md` content. It is dry-run only: it does not execute git commands, create directories, launch agents, or write identity files.

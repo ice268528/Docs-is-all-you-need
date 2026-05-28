@@ -29,9 +29,10 @@ Load `references/controller-workflows.md` only when command-level detail is need
 2. Confirm the requested command is Controller-owned.
 3. For `/diayn-init`, ask the Owner to confirm `project_slug`.
 4. Inspect requirements, existing docs, lane boards, handoffs, shared docs, manifests, and owner gates before planning or dispatching.
-5. Create or update only Controller-owned durable records.
-6. Keep lane WIP=1 and dispatch one reviewable task slice per lane session.
-7. Report read files, changed files, state effects, blockers, and the next safe command.
+5. For `/diayn-worktrees`, use `scripts/worktree_dry_run.py` when deterministic dry-run worktree commands and local identity content are useful.
+6. Create or update only Controller-owned durable records.
+7. Keep lane WIP=1 and dispatch one reviewable task slice per lane session.
+8. Report read files, changed files, state effects, blockers, and the next safe command.
 
 ## Allowed Writes
 

@@ -29,7 +29,7 @@ Load `references/owner-ux-patterns.md` only when detailed patterns are needed.
 2. For short decisions, use a popup when available; otherwise use a concise Markdown choice.
 3. For long decisions, first present short options and mention `/diayn-html`.
 4. Generate HTML only after the user actively requests `/diayn-html`.
-5. For `/diayn-html`, choose decision aid or previous report explanation and include copyable quick feedback.
+5. For `/diayn-html`, choose decision aid or previous report explanation and include copyable quick feedback. Use `scripts/diayn_html_generator.py` when a deterministic local HTML file is needed.
 6. Decide whether generated HTML should be committed or temporary by protocol rules; do not push that burden to the Owner.
 7. Record final decisions in `decision.md` or formal project docs.
 8. For Owner acceptance, describe business-visible actions and outcomes, not internal test implementation.
