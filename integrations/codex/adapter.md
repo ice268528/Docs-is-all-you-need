@@ -2,7 +2,8 @@
 
 ## Status
 
-Documented Codex adapter guidance. This is not a plugin and does not require installing a plugin.
+Documented Codex adapter guidance plus a D6-09 local plugin candidate. The core
+DIAYN workflow does not require installing a plugin.
 
 ## Entry Point
 
@@ -58,7 +59,11 @@ For short Owner decisions, Codex may use a platform-supported decision UI when a
 
 For long decisions, Codex should give short options and tell the Owner they may run `/diayn-html`. It must not generate HTML unless the user explicitly runs `/diayn-html`.
 
-Capability note: exact Codex plugin or UI APIs are `Unknown / To be confirmed` for this adapter stage.
+Capability note: D6-09 created `plugins/docs-is-all-you-need/` using the
+available local plugin convention, but Codex plugin discovery could not be
+verified because harmless `codex` discovery commands returned access denied in
+the current environment. Keep plugin support at `manual_fallback`, not
+`working`.
 
 ## Worktree And Identity
 
@@ -68,7 +73,7 @@ If identity does not match, stop and show the corrective command and directory f
 
 ## Limits
 
-- This adapter does not install or publish a plugin.
+- This adapter does not publish a plugin or require plugin installation.
 - This adapter does not implement a CLI or runtime.
 - This adapter does not change `/diayn-*` command semantics.
 - Core DIAYN document workflow must remain usable without Codex-specific features.

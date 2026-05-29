@@ -43,7 +43,7 @@ First-run notes:
 | --- | --- | --- |
 | Manual document workflow | `manual_fallback` | Usable today by asking an existing coding agent to read this repo and follow `/diayn-*` workflow triggers. |
 | Codex Skills | `manual_fallback` | The canonical DIAYN skill folders are usable by copying them into the Codex skills directory. There is no installer or marketplace package yet. |
-| Codex plugin | `draft_only` | Plugin preparation notes exist only as drafts. There is no installable or published Codex plugin. |
+| Codex plugin | `manual_fallback` | A local plugin candidate exists under `plugins/docs-is-all-you-need/` and statically validates against the available local convention. Codex discovery/execution was blocked by environment access denial, so it is not `working`, published, or marketplace-backed. |
 | Claude Code CLI | `working` | Project-level manual copy install of `integrations/claude-code/commands/` was smoke-tested in D6-04 with Claude Code `2.1.145`; `/diayn-init` execution was observed. This is not a packaged or global install. |
 | OpenCode CLI | `working` | Project-level manual copy install of `integrations/opencode/.opencode/` was smoke-tested in D6-05 with OpenCode `1.14.28`; command and skill-wrapper discovery were observed. Full model-backed workflow execution is not yet proven. |
 | Cursor / Copilot | out of V1 scope | Existing notes are future planning only unless DDDV5 is revised. |
@@ -64,7 +64,7 @@ They are not:
 
 - shell commands provided by this repository;
 - a built-in slash-command runtime;
-- an installable Codex plugin;
+- a working, published, or marketplace-backed Codex plugin;
 - automatically installed Claude Code or OpenCode native command files;
 - hidden launchers for backend, frontend, or reviewer agents.
 
@@ -141,7 +141,7 @@ Use `update-diayn-scaffold` when you want to retrofit an existing project into D
 
 Tool adapter material lives in `integrations/**` as documentation-level planning:
 
-- Codex adapter and plugin preparation documents are draft or documented-only, not installable plugin support.
+- Codex adapter docs remain documentation-level guidance. A local plugin candidate exists under `plugins/docs-is-all-you-need/`, but D6-09 could not verify Codex plugin discovery in this environment, so it remains `manual_fallback`. See `docs/install/codex_plugin_local_candidate.md`.
 - Claude Code command files exist under `integrations/claude-code/commands/` for manual copy/link install; D6-04 verified project-level discovery/execution in the local Claude Code environment. See `docs/install/claude-code.md`.
 - OpenCode command and skill-wrapper files exist under `integrations/opencode/.opencode/` for manual copy/link install; D6-05 verified project-level discovery in the local OpenCode environment. See `docs/install/opencode.md`.
 - Cursor and Copilot notes are future-only and out of DDDV5 V1 active scope.

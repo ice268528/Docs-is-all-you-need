@@ -51,8 +51,15 @@ Maintainer reference material should not be installed into ordinary user project
 - Preserve core protocol as Markdown documents.
 - Do not require the plugin for normal `/diayn-*` operation.
 
+## D6-09 Local Candidate
+
+D6-09 created `plugins/docs-is-all-you-need/` as a local plugin candidate that
+packages the eight DIAYN-owned skills. It does not package scaffold assets into
+ordinary user projects and does not copy `third_party/agent-skills/**`.
+
 ## Deferred Work
 
-- Asset packaging format: `Unknown / To be confirmed`.
+- Plugin discovery/execution: blocked in the current environment because
+  harmless `codex` discovery commands returned access denied.
 - Plugin installer behavior: `Unknown / To be confirmed`.
 - Upgrade and migration behavior: future stage or future plugin implementation.

@@ -1,8 +1,17 @@
 # Codex Plugin Manifest Draft
 
-Draft only. This is not a validated Codex plugin manifest and is not installable or publishable.
+Historical draft plus D6-09 candidate pointer. The validated local candidate
+manifest now lives at:
 
-The current Codex plugin manifest schema is `Unknown / To be confirmed`. This file records desired metadata for a future plugin implementation.
+```text
+plugins/docs-is-all-you-need/.codex-plugin/plugin.json
+```
+
+It is not published, marketplace-backed, or verified as discoverable by Codex.
+
+The D6-09 local convention uses `.codex-plugin/plugin.json` with
+`skills: "./skills/"`. Codex discovery remains unverified because local
+`codex` discovery commands returned access denied.
 
 ## Draft Metadata
 
@@ -46,4 +55,5 @@ excluded:
 - Confirm whether bundled skills need separate metadata.
 - Confirm versioning and update workflow.
 
-Until those items are confirmed, this draft must not be treated as a plugin implementation.
+Until Codex discovery/execution is verified, the D6-09 candidate must be treated
+as `manual_fallback`, not `working` plugin support.
