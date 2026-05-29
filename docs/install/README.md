@@ -58,18 +58,20 @@ Release candidate notes: `RELEASE_NOTES.md`.
 
 ## D6-11 Final Truth Audit Snapshot
 
-D6-11 keeps the release gate at `beta_only`. The support levels in this install
-page remain evidence-backed, but the repository still has stale adapter support
-wording in `integrations/claude-code/adapter.md`,
-`integrations/claude-code/commands_plan.md`, `integrations/opencode/adapter.md`,
-and `integrations/opencode/rules_plan.md`. Those files still describe Claude
-Code and OpenCode smoke tests as not run, while the D6-04 and D6-05 evidence and
-this install page classify them as scoped project-level `working`.
+The initial D6-11 final truth audit kept the release gate at `beta_only`
+because Claude Code and OpenCode adapter docs still contained stale support
+wording. The D6-11 blocker repair aligns those adapter docs with the D6-04 and
+D6-05 evidence:
 
-Do not treat the package as release-candidate ready until those adapter docs are
-updated in an authorized follow-up. This does not downgrade the D6-04 or D6-05
-smoke evidence; it blocks release-candidate packaging because the target repo is
-not internally consistent.
+- Claude Code is scoped `working` for local project-level `.claude/commands/`
+  manual copy install, not global/package/plugin support.
+- OpenCode is scoped `working` for local project-level `.opencode/commands`
+  and skill-wrapper discovery, not full model-backed workflow execution or
+  global/package/plugin support.
+
+This repair does not upgrade Codex Skills or Codex plugin support. Codex Skills
+remain `manual_fallback`, and the Codex plugin remains a local candidate at
+`manual_fallback` until real Codex discovery/execution evidence exists.
 
 ## Canonical Commands
 

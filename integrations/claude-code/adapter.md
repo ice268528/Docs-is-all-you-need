@@ -2,11 +2,15 @@
 
 ## Status
 
-D5-07 manual command adapter.
+D5-07 manual command adapter, smoke-tested in D6-04.
 
-Support level: `manual_fallback`.
+Support level: scoped `working` for local project-level manual copy install.
 
-This repository now provides a Claude Code command-file bundle under `integrations/claude-code/commands/`. The files are intended to be copied or linked into a target project's `.claude/commands/` directory. The command-file shape has been checked against available Claude Code slash-command documentation, including the current note that custom commands have moved into skills while existing `.claude/commands/` files keep working. A local Claude Code discovery/execution smoke test has not been run, so this adapter is not classified as `working`.
+This repository provides a Claude Code command-file bundle under `integrations/claude-code/commands/`. The files are intended to be copied or linked into a target project's `.claude/commands/` directory. The command-file shape has been checked against available Claude Code slash-command documentation, including the current note that custom commands have moved into skills while existing `.claude/commands/` files keep working.
+
+D6-04 smoke evidence supports scoped `working`: Claude Code `2.1.145` loaded the 12 project-level DIAYN command files from a temporary `.claude/commands/` directory, reported `legacy commands: 12`, and executed `/diayn-init` content through `claude --print`. See `DDDV6/stage_outputs/d6_04/d6_04_claude_discovery_evidence.md`.
+
+This does not claim global installation, package-manager installation, Claude Code plugin packaging, guaranteed behavior in every environment, or full DIAYN project initialization.
 
 ## Entry Point
 
@@ -55,7 +59,7 @@ Short decisions should use any available compact choice UI if confirmed. If not 
 ## Limits
 
 - Command files are adapter artifacts, not a Claude Code plugin or package.
-- Local Claude Code command discovery and execution are not yet smoke-tested.
+- D6-04 proves local project-level manual copy discovery/execution only.
 - This adapter does not publish a Claude Code plugin or package.
 - This adapter does not alter core `/diayn-*` semantics.
 - Unknown capabilities must remain marked `Unknown / To be confirmed`.

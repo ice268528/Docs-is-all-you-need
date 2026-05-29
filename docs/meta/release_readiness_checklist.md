@@ -10,14 +10,17 @@ DDDV6 validation pass. It does not publish a release by itself.
 - [x] D6-10 review result exists and accepts the release packaging update.
 - [x] D6-11 final truth audit exists and revises the release gate to
       `beta_only`.
+- [x] D6-11 blocker repair review confirms Claude Code/OpenCode adapter docs
+      are aligned with D6-04/D6-05 scoped smoke evidence.
 - [x] `git diff --check` passed in recent D6 stages before checkpoint review;
       rerun before any publish action.
 - [x] The support matrix classifies every major capability as
       `working`, `manual_fallback`, `documented_only`, `draft_only`,
       `missing`, `blocked_by_environment`, or `blocked_by_owner_decision`.
-- [ ] The D6-11 release truth audit has no blocking issue.
-      Current blocker: stale Claude Code/OpenCode adapter support wording under
-      `integrations/**` conflicts with D6-04/D6-05 evidence.
+- [x] The D6-11 release truth audit has no unrepaired blocking issue.
+      The D6-11 blocker repair was reviewed and closes the Claude/OpenCode
+      adapter-doc consistency issue. Release-candidate readiness is still not
+      claimed by this checklist.
 - [x] Remaining risks are documented for D6-10 review.
 - [x] Real-project validation status is explicit: D6-06 through D6-08 cover an
       Owner-approved validation project only, not an existing production
@@ -76,7 +79,9 @@ DDDV6 validation pass. It does not publish a release by itself.
 - [x] No unsupported support level was upgraded by D6-10.
 - [x] `third_party/agent-skills/**` was not modified by D6-10.
 - [x] D6-11 decided the current package is `beta_only`, not
-      release-candidate ready, until stale adapter support wording is aligned.
+      release-candidate ready.
+- [x] D6-11 blocker repair review decides whether the adapter-doc consistency
+      issue is closed.
 
 ## Examples
 
@@ -87,11 +92,9 @@ DDDV6 validation pass. It does not publish a release by itself.
 
 ## Release Prep Recommendation
 
-Release preparation is not allowed from the current D6-11 state. The next
-authorized follow-up should first align `integrations/claude-code/adapter.md`,
-`integrations/claude-code/commands_plan.md`, `integrations/opencode/adapter.md`,
-and `integrations/opencode/rules_plan.md` with the D6-04/D6-05 smoke evidence,
-then rerun the final truth audit. Formal publishing, plugin release, native
-command support, installer behavior, upstream vendor refresh, and real-project
-general availability require separate maintainer or Owner authorization plus
-evidence.
+Release-candidate preparation is not allowed from the current evidence without
+a separate Owner or maintainer gate decision. The D6-11 blocker repair has been
+reviewed and closes the adapter-doc consistency issue, but formal publishing,
+plugin release, native command support, installer behavior, upstream vendor
+refresh, and real-project general availability require separate authorization
+plus evidence.

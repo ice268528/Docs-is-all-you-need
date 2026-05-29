@@ -62,7 +62,7 @@ DDDV6 adds stronger release-candidate evidence without turning DIAYN into a nati
 - Owner business acceptance remains `owner_gate`; no explicit `owner_accepted`, browser-level evidence, true concurrent sessions, or real worktree execution has been claimed.
 - A local Codex plugin candidate exists, but Codex plugin discovery remains unverified and support stays `manual_fallback`.
 - D6-10 found the upstream `agent-skills` remote HEAD has moved beyond the vendored `250ffaa` snapshot; no vendor copy update was performed in D6-10.
-- D6-11 final truth audit keeps the package at `beta_only` until stale Claude Code/OpenCode adapter support wording under `integrations/**` is aligned with the D6-04 and D6-05 smoke evidence.
+- D6-11 blocker repair aligned Claude Code and OpenCode adapter docs with the D6-04 and D6-05 scoped smoke evidence; this repair still does not publish, tag, or claim full release.
 
 See `docs/meta/release_validation.md` and `RELEASE_NOTES.md` for the current validation boundary.
 

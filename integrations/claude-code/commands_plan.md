@@ -36,6 +36,7 @@ They should not copy full protocol text.
 ## Validation Status
 
 - Claude Code command file format: checked against available official slash-command documentation, including the current legacy support note for existing `.claude/commands/` files.
-- Local Claude Code discovery/execution smoke test: not run.
-- Support level: `manual_fallback`, not `working`.
+- Local Claude Code discovery/execution smoke test: run in D6-04. Claude Code `2.1.145` loaded 12 project-level legacy commands from the temporary smoke project's `.claude/commands/` directory and executed `/diayn-init` content through `claude --print`.
+- Support level: scoped `working` for project-level manual copy install only.
+- Not claimed: global install, package install, Claude Code plugin, guaranteed discovery in every environment, or full DIAYN project initialization.
 - Confirm whether `/compact` guidance is available for context management before using it in adapter prompts.

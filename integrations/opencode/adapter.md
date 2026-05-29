@@ -2,16 +2,20 @@
 
 ## Status
 
-D5-08 manual OpenCode adapter.
+D5-08 manual OpenCode adapter, smoke-tested in D6-05.
 
-Support level: `manual_fallback`.
+Support level: scoped `working` for local project-level command and skill-wrapper discovery.
 
 This repository provides an OpenCode adapter bundle under `integrations/opencode/.opencode/`:
 
 - `commands/*.md`: one-segment `/diayn-*` command prompts.
 - `skills/*/SKILL.md`: thin wrappers that route to canonical DIAYN skills under `skills/**`.
 
-The bundle shape was checked against available OpenCode documentation for per-project `.opencode/commands/` and `.opencode/skills/<name>/SKILL.md`. A local OpenCode discovery/execution smoke test has not been run, so this adapter is not classified as `working`.
+The bundle shape was checked against available OpenCode documentation for per-project `.opencode/commands/` and `.opencode/skills/<name>/SKILL.md`.
+
+D6-05 smoke evidence supports scoped `working`: OpenCode `1.14.28` used workspace-local XDG paths, discovered all 12 DIAYN command files and all 8 skill-wrapper folders from a temporary project `.opencode/` directory, and recognized `--command diayn-init` before timing out without a final model-backed assistant response. See `DDDV6/stage_outputs/d6_05/d6_05_opencode_discovery_evidence.md`.
+
+This does not claim full model-backed DIAYN workflow execution, global installation, package-manager installation, OpenCode agent support, Cursor/Copilot support, or guaranteed behavior in every environment.
 
 ## Entry Point
 
@@ -77,6 +81,7 @@ Stop on mismatch. Do not silently edit identity files.
 ## Limits
 
 - The adapter bundle is not a package manager install, global CLI, custom runtime, or plugin.
-- Local OpenCode command/skill discovery and execution have not been smoke-tested in this workspace.
+- D6-05 proves local project-level command and skill-wrapper discovery only.
+- Full model-backed DIAYN workflow execution has not been proven.
 - The adapter does not alter core `/diayn-*` semantics.
 - Unknown capabilities must remain marked `Unknown / To be confirmed`.

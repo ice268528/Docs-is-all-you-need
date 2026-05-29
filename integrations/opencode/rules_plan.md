@@ -4,7 +4,13 @@
 
 This file records the D5-08 OpenCode adapter bundle. The concrete files live under `integrations/opencode/.opencode/` and are intended to be copied into a target project's `.opencode/` directory.
 
-Support level: `manual_fallback`, not `working`.
+Support level: scoped `working` for local project-level command and skill-wrapper discovery.
+
+D6-05 smoke evidence: OpenCode `1.14.28` discovered the 12 DIAYN command files
+and 8 skill-wrapper folders after the adapter bundle was copied into a
+temporary project's `.opencode/` directory using workspace-local XDG paths. A
+positive `--command diayn-init` attempt was recognized, but a full
+model-backed DIAYN workflow response was not completed.
 
 ## Command Mapping
 
@@ -52,8 +58,9 @@ Support level: `manual_fallback`, not `working`.
 ## Validation Status
 
 - OpenCode command and skill paths: checked against available OpenCode docs for `.opencode/commands/` and `.opencode/skills/<name>/SKILL.md`.
-- Local OpenCode discovery/execution smoke test: not run.
-- Support level: `manual_fallback`.
+- Local OpenCode discovery smoke test: run in D6-05. All 12 DIAYN commands and 8 skill wrappers were observed in OpenCode discovery output with temporary workspace-local XDG paths.
+- Support level: scoped `working` for project-level command and skill-wrapper discovery only.
+- Not claimed: full model-backed workflow execution, global install, package install, OpenCode agent support, Cursor/Copilot support, or guaranteed behavior in every environment.
 
 ## Non-Goals
 
