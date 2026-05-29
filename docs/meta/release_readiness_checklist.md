@@ -7,14 +7,17 @@ DDDV6 validation pass. It does not publish a release by itself.
 
 - [x] D6-01 through D6-09 execution records exist.
 - [x] D6-01 through D6-09 review results are `PASS` or `PASS_WITH_RISK`.
-- [ ] D6-10 review result exists and accepts the release packaging update.
-- [ ] D6-11 final truth audit exists and accepts or revises the release gate.
+- [x] D6-10 review result exists and accepts the release packaging update.
+- [x] D6-11 final truth audit exists and revises the release gate to
+      `beta_only`.
 - [x] `git diff --check` passed in recent D6 stages before checkpoint review;
       rerun before any publish action.
 - [x] The support matrix classifies every major capability as
       `working`, `manual_fallback`, `documented_only`, `draft_only`,
       `missing`, `blocked_by_environment`, or `blocked_by_owner_decision`.
 - [ ] The D6-11 release truth audit has no blocking issue.
+      Current blocker: stale Claude Code/OpenCode adapter support wording under
+      `integrations/**` conflicts with D6-04/D6-05 evidence.
 - [x] Remaining risks are documented for D6-10 review.
 - [x] Real-project validation status is explicit: D6-06 through D6-08 cover an
       Owner-approved validation project only, not an existing production
@@ -72,8 +75,8 @@ DDDV6 validation pass. It does not publish a release by itself.
 - [x] No publish or push action was performed by D6-10.
 - [x] No unsupported support level was upgraded by D6-10.
 - [x] `third_party/agent-skills/**` was not modified by D6-10.
-- [ ] D6-11 must decide whether this is release-candidate ready, beta-only, or
-      blocked.
+- [x] D6-11 decided the current package is `beta_only`, not
+      release-candidate ready, until stale adapter support wording is aligned.
 
 ## Examples
 
@@ -84,8 +87,11 @@ DDDV6 validation pass. It does not publish a release by itself.
 
 ## Release Prep Recommendation
 
-Release preparation may continue only after D6-10 review and D6-11 final truth
-audit accept the evidence boundaries above. Formal publishing, plugin release,
-native command support, installer behavior, upstream vendor refresh, and
-real-project general availability require separate maintainer or Owner
-authorization plus evidence.
+Release preparation is not allowed from the current D6-11 state. The next
+authorized follow-up should first align `integrations/claude-code/adapter.md`,
+`integrations/claude-code/commands_plan.md`, `integrations/opencode/adapter.md`,
+and `integrations/opencode/rules_plan.md` with the D6-04/D6-05 smoke evidence,
+then rerun the final truth audit. Formal publishing, plugin release, native
+command support, installer behavior, upstream vendor refresh, and real-project
+general availability require separate maintainer or Owner authorization plus
+evidence.

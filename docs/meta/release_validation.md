@@ -14,6 +14,7 @@ This document records what has actually been validated for DIAYN V1.
 | OpenCode command and skill discovery | `working` | `docs/install/opencode.md`; `DDDV6/stage_outputs/d6_05/d6_05_opencode_discovery_evidence.md` | D6-05 copied the OpenCode adapter into a temporary project's `.opencode/`, verified command/skill wrapper files, observed project skill-wrapper paths in `opencode agent list` output, and observed the 12 DIAYN commands plus 8 wrappers in OpenCode's available command list. This proves project-level discovery, not full model-backed workflow execution. |
 | Owner-approved personal-site validation project review/integration simulation | `manual_fallback` | `DDDV6/validation_projects/personal-site/`; `DDDV6/stage_outputs/d6_06/d6_06_validation_project_inventory.md`; `DDDV6/stage_outputs/d6_07/d6_07_lane_execution_evidence.md`; `DDDV6/stage_outputs/d6_08/d6_08_review_evidence.md`; `DDDV6/stage_outputs/d6_08/d6_08_integration_evidence.md`; `DDDV6/stage_outputs/d6_08/d6_08_owner_acceptance_evidence.md` | D6-08 reviewed the D6-07 backend/frontend candidate slices as `done`, ran Controller sync/integration to `ready_for_e2e`, and prepared Owner-facing acceptance material. This is still sequential validation, not true concurrent multi-session execution, real worktree execution, browser evidence, production validation, or explicit Owner `owner_accepted`. |
 | Release candidate packaging notes | `documented_only` | `RELEASE_NOTES.md`; `DDDV6/stage_outputs/d6_10/d6_10_release_candidate_notes.md` | D6-10 generated release-candidate notes from existing evidence. It did not publish, push, create a commit, or upgrade unsupported capabilities. |
+| D6-11 final truth audit | `documented_only` | `DDDV6/stage_outputs/d6_11/d6_11_truth_audit.md`; `DDDV6/stage_outputs/d6_11/d6_11_release_decision.md` | D6-11 found the core README/install/release claims conservative, but kept the release gate at `beta_only` because Claude Code/OpenCode adapter docs under `integrations/**` still contain stale `manual_fallback` and "smoke test not run" wording that conflicts with D6-04/D6-05 evidence. |
 | Real-project validation | `missing` | None | No Owner-approved real project was used in D5-11. |
 
 ## Controlled Fixture
@@ -60,6 +61,11 @@ D5-11 does not prove:
 - real worktree execution for the personal-site validation project;
 - Cursor or Copilot support.
 - upstream `agent-skills` freshness in the vendored copy beyond commit `250ffaa`.
+- release-candidate readiness while `integrations/claude-code/adapter.md`,
+  `integrations/claude-code/commands_plan.md`,
+  `integrations/opencode/adapter.md`, and
+  `integrations/opencode/rules_plan.md` still conflict with D6-04/D6-05 support
+  evidence.
 
 Do not upgrade support claims beyond the evidence above until a later validation pass records stronger proof.
 

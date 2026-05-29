@@ -56,6 +56,21 @@ release-candidate notes and records the current freshness boundary:
 
 Release candidate notes: `RELEASE_NOTES.md`.
 
+## D6-11 Final Truth Audit Snapshot
+
+D6-11 keeps the release gate at `beta_only`. The support levels in this install
+page remain evidence-backed, but the repository still has stale adapter support
+wording in `integrations/claude-code/adapter.md`,
+`integrations/claude-code/commands_plan.md`, `integrations/opencode/adapter.md`,
+and `integrations/opencode/rules_plan.md`. Those files still describe Claude
+Code and OpenCode smoke tests as not run, while the D6-04 and D6-05 evidence and
+this install page classify them as scoped project-level `working`.
+
+Do not treat the package as release-candidate ready until those adapter docs are
+updated in an authorized follow-up. This does not downgrade the D6-04 or D6-05
+smoke evidence; it blocks release-candidate packaging because the target repo is
+not internally consistent.
+
 ## Canonical Commands
 
 Use the one-segment command names:

@@ -1,7 +1,13 @@
 # DIAYN V1 Release Candidate Notes
 
-Status: release-candidate notes only. This file does not publish a release,
-push a tag, create a plugin release, or claim general availability.
+Status: beta-only after D6-11 final truth audit. This file does not publish a
+release, push a tag, create a plugin release, or claim general availability.
+
+D6-11 did not accept the package as release-candidate ready. The D6-10 evidence
+remains useful, but Claude Code/OpenCode adapter documents under
+`integrations/**` still contain stale support wording that conflicts with the
+D6-04 and D6-05 smoke evidence. Align those files before requesting a new
+release-candidate gate.
 
 ## What Is Evidence-Backed
 
@@ -66,10 +72,11 @@ Maintainer-only vendor reference:
 - `vendor.lock.md`
 - `maintainers/upstream-agent-skills/**`
 
-## Required Before Publishing
+## Required Before Release-Candidate Gate Or Publishing
 
-1. D6-10 review must pass.
-2. D6-11 final truth audit must decide the release gate.
+1. D6-10 review must pass. Current result: passed with risk.
+2. D6-11 final truth audit must decide the release gate. Current result:
+   `beta_only`, not release-candidate ready.
 3. `git diff --check` must pass immediately before release packaging.
 4. Upstream `agent-skills` freshness must be either updated through a reviewed
    vendor sync or explicitly accepted as stale.
@@ -77,4 +84,5 @@ Maintainer-only vendor reference:
    Codex plugin discovery evidence pass.
 6. Publishing, tag creation, marketplace submission, and push require separate
    Owner or maintainer authorization.
-
+7. Claude Code and OpenCode adapter docs must be aligned with D6-04/D6-05
+   support evidence before release-candidate readiness can be claimed.
