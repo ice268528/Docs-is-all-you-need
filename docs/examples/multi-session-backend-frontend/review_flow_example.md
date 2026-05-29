@@ -6,7 +6,7 @@ command reference for real review records.
 ## User Prompt To Review Session
 
 ```text
-/diayn review backend
+/diayn-review-backend
 
 <paste latest backend worker report here>
 ```
@@ -14,7 +14,7 @@ command reference for real review records.
 or:
 
 ```text
-/diayn review frontend
+/diayn-review-frontend
 
 <paste latest frontend worker report here>
 ```
@@ -37,7 +37,7 @@ The review session checks:
 | `done` | Evidence and scope support accepting the candidate work. | Controller may include it in sync or integration review. |
 | `rejected` | Rework is required. | Send specific rework back to the lane board or handoff. |
 | `blocked` | Required dependency or evidence is missing. | Controller or lane owner resolves dependency. |
-| `owner_gate` | Owner decision is needed before judging. | Ask concise Owner question or offer `/diayn html` for long decision. |
+| `owner_gate` | Owner decision is needed before judging. | Ask concise Owner question or offer `/diayn-html` for long decision. |
 
 Review sessions do not mark `owner_accepted`, do not merge by default, and do
 not silently fix the implementation while reviewing.

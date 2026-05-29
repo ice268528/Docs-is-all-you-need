@@ -9,7 +9,7 @@ This file defines the mapping layer only. It does not install, invoke, overwrite
 Current facts:
 
 - D5 canonical DIAYN Codex Skills live under `skills/diayn-*` plus `skills/update-diayn-scaffold/`.
-- Older Stage 06 skill folders may exist for historical source compatibility; do not use them as the D5 install set.
+- Older pre-D5 skill folders may exist for historical source compatibility; do not use them as the D5 install set.
 - The upstream `agent-skills` snapshot lives under `third_party/agent-skills/**` for maintainer reference.
 - Tool adapters and plugin preparation notes live under `integrations/**`.
 - If a listed skill is missing in a downstream scaffold, treat the row as a mapping expectation, not as an executable capability.
@@ -33,7 +33,7 @@ Current facts:
 
 The upstream `agent-skills` project is a method library for single-session engineering behavior. DIAYN remains the multi-session control plane. When upstream guidance conflicts with DIAYN role, status, or document authority, DIAYN protocol wins.
 
-Stage 07 vendors the upstream snapshot under `third_party/agent-skills/` for maintainer reference. Ordinary `/diayn-*` users do not need to understand vendor sync details. Maintainers must review upstream changes through `maintainers/upstream-agent-skills/` before adapting them into DIAYN docs or skills.
+The upstream snapshot is vendored under `third_party/agent-skills/` for maintainer reference. Ordinary `/diayn-*` users do not need to understand vendor sync details. Maintainers must review upstream changes through `maintainers/upstream-agent-skills/` before adapting them into DIAYN docs or skills.
 
 D5-05 audited the actual vendor snapshot and found 23 upstream skills under `third_party/agent-skills/skills/**/SKILL.md`. Do not assume a different count in downstream copies. Route only to upstream skills that exist locally.
 

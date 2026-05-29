@@ -18,16 +18,16 @@ No real worktree is created by this example.
 
 ## Canonical Flow
 
-1. Controller runs `/diayn init`.
+1. Controller runs `/diayn-init`.
 2. Controller confirms `project_slug` with the Owner.
-3. Controller runs `/diayn plan`.
+3. Controller runs `/diayn-plan`.
 4. Controller prepares lane boards, handoffs, and worktree metadata.
-5. Backend worker runs `/diayn backend` for one task slice.
-6. Backend review runs `/diayn review backend`.
-7. Frontend worker runs `/diayn frontend` for one task slice.
-8. Frontend review runs `/diayn review frontend`.
-9. Controller runs `/diayn sync`.
-10. Controller runs `/diayn integration`.
+5. Backend worker runs `/diayn-backend` for one task slice.
+6. Backend review runs `/diayn-review-backend`.
+7. Frontend worker runs `/diayn-frontend` for one task slice.
+8. Frontend review runs `/diayn-review-frontend`.
+9. Controller runs `/diayn-sync`.
+10. Controller runs `/diayn-integration`.
 11. Owner performs business-facing acceptance.
 
 ## Status Boundaries

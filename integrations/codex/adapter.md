@@ -2,7 +2,7 @@
 
 ## Status
 
-Draft adapter for Stage 08. This is not a plugin and does not require installing a plugin.
+Documented Codex adapter guidance. This is not a plugin and does not require installing a plugin.
 
 ## Entry Point
 
@@ -18,36 +18,37 @@ Codex should use `AGENTS.md` as the lightweight entry file, then follow links in
 
 ## Command Handling
 
-Codex carries `/diayn ...` commands as user-entered workflow triggers. They are not assumed to be shell commands or a built-in CLI.
+Codex carries `/diayn-*` commands as user-entered workflow triggers. They are not assumed to be shell commands or a built-in CLI.
 
 Supported command intents are the canonical commands in `docs/meta/diayn_command_reference.md`:
 
-- `/diayn init`
-- `/diayn plan`
-- `/diayn worktrees`
-- `/diayn backend`
-- `/diayn frontend`
-- `/diayn review backend`
-- `/diayn review frontend`
-- `/diayn sync`
-- `/diayn integration`
-- `/diayn bug`
-- `/diayn new`
-- `/diayn html`
+- `/diayn-init`
+- `/diayn-plan`
+- `/diayn-worktrees`
+- `/diayn-backend`
+- `/diayn-frontend`
+- `/diayn-review-backend`
+- `/diayn-review-frontend`
+- `/diayn-sync`
+- `/diayn-integration`
+- `/diayn-bug`
+- `/diayn-new`
+- `/diayn-html`
 
-Every command starts with `session-identity-guard`.
+Every command starts with `diayn-identity-guard`.
 
 ## Skill Handling
 
 Codex should use DIAYN-owned skills under `skills/**` when available:
 
-- `multi-session-controller`
-- `multi-session-executor`
-- `multi-session-reviewer`
-- `multi-session-integrator`
-- `session-identity-guard`
-- `owner-decision-ux`
-- `context-compact-reminder`
+- `diayn-controller`
+- `diayn-executor`
+- `diayn-reviewer`
+- `diayn-integrator`
+- `diayn-skill-router`
+- `diayn-identity-guard`
+- `diayn-owner-ux`
+- `update-diayn-scaffold`
 
 The vendored `third_party/agent-skills/` content is reference material, not the Codex adapter. If upstream guidance conflicts with DIAYN role, status, or document authority, DIAYN wins.
 
@@ -55,7 +56,7 @@ The vendored `third_party/agent-skills/` content is reference material, not the 
 
 For short Owner decisions, Codex may use a platform-supported decision UI when available. If no such UI is available, it must fall back to a concise Markdown choice.
 
-For long decisions, Codex should give short options and tell the Owner they may run `/diayn html`. It must not generate HTML unless the user explicitly runs `/diayn html`.
+For long decisions, Codex should give short options and tell the Owner they may run `/diayn-html`. It must not generate HTML unless the user explicitly runs `/diayn-html`.
 
 Capability note: exact Codex plugin or UI APIs are `Unknown / To be confirmed` for this adapter stage.
 
@@ -69,5 +70,5 @@ If identity does not match, stop and show the corrective command and directory f
 
 - This adapter does not install or publish a plugin.
 - This adapter does not implement a CLI or runtime.
-- This adapter does not change `/diayn` command semantics.
+- This adapter does not change `/diayn-*` command semantics.
 - Core DIAYN document workflow must remain usable without Codex-specific features.

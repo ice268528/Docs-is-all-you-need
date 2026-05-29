@@ -9,7 +9,7 @@ real handoff packets.
 | --- | --- |
 | Lane | backend |
 | Expected worktree | `../worktrees/<project_slug>/backend` |
-| Allowed command | `/diayn backend` |
+| Allowed command | `/diayn-backend` |
 | Task slice | `<backend_task_id>: <one_backend_slice>` |
 | Required shared doc | `<shared_contract_path>` |
 | Stop condition | Stop after `candidate_done`, `blocked`, or `owner_gate` |
@@ -30,7 +30,7 @@ Task slice: <task_id>
 Changed paths: <paths>
 Evidence: <commands or manual checks>
 Risks: <remaining_risks>
-Next review command: /diayn review backend
+Next review command: /diayn-review-backend
 ```
 
 ## Frontend Lane Handoff
@@ -39,7 +39,7 @@ Next review command: /diayn review backend
 | --- | --- |
 | Lane | frontend |
 | Expected worktree | `../worktrees/<project_slug>/frontend` |
-| Allowed command | `/diayn frontend` |
+| Allowed command | `/diayn-frontend` |
 | Task slice | `<frontend_task_id>: <one_frontend_slice>` |
 | Required shared doc | `<shared_contract_path>` |
 | Stop condition | Stop after `candidate_done`, `blocked`, or `owner_gate` |

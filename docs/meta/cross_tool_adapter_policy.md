@@ -28,7 +28,7 @@ Each adapter may explain:
 Each adapter must avoid:
 
 - Copying the full DIAYN protocol.
-- Changing `/diayn` command semantics.
+- Changing `/diayn-*` command semantics.
 - Treating vendor `agent-skills` tool folders as DIAYN adapters.
 - Requiring ordinary project users to understand maintainer vendor sync.
 - Claiming tool capabilities that are not confirmed.
@@ -60,13 +60,13 @@ DIAYN-owned adapters live under `integrations/**`. DIAYN-owned skills live under
 
 ## Plugin Boundary
 
-Codex plugin work in Stage 08 is preparation only:
+Codex plugin work remains preparation only:
 
 - Draft manifest notes are allowed.
 - Scaffold asset plans are allowed.
 - Readiness and risk checklists are allowed.
 
-Stage 08 does not publish, install, or claim a working plugin. Core DIAYN document workflow must remain usable without any plugin.
+Current DIAYN V1 documentation does not publish, install, or claim a working plugin. Core DIAYN document workflow must remain usable without any plugin.
 
 ## Lightweight Export Rule
 

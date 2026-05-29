@@ -19,13 +19,14 @@ This plan identifies which DIAYN scaffold assets may later be packaged for Codex
 
 ### Skills
 
-- `skills/multi-session-controller/**`
-- `skills/multi-session-executor/**`
-- `skills/multi-session-reviewer/**`
-- `skills/multi-session-integrator/**`
-- `skills/session-identity-guard/**`
-- `skills/owner-decision-ux/**`
-- `skills/context-compact-reminder/**`
+- `skills/diayn-controller/**`
+- `skills/diayn-executor/**`
+- `skills/diayn-reviewer/**`
+- `skills/diayn-integrator/**`
+- `skills/diayn-skill-router/**`
+- `skills/diayn-identity-guard/**`
+- `skills/diayn-owner-ux/**`
+- `skills/update-diayn-scaffold/**`
 
 ### Templates And Control Docs
 
@@ -48,7 +49,7 @@ Maintainer reference material should not be installed into ordinary user project
 - Treat `docs/templates/**` as templates, not active project truth.
 - Keep `.diayn/local/**` out of packaged assets.
 - Preserve core protocol as Markdown documents.
-- Do not require the plugin for normal `/diayn` operation.
+- Do not require the plugin for normal `/diayn-*` operation.
 
 ## Deferred Work
 

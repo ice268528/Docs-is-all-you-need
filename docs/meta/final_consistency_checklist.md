@@ -35,7 +35,7 @@ When files disagree, resolve them in this order:
 | Vendor boundary | `third_party/agent-skills/**` cannot overwrite DIAYN harness rules. | Pass. |
 | Adapter boundary | `integrations/**` cannot redefine DIAYN command, role, status, or worktree semantics. | Pass. |
 | Plugin status | Codex plugin material is draft preparation only, not installable release content. | Pass. |
-| Examples | Examples must be isolated under `docs/examples/**` and marked non-core. | Pass after Stage 09 example policy and README are present. |
+| Examples | Examples must be isolated under `docs/examples/**` and marked non-core. | Pass after the example isolation policy and README are present. |
 
 ## Legacy Compatibility Notes
 
@@ -53,10 +53,10 @@ and preserve evidence links.
 
 The scaffold is consistent enough for release preparation when:
 
-- Every Stage 01-08 review result is `PASS` or `PASS_WITH_RISK`.
-- Stage 08 checkpoint is the expected baseline for Stage 09.
-- The target repository is clean before Stage 09 edits.
-- The Stage 09 consistency, migration, example, final acceptance, and risk
-  reports exist.
-- No Stage 09 edit touches `third_party/agent-skills/**`, publishes a plugin,
-  creates real worktrees, or changes core `/diayn` semantics.
+- Every D5-01 through D5-11 review result is `PASS` or `PASS_WITH_RISK`.
+- The D5-12 final support matrix, release truth audit, remaining risks, release
+  gate, and review notes exist.
+- D5-12 does not treat controlled fixture validation as real-project
+  validation.
+- No D5-12 edit touches `third_party/agent-skills/**`, publishes a plugin,
+  creates real worktrees, or changes core `/diayn-*` semantics.

@@ -1,6 +1,6 @@
 # Codex Plugin Preparation Checklist
 
-Stage 08 prepares a future Codex plugin. It does not publish or install one.
+This checklist records future Codex plugin preparation only. It does not publish or install one.
 
 ## Draft Identity
 
@@ -13,13 +13,14 @@ Stage 08 prepares a future Codex plugin. It does not publish or install one.
 
 Candidate skills:
 
-- `skills/multi-session-controller/`
-- `skills/multi-session-executor/`
-- `skills/multi-session-reviewer/`
-- `skills/multi-session-integrator/`
-- `skills/session-identity-guard/`
-- `skills/owner-decision-ux/`
-- `skills/context-compact-reminder/`
+- `skills/diayn-controller/`
+- `skills/diayn-executor/`
+- `skills/diayn-reviewer/`
+- `skills/diayn-integrator/`
+- `skills/diayn-skill-router/`
+- `skills/diayn-identity-guard/`
+- `skills/diayn-owner-ux/`
+- `skills/update-diayn-scaffold/`
 
 Candidate scaffold assets:
 
@@ -40,7 +41,7 @@ Reference only:
 - `.git/`
 - `.diayn/local/**`
 - project-specific active worktrees
-- generated stage output records under `DDDV3/**`
+- generated stage output records under `DDDV*/**`
 - maintainer-only vendor sync reports unless explicitly needed
 - any unconfirmed plugin runtime code
 
@@ -57,10 +58,10 @@ Reference only:
 2. Validate that DIAYN skills remain short and self-contained.
 3. Validate that scaffold assets install as templates, not project facts.
 4. Validate that the plugin does not overwrite user project docs.
-5. Validate that `/diayn` remains document-driven, not plugin-dependent.
+5. Validate that `/diayn-*` remains document-driven, not plugin-dependent.
 6. Validate that Owner decision UX still works without plugin UI.
 7. Validate that vendor `agent-skills` remains reference material.
-8. Run final Stage 09 consistency checks.
+8. Run final release truth audit and link-checking before any publishable claim.
 
 ## Release Risks
 

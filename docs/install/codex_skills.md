@@ -17,7 +17,7 @@ skills/diayn-owner-ux/
 skills/update-diayn-scaffold/
 ```
 
-Do not copy `third_party/agent-skills/**` into Codex as DIAYN skills. It is a vendored upstream method library. Older Stage 06 skill names may exist for historical source compatibility; do not install them for D5. The D5 canonical install set is the list above.
+Do not copy `third_party/agent-skills/**` into Codex as DIAYN skills. It is a vendored upstream method library. Older pre-D5 skill names may exist for historical source compatibility; do not install them for D5. The D5 canonical install set is the list above.
 
 ## Find The Codex Skills Directory
 

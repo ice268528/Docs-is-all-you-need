@@ -22,7 +22,7 @@ Read first:
 - docs/meta/session_roles.md
 - docs/meta/status_model.md
 
-Treat /diayn commands as document-driven workflow triggers.
+Treat /diayn-* entries as document-driven workflow triggers.
 Run session identity guard before acting.
 Worker sessions stop at candidate_done.
 Review sessions decide done or rejected.

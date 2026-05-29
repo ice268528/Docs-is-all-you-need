@@ -2,12 +2,12 @@
 
 This is an example only. It does not replace the command reference.
 
-## `/diayn init`
+## `/diayn-init`
 
 Controller input:
 
 ```text
-/diayn init
+/diayn-init
 Requirement source: <existing_doc_path or fuzzy_idea_summary>
 ```
 
@@ -30,7 +30,7 @@ Controller output:
 | Shared contract | `<shared_contract_path>` |
 | Owner questions | `<short_list_or_none>` |
 
-## `/diayn plan`
+## `/diayn-plan`
 
 Controller writes or updates:
 
@@ -42,7 +42,7 @@ Controller writes or updates:
 
 The Controller does not implement business code by default.
 
-## `/diayn worktrees`
+## `/diayn-worktrees`
 
 Controller confirms:
 
@@ -56,10 +56,10 @@ Example launch summary:
 
 | Lane | Expected path | Allowed command | Required docs |
 | --- | --- | --- | --- |
-| backend | `../worktrees/<project_slug>/backend` | `/diayn backend` | lane board, handoff, shared docs |
-| frontend | `../worktrees/<project_slug>/frontend` | `/diayn frontend` | lane board, handoff, shared docs |
+| backend | `../worktrees/<project_slug>/backend` | `/diayn-backend` | lane board, handoff, shared docs |
+| frontend | `../worktrees/<project_slug>/frontend` | `/diayn-frontend` | lane board, handoff, shared docs |
 
-## `/diayn sync` And `/diayn integration`
+## `/diayn-sync` And `/diayn-integration`
 
 Controller reads lane boards, evidence, worklogs, review logs, and shared
 contract notes.

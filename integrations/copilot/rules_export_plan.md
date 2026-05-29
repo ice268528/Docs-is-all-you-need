@@ -16,7 +16,7 @@ Recommended concise rules:
 This repository uses DIAYN document-driven multi-session collaboration.
 
 Use repository docs as the system of record.
-Read AGENTS.md and docs/meta/diayn_command_reference.md before /diayn workflows.
+Read AGENTS.md and docs/meta/diayn_command_reference.md before /diayn-* workflows.
 Do not treat worker self-verification as done.
 Keep worker, reviewer, controller, and Owner roles separate.
 Do not copy full protocol into Copilot rules.
