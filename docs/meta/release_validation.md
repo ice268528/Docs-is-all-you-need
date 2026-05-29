@@ -50,3 +50,15 @@ D5-11 does not prove:
 - Cursor or Copilot support.
 
 Do not upgrade support claims beyond the evidence above until a later validation pass records stronger proof.
+
+## DDDV6 Pre-Smoke Claim Baseline
+
+D6-01 checked the local environment before live smoke tests. These checks do
+not upgrade support levels; they only define the baseline for DDDV6 validation.
+
+| Capability | Pre-smoke claim | D6-01 environment note | Upgrade condition |
+| --- | --- | --- | --- |
+| Codex Skills live discovery | `manual_fallback` | Codex command was found, but `codex --version` failed with access denied. Codex skills path exists, but DIAYN skills were not installed there during D6-01. | Install/copy DIAYN skills with permission and record live Codex discovery/execution evidence, or keep the claim below `working`. |
+| Claude Code command discovery | `manual_fallback` | `claude --version` and `claude --help` worked locally. DIAYN command files were not installed or smoke-tested during D6-01. | Install command files in an approved validation project and record Claude Code command discovery/execution evidence. |
+| OpenCode command and skill discovery | `manual_fallback` | `opencode` was found, but version/help failed on the user config path before discovery could be tested. | Resolve the environment issue, install adapter files in an approved validation project, and record OpenCode discovery/execution evidence. |
+| Owner-approved validation project | `missing` | `DDDV6/validation_projects/personal-site` was intentionally not created in D6-01. | Create and exercise the validation project in the authorized DDDV6 stage with end-to-end evidence. |

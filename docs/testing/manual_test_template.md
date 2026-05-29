@@ -34,7 +34,7 @@ code, mocks, coverage, or implementation internals.
 | Reviewed work | `<review log links>` |
 | Integration evidence | `<sync or integration evidence links>` |
 | Owner feedback | `<accept / request_rework / ask_question / n/a>` |
-| Follow-up action | `<none / route through /diayn bug / Controller-managed rework>` |
+| Follow-up action | `<none / route through /diayn-bug / Controller-managed rework>` |
 | Notes | `<Owner-facing notes>` |
 
 ## Failure Feedback
@@ -51,4 +51,4 @@ Additional notes:
 ```
 
 If the Owner reports an end-to-end failure, the Controller triages it through
-the `/diayn bug` workflow described in the command reference.
+the `/diayn-bug` workflow described in the command reference.

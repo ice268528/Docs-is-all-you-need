@@ -44,7 +44,7 @@ lane handoff packets or review logs.
 | ID | Topic | Status | Owner feedback | Evidence | Next action |
 | --- | --- | --- | --- | --- | --- |
 | `INT-001` | `<cross-lane topic>` | `<ready_for_e2e / blocked / owner_gate / n/a>` | `<n/a>` | `<path>` | `<next action>` |
-| `OA-001` | `<Owner acceptance topic>` | `<owner_accepted / owner_gate / blocked / n/a>` | `<accept / request_rework / ask_question / n/a>` | `<acceptance path>` | `<route request_rework through /diayn bug or Controller-managed rework>` |
+| `OA-001` | `<Owner acceptance topic>` | `<owner_accepted / owner_gate / blocked / n/a>` | `<accept / request_rework / ask_question / n/a>` | `<acceptance path>` | `<route request_rework through /diayn-bug or Controller-managed rework>` |
 
 ## 5. Open Owner Gates
 

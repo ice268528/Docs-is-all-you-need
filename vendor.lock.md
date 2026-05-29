@@ -40,7 +40,20 @@ Reference only:
 
 ## DIAYN Protected Paths
 
-Upstream sync must not overwrite these DIAYN-owned paths:
+Upstream sync must not overwrite DIAYN-owned skills, protocol files, or local
+state templates. Current canonical D5+ skill paths are protected:
+
+- `skills/diayn-controller/`
+- `skills/diayn-executor/`
+- `skills/diayn-reviewer/`
+- `skills/diayn-integrator/`
+- `skills/diayn-skill-router/`
+- `skills/diayn-identity-guard/`
+- `skills/diayn-owner-ux/`
+- `skills/update-diayn-scaffold/`
+
+Legacy pre-D5 DIAYN skill paths are also protected while they remain in the
+repository for compatibility or migration context:
 
 - `skills/multi-session-controller/`
 - `skills/multi-session-executor/`
@@ -49,6 +62,9 @@ Upstream sync must not overwrite these DIAYN-owned paths:
 - `skills/session-identity-guard/`
 - `skills/owner-decision-ux/`
 - `skills/context-compact-reminder/`
+
+Protocol and state paths protected from upstream vendor sync:
+
 - `docs/meta/multi_session_collaboration_protocol.md`
 - `docs/meta/session_roles.md`
 - `docs/meta/status_model.md`
