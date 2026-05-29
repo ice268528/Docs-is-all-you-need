@@ -13,6 +13,7 @@ This document records what has actually been validated for DIAYN V1.
 | Claude Code command discovery | `working` | `docs/install/claude-code.md`; `DDDV6/stage_outputs/d6_04/d6_04_claude_discovery_evidence.md` | D6-04 copied the 12 command files into a temporary project's `.claude/commands/`, Claude Code debug output reported `legacy commands: 12`, and `/diayn-init` execution was observed. This proves project-level manual copy install in the local Claude Code environment, not package/global installation. |
 | OpenCode command and skill discovery | `working` | `docs/install/opencode.md`; `DDDV6/stage_outputs/d6_05/d6_05_opencode_discovery_evidence.md` | D6-05 copied the OpenCode adapter into a temporary project's `.opencode/`, verified command/skill wrapper files, observed project skill-wrapper paths in `opencode agent list` output, and observed the 12 DIAYN commands plus 8 wrappers in OpenCode's available command list. This proves project-level discovery, not full model-backed workflow execution. |
 | Owner-approved personal-site validation project review/integration simulation | `manual_fallback` | `DDDV6/validation_projects/personal-site/`; `DDDV6/stage_outputs/d6_06/d6_06_validation_project_inventory.md`; `DDDV6/stage_outputs/d6_07/d6_07_lane_execution_evidence.md`; `DDDV6/stage_outputs/d6_08/d6_08_review_evidence.md`; `DDDV6/stage_outputs/d6_08/d6_08_integration_evidence.md`; `DDDV6/stage_outputs/d6_08/d6_08_owner_acceptance_evidence.md` | D6-08 reviewed the D6-07 backend/frontend candidate slices as `done`, ran Controller sync/integration to `ready_for_e2e`, and prepared Owner-facing acceptance material. This is still sequential validation, not true concurrent multi-session execution, real worktree execution, browser evidence, production validation, or explicit Owner `owner_accepted`. |
+| Release candidate packaging notes | `documented_only` | `RELEASE_NOTES.md`; `DDDV6/stage_outputs/d6_10/d6_10_release_candidate_notes.md` | D6-10 generated release-candidate notes from existing evidence. It did not publish, push, create a commit, or upgrade unsupported capabilities. |
 | Real-project validation | `missing` | None | No Owner-approved real project was used in D5-11. |
 
 ## Controlled Fixture
@@ -58,6 +59,7 @@ D5-11 does not prove:
 - true concurrent multi-session execution over the personal-site validation project;
 - real worktree execution for the personal-site validation project;
 - Cursor or Copilot support.
+- upstream `agent-skills` freshness in the vendored copy beyond commit `250ffaa`.
 
 Do not upgrade support claims beyond the evidence above until a later validation pass records stronger proof.
 
@@ -73,3 +75,20 @@ not upgrade support levels; they only define the baseline for DDDV6 validation.
 | Claude Code command discovery | `working` | D6-04 copied 12 DIAYN command files into `DDDV6/stage_outputs/d6_04/claude_smoke_project/.claude/commands`, verified hashes against source files, and observed `claude --print "/diayn-init ..."` execute DIAYN Init content. | Keep the claim scoped to project-level manual copy install; do not claim package/global installation. |
 | OpenCode command and skill discovery | `working` | D6-05 used temporary `XDG_CONFIG_HOME`, `XDG_DATA_HOME`, and `XDG_STATE_HOME` paths to avoid the default user config/state blocker, copied adapter files into `DDDV6/stage_outputs/d6_05/opencode_smoke_project/.opencode/`, and observed DIAYN command/skill-wrapper discovery. | Keep the claim scoped to project-level discovery; do not claim full model-backed execution or global installation. |
 | Owner-approved validation project | `manual_fallback` | D6-07 sequentially simulated `/diayn-init`, `/diayn-plan`, `/diayn-worktrees`, `/diayn-backend`, and `/diayn-frontend`; D6-08 sequentially simulated `/diayn-review-backend`, `/diayn-review-frontend`, `/diayn-sync`, `/diayn-integration`, and `/diayn-html`; backend/frontend slices reached review `done`; integration reached `ready_for_e2e`; Owner acceptance remains `owner_gate`. | Keep claim scoped to sequential workflow simulation until separate sessions, real worktrees or browser evidence, and explicit Owner `owner_accepted` feedback are recorded. |
+
+## D6-10 Upstream Freshness Check
+
+| Item | Result |
+| --- | --- |
+| Vendor lock source URL | `git@github.com:addyosmani/agent-skills.git` |
+| Vendor lock source commit | `250ffaa` |
+| Local outer `agent-skills/` source commit | `250ffaa` |
+| Local source/vendor dry-run | No material skill diff; 23 source skills and 23 vendored skills; watched skills unchanged. |
+| Network freshness command | `git ls-remote https://github.com/addyosmani/agent-skills.git HEAD` |
+| Network freshness result | Remote HEAD `6ce029897d2b794940325fc7148774a6ec51111c` |
+| Freshness decision | Vendored snapshot is not current relative to remote HEAD. |
+| D6-10 vendor copy action | None. `third_party/agent-skills/**` was not modified. |
+
+D6-10 records that upstream has moved beyond the vendored snapshot. It does not
+claim the vendor copy is fresh and does not update `vendor.lock.md` because no
+reviewed vendor copy update was performed.

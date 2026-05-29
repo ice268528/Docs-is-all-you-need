@@ -52,9 +52,18 @@ See `docs/install/README.md` for the support matrix and first-use guidance.
 
 ## Validation Status
 
-D5-11 adds a controlled full-stack fixture under `validation/minimal-fullstack-fixture/`. The fixture validates a small register/login flow with frontend HTML, backend API, and SQLite persistence. This is controlled fixture validation only; real-project validation has not yet been performed.
+D5-11 adds a controlled full-stack fixture under `validation/minimal-fullstack-fixture/`. The fixture validates a small register/login flow with frontend HTML, backend API, and SQLite persistence.
 
-See `docs/meta/release_validation.md` for the current validation boundary.
+DDDV6 adds stronger release-candidate evidence without turning DIAYN into a native runtime:
+
+- Claude Code project-level command discovery/execution is locally smoke-tested.
+- OpenCode project-level command and skill-wrapper discovery is locally smoke-tested.
+- The Owner-approved `personal-site` validation project reached sequential review/integration simulation with backend and frontend slices reviewed as `done` and integration at `ready_for_e2e`.
+- Owner business acceptance remains `owner_gate`; no explicit `owner_accepted`, browser-level evidence, true concurrent sessions, or real worktree execution has been claimed.
+- A local Codex plugin candidate exists, but Codex plugin discovery remains unverified and support stays `manual_fallback`.
+- D6-10 found the upstream `agent-skills` remote HEAD has moved beyond the vendored `250ffaa` snapshot; no vendor copy update was performed in D6-10.
+
+See `docs/meta/release_validation.md` and `RELEASE_NOTES.md` for the current validation boundary.
 
 ## What `/diayn-*` Is
 
@@ -157,6 +166,7 @@ README is only the front door. Read the smallest document set needed for your se
 | General agent entry | `AGENTS.md` |
 | Claude Code entry | `CLAUDE.md` |
 | Install and support truth | `docs/install/README.md` |
+| Release candidate notes | `RELEASE_NOTES.md` |
 | OpenCode adapter install | `docs/install/opencode.md` |
 | `/diayn-*` command details | `docs/meta/diayn_command_reference.md` |
 | Worktree lane startup | `docs/meta/diayn_worktree_workflow.md` |

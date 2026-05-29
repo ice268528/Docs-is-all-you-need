@@ -37,6 +37,25 @@ Other manual adapters:
 | Cursor | out of V1 scope | Future planning notes may exist. | Active V1 support claim. |
 | Copilot | out of V1 scope | Future planning notes may exist. | Active V1 support claim. |
 
+## D6-10 Release Candidate Snapshot
+
+D6-10 does not upgrade support levels. It packages the existing evidence into
+release-candidate notes and records the current freshness boundary:
+
+- Claude Code remains `working` only for local project-level manual copy
+  command discovery/execution.
+- OpenCode remains `working` only for local project-level command and
+  skill-wrapper discovery.
+- Codex Skills and the Codex plugin candidate remain `manual_fallback` because
+  Codex discovery/execution is not verified.
+- The Owner-approved `personal-site` validation remains `manual_fallback`
+  sequential workflow simulation, not production or true concurrent validation.
+- Upstream `agent-skills` freshness is not current: D6-10 observed remote HEAD
+  `6ce029897d2b794940325fc7148774a6ec51111c` while `vendor.lock.md` records
+  `250ffaa`. No vendor copy update was performed.
+
+Release candidate notes: `RELEASE_NOTES.md`.
+
 ## Canonical Commands
 
 Use the one-segment command names:
