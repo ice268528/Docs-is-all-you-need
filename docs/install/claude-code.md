@@ -8,9 +8,20 @@ integrations/claude-code/commands/
 
 This bundle is a manual adapter, not a package manager install, plugin, shell CLI, or custom runtime. It uses one-segment command file names such as `diayn-init.md`, which are intended to become `/diayn-init` when copied into a Claude Code command directory.
 
-Support level: `manual_fallback`.
+Support level: `working` for manual project-level copy install in the D6-04
+local smoke environment.
 
-Why not `working`: the command-file shape has been checked against available Claude Code slash-command documentation. Current docs say custom commands have been merged into skills and existing `.claude/commands/` files keep working, with command names derived from file names. This repository has not run a local Claude Code smoke test that proves discovery and execution in the user's environment.
+D6-04 evidence: `claude --version` returned `2.1.145 (Claude Code)`, the
+12 `diayn-*.md` files were copied into a temporary project's
+`.claude/commands/` directory, Claude Code debug output reported `legacy
+commands: 12`, and `claude --print "/diayn-init ..."` executed the DIAYN Init
+command content. See
+`DDDV6/stage_outputs/d6_04/d6_04_claude_discovery_evidence.md`.
+
+Boundary: this does not provide a package manager install, a plugin, a shell
+CLI, global auto-installation, or a guarantee that every Claude Code
+environment discovers project commands identically. Use the manual fallback
+below if a local Claude Code setup does not discover the files.
 
 ## Install By Copy
 

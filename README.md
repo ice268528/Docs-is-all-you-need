@@ -44,7 +44,7 @@ First-run notes:
 | Manual document workflow | `manual_fallback` | Usable today by asking an existing coding agent to read this repo and follow `/diayn-*` workflow triggers. |
 | Codex Skills | `manual_fallback` | The canonical DIAYN skill folders are usable by copying them into the Codex skills directory. There is no installer or marketplace package yet. |
 | Codex plugin | `draft_only` | Plugin preparation notes exist only as drafts. There is no installable or published Codex plugin. |
-| Claude Code CLI | `manual_fallback` | Command files exist under `integrations/claude-code/commands/` with manual copy/link install instructions. They have not been locally smoke-tested in Claude Code. |
+| Claude Code CLI | `working` | Project-level manual copy install of `integrations/claude-code/commands/` was smoke-tested in D6-04 with Claude Code `2.1.145`; `/diayn-init` execution was observed. This is not a packaged or global install. |
 | OpenCode CLI | `manual_fallback` | Adapter files exist under `integrations/opencode/.opencode/` with manual copy/link install instructions. They have not been locally smoke-tested in OpenCode. |
 | Cursor / Copilot | out of V1 scope | Existing notes are future planning only unless DDDV5 is revised. |
 
@@ -142,7 +142,7 @@ Use `update-diayn-scaffold` when you want to retrofit an existing project into D
 Tool adapter material lives in `integrations/**` as documentation-level planning:
 
 - Codex adapter and plugin preparation documents are draft or documented-only, not installable plugin support.
-- Claude Code command files exist under `integrations/claude-code/commands/` for manual copy/link install; see `docs/install/claude-code.md`.
+- Claude Code command files exist under `integrations/claude-code/commands/` for manual copy/link install; D6-04 verified project-level discovery/execution in the local Claude Code environment. See `docs/install/claude-code.md`.
 - OpenCode command and skill-wrapper files exist under `integrations/opencode/.opencode/` for manual copy/link install; see `docs/install/opencode.md`.
 - Cursor and Copilot notes are future-only and out of DDDV5 V1 active scope.
 
