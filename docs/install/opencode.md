@@ -8,9 +8,21 @@ integrations/opencode/.opencode/
 
 This bundle is a manual adapter, not a package manager install, shell CLI, custom runtime, or plugin.
 
-Support level: `manual_fallback`.
+Support level: `working` for local project-level command and skill-wrapper
+discovery in the D6-05 smoke environment.
 
-Why not `working`: available OpenCode documentation describes per-project `.opencode/commands/` and `.opencode/skills/<name>/SKILL.md`, and this repository now provides matching adapter files. This workspace has not run a local OpenCode discovery/execution smoke test that proves `/diayn-*` commands and DIAYN skill wrappers load in the user's environment.
+D6-05 evidence: `opencode --version` returned `1.14.28`, the 12 command files
+and 8 skill-wrapper folders were copied into a temporary project's
+`.opencode/` directory, `opencode agent list` emitted project skill-wrapper
+permission entries, and a negative command smoke reported the 12 DIAYN commands
+and 8 wrappers in OpenCode's available command list. See
+`DDDV6/stage_outputs/d6_05/d6_05_opencode_discovery_evidence.md`.
+
+Boundary: D6-05 proves local project-level discovery. It does not prove package
+installation, global installation, Cursor/Copilot support, or full model-backed
+execution of a DIAYN workflow. The local smoke also required temporary
+`XDG_CONFIG_HOME`, `XDG_DATA_HOME`, and `XDG_STATE_HOME` paths because the
+default user OpenCode config/state paths were not usable in this environment.
 
 ## Install By Copy
 

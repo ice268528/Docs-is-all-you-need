@@ -30,7 +30,7 @@ Other manual adapters:
 | Manual document workflow | `manual_fallback` | README, AGENTS, command docs, lane docs, and templates for tools without installed DIAYN skills. | Native automation, guaranteed platform command parsing, or runtime enforcement. |
 | Codex plugin | `draft_only` | Draft preparation docs under `integrations/codex/**`. | Installable, published, or supported plugin. |
 | Claude Code CLI | `working` | Project-level manual copy install of the 12 command files was smoke-tested in D6-04 with Claude Code `2.1.145`; `/diayn-init` execution was observed from `.claude/commands/`. | Packaged installer, global auto-install, or guaranteed discovery in every environment. |
-| OpenCode CLI | `manual_fallback` | Adapter bundle under `integrations/opencode/.opencode/` with command files and skill wrappers, plus install instructions in `docs/install/opencode.md`. | Local OpenCode discovery/execution smoke-test evidence, package installer, custom runtime, or guaranteed behavior in every environment. |
+| OpenCode CLI | `working` | Project-level manual copy install was smoke-tested in D6-05 with OpenCode `1.14.28`; DIAYN command and skill-wrapper discovery were observed. | Full model-backed workflow execution, package installer, custom runtime, global auto-install, or guaranteed behavior in every environment. |
 | Cursor | out of V1 scope | Future planning notes may exist. | Active V1 support claim. |
 | Copilot | out of V1 scope | Future planning notes may exist. | Active V1 support claim. |
 
@@ -63,7 +63,7 @@ Do not claim that this repository currently provides:
 - a native slash-command runtime;
 - an installable Codex plugin;
 - automatically installed or globally guaranteed Claude Code command support;
-- working OpenCode adapter support before local discovery/execution is smoke-tested;
+- full OpenCode model-backed DIAYN workflow execution before it is smoke-tested;
 - Cursor or Copilot V1 support;
 - hidden child-agent auto-launch;
 - global shell commands for the deterministic helper scripts. The helpers exist only as local skill support scripts.
