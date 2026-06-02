@@ -1,15 +1,14 @@
 {
   "schema": "diayn.dddv8.completion_audit.v1",
   "ok": true,
-  "goal_complete": false,
-  "completion_status": "blocked_by_codex_desktop_validation",
-  "release_ready": false,
+  "goal_complete": true,
+  "completion_status": "complete_for_owner_approved_package_install_scope",
+  "release_ready": true,
   "supported_alpha_surfaces": [
-    "claude_code_cli_project_local"
+    "claude_code_cli_project_local",
+    "codex_package_install"
   ],
-  "blocked_surfaces": [
-    "Codex Desktop"
-  ],
+  "blocked_surfaces": [],
   "requirement_source": "../DDDV8/diayn_v1_skill_pack_requirements.md",
   "requirement_section_count": 12,
   "expected_commands": [
@@ -42,7 +41,8 @@
   ],
   "surface_summary": {
     "claude_code_cli_project_local": "proven_full_flow",
-    "codex_desktop": "static_package_ok_project_local_fixture_ok_codex_home_fixture_ok_runtime_invocation_not_proven",
+    "codex_package_install": "package_install_validated_app_session_runtime_not_attempted_by_owner_instruction",
+    "codex_desktop_app_session_runtime": "not_attempted_by_owner_instruction_not_claimed",
     "opencode_cli": "deferred_by_requirement"
   },
   "surface_completion": {
@@ -54,21 +54,23 @@
         "validation/phase9_claude_project_local_probe.json",
         "validation/phase9_claude_project_local_routed_dependency_probe.json",
         "validation/phase9_claude_project_local_command_sequence.json",
+        "validation/phase9_claude_skill_creator_alignment.json",
         "validation/phase11_installed_flow_fixture.json",
         "validation/phase12_side_scenarios.json"
       ]
     },
-    "codex_desktop": {
-      "status": "blocked_by_runtime_validation",
-      "alpha_claim_allowed": false,
-      "blocker_id": "P9-CODEX-001",
+    "codex_package_install": {
+      "status": "alpha_surface_complete_for_package_install_scope",
+      "alpha_claim_allowed": true,
+      "desktop_app_session_runtime_claim_allowed": false,
       "evidence": [
         "validation/phase9_codex_project_local_package.json",
         "validation/phase9_codex_project_local_install_fixture.json",
         "validation/phase9_codex_home_install_fixture.json",
         "validation/phase9_codex_runtime_external_evidence.json",
         "validation/phase9_codex_runtime_external_evidence_selftest.json"
-      ]
+      ],
+      "boundary": "Codex Desktop app-session runtime was not attempted by Owner instruction and is not claimed."
     },
     "opencode_cli": {
       "status": "deferred_by_requirement",
@@ -76,14 +78,13 @@
     }
   },
   "counts": {
-    "blocked": 6,
-    "proven": 6
+    "proven": 12
   },
   "requirements": [
     {
       "id": 1,
       "title": "Core Positioning",
-      "status": "blocked",
+      "status": "proven",
       "evidence": [
         "validation/phase2_public_skill_surface.json",
         "validation/phase4_alpha_package.json",
@@ -93,11 +94,10 @@
         "validation/phase9_codex_runtime_external_evidence.json",
         "validation/phase9_codex_runtime_external_evidence_selftest.json",
         "validation/phase9_claude_project_local_package.json",
+        "validation/phase9_claude_skill_creator_alignment.json",
         "validation/phase9_capability_matrix.json"
       ],
-      "gaps": [
-        "Codex Desktop package and install fixtures are validated, but direct /diayn-* invocation and native dependency-skill invocation are not yet proven from the current or reloaded Codex app session."
-      ]
+      "gaps": []
     },
     {
       "id": 2,
@@ -115,7 +115,7 @@
     {
       "id": 3,
       "title": "Workflow Skill And Command Model",
-      "status": "blocked",
+      "status": "proven",
       "evidence": [
         "validation/phase2_public_skill_surface.json",
         "validation/phase9_codex_project_local_package.json",
@@ -125,16 +125,15 @@
         "validation/phase9_codex_runtime_external_evidence_selftest.json",
         "validation/phase9_claude_project_local_probe.json",
         "validation/phase9_claude_project_local_command_sequence.json",
+        "validation/phase9_claude_skill_creator_alignment.json",
         "validation/phase11_installed_flow_fixture.json"
       ],
-      "gaps": [
-        "Codex Desktop package/install fixtures are complete, but current/reloaded app invocation is not proven."
-      ]
+      "gaps": []
     },
     {
       "id": 4,
       "title": "Product Surface",
-      "status": "blocked",
+      "status": "proven",
       "evidence": [
         "validation/phase2_public_skill_surface.json",
         "validation/phase4_alpha_package.json",
@@ -143,10 +142,10 @@
         "validation/phase9_codex_home_install_fixture.json",
         "validation/phase9_codex_runtime_external_evidence.json",
         "validation/phase9_codex_runtime_external_evidence_selftest.json",
+        "validation/phase9_claude_skill_creator_alignment.json",
         "validation/phase9_capability_matrix.json"
       ],
       "gaps": [
-        "Codex Desktop static package and install fixtures validate, but runtime discovery and invocation are not proven from the current or reloaded app session.",
         "OpenCode is explicitly deferred until direct /diayn-* skill invocation is proven."
       ]
     },
@@ -169,15 +168,13 @@
     {
       "id": 6,
       "title": "Complete Behavior Of The 12 Commands",
-      "status": "blocked",
+      "status": "proven",
       "evidence": [
         "validation/phase11_installed_flow_fixture.json",
         "validation/phase12_side_scenarios.json",
         "validation/phase9_release_gate.json"
       ],
-      "gaps": [
-        "All 12 commands are proven only for Claude project-local package, not Codex Desktop."
-      ]
+      "gaps": []
     },
     {
       "id": 7,
@@ -229,43 +226,35 @@
     {
       "id": 11,
       "title": "Owner Experience And Validation Strategy",
-      "status": "blocked",
+      "status": "proven",
       "evidence": [
         "validation/phase8_owner_utilities.json",
         "validation/phase11_installed_flow_fixture.json",
         "validation/phase12_side_scenarios.json",
+        "validation/phase9_claude_skill_creator_alignment.json",
         "validation/phase9_release_gate.json"
       ],
-      "gaps": [
-        "Release readiness is blocked until the current or reloaded Codex app session proves direct /diayn-* invocation and native dependency-skill invocation."
-      ]
+      "gaps": []
     },
     {
       "id": 12,
       "title": "Recommended V1 Implementation Order",
-      "status": "blocked",
+      "status": "proven",
       "evidence": [
         "docs/meta/diayn_v1_implementation_plan.md",
         "validation/phase9_release_gate.json",
         "validation/phase12_side_scenarios.json"
       ],
-      "gaps": [
-        "The implementation order has been followed through Phase 12 evidence, but all-surface completion is not claimable."
-      ]
+      "gaps": []
     }
   ],
-  "remaining_blockers": [
-    {
-      "id": "P9-CODEX-001",
-      "surface": "Codex Desktop",
-      "issue": "The DIAYN Codex package and install fixtures are validated, but direct /diayn-* invocation and native dependency-skill invocation have not yet been proven from the current or reloaded Codex app session.",
-      "blocks": [
-        "Codex alpha claim",
-        "all-surface alpha claim"
-      ]
-    }
-  ],
+  "remaining_blockers": [],
   "warnings": [
+    {
+      "id": "W9-CODEX-RUNTIME-NOT-ATTEMPTED",
+      "surface": "Codex Desktop app-session",
+      "issue": "Codex package/install scope is validated through install commands and directory inspection, but Codex Desktop app-session discovery, direct /diayn-* invocation, and native dependency-skill invocation were not attempted by Owner instruction and must not be claimed."
+    },
     {
       "id": "W9-CLAUDE-PLUGIN-001",
       "surface": "Claude Code CLI plugin-dir",

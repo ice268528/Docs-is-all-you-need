@@ -51,6 +51,7 @@ Then stop. This mode only validates package command routing; it does not prove t
 3. Read the Owner feedback, current stage, TODO, integration summary, and relevant lane evidence only as needed.
 4. Read `docs/meta/diayn_command_reference.md` and `docs/meta/diayn_commands/bug.md` when available.
 5. Route to DIAYN-managed debugging, review, testing, security, or migration dependency skills only when needed.
+   When routing is needed, read the installed routing map from `.diayn/dependency-routing/upstream-routing-map.md` if present; otherwise use `internal-role-skills/diayn-skill-router/references/upstream-routing-map.md` in the active DIAYN package. Resolve the platform-visible skill id before native Skill invocation.
 
 ## Workflow
 

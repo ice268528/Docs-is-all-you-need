@@ -51,6 +51,7 @@ In this mode, run from the Controller root after `/diayn-sync`. Confirm backend/
 3. Read only reviewed lane summaries, review logs, shared contracts, integration issues, manifests, and current stage acceptance criteria.
 4. Read `docs/meta/diayn_command_reference.md` and `docs/meta/diayn_commands/integration.md` when available.
 5. Route to DIAYN-managed review, API, CI, security, performance, or shipping dependency skills only when needed.
+   When routing is needed, read the installed routing map from `.diayn/dependency-routing/upstream-routing-map.md` if present; otherwise use `internal-role-skills/diayn-skill-router/references/upstream-routing-map.md` in the active DIAYN package. Resolve the platform-visible skill id before native Skill invocation.
 
 ## Workflow
 

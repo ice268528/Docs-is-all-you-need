@@ -1,8 +1,9 @@
 # Claude Code Alpha Package
 
-DDDV8 currently has two Claude Code package shapes:
+DDDV8 currently has three Claude Code package-related shapes:
 
 ```text
+.claude-plugin/
 plugins/docs-is-all-you-need/
 packages/claude-project-local/
 ```
@@ -11,6 +12,27 @@ packages/claude-project-local/
 
 This is the standard target for Claude Code, following the same plugin-first
 model used by `superpowers` and `agent-skills`. Relevant plugin files:
+
+```text
+.claude-plugin/plugin.json
+.claude-plugin/marketplace.json
+.claude/commands/diayn-*.md
+plugins/docs-is-all-you-need/.claude-plugin/plugin.json
+plugins/docs-is-all-you-need/.claude-plugin/marketplace.json
+plugins/docs-is-all-you-need/.claude/commands/diayn-*.md
+plugins/docs-is-all-you-need/skills/diayn-*/
+plugins/docs-is-all-you-need/dependency-skills/
+```
+
+The repository-root plugin entrypoint points commands to root `.claude/commands`
+and skills to `packages/claude-project-local/.claude/skills/`, which contains
+both the 12 DIAYN workflow skills and 23 DIAYN-managed dependency skills. Root
+command adapters are synchronized from the inner plugin command adapters with
+`maintainers/scripts/build_claude_root_plugin_commands.js`. The inner plugin
+candidate keeps its own local manifest under
+`plugins/docs-is-all-you-need/`.
+
+The inner candidate's relative plugin files are:
 
 ```text
 .claude-plugin/plugin.json
@@ -31,11 +53,12 @@ The 12 Claude plugin command files are thin entry points. In plugin-dir mode the
 Validation performed:
 
 ```text
+claude plugin validate .
 claude plugin validate plugins\docs-is-all-you-need
 node maintainers\scripts\validate_diayn_alpha_package.js --json validation\phase4_alpha_package.json
 ```
 
-Result: the Claude plugin manifest validates, and the local package validator confirms 12 commands, 12 public skills, and the dependency payload.
+Result: the repository-root and inner Claude plugin manifests validate, and the local package validator confirms 12 commands, 12 public workflow skills, 23 platform-visible dependency skills in the generated packages, and the locked dependency payload.
 
 Phase 9 plugin-dir probe:
 

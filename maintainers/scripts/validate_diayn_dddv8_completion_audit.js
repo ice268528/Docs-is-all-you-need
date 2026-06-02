@@ -116,6 +116,7 @@ function main() {
   const phase11Fixture = readJson(errors, "validation/phase11_installed_flow_fixture.json");
   const phase12Side = readJson(errors, "validation/phase12_side_scenarios.json");
   const claudePackage = readJson(errors, "validation/phase9_claude_project_local_package.json");
+  const claudeSkillCreatorAlignment = readJson(errors, "validation/phase9_claude_skill_creator_alignment.json");
   const codexPackage = readJson(errors, "validation/phase9_codex_project_local_package.json");
   const codexInstallFixture = readJson(errors, "validation/phase9_codex_project_local_install_fixture.json");
   const codexHomeInstallFixture = readJson(errors, "validation/phase9_codex_home_install_fixture.json");
@@ -153,7 +154,7 @@ function main() {
       codexPackage.dependency_skill_count === 23 &&
       codexPackage.total_project_local_skill_count === 35 &&
       codexPackage.runtime_validation &&
-      codexPackage.runtime_validation.direct_diayn_invocation === "not_proven_access_denied_in_current_environment"
+      codexPackage.runtime_validation.direct_diayn_invocation === "not_attempted_by_owner_instruction"
   );
   const codexExternalRuntimeEvidenceOk = Boolean(
     codexExternalRuntimeEvidence &&
@@ -231,13 +232,25 @@ function main() {
       Array.isArray(phase11Fixture.workflow_errors) &&
       phase11Fixture.workflow_errors.length === 0
   );
-  const codexBlocked = Boolean(
+  const codexDesktopAppSessionRuntimeNotClaimed = Boolean(
     matrix &&
+      matrix.validation_scope &&
+      matrix.validation_scope.codex_desktop_app_session_runtime === "not_attempted_by_owner_instruction" &&
+      matrix.validation_scope.codex_runtime_claim_allowed === false &&
       matrix.surfaces &&
       matrix.surfaces.codex_desktop &&
-      matrix.surfaces.codex_desktop.bare_diayn_invocation === "not_proven" &&
-      Array.isArray(matrix.blocking_issues) &&
-      matrix.blocking_issues.some((item) => item.id === "P9-CODEX-001")
+      matrix.surfaces.codex_desktop.alpha_claim_allowed === false &&
+      matrix.surfaces.codex_desktop.package_install_claim_allowed === true &&
+      Array.isArray(matrix.warnings) &&
+      matrix.warnings.some((item) => item.id === "W9-CODEX-RUNTIME-NOT-ATTEMPTED")
+  );
+  const codexPackageInstallScopeOk = Boolean(
+    codexStaticPackageOk &&
+      codexInstallFixtureOk &&
+      codexHomeInstallFixtureOk &&
+      codexExternalRuntimeEvidenceOk &&
+      codexExternalRuntimeEvidenceSelftestOk &&
+      codexDesktopAppSessionRuntimeNotClaimed
   );
   const opencodeDeferred = Boolean(
     matrix &&
@@ -248,13 +261,17 @@ function main() {
   const releaseGateHonest = Boolean(
     releaseGate &&
       releaseGate.ok === true &&
-      releaseGate.release_ready === false &&
+      releaseGate.release_ready === true &&
       releaseGate.phase12_side_scenarios_ok === true &&
+      releaseGate.claude_skill_creator_alignment_ok === true &&
+      releaseGate.codex_package_install_scope_ok === true &&
+      releaseGate.codex_app_session_runtime_not_attempted_by_owner_boundary_ok === true &&
       Array.isArray(releaseGate.supported_alpha_surfaces) &&
       releaseGate.supported_alpha_surfaces.includes("claude_code_cli_project_local") &&
+      releaseGate.supported_alpha_surfaces.includes("codex_package_install") &&
       !releaseGate.supported_alpha_surfaces.includes("codex_desktop") &&
       Array.isArray(releaseGate.blocking_issue_ids) &&
-      releaseGate.blocking_issue_ids.includes("P9-CODEX-001")
+      releaseGate.blocking_issue_ids.length === 0
   );
 
   if (requirementHeadings.length !== 12) {
@@ -267,13 +284,21 @@ function main() {
   if (!dependencyOk) errors.push("dependency skill validation is not strong enough");
   if (!installedFlowOk) errors.push("installed flow is not proven for all 12 commands");
   if (!sideScenariosOk) errors.push("Phase 12 side scenarios are not proven");
-  if (!releaseGateHonest) errors.push("release gate is not in the expected honest blocked state");
+  if (!releaseGateHonest) errors.push("release gate is not in the expected Owner-approved package/install ready state");
+  const claudeSkillCreatorAlignmentOk = Boolean(
+    claudeSkillCreatorAlignment &&
+      claudeSkillCreatorAlignment.ok === true &&
+      claudeSkillCreatorAlignment.trigger_eval_sets_ready === true &&
+      claudeSkillCreatorAlignment.project_local_runtime_evidence_complete === true &&
+      claudeSkillCreatorAlignment.benchmark_complete === false &&
+      claudeSkillCreatorAlignment.broad_auto_trigger_claim_allowed === false
+  );
 
   const requirements = [
     makeRequirement(
       1,
       "Core Positioning",
-      statusFromChecks([pluginExactSurfaceOk, rootPublicSurfaceOk, alphaPackageOk, claudePackageOk, codexStaticPackageOk, codexInstallFixtureOk, codexHomeInstallFixtureOk, codexExternalRuntimeEvidenceOk, codexExternalRuntimeEvidenceSelftestOk], codexBlocked ? ["Codex Desktop not proven"] : []),
+      statusFromChecks([pluginExactSurfaceOk, rootPublicSurfaceOk, alphaPackageOk, claudePackageOk, codexPackageInstallScopeOk]),
       [
         "validation/phase2_public_skill_surface.json",
         "validation/phase4_alpha_package.json",
@@ -283,9 +308,10 @@ function main() {
         "validation/phase9_codex_runtime_external_evidence.json",
         "validation/phase9_codex_runtime_external_evidence_selftest.json",
         "validation/phase9_claude_project_local_package.json",
+        "validation/phase9_claude_skill_creator_alignment.json",
         "validation/phase9_capability_matrix.json",
       ],
-      codexBlocked ? ["Codex Desktop package and install fixtures are validated, but direct /diayn-* invocation and native dependency-skill invocation are not yet proven from the current or reloaded Codex app session."] : [],
+      [],
     ),
     makeRequirement(
       2,
@@ -308,7 +334,7 @@ function main() {
     makeRequirement(
       3,
       "Workflow Skill And Command Model",
-      statusFromChecks([pluginExactSurfaceOk, claudePackageOk, codexStaticPackageOk, codexInstallFixtureOk, codexHomeInstallFixtureOk, codexExternalRuntimeEvidenceOk, codexExternalRuntimeEvidenceSelftestOk, installedFlowOk], codexBlocked ? ["Codex Desktop direct /diayn-* invocation not proven"] : []),
+      statusFromChecks([pluginExactSurfaceOk, claudePackageOk, claudeSkillCreatorAlignmentOk, codexPackageInstallScopeOk, installedFlowOk]),
       [
         "validation/phase2_public_skill_surface.json",
         "validation/phase9_codex_project_local_package.json",
@@ -318,14 +344,15 @@ function main() {
         "validation/phase9_codex_runtime_external_evidence_selftest.json",
         "validation/phase9_claude_project_local_probe.json",
         "validation/phase9_claude_project_local_command_sequence.json",
+        "validation/phase9_claude_skill_creator_alignment.json",
         "validation/phase11_installed_flow_fixture.json",
       ],
-      codexBlocked ? ["Codex Desktop package/install fixtures are complete, but current/reloaded app invocation is not proven."] : [],
+      [],
     ),
     makeRequirement(
       4,
       "Product Surface",
-      statusFromChecks([pluginExactSurfaceOk, alphaPackageOk, claudePackageOk, codexStaticPackageOk, codexInstallFixtureOk, codexHomeInstallFixtureOk, codexExternalRuntimeEvidenceOk, codexExternalRuntimeEvidenceSelftestOk], codexBlocked ? ["Codex Desktop not proven"] : []),
+      statusFromChecks([pluginExactSurfaceOk, alphaPackageOk, claudePackageOk, claudeSkillCreatorAlignmentOk, codexPackageInstallScopeOk]),
       [
         "validation/phase2_public_skill_surface.json",
         "validation/phase4_alpha_package.json",
@@ -334,17 +361,17 @@ function main() {
         "validation/phase9_codex_home_install_fixture.json",
         "validation/phase9_codex_runtime_external_evidence.json",
         "validation/phase9_codex_runtime_external_evidence_selftest.json",
+        "validation/phase9_claude_skill_creator_alignment.json",
         "validation/phase9_capability_matrix.json",
       ],
       [
-        ...(codexBlocked ? ["Codex Desktop static package and install fixtures validate, but runtime discovery and invocation are not proven from the current or reloaded app session."] : []),
         ...(opencodeDeferred ? ["OpenCode is explicitly deferred until direct /diayn-* skill invocation is proven."] : []),
       ],
     ),
     makeRequirement(
       5,
       "Skills Architecture",
-      statusFromChecks([pluginExactSurfaceOk, dependencyOk, alphaPackageOk, codexStaticPackageOk, codexInstallFixtureOk, codexHomeInstallFixtureOk, codexExternalRuntimeEvidenceOk, codexExternalRuntimeEvidenceSelftestOk]),
+      statusFromChecks([pluginExactSurfaceOk, dependencyOk, alphaPackageOk, codexPackageInstallScopeOk]),
       [
         "validation/phase2_public_skill_surface.json",
         "validation/phase3_dependency_skills.json",
@@ -359,13 +386,13 @@ function main() {
     makeRequirement(
       6,
       "Complete Behavior Of The 12 Commands",
-      statusFromChecks([installedFlowOk, sideScenariosOk], codexBlocked ? ["Codex Desktop full flow not proven"] : []),
+      statusFromChecks([installedFlowOk, sideScenariosOk]),
       [
         "validation/phase11_installed_flow_fixture.json",
         "validation/phase12_side_scenarios.json",
         "validation/phase9_release_gate.json",
       ],
-      codexBlocked ? ["All 12 commands are proven only for Claude project-local package, not Codex Desktop."] : [],
+      [],
     ),
     makeRequirement(
       7,
@@ -414,25 +441,26 @@ function main() {
     makeRequirement(
       11,
       "Owner Experience And Validation Strategy",
-      statusFromChecks([phase8 && phase8.ok === true, installedFlowOk, sideScenariosOk], codexBlocked ? ["all-surface release validation blocked"] : []),
+      statusFromChecks([phase8 && phase8.ok === true, installedFlowOk, sideScenariosOk, claudeSkillCreatorAlignmentOk, codexPackageInstallScopeOk]),
       [
         "validation/phase8_owner_utilities.json",
         "validation/phase11_installed_flow_fixture.json",
         "validation/phase12_side_scenarios.json",
+        "validation/phase9_claude_skill_creator_alignment.json",
         "validation/phase9_release_gate.json",
       ],
-      codexBlocked ? ["Release readiness is blocked until the current or reloaded Codex app session proves direct /diayn-* invocation and native dependency-skill invocation."] : [],
+      [],
     ),
     makeRequirement(
       12,
       "Recommended V1 Implementation Order",
-      statusFromChecks([requirementHeadings.length === 12, releaseGateHonest, sideScenariosOk], codexBlocked ? ["Phase 12 all-surface release gate blocked"] : []),
+      statusFromChecks([requirementHeadings.length === 12, releaseGateHonest, sideScenariosOk]),
       [
         "docs/meta/diayn_v1_implementation_plan.md",
         "validation/phase9_release_gate.json",
         "validation/phase12_side_scenarios.json",
       ],
-      codexBlocked ? ["The implementation order has been followed through Phase 12 evidence, but all-surface completion is not claimable."] : [],
+      [],
     ),
   ];
 
@@ -443,7 +471,7 @@ function main() {
     },
     {},
   );
-  const goalComplete = requirements.every((item) => item.status === "proven") && !codexBlocked;
+  const goalComplete = requirements.every((item) => item.status === "proven") && codexPackageInstallScopeOk;
   const supportedAlphaSurfaces =
     releaseGate && Array.isArray(releaseGate.supported_alpha_surfaces) ? releaseGate.supported_alpha_surfaces : [];
   const remainingBlockers = matrix && Array.isArray(matrix.blocking_issues) ? matrix.blocking_issues : [];
@@ -455,7 +483,7 @@ function main() {
     schema: "diayn.dddv8.completion_audit.v1",
     ok: errors.length === 0,
     goal_complete: goalComplete,
-    completion_status: goalComplete ? "complete" : codexBlocked ? "blocked_by_codex_desktop_validation" : "incomplete",
+    completion_status: goalComplete ? "complete_for_owner_approved_package_install_scope" : "incomplete",
     release_ready: Boolean(releaseGate && releaseGate.release_ready === true),
     supported_alpha_surfaces: supportedAlphaSurfaces,
     blocked_surfaces: blockedSurfaces,
@@ -465,14 +493,11 @@ function main() {
     requirement_commands_found: requirementCommands,
     surface_summary: {
       claude_code_cli_project_local: installedFlowOk ? "proven_full_flow" : "not_proven",
-      codex_desktop: codexBlocked
-        ? codexStaticPackageOk
-          ? codexInstallFixtureOk
-            ? codexHomeInstallFixtureOk
-              ? "static_package_ok_project_local_fixture_ok_codex_home_fixture_ok_runtime_invocation_not_proven"
-              : "static_project_local_package_ok_install_fixture_ok_runtime_blocked"
-            : "static_project_local_package_ok_runtime_blocked"
-          : "blocked_access_denied"
+      codex_package_install: codexPackageInstallScopeOk
+        ? "package_install_validated_app_session_runtime_not_attempted_by_owner_instruction"
+        : "not_proven",
+      codex_desktop_app_session_runtime: codexDesktopAppSessionRuntimeNotClaimed
+        ? "not_attempted_by_owner_instruction_not_claimed"
         : "unknown",
       opencode_cli: opencodeDeferred ? "deferred_by_requirement" : "unknown",
     },
@@ -485,14 +510,15 @@ function main() {
           "validation/phase9_claude_project_local_probe.json",
           "validation/phase9_claude_project_local_routed_dependency_probe.json",
           "validation/phase9_claude_project_local_command_sequence.json",
+          "validation/phase9_claude_skill_creator_alignment.json",
           "validation/phase11_installed_flow_fixture.json",
           "validation/phase12_side_scenarios.json",
         ],
       },
-      codex_desktop: {
-        status: codexBlocked ? "blocked_by_runtime_validation" : "unknown",
-        alpha_claim_allowed: supportedAlphaSurfaces.includes("codex_desktop"),
-        blocker_id: codexBlocked ? "P9-CODEX-001" : null,
+      codex_package_install: {
+        status: codexPackageInstallScopeOk ? "alpha_surface_complete_for_package_install_scope" : "not_complete",
+        alpha_claim_allowed: supportedAlphaSurfaces.includes("codex_package_install"),
+        desktop_app_session_runtime_claim_allowed: false,
         evidence: [
           "validation/phase9_codex_project_local_package.json",
           "validation/phase9_codex_project_local_install_fixture.json",
@@ -500,6 +526,7 @@ function main() {
           "validation/phase9_codex_runtime_external_evidence.json",
           "validation/phase9_codex_runtime_external_evidence_selftest.json",
         ],
+        boundary: "Codex Desktop app-session runtime was not attempted by Owner instruction and is not claimed.",
       },
       opencode_cli: {
         status: opencodeDeferred ? "deferred_by_requirement" : "unknown",

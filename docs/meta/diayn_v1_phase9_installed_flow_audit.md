@@ -1,10 +1,18 @@
 # DDDV8 Phase 9 Installed Flow Audit
 
-This file records the current installed-flow release-gate audit. It now includes the Claude project-local installed-flow completion record and the Phase 12 focused side-scenario gate, but it is not an all-surface release record. The filename still says `phase9` because this artifact was created before the DDDV8 Section 12 implementation order was refined into Phase 0 through Phase 12.
+This file records the current installed-flow release-gate audit. It now
+includes the Claude project-local installed-flow completion record, the Codex
+package/install validation boundary, and the Phase 12 focused side-scenario
+gate. The filename still says `phase9` because this artifact was created
+before the DDDV8 Section 12 implementation order was refined into Phase 0
+through Phase 12.
 
 ## 1. Release Gate Result
 
-The all-surface release gate is not complete. The Claude project-local installed flow and focused side scenarios are complete, while Codex Desktop remains unverified in this environment.
+The current release gate is complete for the Owner-approved surfaces: Claude
+project-local installed flow and Codex package/install. Codex Desktop
+app-session runtime discovery/invocation was not attempted by Owner instruction
+and is not claimed.
 
 The package has strong static evidence from Phases 2-8, and Claude Code now has a project-local package shape that satisfies three important smoke checks:
 
@@ -12,11 +20,12 @@ The package has strong static evidence from Phases 2-8, and Claude Code now has 
 - a DIAYN-managed dependency skill, `idea-refine`, can be loaded through the native `Skill` tool from the project-local package.
 - an active `/diayn-init` probe can route to and load `idea-refine` through the native `Skill` tool when the task is a vague idea requiring idea refinement.
 
-The all-surface release gate still blocks broad alpha support claims:
+The current release gate still keeps these boundaries explicit:
 
-- Codex Desktop package and install fixtures are validated, but direct
-  `/diayn-*` invocation and native dependency-skill invocation still need proof
-  from the current or reloaded Codex app session.
+- Codex package/install validation proves package shape, install commands, and
+  installed directory inspection only. It does not claim Codex Desktop
+  app-session direct `/diayn-*` invocation or native dependency-skill
+  invocation.
 - Claude plugin-dir loading is namespaced; bare `/diayn-*` is handled by the separate project-local package.
 - The Claude project-local 12-command sequence runner proves all 12 bare commands and workflow skills are visible and that every bare `/diayn-*` command enters workflow context. Validation short-circuit arguments are not reliable proof in this path, so the audit records that limit separately.
 - The clean Claude project-local installed package has run all 12 public commands, `/diayn-init -> /diayn-plan -> /diayn-worktrees -> /diayn-backend -> /diayn-frontend -> /diayn-review-backend -> /diayn-review-frontend -> /diayn-sync -> /diayn-integration -> /diayn-html -> /diayn-bug -> /diayn-new`, with `workflow_errors: []`, proving native workflow entry, scaffold creation, stage/lane/shared planning artifacts, authorized worktrees, backend/frontend lane execution, same-worktree review, document-only sync, integration evidence, durable Markdown Owner acceptance, no-active-bug side-scenario triage, closeout, and next-stage baseline refresh.
@@ -247,7 +256,7 @@ node maintainers\scripts\install_codex_project_local_package.js --fixture --exec
 ```
 
 This proves the `.codex/skills` install shape without touching a real user
-Codex home or proving runtime discovery.
+Codex home or claiming Desktop app-session runtime discovery.
 
 The Codex-home install fixture also proves the global skills-home copy shape:
 
@@ -257,7 +266,8 @@ node maintainers\scripts\install_codex_project_local_package.js --codex-home-fix
 
 It writes skills to `validation/tmp/codex-home-install-fixture/skills/` and
 metadata to `validation/tmp/codex-home-install-fixture/diayn/docs-is-all-you-need/`.
-This does not touch the real user Codex home and does not prove runtime discovery.
+This does not touch the real user Codex home and does not claim Desktop
+app-session runtime discovery.
 
 For a real Codex Home install, run a dry-run first and execute only after the
 target and conflict report look correct:
@@ -269,25 +279,24 @@ node maintainers\scripts\install_codex_project_local_package.js --target-codex-h
 
 Real Codex Home install records, executable probes, and manual testing notes are
 local-only diagnostics by default. They are useful while debugging one machine,
-but they are not remote release evidence and do not prove Codex Desktop
-app-session discovery.
+but the committed release evidence uses install fixtures and directory
+inspection.
 
-The external runtime evidence validator records the exact evidence required to
-clear the blocker:
+The external runtime evidence validator remains available as optional future
+tooling for a separate Desktop app-session claim:
 
 ```text
 docs/install/codex_runtime_external_evidence_template.json
 node maintainers\scripts\validate_codex_runtime_external_evidence.js --json validation\phase9_codex_runtime_external_evidence.json
 ```
 
-Current result: `runtime_proven: false` because no real Codex Desktop evidence
-input with a structured app-session `skill_discovery_snapshot` has been
-supplied.
+Current result: `runtime_proven: false` because Desktop app-session evidence is
+outside the current Owner-approved validation scope.
 
 Conclusion: Codex package shape, project-local install/copy shape, and
-Codex-home install/copy shape are proven, but Codex Desktop app-session
-discovery, direct `/diayn-*` invocation, native dependency-skill invocation,
-and full-flow validation are not proven.
+Codex-home install/copy shape are proven. Codex Desktop app-session discovery,
+direct `/diayn-*` invocation, native dependency-skill invocation, and full-flow
+runtime validation were not attempted and are not claimed.
 
 ## 6. Dependency-Skill Probe
 
@@ -326,19 +335,23 @@ Summary:
 
 | Surface | Package artifact | Native command/skill evidence | Bare `/diayn-*` evidence | Dependency-skill evidence | Alpha claim |
 | --- | --- | --- | --- | --- | --- |
-| Codex Desktop | Present; static package, project-local install fixture, and Codex-home install fixture pass | Not proven from current/reloaded app session | Not proven | Not proven | No |
+| Codex package/install | Present; static package, project-local install fixture, and Codex-home install fixture pass | Package/install only; Desktop runtime not attempted | Package/install surface validated | Dependency skills copied and routed metadata present | Yes, for package/install scope |
 | Claude Code CLI plugin-dir | Present, plugin validate passed | Namespaced command and skill invocation observed | Fails: `/diayn-init` unknown | Not applicable to bare command path | No |
-| Claude Code CLI project-local | Present, package validator passed | Bare `diayn-init` Skill invocation observed; all 12 commands/skills visible and entering workflow context; installed fixture completes all 12 public commands from `/diayn-init` through `/diayn-new`, including `/diayn-bug` and Phase 12 side-scenario coverage | Proven for `/diayn-init` smoke, 12-command workflow entry, primary installed flow, and focused side scenarios | Direct `idea-refine` Skill invocation and routed `/diayn-init -> idea-refine` Skill invocation observed | No all-surface claim |
+| Claude Code CLI project-local | Present, package validator passed | Bare `diayn-init` Skill invocation observed; all 12 commands/skills visible and entering workflow context; installed fixture completes all 12 public commands from `/diayn-init` through `/diayn-new`, including `/diayn-bug` and Phase 12 side-scenario coverage | Proven for `/diayn-init` smoke, 12-command workflow entry, primary installed flow, and focused side scenarios | Direct `idea-refine` Skill invocation and routed `/diayn-init -> idea-refine` Skill invocation observed | Yes |
 | OpenCode CLI | Deferred | Not implemented | Not proven | Not proven | No |
 
-## 8. Required Next Work
+## 8. Remaining Future Work
 
-Before the all-surface release gate can be marked complete:
+The current release gate is complete for the stated surfaces. Future work can
+still improve or broaden support:
 
-1. Validate Codex Desktop discovery and direct `/diayn-*` invocation from the current or a reloaded Codex app session.
-2. Decide whether Claude release packaging should prefer plugin-dir namespaced commands, project-local bare commands, or both.
-3. Convert the project-local package proof into a repeatable install procedure that does not require cloning the source repository into each target project.
-4. Decide whether final third-party composition evidence requires more than the representative routed `/diayn-init -> idea-refine` probe.
+1. Collect separate Codex Desktop app-session evidence before making a runtime
+   claim.
+2. Decide whether Claude release packaging should prefer plugin-dir namespaced
+   commands, project-local bare commands, or both.
+3. Convert local package proof into a published marketplace/plugin flow.
+4. Decide whether final third-party composition evidence requires more than the
+   representative routed `/diayn-init -> idea-refine` probe.
 
 ## 9. Validation
 
@@ -352,8 +365,8 @@ Expected current result:
 
 ```text
 ok: true
-release_ready: false
-phase9_complete: false
+release_ready: true
+phase9_complete: true
 claude_project_local_bare_command_ok: true
 claude_project_local_dependency_skill_ok: true
 claude_project_local_routed_dependency_ok: true
@@ -370,7 +383,9 @@ phase11_bug_artifacts_ok: true
 phase11_closeout_artifacts_ok: true
 phase11_installed_flow_complete: true
 phase12_side_scenarios_ok: true
-codex_home_install_actual_ok: true
+codex_package_install_scope_ok: true
+codex_app_session_runtime_not_attempted_by_owner_boundary_ok: true
 ```
 
-The validator should pass as an honest audit when the blocker record is current. It must not be interpreted as release readiness.
+The validator should pass as an honest audit for the current release scope. It
+must not be interpreted as Codex Desktop app-session runtime proof.

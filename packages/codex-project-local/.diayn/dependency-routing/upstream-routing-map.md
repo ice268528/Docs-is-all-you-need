@@ -9,8 +9,15 @@ Normal composition:
 1. A public `/diayn-*` workflow takes control.
 2. DIAYN confirms command identity, role concept, lane, worktree, write boundary, and stop conditions.
 3. The router selects the smallest relevant dependency skill set.
-4. The platform invokes the DIAYN-managed locked dependency skill through native nested skill invocation or an equivalent native skill tool call.
-5. DIAYN records routing evidence only when it materially affects the result or package validation.
+4. The router resolves the platform-visible skill id for the active install surface.
+5. The platform invokes the DIAYN-managed locked dependency skill through native nested skill invocation or an equivalent native skill tool call.
+6. DIAYN records routing evidence only when it materially affects the result or package validation.
+
+Skill id resolution:
+
+- Project-local bare-command installs use dependency names directly, for example `idea-refine`.
+- Claude plugin namespace installs use `docs-is-all-you-need:<dependency-skill>` when the native Skill tool requires namespaced skill ids.
+- Codex installed package surfaces use the discovered Codex skill id from the selected skills root. Current Codex package paths place DIAYN workflow skills and managed dependency skills side by side.
 
 Fallback only:
 

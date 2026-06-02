@@ -17,8 +17,8 @@ notes:
 
 - Project slug: `docs-is-all-you-need`
 - Current stage: `DDDV8 V1 implementation`
-- Current focus: `Phase 11 installed-flow blockers after Claude 12-command entry evidence`
-- Last updated: `2026-06-01`
+- Current focus: `DDDV8 package/install scoped release gate complete`
+- Last updated: `2026-06-02`
 - Maintainer role: `Controller Session`
 
 ## Global Implementation Board
@@ -38,14 +38,14 @@ Use checkboxes for Owner-facing progress. Detailed internal state can live in ph
 | [x] | Phase 8 | Implement lane review and rejection loops | `docs/meta/diayn_v1_phase7_lane_review_integration.md`, `validation/phase7_workflows.json` |
 | [x] | Phase 9 | Implement sync, integration, and stage lifecycle | `docs/meta/diayn_v1_phase7_lane_review_integration.md`, `validation/phase7_workflows.json` |
 | [x] | Phase 10 | Add Owner UX, reports, and maintainer utilities | `docs/meta/diayn_v1_phase8_owner_maintainer_utilities.md`, `validation/phase8_owner_utilities.json` |
-| [ ] | Phase 11 | Prove installed full flow and release gates | `docs/meta/diayn_v1_phase9_installed_flow_audit.md`, `validation/phase9_capability_matrix.json`, `validation/phase9_release_gate.json` |
+| [x] | Phase 11 | Prove installed full flow and release gates | `docs/meta/diayn_v1_phase9_installed_flow_audit.md`, `validation/phase9_capability_matrix.json`, `validation/phase9_release_gate.json`, `validation/dddv8_requirement_completion_audit.json` |
 
 ## Current Owner Gates
 
 | ID | Question | Impact | Current handling |
 | --- | --- | --- | --- |
-| `OG-001` | Whether Codex Desktop can natively expose installed workflow skills through `/diayn-*` in the target package shape. | Determines Codex alpha support claim. | Codex Desktop remains blocked until app-session discovery and invocation are proven. |
-| `OG-002` | Whether Claude Code CLI should create native skills, command files, or a thin command-to-skill bridge for its real platform mechanics. | Determines Claude alpha package shape. | Plugin-dir mode is namespaced. Project-local packaging now proves bare `/diayn-init`, direct `idea-refine`, routed `/diayn-init -> idea-refine`, and all 12 bare `/diayn-*` commands entering workflow context. The full installed-flow is not proven. |
+| `OG-001` | Whether Codex validation must launch Codex Desktop app-session. | Determines Codex alpha support claim scope. | Owner decided current validation stops at install command plus directory inspection. Codex package/install is proven; Desktop app-session runtime is not attempted and not claimed. |
+| `OG-002` | Whether Claude Code CLI should create native skills, command files, or a thin command-to-skill bridge for its real platform mechanics. | Determines Claude alpha package shape. | Plugin-dir mode is namespaced. Project-local packaging now proves bare `/diayn-init`, direct `idea-refine`, routed `/diayn-init -> idea-refine`, all 12 bare `/diayn-*` commands entering workflow context, and the complete installed-flow fixture. |
 | `OG-003` | Whether OpenCode can directly trigger installed workflow skills through `/diayn-*`. | Determines whether OpenCode remains deferred. | Do not implement OpenCode unless Phase 1 proves direct invocation. |
 
 ## Responsibility Boundary

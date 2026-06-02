@@ -1,0 +1,13 @@
+{
+  "name": "docs-is-all-you-need",
+  "description": "DIAYN 12-command workflow skill pack for document-driven multi-session coding-agent work.",
+  "version": "0.1.0",
+  "author": {
+    "name": "DIAYN maintainers"
+  },
+  "homepage": "https://github.com/DIAYN/docs-is-all-you-need",
+  "repository": "https://github.com/DIAYN/docs-is-all-you-need",
+  "license": "MIT",
+  "commands": "./.claude/commands",
+  "skills": "./packages/claude-project-local/.claude/skills"
+}

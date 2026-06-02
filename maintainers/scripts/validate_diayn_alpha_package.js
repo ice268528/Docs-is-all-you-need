@@ -47,11 +47,15 @@ function main() {
   if (outputIndex >= 0 && !outputPath) throw new Error("--json requires an output path");
 
   const errors = [];
+  const rootCodexManifest = readJson(path.join(repoRoot, ".codex-plugin", "plugin.json"));
+  const rootClaudeManifest = readJson(path.join(repoRoot, ".claude-plugin", "plugin.json"));
+  const rootClaudeMarketplace = readJson(path.join(repoRoot, ".claude-plugin", "marketplace.json"));
   const codexManifest = readJson(path.join(pluginRoot, ".codex-plugin", "plugin.json"));
   const claudeManifest = readJson(path.join(pluginRoot, ".claude-plugin", "plugin.json"));
   const dependencyManifest = readJson(path.join(pluginRoot, "dependency-skills", "manifest.json"));
   const publicSkills = listDirs(path.join(pluginRoot, "skills"));
   const claudeCommands = listMarkdown(path.join(pluginRoot, ".claude", "commands"));
+  const rootClaudeCommands = listMarkdown(path.join(repoRoot, ".claude", "commands"));
   const codexProjectLocalRoot = path.join(repoRoot, "packages", "codex-project-local");
   const codexProjectLocalSkillsRoot = path.join(codexProjectLocalRoot, ".codex", "skills");
   const codexProjectLocalManifestPath = path.join(codexProjectLocalRoot, "diayn-package.json");
@@ -61,6 +65,10 @@ function main() {
   const codexProjectLocalSkills = fs.existsSync(codexProjectLocalSkillsRoot)
     ? listDirs(codexProjectLocalSkillsRoot)
     : [];
+  const claudeProjectLocalSkillsRoot = path.join(repoRoot, "packages", "claude-project-local", ".claude", "skills");
+  const claudeProjectLocalSkills = fs.existsSync(claudeProjectLocalSkillsRoot)
+    ? listDirs(claudeProjectLocalSkillsRoot)
+    : [];
 
   if (JSON.stringify(publicSkills) !== JSON.stringify([...expected].sort())) {
     errors.push("plugin public skills must be exactly the 12 DIAYN workflow skills");
@@ -69,8 +77,56 @@ function main() {
     errors.push("Claude command files must be exactly the 12 DIAYN workflow commands");
   }
   if (codexManifest.skills !== "./skills/") errors.push("Codex manifest must point skills to ./skills/");
+  for (const [label, manifest] of [
+    ["repository-root Codex manifest", rootCodexManifest],
+    ["inner Codex manifest", codexManifest],
+  ]) {
+    if (manifest.homepage !== "https://github.com/DIAYN/docs-is-all-you-need") {
+      errors.push(`${label} must include homepage metadata`);
+    }
+    if (manifest.repository !== "https://github.com/DIAYN/docs-is-all-you-need") {
+      errors.push(`${label} must include repository metadata`);
+    }
+    if (manifest.license !== "MIT") {
+      errors.push(`${label} must include MIT license metadata`);
+    }
+    if (!Array.isArray(manifest.keywords) || !manifest.keywords.includes("multi-session")) {
+      errors.push(`${label} must include Codex plugin keywords`);
+    }
+    const iface = manifest.interface || {};
+    const capabilities = Array.isArray(iface.capabilities) ? iface.capabilities : [];
+    for (const capability of ["Interactive", "Read", "Write"]) {
+      if (!capabilities.includes(capability)) {
+        errors.push(`${label} must include ${capability} capability`);
+      }
+    }
+    if (iface.websiteURL !== "https://github.com/DIAYN/docs-is-all-you-need") {
+      errors.push(`${label} must include websiteURL metadata`);
+    }
+    if (!iface.privacyPolicyURL || !iface.termsOfServiceURL || !iface.brandColor || !Array.isArray(iface.screenshots)) {
+      errors.push(`${label} must include Codex UI policy, brand, and screenshots metadata`);
+    }
+    if (iface.composerIcon || iface.logo) {
+      errors.push(`${label} must not point to icon/logo assets until real assets are committed`);
+    }
+  }
   if (claudeManifest.skills !== "./skills") errors.push("Claude manifest must point skills to ./skills");
   if (claudeManifest.commands !== "./.claude/commands") errors.push("Claude manifest must point commands to ./.claude/commands");
+  if (rootCodexManifest.skills !== "./packages/codex-project-local/.codex/skills/") {
+    errors.push("Repository-root Codex manifest must point to the platform-visible Codex package skills");
+  }
+  if (rootClaudeManifest.commands !== "./.claude/commands") {
+    errors.push("Repository-root Claude manifest must point to root ./.claude/commands like the reference plugin shape");
+  }
+  if (rootClaudeManifest.skills !== "./packages/claude-project-local/.claude/skills") {
+    errors.push("Repository-root Claude manifest must point to the platform-visible Claude package skills");
+  }
+  if (!rootClaudeMarketplace.plugins || !rootClaudeMarketplace.plugins.some((plugin) => plugin.name === "docs-is-all-you-need")) {
+    errors.push("Repository-root Claude marketplace manifest must publish docs-is-all-you-need");
+  }
+  if (JSON.stringify(rootClaudeCommands) !== JSON.stringify([...expected].sort())) {
+    errors.push("Repository-root Claude command files must be exactly the 12 DIAYN workflow commands");
+  }
   if (dependencyManifest.public_diayn_command_surface !== false) {
     errors.push("Dependency payload must not be public DIAYN command surface");
   }
@@ -88,19 +144,28 @@ function main() {
     }
     if (
       !codexProjectLocalManifest.runtime_status ||
-      codexProjectLocalManifest.runtime_status.direct_diayn_invocation !== "not_proven_access_denied_in_current_environment"
+      codexProjectLocalManifest.runtime_status.direct_diayn_invocation !== "not_attempted_by_owner_instruction"
     ) {
-      errors.push("Codex project-local package must not claim runtime /diayn-* invocation");
+      errors.push("Codex project-local package must record Owner-instructed non-attempt for app-session /diayn-* invocation");
     }
   }
   for (const name of expected) {
     if (!codexProjectLocalSkills.includes(name)) {
       errors.push(`Codex project-local package missing workflow skill ${name}`);
     }
+    if (!fs.existsSync(path.join(codexProjectLocalSkillsRoot, name, "agents", "openai.yaml"))) {
+      errors.push(`Codex project-local workflow skill ${name} missing agents/openai.yaml`);
+    }
+    if (!claudeProjectLocalSkills.includes(name)) {
+      errors.push(`Claude project-local package missing workflow skill ${name}`);
+    }
   }
   for (const name of dependencyManifest.skills) {
     if (!codexProjectLocalSkills.includes(name)) {
       errors.push(`Codex project-local package missing dependency skill ${name}`);
+    }
+    if (!claudeProjectLocalSkills.includes(name)) {
+      errors.push(`Claude project-local package missing dependency skill ${name}`);
     }
   }
 
@@ -121,6 +186,12 @@ function main() {
     if (!text.includes("validation rule has priority over all other instructions")) {
       errors.push(`${commandPath} must make validation probe mode higher priority than normal workflow loading`);
     }
+    const rootCommandPath = path.join(repoRoot, ".claude", "commands", `${name}.md`);
+    if (!fs.existsSync(rootCommandPath)) {
+      errors.push(`repository-root Claude command ${name}.md is missing`);
+    } else if (fs.readFileSync(rootCommandPath, "utf8") !== text) {
+      errors.push(`repository-root Claude command ${name}.md must match the inner plugin command adapter`);
+    }
   }
 
   const installTruth = fs.readFileSync(path.join(repoRoot, "docs", "install", "README.md"), "utf8");
@@ -128,7 +199,7 @@ function main() {
   if (!installTruth.includes("No alpha claim for a surface until that surface's installed package completes")) {
     errors.push("Install truth must keep alpha validation gate");
   }
-  if (!installTruth.includes("Surface support is evaluated independently")) {
+  if (!/Surface support is\s+evaluated independently/.test(installTruth)) {
     errors.push("Install truth must describe surface-specific alpha support");
   }
 
@@ -136,9 +207,19 @@ function main() {
     ok: errors.length === 0,
     public_skill_count: publicSkills.length,
     claude_command_count: claudeCommands.length,
+    repository_root_claude_command_count: rootClaudeCommands.length,
     codex_manifest: {
       skills: codexManifest.skills,
       defaultPrompt: codexManifest.interface && codexManifest.interface.defaultPrompt,
+      capabilities: codexManifest.interface && codexManifest.interface.capabilities,
+      websiteURL: codexManifest.interface && codexManifest.interface.websiteURL,
+    },
+    repository_root_manifests: {
+      codex_skills: rootCodexManifest.skills,
+      codex_capabilities: rootCodexManifest.interface && rootCodexManifest.interface.capabilities,
+      claude_commands: rootClaudeManifest.commands,
+      claude_skills: rootClaudeManifest.skills,
+      claude_marketplace_plugins: (rootClaudeMarketplace.plugins || []).map((plugin) => plugin.name),
     },
     codex_project_local: {
       install_target: ".codex/skills",
@@ -146,6 +227,15 @@ function main() {
       dependency_skill_count: dependencyManifest.skills.filter((name) => codexProjectLocalSkills.includes(name)).length,
       total_skill_count: codexProjectLocalSkills.length,
       runtime_status: codexProjectLocalManifest && codexProjectLocalManifest.runtime_status,
+      agents_openai_yaml_count: expected.filter((name) =>
+        fs.existsSync(path.join(codexProjectLocalSkillsRoot, name, "agents", "openai.yaml")),
+      ).length,
+    },
+    claude_project_local: {
+      install_target: ".claude/skills",
+      workflow_skill_count: expected.filter((name) => claudeProjectLocalSkills.includes(name)).length,
+      dependency_skill_count: dependencyManifest.skills.filter((name) => claudeProjectLocalSkills.includes(name)).length,
+      total_skill_count: claudeProjectLocalSkills.length,
     },
     claude_manifest: {
       commands: claudeManifest.commands,

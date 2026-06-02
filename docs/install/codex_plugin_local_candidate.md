@@ -3,16 +3,25 @@
 DIAYN has a local Codex plugin candidate at:
 
 ```text
+.codex-plugin/plugin.json
 plugins/docs-is-all-you-need/
 ```
 
-This is not a published plugin, not marketplace support, and not a replacement
-for the project-local Codex Skills path. The plugin candidate packages the 12
-public DIAYN workflow skills and keeps the core workflow document-driven.
+This is not a published plugin and not marketplace support. The repository-root
+manifest points at `packages/codex-project-local/.codex/skills/`, which is the
+platform-visible package shape containing 12 public DIAYN workflow skills plus
+23 DIAYN-managed dependency skills. The 12 public workflow skills in that
+generated Codex package also carry Codex-specific `agents/openai.yaml`
+metadata for UI/harness discovery. The inner candidate under
+`plugins/docs-is-all-you-need/` remains available for local packaging
+experiments and packages only the 12 public DIAYN workflow skills. Both Codex
+manifests include product metadata similar to the `superpowers` Codex manifest
+without referencing fake icon or logo assets.
 
 ## Candidate Contents
 
 ```text
+.codex-plugin/plugin.json
 plugins/docs-is-all-you-need/.codex-plugin/plugin.json
 plugins/docs-is-all-you-need/skills/diayn-init/
 plugins/docs-is-all-you-need/skills/diayn-plan/
@@ -43,22 +52,20 @@ dependency skills.
 
 ## Current Support Level
 
-Support level: `static_package_and_install_fixture_validated_runtime_blocked`.
+Support level: `package_install_validated_app_session_runtime_not_attempted`.
 
 The local plugin candidate and the project-local `.codex/skills` package pass
 static validation. The project-local install fixture proves the copy shape into
 a temporary `.codex/skills` plus `.diayn` target, and the Codex-home install
 fixture proves the copy shape into temporary `skills/` plus
 `diayn/docs-is-all-you-need/` targets. The external runtime evidence validator
-and selftest prove that a complete concrete evidence file would clear the
-Codex blocker while placeholder, missing, or nonexistent evidence references
-remain blocked. Codex CLI/Desktop discovery could not be verified in this
-environment, so app-session runtime proof must come from a current or reloaded
-Codex Desktop session before this surface can be called working.
+and selftest remain as optional future app-session evidence tooling. Per Owner
+instruction, this validation does not launch Codex Desktop and does not claim
+app-session runtime discovery or direct `/diayn-*` execution.
 
 This means the packages can be inspected and used as local candidates, but
-DIAYN cannot truthfully claim Codex plugin discovery, `.codex/skills` discovery,
-or `/diayn-*` execution as `working`.
+DIAYN can truthfully claim the Codex package/install surface, but cannot claim
+Codex Desktop app-session discovery or `/diayn-*` execution as `working`.
 
 ## Manual Use Boundary
 

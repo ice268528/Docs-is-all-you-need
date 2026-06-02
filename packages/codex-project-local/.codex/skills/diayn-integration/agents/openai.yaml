@@ -1,0 +1,4 @@
+interface:
+  display_name: "DIAYN Integration"
+  short_description: "Integrate reviewed DIAYN lane work"
+  default_prompt: "Use $diayn-integration to integrate reviewed lane work and run checks."

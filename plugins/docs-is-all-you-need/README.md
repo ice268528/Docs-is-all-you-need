@@ -3,6 +3,21 @@
 This directory is the local plugin candidate for DIAYN. It contains Claude Code
 and Codex plugin metadata plus the installable public workflow skills.
 
+The repository root now also contains platform entrypoints:
+
+```text
+.claude-plugin/plugin.json
+.codex-plugin/plugin.json
+```
+
+Those root manifests are closer to the publishable reference-project shape.
+They point at generated platform-visible package skills under
+`packages/claude-project-local/.claude/skills/` and
+`packages/codex-project-local/.codex/skills/`, so the 23 DIAYN-managed
+dependency skills are visible beside the 12 DIAYN workflow skills. This inner
+directory remains the local plugin candidate and source for the 12 public
+workflow adapters.
+
 DDDV8 status: Phase 12 alpha package candidate. The active `skills/` directory
 contains the 12 public workflow skills plus progressively disclosed workflow
 assets and deterministic helpers. Older role-oriented material is retained

@@ -1,0 +1,29 @@
+{
+  "schema": "diayn.phase9.claude_skill_creator_alignment.v1",
+  "ok": true,
+  "date": "2026-06-02",
+  "surface": "claude_code_cli_project_local",
+  "reference": "E:/Allproject/VscodeProject/docs_is_all_you_need_for_AGENTS/claude_skills/skills/skill-creator",
+  "alignment_doc": "docs/meta/claude_skill_creator_eval_alignment.md",
+  "trigger_eval_sets": "validation/claude_skill_creator_trigger_eval_sets.json",
+  "expected_workflow_skill_count": 12,
+  "trigger_eval_sets_ready": true,
+  "project_local_runtime_evidence_complete": true,
+  "benchmark_complete": false,
+  "broad_auto_trigger_claim_allowed": false,
+  "claude_project_local_alpha_claim_allowed": true,
+  "evidence": [
+    "validation/phase9_claude_project_local_package.json",
+    "validation/phase9_claude_project_local_probe.json",
+    "validation/phase9_claude_project_local_routed_dependency_probe.json",
+    "validation/phase11_installed_flow_fixture.json",
+    "validation/phase12_side_scenarios.json"
+  ],
+  "limits": [
+    "This is a Claude project-local package alignment record, not a marketplace/plugin bare-command proof.",
+    "Trigger eval prompts are prepared but not executed as a Claude skill-creator benchmark.",
+    "No with-skill vs baseline benchmark is committed.",
+    "Codex Desktop app-session runtime is outside the current Codex package/install validation claim."
+  ],
+  "errors": []
+}

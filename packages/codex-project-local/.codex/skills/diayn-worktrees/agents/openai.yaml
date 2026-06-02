@@ -1,0 +1,4 @@
+interface:
+  display_name: "DIAYN Worktrees"
+  short_description: "Prepare DIAYN lane worktrees safely"
+  default_prompt: "Use $diayn-worktrees to prepare backend and frontend worktree plans."

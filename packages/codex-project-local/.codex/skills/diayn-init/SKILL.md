@@ -55,6 +55,7 @@ Then stop. This mode only validates package command routing; it does not prove t
 5. Run or inspect `scripts/harness_audit.py` when the current task needs repository/scaffold preflight, dry-run migration, conflict reporting, language inference, or Git/dirty-state evidence.
 6. Use `assets/scaffold/` only as target-project templates after the Owner approves scaffold creation or preservation decisions.
 7. Load third-party dependency skills only through the DIAYN Skill Router when the current task needs requirement interview, idea refinement, specification, documentation, or migration guidance.
+   When routing is needed, read the installed routing map from `.diayn/dependency-routing/upstream-routing-map.md` if present; otherwise use `internal-role-skills/diayn-skill-router/references/upstream-routing-map.md` in the active DIAYN package. Resolve the platform-visible skill id before native Skill invocation.
 
 ## Workflow
 

@@ -2,12 +2,32 @@
   "ok": true,
   "public_skill_count": 12,
   "claude_command_count": 12,
+  "repository_root_claude_command_count": 12,
   "codex_manifest": {
     "skills": "./skills/",
     "defaultPrompt": [
       "/diayn-init",
       "/diayn-plan",
       "/diayn-review-frontend"
+    ],
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "websiteURL": "https://github.com/DIAYN/docs-is-all-you-need"
+  },
+  "repository_root_manifests": {
+    "codex_skills": "./packages/codex-project-local/.codex/skills/",
+    "codex_capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "claude_commands": "./.claude/commands",
+    "claude_skills": "./packages/claude-project-local/.claude/skills",
+    "claude_marketplace_plugins": [
+      "docs-is-all-you-need"
     ]
   },
   "codex_project_local": {
@@ -16,10 +36,17 @@
     "dependency_skill_count": 23,
     "total_skill_count": 35,
     "runtime_status": {
-      "codex_desktop_discovery": "not_proven_access_denied_in_current_environment",
-      "direct_diayn_invocation": "not_proven_access_denied_in_current_environment",
-      "dependency_skill_invocation": "not_proven_access_denied_in_current_environment"
-    }
+      "codex_desktop_discovery": "not_attempted_by_owner_instruction",
+      "direct_diayn_invocation": "not_attempted_by_owner_instruction",
+      "dependency_skill_invocation": "not_attempted_by_owner_instruction"
+    },
+    "agents_openai_yaml_count": 12
+  },
+  "claude_project_local": {
+    "install_target": ".claude/skills",
+    "workflow_skill_count": 12,
+    "dependency_skill_count": 23,
+    "total_skill_count": 35
   },
   "claude_manifest": {
     "commands": "./.claude/commands",

@@ -80,11 +80,14 @@ function main() {
     if (!manifest.install_target || manifest.install_target.skills !== ".codex/skills") {
       errors.push("manifest install target must be .codex/skills");
     }
-    if (!manifest.runtime_status || manifest.runtime_status.codex_desktop_discovery !== "not_proven_access_denied_in_current_environment") {
-      errors.push("manifest must keep Codex Desktop runtime discovery unproven");
+    if (!manifest.runtime_status || manifest.runtime_status.codex_desktop_discovery !== "not_attempted_by_owner_instruction") {
+      errors.push("manifest must record that Codex Desktop app-session discovery was not attempted by Owner instruction");
     }
-    if (!manifest.runtime_status || manifest.runtime_status.direct_diayn_invocation !== "not_proven_access_denied_in_current_environment") {
-      errors.push("manifest must keep direct /diayn-* invocation unproven");
+    if (!manifest.runtime_status || manifest.runtime_status.direct_diayn_invocation !== "not_attempted_by_owner_instruction") {
+      errors.push("manifest must not claim direct Codex app-session /diayn-* invocation");
+    }
+    if (!manifest.runtime_status || manifest.runtime_status.dependency_skill_invocation !== "not_attempted_by_owner_instruction") {
+      errors.push("manifest must not claim Codex app-session dependency-skill invocation");
     }
   }
 
@@ -92,8 +95,38 @@ function main() {
     if (!packageSkills.includes(name)) errors.push(`missing Codex project-local workflow skill ${name}`);
     const packagedPath = path.join(skillsRoot, name);
     const pluginPath = path.join(pluginRoot, "skills", name);
-    if (fs.existsSync(packagedPath) && treeHash(packagedPath) !== treeHash(pluginPath)) {
-      errors.push(`Codex project-local workflow skill ${name} differs from plugin source`);
+    const openAiYamlPath = path.join(packagedPath, "agents", "openai.yaml");
+    if (fs.existsSync(packagedPath)) {
+      const packagedFiles = listFiles(packagedPath)
+        .filter((file) => path.relative(packagedPath, file).replace(/\\/g, "/") !== "agents/openai.yaml")
+        .map((file) => path.relative(packagedPath, file).replace(/\\/g, "/"));
+      const pluginFiles = listFiles(pluginPath).map((file) => path.relative(pluginPath, file).replace(/\\/g, "/"));
+      if (JSON.stringify(packagedFiles.sort()) !== JSON.stringify(pluginFiles.sort())) {
+        errors.push(`Codex project-local workflow skill ${name} differs from plugin source beyond Codex metadata`);
+      }
+      for (const relativeFile of pluginFiles) {
+        const packagedFile = path.join(packagedPath, relativeFile);
+        const sourceFile = path.join(pluginPath, relativeFile);
+        if (fs.existsSync(packagedFile) && fs.readFileSync(packagedFile).compare(fs.readFileSync(sourceFile)) !== 0) {
+          errors.push(`Codex project-local workflow skill ${name}/${relativeFile} differs from plugin source`);
+        }
+      }
+    }
+    if (!fs.existsSync(openAiYamlPath)) {
+      errors.push(`${name} must include Codex agents/openai.yaml metadata`);
+    } else {
+      const openAiYaml = fs.readFileSync(openAiYamlPath, "utf8");
+      const shortDescriptionMatch = openAiYaml.match(/short_description:\s*"([^"]+)"/);
+      if (!openAiYaml.includes("interface:")) errors.push(`${name} agents/openai.yaml missing interface block`);
+      if (!openAiYaml.includes("display_name:")) errors.push(`${name} agents/openai.yaml missing display_name`);
+      if (!shortDescriptionMatch) {
+        errors.push(`${name} agents/openai.yaml missing quoted short_description`);
+      } else if (shortDescriptionMatch[1].length < 25 || shortDescriptionMatch[1].length > 64) {
+        errors.push(`${name} agents/openai.yaml short_description must be 25-64 chars`);
+      }
+      if (!openAiYaml.includes(`$${name}`)) {
+        errors.push(`${name} agents/openai.yaml default_prompt must mention $${name}`);
+      }
     }
     const text = fs.existsSync(path.join(packagedPath, "SKILL.md"))
       ? fs.readFileSync(path.join(packagedPath, "SKILL.md"), "utf8")
@@ -138,10 +171,13 @@ function main() {
     dependency_routing_map_present: fs.existsSync(path.join(packageRoot, ".diayn", "dependency-routing", "upstream-routing-map.md")),
     internal_role_references_present: fs.existsSync(path.join(packageRoot, ".diayn", "internal-role-skills", "diayn-skill-router", "SKILL.md")),
     runtime_validation: {
-      codex_desktop_discovery: "not_proven_access_denied_in_current_environment",
-      direct_diayn_invocation: "not_proven_access_denied_in_current_environment",
-      dependency_skill_invocation: "not_proven_access_denied_in_current_environment",
+      codex_desktop_discovery: "not_attempted_by_owner_instruction",
+      direct_diayn_invocation: "not_attempted_by_owner_instruction",
+      dependency_skill_invocation: "not_attempted_by_owner_instruction",
     },
+    codex_agents_openai_yaml_count: expectedWorkflowSkills.filter((name) =>
+      fs.existsSync(path.join(skillsRoot, name, "agents", "openai.yaml")),
+    ).length,
     errors,
   };
 

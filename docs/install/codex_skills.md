@@ -8,6 +8,25 @@ The Codex package artifact is:
 packages/codex-project-local/
 ```
 
+The repository-root Codex plugin entrypoint is:
+
+```text
+.codex-plugin/plugin.json
+```
+
+It points at:
+
+```text
+packages/codex-project-local/.codex/skills/
+```
+
+This root entrypoint mirrors the `superpowers` style of a repository-root
+Codex manifest while keeping the app-session runtime boundary honest. It includes
+repository/homepage/license/keyword metadata and Codex UI fields such as
+`Read`/`Write` capabilities, website URL, policy URLs, brand color, and an
+empty screenshots list. It intentionally does not point at `composerIcon` or
+`logo` paths until real assets are committed.
+
 It is shaped for project-local installation into:
 
 ```text
@@ -24,6 +43,11 @@ skills/
 This package contains exactly the 12 public DIAYN workflow skills plus the
 DIAYN-managed third-party `agent-skills` dependency skills. It does not expose
 the internal role/reference skills as public `/diayn-*` commands.
+
+The 12 public DIAYN workflow skills in the Codex package also include
+Codex-specific `agents/openai.yaml` metadata. That metadata is generated into
+the Codex package only; it is not required for Claude Code and is not added to
+the locked third-party dependency skills.
 
 ## Skill Folders To Install
 
@@ -68,6 +92,7 @@ Current static result:
 workflow_skill_count: 12
 dependency_skill_count: 23
 total_project_local_skill_count: 35
+codex_agents_openai_yaml_count: 12
 ```
 
 Current install fixture result:
@@ -88,9 +113,9 @@ node maintainers\scripts\install_codex_project_local_package.js --target-codex-h
 ```
 
 Real Codex Home install records are local-only diagnostics by default. They may
-confirm what was copied on one maintainer machine, but they are not tracked as
-remote release evidence and they do not prove Codex Desktop app-session
-runtime discovery. The installer reports pre-existing non-package folders in
+confirm what was copied on one maintainer machine, but the committed release
+evidence uses fixtures and directory inspection instead of private machine
+state. The installer reports pre-existing non-package folders in
 `target_preflight` and `installed_result.preserved_*`; that residue accounting
 is intentional so a global install never silently deletes user files or treats
 historical internal skills as V1 public commands.
@@ -143,26 +168,26 @@ skills, the dry-run and execute reports warn about them but leave them in
 place. Cleanup or quarantine of those folders requires a separate explicit
 Owner/maintainer authorization.
 
-## Runtime Boundary
+## Validation Boundary
 
-Codex Desktop runtime discovery and direct `/diayn-*` invocation are still not
-proven by file installation alone. The current repository has proof that the
-right files can be packaged and copied into Codex-compatible shapes, but it
-still needs evidence from the current or reloaded Codex app session that:
+Per Owner instruction on 2026-06-02, Codex validation stops at the install
+command and installed directory inspection. The current repository proves that
+the right files can be packaged and copied into Codex-compatible shapes:
 
-- all 12 public `/diayn-*` workflows are discovered as usable skills;
-- direct `/diayn-*` invocation loads the matching workflow skill;
-- a DIAYN workflow can use a DIAYN-managed dependency skill natively;
-- the complete installed flow can run from the Codex app session.
+- all 12 public `/diayn-*` workflow skills are present;
+- all 23 DIAYN-managed dependency skills are present;
+- Codex `agents/openai.yaml` metadata exists for the 12 public workflow skills;
+- `.diayn` routing and metadata are copied into the target shape;
+- pre-existing non-package skills are reported and preserved.
 
-Therefore this file documents a validated package shape, executed install
-fixtures, and the local-only real-install boundary, not a proven Codex runtime
-flow. Do not claim Codex alpha support until current/reloaded app-session
-evidence proves installed discovery, direct `/diayn-*` invocation,
-dependency-skill invocation, and the complete DIAYN flow.
+This file documents a validated Codex package/install alpha surface, not a
+Codex Desktop app-session runtime flow. Codex Desktop discovery, direct
+`/diayn-*` invocation, native dependency-skill invocation, and complete flow
+execution inside the Desktop app were not attempted by Owner instruction and
+must not be claimed.
 
-The committed runtime-evidence validator records the blocker and the future
-evidence required to clear it:
+The committed runtime-evidence validator remains as an optional future intake
+for app-session evidence:
 
 ```text
 validation/phase9_codex_runtime_external_evidence.json
@@ -170,27 +195,13 @@ validation/phase9_codex_runtime_external_evidence_selftest.json
 ```
 
 Local executable probes and real Codex Home install outputs can be useful while
-debugging, but they are not committed remote evidence by default and they do
-not clear the runtime blocker by themselves.
+debugging, but they are not committed release evidence by default and they do
+not create a Desktop app-session runtime claim.
 
-When Codex Desktop can run in a suitable environment, copy
-`docs/install/codex_runtime_external_evidence_template.json` to
-`validation/codex_runtime_external_evidence.input.json`, replace every
-placeholder with real logs, screenshots, transcripts, or generated fixture
-paths, and run. Keep private local scratch evidence out of Git unless the
-maintainer intentionally sanitizes and promotes it as release evidence. If
-promoted, every `evidence_refs` entry must be a repo-relative path to an
-existing committed evidence file. The validator rejects
-`<...>` placeholder values, empty evidence references, absolute paths, URLs,
-paths outside the repository, and repo-relative paths that do not exist, so
-copying the template unchanged or inventing evidence references cannot clear
-the blocker:
-
-Do not launch a new Codex process from a shell to satisfy this gate. The
-evidence input must include a structured `skill_discovery_snapshot` proving
-that the current, reloaded, or new Codex Desktop app session discovered all 12
-public workflow skills and at least one DIAYN-managed dependency skill before
-command invocation evidence is accepted.
+Do not launch Codex Desktop or a new Codex process to satisfy the current
+package/install gate. A future app-session claim may use
+`docs/install/codex_runtime_external_evidence_template.json`, but that evidence
+is outside the current validation scope.
 
 ```text
 node maintainers\scripts\validate_codex_runtime_external_evidence.js --evidence validation\codex_runtime_external_evidence.input.json --json validation\phase9_codex_runtime_external_evidence.json
@@ -202,11 +213,11 @@ The validator selftest should also remain green:
 node maintainers\scripts\validate_codex_runtime_external_evidence_selftest.js --json validation\phase9_codex_runtime_external_evidence_selftest.json
 ```
 
-That evidence must prove package discovery, all 12 direct `/diayn-*`
-invocations, routed dependency-skill invocation, progressive disclosure,
-role/lane checks, review rejection, sync/integration separation, Owner
-acceptance, closeout, next-stage refresh, and focused side scenarios before
-the Codex runtime blocker can be cleared.
+That optional future evidence would need to prove package discovery, all 12
+direct `/diayn-*` invocations, routed dependency-skill invocation, progressive
+disclosure, role/lane checks, review rejection, sync/integration separation,
+Owner acceptance, closeout, next-stage refresh, and focused side scenarios
+before a Desktop app-session runtime claim could be made.
 
 ## First Use
 

@@ -1,0 +1,4 @@
+interface:
+  display_name: "DIAYN New"
+  short_description: "Capture DIAYN requirement changes"
+  default_prompt: "Use $diayn-new to capture a new or changed requirement without mutating old requirements silently."

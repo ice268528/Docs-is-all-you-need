@@ -48,8 +48,8 @@ DDDV8 adapter priority:
 
 | Surface | Current level | Adapter location | Notes |
 | --- | --- | --- | --- |
-| Codex Desktop | `install_fixtures_validated_runtime_blocked` | `plugins/docs-is-all-you-need/`, `packages/codex-project-local/`, `validation/phase9_codex_project_local_install_fixture.json`, `validation/phase9_codex_home_install_fixture.json` | 12 workflow skills plus DIAYN-managed dependency skills are statically packaged; the project-local and Codex-home install fixtures pass. Real Codex Home installs are local-only diagnostics by default. Runtime discovery/invocation still needs proof from the current or reloaded Codex app session. |
-| Claude Code | `project_local_installed_flow_proven` | `plugins/docs-is-all-you-need/`, `packages/claude-project-local/` | Project-local package proves all 12 public commands through the installed-flow fixture. |
+| Codex package/install | `package_install_validated_app_session_runtime_not_attempted` | `.codex-plugin/`, `plugins/docs-is-all-you-need/`, `packages/codex-project-local/`, `validation/phase9_codex_project_local_install_fixture.json`, `validation/phase9_codex_home_install_fixture.json` | Repository-root Codex manifest points at the platform-visible generated skills package. 12 workflow skills plus DIAYN-managed dependency skills are statically packaged; the project-local and Codex-home install fixtures pass. Desktop app-session runtime is intentionally not attempted and not claimed. |
+| Claude Code | `project_local_installed_flow_proven` | `.claude-plugin/`, `.claude/commands/`, `plugins/docs-is-all-you-need/`, `packages/claude-project-local/` | Repository-root Claude manifest points commands to root DIAYN adapters and skills to the generated platform-visible package. Project-local package proves all 12 public commands through the installed-flow fixture. |
 | OpenCode | `deferred` | `integrations/opencode/.opencode/` | Historical adapter evidence only; not a DDDV8 alpha surface until direct `/diayn-*` skill invocation is proven. |
 
 ## Agent Skills Boundary
@@ -60,15 +60,17 @@ DIAYN-owned adapters live under `integrations/**`. DIAYN-owned skills live under
 
 ## Plugin Boundary
 
-Codex plugin/runtime work remains blocked by missing app-session invocation
-evidence:
+Codex package/install work is validated for the current Owner-approved scope:
 
 - Draft manifest notes are allowed.
 - Static package and scaffold asset plans are allowed.
 - Real Codex Home file-install diagnostics are allowed locally.
+- Desktop app-session runtime claims require separate future evidence.
 - Readiness and risk checklists are allowed.
 
-Current DIAYN V1 documentation does not publish or claim a working Codex plugin/runtime. Core DIAYN document workflow must remain usable without Codex-specific features.
+Current DIAYN V1 documentation claims Codex package/install support, not
+Codex Desktop app-session runtime support. Core DIAYN document workflow must
+remain usable without Codex-specific features.
 
 ## Lightweight Export Rule
 

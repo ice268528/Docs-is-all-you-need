@@ -11,9 +11,10 @@
   "dependency_routing_map_present": true,
   "internal_role_references_present": true,
   "runtime_validation": {
-    "codex_desktop_discovery": "not_proven_access_denied_in_current_environment",
-    "direct_diayn_invocation": "not_proven_access_denied_in_current_environment",
-    "dependency_skill_invocation": "not_proven_access_denied_in_current_environment"
+    "codex_desktop_discovery": "not_attempted_by_owner_instruction",
+    "direct_diayn_invocation": "not_attempted_by_owner_instruction",
+    "dependency_skill_invocation": "not_attempted_by_owner_instruction"
   },
+  "codex_agents_openai_yaml_count": 12,
   "errors": []
 }

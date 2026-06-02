@@ -1,0 +1,43 @@
+{
+  "id": "docs-is-all-you-need",
+  "name": "docs-is-all-you-need",
+  "version": "0.1.0",
+  "description": "DIAYN 12-command workflow skill pack for document-driven multi-session coding-agent work.",
+  "author": {
+    "name": "DIAYN maintainers"
+  },
+  "homepage": "https://github.com/DIAYN/docs-is-all-you-need",
+  "repository": "https://github.com/DIAYN/docs-is-all-you-need",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "workflow",
+    "multi-session",
+    "planning",
+    "review",
+    "codex"
+  ],
+  "skills": "./packages/codex-project-local/.codex/skills/",
+  "interface": {
+    "displayName": "Docs is all you need",
+    "shortDescription": "Use 12 DIAYN workflow skills for document-driven multi-session work.",
+    "longDescription": "Repository-root Codex plugin entrypoint for the DIAYN V1 package. It exposes the 12 DIAYN-owned workflow skills plus DIAYN-managed agent-skills dependency skills for native routing.",
+    "developerName": "DIAYN maintainers",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "/diayn-init",
+      "/diayn-plan",
+      "/diayn-review-frontend"
+    ],
+    "websiteURL": "https://github.com/DIAYN/docs-is-all-you-need",
+    "privacyPolicyURL": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
+    "termsOfServiceURL": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+    "brandColor": "#2563EB",
+    "screenshots": []
+  }
+}

@@ -26,6 +26,19 @@ flowchart LR
 Claude Code 应该采用和 `superpowers`、`agent-skills` 一样的 plugin-first
 安装模型。
 
+仓库现在包含根目录 Claude plugin 入口：
+
+```text
+.claude-plugin/plugin.json
+.claude-plugin/marketplace.json
+```
+
+根目录 manifest 会把命令指向
+`.claude/commands`，把 skills 指向
+`packages/claude-project-local/.claude/skills`。这个 skills root 里有
+12 个 DIAYN workflow skills，也有 23 个锁定的、由 DIAYN 管理的
+`agent-skills` dependency skills。
+
 DIAYN 发布 Claude marketplace 后，目标用户安装方式应该是：
 
 ```text
@@ -36,12 +49,21 @@ DIAYN 发布 Claude marketplace 后，目标用户安装方式应该是：
 发布前的本地开发验证，用 Claude Code 直接加载 plugin candidate：
 
 ```powershell
+claude --plugin-dir E:\Allproject\VscodeProject\docs_is_all_you_need_for_AGENTS\Docs-is-all-you-need
+```
+
+旧的内层候选包仍然保留，用于聚焦的本地 plugin-dir 测试：
+
+```powershell
 claude --plugin-dir E:\Allproject\VscodeProject\docs_is_all_you_need_for_AGENTS\Docs-is-all-you-need\plugins\docs-is-all-you-need
 ```
 
 Claude plugin candidate 的结构是：
 
 ```text
+.claude-plugin/plugin.json
+.claude-plugin/marketplace.json
+.claude/commands/diayn-*.md
 plugins/docs-is-all-you-need/.claude-plugin/plugin.json
 plugins/docs-is-all-you-need/.claude/commands/diayn-*.md
 plugins/docs-is-all-you-need/skills/diayn-*/
@@ -61,9 +83,22 @@ plugins/docs-is-all-you-need/dependency-skills/
 
 ### Codex Desktop
 
-Codex Desktop 的 package shape 和安装 fixture 已准备好，但当前或重新加载后的
-Codex Desktop app session 运行时发现仍需要人工验证。安装 Codex Home skill
-package 时，请在本仓库根目录执行。先执行 dry-run：
+仓库现在包含根目录 Codex plugin 入口：
+
+```text
+.codex-plugin/plugin.json
+```
+
+它指向 `packages/codex-project-local/.codex/skills/`，里面包含 12 个
+DIAYN workflow skills 和 23 个 DIAYN 管理的 dependency skills。旧的内层
+Codex plugin candidate 仍然保留在 `plugins/docs-is-all-you-need/`，用于本地
+打包实验。生成后的 Codex package 里的 12 个公开 DIAYN skills 也包含
+Codex 专用的 `agents/openai.yaml` 元数据。
+
+Codex package/install 适配在当前 Owner 批准的验证范围内已经完成。验证方式是
+执行安装命令，并检查安装后的目录结构；不会启动 Codex Desktop，也不会声称已经
+证明 app-session runtime discovery。安装 Codex Home skill package 时，请在
+本仓库根目录执行。先执行 dry-run：
 
 ```powershell
 node maintainers\scripts\install_codex_project_local_package.js --target-codex-home $env:USERPROFILE\.codex
@@ -84,14 +119,16 @@ node maintainers\scripts\install_codex_project_local_package.js --target-codex-h
 安装命令不会删除已有用户 skills。如果之前装过旧 DIAYN 测试 skills，
 请先明确清理，再重新安装。
 
-安装完成后，打开或重新加载 Codex Desktop，在目标项目里从这个命令开始：
+安装完成后，如果后续要人工试用 Codex Desktop，可以在目标项目里从这个命令开始：
 
 ```text
 /diayn-init
 ```
 
-在 Codex Desktop 里证明可直接执行 `/diayn-*`，并且能原生调用 dependency
-skill 之前，不能把 Codex Desktop 支持说成已证明。
+当前 release claim 是 `codex_package_install`：package shape、安装命令和目录
+检查已经验证。按 Owner 指示，本轮没有尝试 Codex Desktop app-session 里的
+裸 `/diayn-*` 直接调用，也没有尝试原生 dependency-skill 调用，所以不能声称
+Codex Desktop app-session runtime 已证明。
 
 ### 第三方 Skills 路由
 
@@ -99,6 +136,11 @@ DIAYN 内置并锁定 23 个第三方 `agent-skills`，把它们作为 DIAYN 管
 dependency skills。它们不是额外的公开 DIAYN 命令。每次 `/diayn-*` workflow
 先由 DIAYN 掌握角色、lane、状态、审查、集成、证据和 Owner 边界，然后 router
 再选择最小必要的 dependency skill 集合。
+
+dependency skill id 按平台解析。project-local 安装使用 `idea-refine` 这种裸
+skill 名；Claude plugin namespace 安装可能需要
+`docs-is-all-you-need:idea-refine`；Codex 使用已安装 skills root 中发现的
+skill id。
 
 路由表在：
 
@@ -111,6 +153,15 @@ skills/diayn-skill-router/references/upstream-routing-map.md
 DIAYN 管理的 `idea-refine` skill。安装包包含全部 23 个 dependency skills，
 也为每个 skill 写了路由依据；但这不等于 23 个 dependency skills 都已经在真实
 workflow 里逐个完整运行过。
+
+Claude skill-creator 对齐记录在：
+
+```text
+validation/phase9_claude_skill_creator_alignment.json
+```
+
+它准备了每个 workflow skill 的触发评测种子，并明确保留边界：目前还没有提交
+with-skill vs baseline benchmark 结果。
 
 ## 12 条公开命令
 
@@ -158,7 +209,7 @@ sequenceDiagram
 | `packages/codex-project-local/` | Codex project-local/Home 安装包和 fixture 路径。 |
 | `packages/claude-project-local/` | Claude Code 裸命令 alpha fallback 和 installed-flow fixture。 |
 | `plugins/docs-is-all-you-need/dependency-skills/` | 锁定的、由 DIAYN 管理的第三方 `agent-skills` 依赖。 |
-| `validation/` | 已提交的 fixture 证据和 release gate 输出。本机 runtime 证据会被忽略。 |
+| `validation/` | 已提交的 fixture 证据和 release gate 输出。Codex package/install 证据会提交；app-session runtime 证据是后续可选证据。 |
 
 ## 当前支持状态
 
@@ -166,11 +217,11 @@ sequenceDiagram
 | --- | --- |
 | Claude Code plugin candidate | 标准安装目标；本地 plugin-dir 已验证 plugin shape，但裸 `/diayn-*` 还需要 marketplace/runtime 证明。 |
 | Claude Code project-local fallback | 已证明裸 `/diayn-*` alpha fixture；不是最终安装模型。 |
-| Codex Desktop | package 和安装 fixture 已准备好；app session runtime 需要人工验证。 |
+| Codex package/install | 已验证 alpha surface：package shape、安装命令和目录检查通过。Desktop app-session runtime 未尝试，也不声明已证明。 |
 | OpenCode | 暂缓，直到能证明可直接触发 `/diayn-*` skills。 |
 
-Codex Desktop runtime 验证必须在 Codex Desktop 里完成。不要用从 shell
-启动的 Codex 作为运行时证明。
+不要把 shell 启动的 Codex 或安装 fixture 输出当成 Codex Desktop app-session
+runtime 证明。当前验证边界明确停在 Desktop 启动之前。
 
 ## 继续阅读
 

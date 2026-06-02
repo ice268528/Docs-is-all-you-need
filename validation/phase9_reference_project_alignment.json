@@ -1,0 +1,51 @@
+{
+  "schema": "diayn.reference_project_alignment.v1",
+  "ok": true,
+  "date": "2026-06-02",
+  "reports": {
+    "skill_creator_comparison_report": "DDDV8/skill_creator_comparison_report.md",
+    "reference_projects_multi_platform_adaptation_report": "DDDV8/reference_projects_multi_platform_adaptation_report.md",
+    "checks": {
+      "skill_creator_platform_split": true,
+      "reference_platform_split": true
+    }
+  },
+  "references": {
+    "superpowers": {
+      "claude_plugin_present": true,
+      "codex_skills_path": "./skills/"
+    },
+    "agent_skills": {
+      "claude_commands": "./.claude/commands",
+      "claude_skills": "./skills"
+    },
+    "claude_skill_creator": {
+      "eval_loop_terms_present": true
+    }
+  },
+  "target_alignment": {
+    "root_claude_commands": "./.claude/commands",
+    "root_claude_skills": "./packages/claude-project-local/.claude/skills",
+    "root_claude_command_count": 12,
+    "inner_claude_command_count": 12,
+    "root_codex_skills": "./packages/codex-project-local/.codex/skills/",
+    "inner_codex_skills": "./skills/",
+    "codex_capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "plugin_workflow_skill_count": 12,
+    "claude_package_skill_count": 35,
+    "codex_package_skill_count": 35,
+    "codex_agents_openai_yaml_count": 12,
+    "claude_skill_creator_alignment": {
+      "trigger_eval_sets_ready": true,
+      "benchmark_complete": false,
+      "broad_auto_trigger_claim_allowed": false
+    },
+    "release_ready": true,
+    "blocking_issue_ids": []
+  },
+  "errors": []
+}

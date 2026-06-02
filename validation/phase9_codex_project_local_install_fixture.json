@@ -20,12 +20,14 @@
   "package_preflight": {
     "workflow_skill_count": 12,
     "dependency_skill_count": 23,
-    "total_package_skill_count": 35
+    "total_package_skill_count": 35,
+    "codex_agents_openai_yaml_count": 12
   },
   "installed_result": {
     "installed_workflow_skill_count": 12,
     "installed_dependency_skill_count": 23,
     "total_installed_skill_count": 35,
+    "codex_agents_openai_yaml_count": 12,
     "preserved_non_package_skill_count": 0,
     "preserved_non_package_skills": [],
     "preserved_legacy_internal_skill_count": 0,

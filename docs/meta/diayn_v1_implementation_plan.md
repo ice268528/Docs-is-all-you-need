@@ -321,4 +321,19 @@ Current installed-flow audit evidence is still stored under `phase9_*` and `phas
 - Release-gate validator: `maintainers/scripts/validate_diayn_phase9_release_gate.js`
 - Release-gate output: `validation/phase9_release_gate.json`
 
-Current status: Claude project-local is the only supported alpha surface recorded by the capability matrix. All-surface release readiness remains blocked because Codex Desktop app-session invocation is not yet proven. Codex project-local packaging now statically validates the `.codex/skills` shape with 12 workflow skills and 23 DIAYN-managed dependency skills, and `install_codex_project_local_package.js` proves the package can be copied into both a temporary project-local `.codex/skills` plus `.diayn` metadata shape and a temporary Codex-home `skills` plus `diayn/docs-is-all-you-need` metadata shape. Real Codex Home installs, executable probes, and maintainer manual runbooks are local-only diagnostics by default. `validate_codex_runtime_external_evidence.js` defines the strict evidence intake needed to clear the remaining app-session invocation blocker, and `validate_codex_runtime_external_evidence_selftest.js` proves that this intake gate clears the blocker for complete concrete evidence with existing repo-relative evidence files while keeping placeholder templates, missing inputs, and nonexistent evidence references blocked. Claude project-local packaging proves bare `/diayn-*` command-to-skill behavior, direct dependency-skill loading, routed `/diayn-init -> idea-refine` dependency-skill loading, all 12 bare `/diayn-*` commands entering workflow context, clean installed-flow completion, and focused Phase 12 side-scenario coverage. The Codex blocker record must not be interpreted as blocking the proven Claude project-local alpha surface, and the Claude proof must not be interpreted as Codex or all-surface release readiness.
+Current status: the capability matrix records two supported alpha surfaces:
+`claude_code_cli_project_local` and `codex_package_install`. Claude
+project-local packaging proves bare `/diayn-*` command-to-skill behavior,
+direct dependency-skill loading, routed `/diayn-init -> idea-refine`
+dependency-skill loading, all 12 bare `/diayn-*` commands entering workflow
+context, clean installed-flow completion, and focused Phase 12 side-scenario
+coverage. Codex project-local packaging statically validates the
+`.codex/skills` shape with 12 workflow skills and 23 DIAYN-managed dependency
+skills, and `install_codex_project_local_package.js` proves the package can be
+copied into both a temporary project-local `.codex/skills` plus `.diayn`
+metadata shape and a temporary Codex-home `skills` plus
+`diayn/docs-is-all-you-need` metadata shape. Per Owner instruction on
+2026-06-02, Codex validation stops at install command plus installed directory
+inspection; Codex Desktop app-session invocation is not attempted and is not
+claimed. `validate_codex_runtime_external_evidence.js` and its selftest remain
+optional future tooling for a separate Desktop runtime claim.

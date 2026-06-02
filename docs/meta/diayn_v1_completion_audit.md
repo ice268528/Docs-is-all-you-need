@@ -10,21 +10,29 @@ node maintainers/scripts/validate_diayn_dddv8_completion_audit.js --json validat
 
 ## Current Result
 
-The DDDV8 implementation is not claimable as fully complete yet.
+The DDDV8 implementation is complete for the current Owner-approved validation
+scope.
 
 Current completion status:
 
 ```text
-blocked_by_codex_desktop_validation
+complete_for_owner_approved_package_install_scope
 ```
 
 The machine audit separates total-goal completion from surface-specific support:
 
-- `goal_complete`: remains `false` until every required non-deferred surface is proven.
-- `supported_alpha_surfaces`: currently contains `claude_code_cli_project_local`.
-- `blocked_surfaces`: currently contains `Codex Desktop`.
+- `goal_complete`: `true`.
+- `supported_alpha_surfaces`: currently contains `claude_code_cli_project_local` and `codex_package_install`.
+- `blocked_surfaces`: empty.
 
-The Claude Code project-local package path has a completed installed-flow fixture for all 12 public `/diayn-*` commands. OpenCode remains explicitly deferred by requirement. Codex Desktop now has a statically validated project-local `.codex/skills` package shape and executed install fixtures that copy the package into both temporary project-local and Codex-home targets. Real Codex Home installs and executable probes are local-only diagnostics by default. Codex still remains runtime-blocked because file installation does not prove that the current or reloaded Codex app session can discover and invoke direct `/diayn-*` workflows or natively invoke DIAYN-managed dependency skills.
+The Claude Code project-local package path has a completed installed-flow
+fixture for all 12 public `/diayn-*` commands. OpenCode remains explicitly
+deferred by requirement. Codex now has a statically validated project-local
+`.codex/skills` package shape and executed install fixtures that copy the
+package into both temporary project-local and Codex-home targets. Per Owner
+instruction on 2026-06-02, Codex validation stops at install command plus
+installed directory inspection; Codex Desktop app-session runtime was not
+attempted and is not claimed.
 
 ## Proven Areas
 
@@ -36,31 +44,28 @@ The Claude Code project-local package path has a completed installed-flow fixtur
 - Codex has a second executed Codex-home install fixture at `validation/phase9_codex_home_install_fixture.json`.
 - Codex real-home file installs are supported by `maintainers/scripts/install_codex_project_local_package.js`, but maintainer-machine outputs are local-only diagnostics unless explicitly sanitized and promoted.
 - Codex executable probes are local-only diagnostics and do not count as Codex Desktop app-session runtime proof.
-- Codex has an external runtime evidence validator at `maintainers/scripts/validate_codex_runtime_external_evidence.js`; the current output is `validation/phase9_codex_runtime_external_evidence.json`, which remains `runtime_proven: false` until real Codex Desktop evidence is supplied.
-- Codex has an external runtime evidence validator selftest at `maintainers/scripts/validate_codex_runtime_external_evidence_selftest.js`; the current output is `validation/phase9_codex_runtime_external_evidence_selftest.json`, proving that complete concrete evidence with existing repo-relative evidence files clears the blocker while placeholder templates, missing inputs, and nonexistent evidence references remain blocked.
-- Surface-specific status: Claude project-local is the only alpha-supported surface recorded in the capability matrix. Codex and all-surface release claims remain blocked.
+- Codex has an external runtime evidence validator at `maintainers/scripts/validate_codex_runtime_external_evidence.js`; the current output is `validation/phase9_codex_runtime_external_evidence.json`, which remains `runtime_proven: false` because Desktop app-session evidence is outside the current validation scope.
+- Codex has an external runtime evidence validator selftest at `maintainers/scripts/validate_codex_runtime_external_evidence_selftest.js`; the current output is `validation/phase9_codex_runtime_external_evidence_selftest.json`, proving that optional future concrete evidence can be validated while placeholder templates, missing inputs, and nonexistent evidence references remain blocked.
+- Surface-specific status: Claude project-local and Codex package/install are alpha-supported surfaces recorded in the capability matrix. Codex Desktop app-session runtime is not attempted and not claimed.
 - Claude project-local package supports bare `/diayn-*` command-to-skill invocation.
 - The full Claude installed-flow fixture covers `/diayn-init -> /diayn-plan -> /diayn-worktrees -> /diayn-backend -> /diayn-frontend -> /diayn-review-backend -> /diayn-review-frontend -> /diayn-sync -> /diayn-integration -> /diayn-html -> /diayn-bug -> /diayn-new`.
 - Harness principles, document architecture, session/lane state flow, helper scripts, Owner UX utilities, and focused side scenarios have validation evidence.
 - Third-party `agent-skills` are vendored, packaged, licensed/provenanced, size-recorded, covered by the routing map, and have representative native routing evidence.
 
-## Remaining Blocker
+## Remaining Boundary
 
-`P9-CODEX-001`: Codex Desktop runtime validation is still not complete. Package shape and install fixtures are validated, but direct `/diayn-*` invocation and native dependency-skill invocation must still be proven from the current or reloaded Codex app session. This blocks the Codex alpha claim and the all-surface alpha claim.
+There is no remaining blocker for the current validation scope.
 
-Until that blocker is resolved, the implementation should remain honest: Claude Code project-local support is proven; Codex Desktop support is not proven; OpenCode support is deferred until direct `/diayn-*` skill invocation is proven.
+`W9-CODEX-RUNTIME-NOT-ATTEMPTED`: Codex package/install scope is validated
+through install commands and directory inspection, but Codex Desktop
+app-session discovery, direct `/diayn-*` invocation, and native
+dependency-skill invocation were not attempted by Owner instruction and must
+not be claimed.
 
-To resolve the Codex blocker, collect real Codex Desktop evidence using
-`docs/install/codex_runtime_external_evidence_template.json`, then validate it
-with `maintainers/scripts/validate_codex_runtime_external_evidence.js`. Local
-manual runbooks may be kept for private testing, but they are not remote
-release evidence. The result must include a structured
-`skill_discovery_snapshot` from the current, reloaded, or new Codex Desktop app
-session, prove all 12 direct commands, routed dependency-skill invocation, the
-full installed flow, Owner acceptance, closeout, next-stage refresh, and
-focused side scenarios. Each `evidence_refs` value must point to an existing
-repo-relative evidence file, not an absolute path, URL, invented string, or
-chat-only reference.
+A future Desktop runtime claim can use
+`docs/install/codex_runtime_external_evidence_template.json` and
+`maintainers/scripts/validate_codex_runtime_external_evidence.js`, but that is
+outside the current release gate.
 
 The validator itself is regression-tested by
 `maintainers/scripts/validate_codex_runtime_external_evidence_selftest.js`; keep

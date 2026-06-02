@@ -184,6 +184,9 @@ function main() {
   const installedSkills = execute ? listSkillDirs(targetSkillsRoot) : [];
   const installedWorkflowSkills = expectedWorkflowSkills.filter((name) => installedSkills.includes(name));
   const installedDependencySkills = dependencySkills.filter((name) => installedSkills.includes(name));
+  const installedWorkflowOpenAiYaml = expectedWorkflowSkills.filter((name) =>
+    execute && fs.existsSync(path.join(targetSkillsRoot, name, "agents", "openai.yaml")),
+  );
   const installedNonPackageSkills = execute ? installedSkills.filter((name) => !packageSkillSet.has(name)) : [];
   const installedLegacyInternalSkills = execute ? installedSkills.filter((name) => legacyInternalSkillSet.has(name)) : [];
   const warnings = [];
@@ -222,11 +225,15 @@ function main() {
       workflow_skill_count: expectedWorkflowSkills.filter((name) => packageSkills.includes(name)).length,
       dependency_skill_count: dependencySkills.length,
       total_package_skill_count: packageSkills.length,
+      codex_agents_openai_yaml_count: expectedWorkflowSkills.filter((name) =>
+        fs.existsSync(path.join(packageSkillsRoot, name, "agents", "openai.yaml")),
+      ).length,
     },
     installed_result: {
       installed_workflow_skill_count: installedWorkflowSkills.length,
       installed_dependency_skill_count: installedDependencySkills.length,
       total_installed_skill_count: installedSkills.length,
+      codex_agents_openai_yaml_count: installedWorkflowOpenAiYaml.length,
       preserved_non_package_skill_count: installedNonPackageSkills.length,
       preserved_non_package_skills: installedNonPackageSkills,
       preserved_legacy_internal_skill_count: installedLegacyInternalSkills.length,

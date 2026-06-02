@@ -1,0 +1,4 @@
+interface:
+  display_name: "DIAYN Sync"
+  short_description: "Sync DIAYN docs and status only"
+  default_prompt: "Use $diayn-sync to sync DIAYN documents and status without merging business code."

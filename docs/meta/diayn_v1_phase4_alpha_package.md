@@ -7,12 +7,27 @@ This file records the Phase 4 package artifacts for Codex Desktop and Claude Cod
 Added package files:
 
 ```text
+.claude-plugin/plugin.json
+.claude-plugin/marketplace.json
+.claude/commands/diayn-*.md
 plugins/docs-is-all-you-need/.claude-plugin/plugin.json
 plugins/docs-is-all-you-need/.claude-plugin/marketplace.json
 plugins/docs-is-all-you-need/.claude/commands/diayn-*.md
 ```
 
-The Claude package declares:
+The repository-root Claude package declares:
+
+- `commands`: `./.claude/commands`
+- `skills`: `./packages/claude-project-local/.claude/skills`
+
+This root entrypoint follows the reference-project pattern where the repository
+root can be the plugin source. Its root `.claude/commands` files are synchronized
+from the inner plugin command adapters so the published root entrypoint does not
+point through a nested plugin directory. It makes the 12 DIAYN workflow skills
+and 23 DIAYN-managed dependency skills platform-visible through the generated
+Claude package skills root.
+
+The inner local plugin candidate declares:
 
 - `commands`: `./.claude/commands`
 - `skills`: `./skills`
@@ -26,21 +41,41 @@ Each command file invokes the matching public workflow skill, for example:
 Validation:
 
 ```text
+claude plugin validate .
 claude plugin validate plugins\docs-is-all-you-need
 ```
 
-Result: validation passed.
+Result: both repository-root and inner plugin validation passed.
 
 ## 2. Codex Package
 
 The Codex package candidate remains:
 
 ```text
+.codex-plugin/plugin.json
 plugins/docs-is-all-you-need/.codex-plugin/plugin.json
 packages/codex-project-local/
 ```
 
-It points to the plugin public skill surface:
+The repository-root Codex manifest points to the platform-visible generated
+skills package:
+
+```json
+"skills": "./packages/codex-project-local/.codex/skills/"
+```
+
+The repository-root and inner Codex manifests also carry Codex product metadata
+following the `superpowers` style: homepage, repository, license, keywords,
+`Interactive`/`Read`/`Write` capabilities, website and policy URLs, brand color,
+and screenshots metadata. They deliberately omit `composerIcon` and `logo`
+until real assets exist.
+
+The generated Codex package adds `agents/openai.yaml` to the 12 public DIAYN
+workflow skills so Codex gets product-specific display/default-prompt metadata.
+The locked third-party dependency skills remain upstream-compatible and are not
+modified with DIAYN-authored Codex UI metadata.
+
+The inner local candidate points to the plugin public skill surface:
 
 ```json
 "skills": "./skills/"
@@ -88,9 +123,13 @@ Validation checks:
 - plugin public skill surface has exactly 12 workflow skills;
 - Claude command directory has exactly 12 `diayn-*.md` files;
 - each Claude command invokes the matching public workflow skill;
+- repository-root Claude manifest points commands to root DIAYN command adapters and skills to the generated platform-visible Claude package;
 - Codex manifest points at the public skill directory;
+- repository-root Codex manifest points at the generated platform-visible Codex package;
 - Codex project-local package points at `.codex/skills`;
 - Codex project-local package contains the 12 workflow skills and 23 DIAYN-managed dependency skills;
+- Codex project-local package contains `agents/openai.yaml` for all 12 public DIAYN workflow skills;
+- Claude project-local package contains the 12 workflow skills and 23 DIAYN-managed dependency skills;
 - Codex project-local install fixture copies those skills plus `.diayn` routing metadata into a temporary target;
 - Codex-home install fixture copies those skills plus package metadata into temporary `skills/` and `diayn/docs-is-all-you-need/` targets;
 - Claude manifest points at the command and public skill directories;

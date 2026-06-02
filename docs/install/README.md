@@ -27,8 +27,8 @@ The target user experience is one DIAYN install that makes these commands availa
 
 | Surface | DDDV8 target | Current DDDV8 status |
 | --- | --- | --- |
-| Codex Desktop | Alpha target if installed workflow skills can be invoked through `/diayn-*` and can route to DIAYN-managed dependency skills. | Plugin artifact exists, and `packages/codex-project-local/` statically validates the `.codex/skills` package shape with 12 workflow skills plus 23 DIAYN-managed dependency skills. Executed install fixtures prove both project-local `.codex/skills` + `.diayn` shape and Codex-home `$CODEX_HOME/skills` shape without relying on a maintainer's private Codex Home. Direct `/diayn-*` invocation and native dependency-skill invocation still need proof from the current or reloaded Codex app session before Codex alpha can be claimed. |
-| Claude Code CLI | Alpha target if installed workflow skills can be invoked through `/diayn-*` and can route to DIAYN-managed dependency skills. The standard install target is plugin/marketplace install, following `superpowers` and `agent-skills`. | Plugin artifact exists and `claude plugin validate` passes, but local plugin-dir validation exposes namespaced commands. A separate project-local fallback at `packages/claude-project-local/` proves bare `/diayn-init` command-to-`Skill` invocation, all 12 bare command/skill entries, routed `/diayn-init -> idea-refine`, and a complete installed-flow fixture. This fallback is not the final install model. |
+| Codex package/install | Alpha target for the current Owner-approved Codex scope: installed workflow skills, DIAYN-managed dependency skills, and routing metadata must be copied into the expected Codex skills shape. | Repository-root `.codex-plugin/plugin.json` now points to `packages/codex-project-local/.codex/skills/`, which contains 12 workflow skills plus 23 DIAYN-managed dependency skills. The inner plugin artifact also exists. Static validation plus executed project-local and Codex-home install fixtures prove package shape, install commands, and installed directory inspection. Codex Desktop app-session runtime discovery/invocation is intentionally not attempted and must not be claimed. |
+| Claude Code CLI | Alpha target if installed workflow skills can be invoked through `/diayn-*` and can route to DIAYN-managed dependency skills. The standard install target is plugin/marketplace install, following `superpowers` and `agent-skills`. | Repository-root `.claude-plugin/plugin.json` now points commands to root `.claude/commands` and skills to `packages/claude-project-local/.claude/skills/`, which contains 12 workflow skills plus 23 DIAYN-managed dependency skills. `claude plugin validate` passes for both the repository root and the inner candidate, but local plugin-dir validation still exposes namespaced commands. A separate project-local fallback at `packages/claude-project-local/` proves bare `/diayn-init` command-to-`Skill` invocation, all 12 bare command/skill entries, routed `/diayn-init -> idea-refine`, and a complete installed-flow fixture. This fallback is not the final install model. |
 | OpenCode CLI | Deferred unless installed workflow skills can be directly triggered through `/diayn-*`. | Deferred for DDDV8. Earlier D6 discovery notes are historical only. |
 | Cursor / Copilot | Out of V1 scope. | No active V1 support claim. |
 
@@ -56,6 +56,7 @@ This repository now contains DDDV8 public workflow skills, progressively disclos
 - Controller scaffold audit/planning, worktree planning, lane/review/sync/integration, Owner UX, privacy/network, migration, and cleanup dry-run assets;
 - locked DIAYN-managed dependency skills under `plugins/docs-is-all-you-need/dependency-skills/`;
 - internal role/reference skills under `plugins/docs-is-all-you-need/internal-role-skills/`;
+- repository-root Claude/Codex plugin entrypoints under `.claude-plugin/` and `.codex-plugin/`;
 - a local Codex plugin candidate under `plugins/docs-is-all-you-need/`;
 - Claude Code and OpenCode adapter notes under `integrations/`;
 - a controlled fixture under `validation/minimal-fullstack-fixture/`;
@@ -89,12 +90,12 @@ Do not claim that the current repository already provides:
 - exhaustive routed use of every vendored third-party skill from an active DIAYN workflow;
 - automatic hidden agent/session launching;
 - a shell CLI or custom agent runtime;
-- release readiness.
+- Codex Desktop app-session runtime support.
 
-Those claims require installed-flow validation on the controlled fixture.
-Surface support is evaluated independently: a proven surface may be described
-as an alpha-supported surface, but a blocked surface still blocks any Codex or
-all-surface release claim.
+Those claims require surface-appropriate validation. Surface support is
+evaluated independently: Claude Code project-local requires installed-flow
+validation, while the current Codex claim is limited to package/install
+validation through install commands and directory inspection.
 
 ## Validation Gate
 
@@ -111,11 +112,11 @@ install -> /diayn-init -> /diayn-plan -> /diayn-worktrees
 No exhaustive third-party composition release claim until routed `agent-skills` coverage is broadened beyond the representative `/diayn-init -> idea-refine` smoke test.
 
 Current surface-specific result: the Claude project-local fallback has
-completed the installed flow and focused side scenarios, so it is the only
-supported bare-command alpha evidence recorded by the gate. The standard Claude
-plugin/marketplace install path still needs bare `/diayn-*` proof. Codex package
-shape and install fixtures pass, but Codex runtime discovery/invocation is still
-blocked by `P9-CODEX-001`.
+completed the installed flow and focused side scenarios. The standard Claude
+plugin/marketplace install path still needs bare `/diayn-*` proof. Codex
+package/install scope is also validated: the package shape, install commands,
+and installed directory inspection pass. Codex Desktop app-session runtime is
+outside the current Owner-approved validation scope and is not claimed.
 
 Current installed-flow audit:
 
@@ -126,11 +127,12 @@ validation/phase9_release_gate.json
 validation/phase9_codex_runtime_external_evidence_selftest.json
 ```
 
-The current installed-flow audit uses `phase9_*` artifact names from the earlier implementation split, but now corresponds to the Phase 12 installed-flow release gate in the refined DDDV8 plan. It is an honest blocker record, not release readiness.
+The current installed-flow audit uses `phase9_*` artifact names from the
+earlier implementation split, but now corresponds to the Phase 12 installed-flow
+release gate in the refined DDDV8 plan. It is release-ready for the stated
+surfaces: Claude project-local plus Codex package/install.
 
-Codex Desktop runtime evidence must be collected from Codex Desktop itself,
-not from a shell-launched Codex process. Use
-`docs/install/codex_runtime_external_evidence_template.json` to record a
-structured app-session `skill_discovery_snapshot` before claiming direct
-`/diayn-*` invocation. Maintainers may keep local manual runbooks while testing,
-but those files are not tracked as remote release evidence.
+Do not treat shell-launched Codex or install-fixture output as Codex Desktop
+app-session runtime proof. A future Desktop runtime claim would need evidence
+from Codex Desktop itself, but that validation is intentionally not attempted
+in the current scope.

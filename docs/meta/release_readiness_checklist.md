@@ -95,8 +95,9 @@ skill-pack implementation. Current DDDV8 release truth is recorded in
       `Unknown / To be confirmed`.
 - [ ] Cursor and Copilot remain out of V1 active scope unless a later Owner
       decision changes that.
-- [ ] Codex runtime support remains blocked until official/local validator plus
-      current/reloaded Codex app-session discovery/execution evidence pass.
+- [x] Codex package/install support is validated by install commands and
+      directory inspection; Desktop app-session runtime support is not attempted
+      and not claimed.
 
 ## D6-10 Release Candidate Boundary
 

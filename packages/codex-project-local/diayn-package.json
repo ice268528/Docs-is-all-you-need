@@ -25,13 +25,13 @@
     "skills": ".codex/skills"
   },
   "runtime_status": {
-    "codex_desktop_discovery": "not_proven_access_denied_in_current_environment",
-    "direct_diayn_invocation": "not_proven_access_denied_in_current_environment",
-    "dependency_skill_invocation": "not_proven_access_denied_in_current_environment"
+    "codex_desktop_discovery": "not_attempted_by_owner_instruction",
+    "direct_diayn_invocation": "not_attempted_by_owner_instruction",
+    "dependency_skill_invocation": "not_attempted_by_owner_instruction"
   },
   "notes": [
     "This package is the Codex project-local skills shape for the DDDV8 target.",
     "Dependency skills are platform-visible implementation dependencies, not public DIAYN slash commands.",
-    "Static package validation does not prove Codex Desktop runtime discovery or /diayn-* invocation."
+    "Static package validation and install inspection do not claim Codex Desktop app-session runtime discovery or /diayn-* invocation."
   ]
 }

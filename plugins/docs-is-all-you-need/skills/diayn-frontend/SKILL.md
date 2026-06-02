@@ -51,6 +51,7 @@ Then stop. This mode only validates package command routing; it does not prove t
 3. Read only the frontend lane board, frontend handoff, relevant shared contracts, and current task slice.
 4. Read `docs/meta/diayn_command_reference.md` and `docs/meta/diayn_commands/frontend.md` when available.
 5. Route to DIAYN-managed engineering dependency skills only when UI, browser testing, TDD, debugging, accessibility, or performance guidance is needed.
+   When routing is needed, read the installed routing map from `.diayn/dependency-routing/upstream-routing-map.md` if present; otherwise use `internal-role-skills/diayn-skill-router/references/upstream-routing-map.md` in the active DIAYN package. Resolve the platform-visible skill id before native Skill invocation.
 
 ## Workflow
 

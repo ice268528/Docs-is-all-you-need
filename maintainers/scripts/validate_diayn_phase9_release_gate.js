@@ -78,6 +78,8 @@ function main() {
   const claudeProbe = readJson("validation/phase9_claude_project_local_probe.json", errors);
   const claudeRoutedProbe = readJson("validation/phase9_claude_project_local_routed_dependency_probe.json", errors);
   const claudeCommandSequence = readJson("validation/phase9_claude_project_local_command_sequence.json", errors);
+  const claudeSkillCreatorAlignment = readJson("validation/phase9_claude_skill_creator_alignment.json", errors);
+  const referenceProjectAlignment = readJson("validation/phase9_reference_project_alignment.json", errors);
   const phase11InstalledFlowFixture = readJson("validation/phase11_installed_flow_fixture.json", errors);
   const phase12SideScenarios = readJson("validation/phase12_side_scenarios.json", errors);
   const phase11InstalledFlowComplete = Boolean(
@@ -88,19 +90,32 @@ function main() {
 
   if (matrix) {
     if (matrix.schema !== "diayn.phase9.capability_matrix.v1") errors.push("phase9 matrix schema mismatch");
-    if (matrix.phase9_complete !== false) errors.push("phase9 matrix must not mark phase9_complete true while blockers remain");
-    if (matrix.release_claim_allowed !== false) errors.push("phase9 matrix must not allow release claim while blockers remain");
+    if (matrix.phase9_complete !== true) errors.push("phase9 matrix must mark phase9_complete true for the current Owner-approved package/install validation scope");
+    if (matrix.release_claim_allowed !== true) errors.push("phase9 matrix must allow the current package/install scoped release claim");
     if (
       !Array.isArray(matrix.supported_alpha_surfaces) ||
-      !matrix.supported_alpha_surfaces.includes("claude_code_cli_project_local")
+      !matrix.supported_alpha_surfaces.includes("claude_code_cli_project_local") ||
+      !matrix.supported_alpha_surfaces.includes("codex_package_install")
     ) {
-      errors.push("supported_alpha_surfaces must record the proven Claude project-local surface");
+      errors.push("supported_alpha_surfaces must record the proven Claude project-local and Codex package/install surfaces");
     }
     if (Array.isArray(matrix.supported_alpha_surfaces) && matrix.supported_alpha_surfaces.includes("codex_desktop")) {
-      errors.push("supported_alpha_surfaces must not include Codex Desktop while P9-CODEX-001 remains");
+      errors.push("supported_alpha_surfaces must not claim Codex Desktop app-session runtime support");
     }
-    if (!blockerIds.has("P9-CODEX-001")) {
-      errors.push("phase9 matrix missing blocker P9-CODEX-001");
+    if (blockers.length !== 0) {
+      errors.push("phase9 matrix must not retain blocking issues after Owner-approved package/install validation scope is complete");
+    }
+    if (blockerIds.has("P9-CODEX-001")) {
+      errors.push("P9-CODEX-001 must be a warning/boundary note, not a release blocker, after Owner removed Desktop launch validation from scope");
+    }
+    if (
+      !matrix.validation_scope ||
+      matrix.validation_scope.codex_install_verification !== "install_command_and_directory_inspection" ||
+      matrix.validation_scope.codex_desktop_app_session_runtime !== "not_attempted_by_owner_instruction" ||
+      matrix.validation_scope.codex_desktop_launch_required !== false ||
+      matrix.validation_scope.codex_runtime_claim_allowed !== false
+    ) {
+      errors.push("phase9 matrix must record the Owner-approved Codex validation boundary");
     }
     if (
       !matrix.static_evidence ||
@@ -231,8 +246,13 @@ function main() {
     }
 
     const codex = matrix.surfaces && matrix.surfaces.codex_desktop;
-    if (!codex || !codex.local_probe || codex.local_probe.result !== "blocked_access_denied") {
-      errors.push("Codex access-denied blocker must be recorded");
+    if (
+      !codex ||
+      !codex.validation_boundary ||
+      codex.validation_boundary.install_command_and_directory_inspection !== "validated" ||
+      codex.validation_boundary.desktop_app_session_runtime !== "not_attempted_by_owner_instruction"
+    ) {
+      errors.push("Codex package/install validation boundary must be recorded");
     } else {
       const projectLocal = codex.project_local_package;
       if (!projectLocal || projectLocal.validator_output !== "validation/phase9_codex_project_local_package.json") {
@@ -253,8 +273,8 @@ function main() {
         if (projectLocal.codex_home_install_actual) {
           errors.push("Actual Codex-home install record must be local-only, not part of the remote matrix");
         }
-        if (projectLocal.runtime_validation !== "not_proven_access_denied") {
-          errors.push("Codex project-local package runtime validation must remain honestly unproven");
+        if (projectLocal.runtime_validation !== "not_attempted_by_owner_instruction") {
+          errors.push("Codex project-local package runtime validation must record Owner-instructed non-attempt");
         }
         if (projectLocal.runtime_probe) {
           errors.push("Codex project-local executable runtime probe must be local-only, not part of the remote matrix");
@@ -262,6 +282,15 @@ function main() {
         if (projectLocal.external_runtime_evidence !== "validation/phase9_codex_runtime_external_evidence.json") {
           errors.push("Codex external runtime evidence validator output must be linked");
         }
+      }
+      if (codex.bare_diayn_invocation !== "package_install_validated_app_session_not_attempted") {
+        errors.push("Codex bare /diayn-* status must be limited to package/install validation");
+      }
+      if (codex.dependency_native_invocation !== "package_install_validated_app_session_not_attempted") {
+        errors.push("Codex dependency-skill status must be limited to package/install validation");
+      }
+      if (codex.package_install_claim_allowed !== true || codex.alpha_claim_allowed !== false) {
+        errors.push("Codex matrix must allow package/install claim while forbidding Desktop app-session runtime claim");
       }
     }
   }
@@ -327,7 +356,8 @@ function main() {
     if (
       !codexInstallFixture.package_preflight ||
       codexInstallFixture.package_preflight.workflow_skill_count !== 12 ||
-      codexInstallFixture.package_preflight.dependency_skill_count !== 23
+      codexInstallFixture.package_preflight.dependency_skill_count !== 23 ||
+      codexInstallFixture.package_preflight.codex_agents_openai_yaml_count !== 12
     ) {
       errors.push("Codex project-local install fixture must retain package preflight counts");
     }
@@ -336,6 +366,7 @@ function main() {
       codexInstallFixture.installed_result.installed_package_visible !== true ||
       codexInstallFixture.installed_result.installed_workflow_skill_count !== 12 ||
       codexInstallFixture.installed_result.installed_dependency_skill_count !== 23 ||
+      codexInstallFixture.installed_result.codex_agents_openai_yaml_count !== 12 ||
       codexInstallFixture.installed_result.metadata_present !== true ||
       codexInstallFixture.installed_result.routing_map_present !== true
     ) {
@@ -361,7 +392,8 @@ function main() {
     if (
       !codexHomeInstallFixture.package_preflight ||
       codexHomeInstallFixture.package_preflight.workflow_skill_count !== 12 ||
-      codexHomeInstallFixture.package_preflight.dependency_skill_count !== 23
+      codexHomeInstallFixture.package_preflight.dependency_skill_count !== 23 ||
+      codexHomeInstallFixture.package_preflight.codex_agents_openai_yaml_count !== 12
     ) {
       errors.push("Codex home install fixture must retain package preflight counts");
     }
@@ -370,6 +402,7 @@ function main() {
       codexHomeInstallFixture.installed_result.installed_package_visible !== true ||
       codexHomeInstallFixture.installed_result.installed_workflow_skill_count !== 12 ||
       codexHomeInstallFixture.installed_result.installed_dependency_skill_count !== 23 ||
+      codexHomeInstallFixture.installed_result.codex_agents_openai_yaml_count !== 12 ||
       codexHomeInstallFixture.installed_result.metadata_present !== true ||
       codexHomeInstallFixture.installed_result.routing_map_present !== true ||
       codexHomeInstallFixture.install_targets.skills !== "skills" ||
@@ -398,9 +431,9 @@ function main() {
     }
     if (
       !codexPackage.runtime_validation ||
-      codexPackage.runtime_validation.direct_diayn_invocation !== "not_proven_access_denied_in_current_environment"
+      codexPackage.runtime_validation.direct_diayn_invocation !== "not_attempted_by_owner_instruction"
     ) {
-      errors.push("Codex project-local validator must not claim direct runtime /diayn-* invocation");
+      errors.push("Codex project-local validator must record Owner-instructed non-attempt for app-session /diayn-* invocation");
     }
   }
 
@@ -847,6 +880,30 @@ function main() {
     }
   }
 
+  if (claudeSkillCreatorAlignment) {
+    if (claudeSkillCreatorAlignment.schema !== "diayn.phase9.claude_skill_creator_alignment.v1") {
+      errors.push("Claude skill-creator alignment schema mismatch");
+    }
+    if (claudeSkillCreatorAlignment.ok !== true) {
+      errors.push("Claude skill-creator alignment validator is not ok");
+    }
+    if (claudeSkillCreatorAlignment.trigger_eval_sets_ready !== true) {
+      errors.push("Claude skill-creator trigger eval seed sets must be ready for all 12 workflow skills");
+    }
+    if (claudeSkillCreatorAlignment.project_local_runtime_evidence_complete !== true) {
+      errors.push("Claude skill-creator alignment must be tied to complete project-local runtime evidence");
+    }
+    if (claudeSkillCreatorAlignment.benchmark_complete !== false) {
+      errors.push("Claude skill-creator alignment must not claim a completed benchmark");
+    }
+    if (claudeSkillCreatorAlignment.broad_auto_trigger_claim_allowed !== false) {
+      errors.push("Claude skill-creator alignment must not allow broad auto-trigger claims");
+    }
+    if (claudeSkillCreatorAlignment.claude_project_local_alpha_claim_allowed !== true) {
+      errors.push("Claude skill-creator alignment must preserve the proven project-local alpha claim");
+    }
+  }
+
   const allPriorOk = Object.values(prior).every(Boolean);
   const claudeProjectLocalBareCommandOk = Boolean(
     claudeProbe && claudeProbe.command_probe && claudeProbe.command_probe.skill_tool_invocation.observed
@@ -875,7 +932,7 @@ function main() {
       codexPackage.dependency_skill_count === 23 &&
       codexPackage.total_project_local_skill_count === 35 &&
       codexPackage.runtime_validation &&
-      codexPackage.runtime_validation.direct_diayn_invocation === "not_proven_access_denied_in_current_environment"
+      codexPackage.runtime_validation.direct_diayn_invocation === "not_attempted_by_owner_instruction"
   );
   const codexProjectLocalInstallFixtureOk = Boolean(
     codexInstallFixture &&
@@ -886,6 +943,7 @@ function main() {
       codexInstallFixture.installed_result.installed_package_visible === true &&
       codexInstallFixture.installed_result.installed_workflow_skill_count === 12 &&
       codexInstallFixture.installed_result.installed_dependency_skill_count === 23 &&
+      codexInstallFixture.installed_result.codex_agents_openai_yaml_count === 12 &&
       codexInstallFixture.installed_result.metadata_present === true &&
       codexInstallFixture.installed_result.routing_map_present === true &&
       installResidueAccountingOk(codexInstallFixture, 35)
@@ -900,6 +958,7 @@ function main() {
       codexHomeInstallFixture.installed_result.installed_package_visible === true &&
       codexHomeInstallFixture.installed_result.installed_workflow_skill_count === 12 &&
       codexHomeInstallFixture.installed_result.installed_dependency_skill_count === 23 &&
+      codexHomeInstallFixture.installed_result.codex_agents_openai_yaml_count === 12 &&
       codexHomeInstallFixture.installed_result.metadata_present === true &&
       codexHomeInstallFixture.installed_result.routing_map_present === true &&
       installResidueAccountingOk(codexHomeInstallFixture, 35)
@@ -927,14 +986,40 @@ function main() {
       codexExternalRuntimeEvidenceSelftest.gaps_observed.template > 0 &&
       codexExternalRuntimeEvidenceSelftest.gaps_observed.missing > 0
   );
+  const claudeSkillCreatorAlignmentOk = Boolean(
+    claudeSkillCreatorAlignment &&
+      claudeSkillCreatorAlignment.ok === true &&
+      claudeSkillCreatorAlignment.trigger_eval_sets_ready === true &&
+      claudeSkillCreatorAlignment.project_local_runtime_evidence_complete === true &&
+      claudeSkillCreatorAlignment.benchmark_complete === false &&
+      claudeSkillCreatorAlignment.broad_auto_trigger_claim_allowed === false &&
+      claudeSkillCreatorAlignment.claude_project_local_alpha_claim_allowed === true
+  );
+  const referenceProjectAlignmentOk = Boolean(
+    referenceProjectAlignment &&
+      referenceProjectAlignment.ok === true
+  );
   const releaseReady = Boolean(
     matrix &&
       matrix.phase9_complete === true &&
       matrix.release_claim_allowed === true &&
       Array.isArray(matrix.supported_alpha_surfaces) &&
-      matrix.supported_alpha_surfaces.length > 0 &&
+      matrix.supported_alpha_surfaces.includes("claude_code_cli_project_local") &&
+      matrix.supported_alpha_surfaces.includes("codex_package_install") &&
       blockers.length === 0 &&
-      phase12SideScenariosOk
+      allPriorOk &&
+      phase11InstalledFlowComplete &&
+      phase12SideScenariosOk &&
+      claudeProjectLocalBareCommandOk &&
+      claudeProjectLocalDependencySkillOk &&
+      claudeProjectLocalRoutedDependencyOk &&
+      claudeSkillCreatorAlignmentOk &&
+      referenceProjectAlignmentOk &&
+      codexProjectLocalStaticPackageOk &&
+      codexProjectLocalInstallFixtureOk &&
+      codexHomeInstallFixtureOk &&
+      codexExternalRuntimeEvidenceOk &&
+      codexExternalRuntimeEvidenceSelftestOk
   );
   const phase11InstalledFlowFixtureOk = Boolean(
     phase11InstalledFlowFixture && phase11InstalledFlowFixture.ok === true
@@ -1189,17 +1274,30 @@ function main() {
     phase11_bug_artifacts_ok: phase11BugArtifactsOk,
     phase11_closeout_artifacts_ok: phase11CloseoutArtifactsOk,
     phase12_side_scenarios_ok: phase12SideScenariosOk,
+    claude_skill_creator_alignment_ok: claudeSkillCreatorAlignmentOk,
+    reference_project_alignment_ok: referenceProjectAlignmentOk,
     codex_project_local_static_package_ok: codexProjectLocalStaticPackageOk,
     codex_project_local_install_fixture_ok: codexProjectLocalInstallFixtureOk,
     codex_home_install_fixture_ok: codexHomeInstallFixtureOk,
+    codex_package_install_scope_ok: Boolean(
+      codexProjectLocalStaticPackageOk &&
+        codexProjectLocalInstallFixtureOk &&
+        codexHomeInstallFixtureOk
+    ),
+    codex_app_session_runtime_not_attempted_by_owner_boundary_ok: Boolean(
+      matrix &&
+        matrix.validation_scope &&
+        matrix.validation_scope.codex_desktop_app_session_runtime === "not_attempted_by_owner_instruction" &&
+        matrix.validation_scope.codex_runtime_claim_allowed === false
+    ),
     codex_runtime_external_evidence_ok: codexExternalRuntimeEvidenceOk,
     codex_runtime_external_evidence_selftest_ok: codexExternalRuntimeEvidenceSelftestOk,
     supported_alpha_surfaces: matrix && Array.isArray(matrix.supported_alpha_surfaces) ? matrix.supported_alpha_surfaces : [],
     blocking_issue_ids: Array.from(blockerIds).sort(),
     notes: releaseReady
-      ? "Installed-flow release gate is ready."
+      ? "Package/install scoped release gate is ready. Claude project-local flow is proven end to end; Codex package/install shape is validated by executed install fixtures and directory inspection. Codex Desktop app-session runtime was not attempted by Owner instruction and is not claimed."
       : phase11InstalledFlowComplete
-        ? "Claude project-local installed flow is complete for all 12 public commands, including Owner acceptance, /diayn-bug side-scenario triage, closeout, next-stage baseline refresh, and Phase 12 focused side-scenario coverage. Codex project-local .codex/skills package shape, project-local install fixture, and Codex-home install fixture are validated. Real Codex Home install and executable probes are local-only evidence, so release readiness remains blocked until the current/reloaded Codex app session proves direct /diayn-* invocation and native dependency-skill invocation."
+        ? "Claude project-local installed flow is complete for all 12 public commands, including Owner acceptance, /diayn-bug side-scenario triage, closeout, next-stage baseline refresh, and Phase 12 focused side-scenario coverage. Repository-root Claude/Codex plugin entrypoints are present and statically validated against the generated platform-visible package skills. Codex package/install validation is expected to use install commands plus directory inspection, not Codex Desktop launch."
         : "Installed-flow audit is recorded, but release readiness is blocked. Claude project-local command/dependency/routed-dependency smoke passes and all 12 commands are visible and enter workflow context. The installed fixture is green through the latest recorded command subset, but full Owner acceptance, closeout, next-stage refresh, and Phase 12 side scenarios remain unproven.",
     errors,
   };

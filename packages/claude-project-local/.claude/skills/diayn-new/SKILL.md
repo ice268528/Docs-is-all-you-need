@@ -51,6 +51,7 @@ In this mode, run from the Controller root after Owner acceptance has been recor
 3. Read the new Owner request, current stage, accepted requirements, TODO, and relevant OwnerGate records only as needed.
 4. Read `docs/meta/diayn_command_reference.md` and `docs/meta/diayn_commands/new.md` when available.
 5. Route to DIAYN-managed interview, idea refinement, specification, planning, or migration dependency skills only when needed.
+   When routing is needed, read the installed routing map from `.diayn/dependency-routing/upstream-routing-map.md` if present; otherwise use `internal-role-skills/diayn-skill-router/references/upstream-routing-map.md` in the active DIAYN package. Resolve the platform-visible skill id before native Skill invocation.
 
 ## Workflow
 

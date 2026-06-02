@@ -19,10 +19,25 @@ After publication, the user-facing flow should be:
 The plugin manifest is:
 
 ```text
+.claude-plugin/plugin.json
 plugins/docs-is-all-you-need/.claude-plugin/plugin.json
 ```
 
-It points Claude Code at:
+The repository-root manifest is the closer marketplace-style entrypoint. It
+points Claude Code at:
+
+```text
+.claude/commands
+packages/claude-project-local/.claude/skills
+```
+
+That skills root contains the 12 DIAYN workflow skills plus the 23
+DIAYN-managed dependency skills so dependency routing can use platform-visible
+skills when the runtime supports native Skill invocation.
+The root command files are synchronized from the inner plugin command adapters
+by `maintainers/scripts/build_claude_root_plugin_commands.js`.
+
+The inner local plugin candidate still points at:
 
 ```text
 plugins/docs-is-all-you-need/.claude/commands
@@ -49,6 +64,12 @@ The public command surface remains exactly 12 workflow commands:
 ## Local Development
 
 Before marketplace publication, use Claude Code's local plugin loading path:
+
+```powershell
+claude --plugin-dir E:\Allproject\VscodeProject\docs_is_all_you_need_for_AGENTS\Docs-is-all-you-need
+```
+
+The inner candidate can still be loaded for focused plugin-dir debugging:
 
 ```powershell
 claude --plugin-dir E:\Allproject\VscodeProject\docs_is_all_you_need_for_AGENTS\Docs-is-all-you-need\plugins\docs-is-all-you-need
@@ -100,7 +121,10 @@ Normal routing:
    stop conditions.
 3. DIAYN selects the smallest relevant dependency skill set from the routing
    map.
-4. Claude Code invokes the selected DIAYN-managed dependency skill through the
+4. DIAYN resolves the platform-visible skill id for the active surface:
+   project-local installs use names such as `idea-refine`, and plugin
+   namespace installs may require `docs-is-all-you-need:idea-refine`.
+5. Claude Code invokes the selected DIAYN-managed dependency skill through the
    native `Skill` tool when relevant.
 
 The routing map is:
@@ -118,6 +142,7 @@ not count as native dependency-skill invocation evidence.
 Claude plugin validation:
 
 ```text
+claude plugin validate .
 claude plugin validate plugins\docs-is-all-you-need
 ```
 
@@ -146,6 +171,7 @@ validation/phase9_claude_project_local_package.json
 validation/phase9_claude_project_local_probe.json
 validation/phase9_claude_project_local_routed_dependency_probe.json
 validation/phase9_claude_project_local_command_sequence.json
+validation/phase9_claude_skill_creator_alignment.json
 validation/phase11_installed_flow_fixture.json
 validation/phase12_side_scenarios.json
 ```
@@ -168,3 +194,16 @@ Key implications:
 - `SKILL.md` should progressively disclose references, scripts, and assets;
 - plugin installation should make skills discoverable natively;
 - test/eval evidence matters before claiming broad support.
+
+DIAYN also keeps a Claude-specific eval alignment record:
+
+```text
+docs/meta/claude_skill_creator_eval_alignment.md
+validation/claude_skill_creator_trigger_eval_sets.json
+validation/phase9_claude_skill_creator_alignment.json
+```
+
+This record proves the Claude project-local package is aligned with the local
+Claude skill-creator expectations that can be verified today, while preserving
+the boundary that trigger eval prompts are only prepared and no with-skill vs
+baseline benchmark has been committed yet.

@@ -55,6 +55,7 @@ Then stop. This mode only validates package command routing; it does not prove t
 3. Read `AGENTS.md`, `TODO.md`, current project brief, and only the requirement/stage docs needed for planning.
 4. Read `docs/meta/diayn_command_reference.md` and `docs/meta/diayn_commands/plan.md` when available.
 5. Route to DIAYN-managed planning/specification dependency skills only when the plan needs that guidance.
+   When routing is needed, read the installed routing map from `.diayn/dependency-routing/upstream-routing-map.md` if present; otherwise use `internal-role-skills/diayn-skill-router/references/upstream-routing-map.md` in the active DIAYN package. Resolve the platform-visible skill id before native Skill invocation.
 
 ## Workflow
 

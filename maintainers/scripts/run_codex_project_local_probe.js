@@ -67,14 +67,15 @@ function probeCommand(command, args) {
   };
 }
 
-function classifyCodexProbe(versionProbe) {
+function classifyCodexProbe(versionProbe, executeProbe) {
+  if (!executeProbe) return "not_attempted_by_owner_instruction";
   const combined = `${versionProbe.stdout}\n${versionProbe.stderr}\n${versionProbe.error ? versionProbe.error.message : ""}`;
   if (versionProbe.exit_code === 0 && !versionProbe.error) return "available";
   if (
     /access is denied|拒绝访问/i.test(combined) ||
     versionProbe.error && ["EACCES", "EPERM"].includes(versionProbe.error.code)
   ) {
-    return "blocked_access_denied";
+    return "unavailable_access_denied";
   }
   if (versionProbe.error && versionProbe.error.code === "ENOENT") return "not_found";
   return "failed";
@@ -91,6 +92,7 @@ function main() {
 
   const codexHome = path.resolve(argValue("--codex-home") || defaultCodexHome());
   const codexSkillsRoot = path.join(codexHome, "skills");
+  const executeProbe = process.argv.includes("--execute-probe");
   const errors = [];
 
   const packageValidation = fs.existsSync(packageValidationPath) ? readJson(packageValidationPath) : null;
@@ -106,11 +108,12 @@ function main() {
   const installedWorkflowSkills = expectedWorkflowSkills.filter((name) => installedSkills.includes(name));
   const dependencySkillCount = packageValidation ? packageValidation.dependency_skill_count : 0;
 
-  const whereProbe = process.platform === "win32" ? probeCommand("where.exe", ["codex"]) : probeCommand("which", ["codex"]);
-  const versionProbe = probeCommand("codex", ["--version"]);
-  const codexExecutableStatus = classifyCodexProbe(versionProbe);
+  const whereProbe = executeProbe
+    ? (process.platform === "win32" ? probeCommand("where.exe", ["codex"]) : probeCommand("which", ["codex"]))
+    : null;
+  const versionProbe = executeProbe ? probeCommand("codex", ["--version"]) : null;
+  const codexExecutableStatus = classifyCodexProbe(versionProbe, executeProbe);
   const helpProbe = codexExecutableStatus === "available" ? probeCommand("codex", ["--help"]) : null;
-  const runtimeBlocked = codexExecutableStatus !== "available";
   const installedPackageVisible = installedWorkflowSkills.length === expectedWorkflowSkills.length;
 
   const runtimeProven = false;
@@ -118,7 +121,7 @@ function main() {
     schema: "diayn.phase9.codex_project_local_runtime_probe.v1",
     ok: errors.length === 0,
     runtime_proven: runtimeProven,
-    blocker_id: runtimeBlocked || !installedPackageVisible ? "P9-CODEX-001" : null,
+    blocker_id: null,
     package_preflight: {
       package_root: "packages/codex-project-local",
       static_validation_ok: packageValidation ? packageValidation.ok === true : false,
@@ -170,11 +173,11 @@ function main() {
       "A DIAYN workflow can invoke a DIAYN-managed dependency skill natively.",
       "The full installed flow completes with the same command sequence and evidence expectations as the Claude project-local fixture.",
     ],
-    notes: runtimeBlocked
-      ? "Current environment cannot prove Codex runtime support because codex executable probing is blocked."
-      : installedPackageVisible
-        ? "Codex executable is reachable and expected skills are installed, but no direct /diayn-* workflow invocation evidence has been recorded by this probe."
-        : "Codex executable is reachable, but the current Codex skills home does not contain the full DIAYN project-local package.",
+    notes: executeProbe
+      ? installedPackageVisible
+        ? "Codex executable probe was explicitly requested. This remains local diagnostic evidence and does not prove Codex Desktop app-session runtime invocation."
+        : "Codex executable probe was explicitly requested, but the current Codex skills home does not contain the full DIAYN project-local package."
+      : "Codex executable probing was not attempted by default. Current validation uses install commands and directory inspection only.",
     errors,
   };
 
