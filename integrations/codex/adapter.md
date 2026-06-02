@@ -2,8 +2,9 @@
 
 ## Status
 
-Documented Codex adapter guidance plus a D6-09 local plugin candidate. The core
-DIAYN workflow does not require installing a plugin.
+Documented Codex adapter guidance plus the current local plugin and
+project-local `.codex/skills` candidates. The core DIAYN workflow is a skill
+pack workflow, not a custom CLI/runtime.
 
 ## Entry Point
 
@@ -15,7 +16,7 @@ Codex should use `AGENTS.md` as the lightweight entry file, then follow links in
 - `docs/meta/session_roles.md`
 - `docs/meta/status_model.md`
 - `docs/meta/agent_doc_permissions.md`
-- `skills/**`
+- `skills/diayn-init/` through `skills/diayn-html/`
 
 ## Command Handling
 
@@ -36,22 +37,35 @@ Supported command intents are the canonical commands in `docs/meta/diayn_command
 - `/diayn-new`
 - `/diayn-html`
 
-Every command starts with `diayn-identity-guard`.
+Each command skill starts with the appropriate DIAYN identity/path/lane checks
+using progressive disclosure.
 
 ## Skill Handling
 
-Codex should use DIAYN-owned skills under `skills/**` when available:
+Codex should use the 12 DIAYN-owned workflow skills when available:
 
-- `diayn-controller`
-- `diayn-executor`
-- `diayn-reviewer`
-- `diayn-integrator`
-- `diayn-skill-router`
-- `diayn-identity-guard`
-- `diayn-owner-ux`
-- `update-diayn-scaffold`
+- `diayn-init`
+- `diayn-plan`
+- `diayn-worktrees`
+- `diayn-backend`
+- `diayn-frontend`
+- `diayn-review-backend`
+- `diayn-review-frontend`
+- `diayn-sync`
+- `diayn-integration`
+- `diayn-bug`
+- `diayn-new`
+- `diayn-html`
 
-The vendored `third_party/agent-skills/` content is reference material, not the Codex adapter. If upstream guidance conflicts with DIAYN role, status, or document authority, DIAYN wins.
+The project-local Codex package shape is:
+
+```text
+packages/codex-project-local/.codex/skills/
+```
+
+It contains the 12 workflow skills plus the DIAYN-managed dependency skills.
+Internal role skills remain reference material. If upstream guidance conflicts
+with DIAYN role, status, or document authority, DIAYN wins.
 
 ## Owner Decision UX
 
@@ -59,11 +73,11 @@ For short Owner decisions, Codex may use a platform-supported decision UI when a
 
 For long decisions, Codex should give short options and tell the Owner they may run `/diayn-html`. It must not generate HTML unless the user explicitly runs `/diayn-html`.
 
-Capability note: D6-09 created `plugins/docs-is-all-you-need/` using the
-available local plugin convention, but Codex plugin discovery could not be
-verified because harmless `codex` discovery commands returned access denied in
-the current environment. Keep plugin support at `manual_fallback`, not
-`working`.
+Capability note: `plugins/docs-is-all-you-need/` and
+`packages/codex-project-local/` pass static validation, but Codex plugin or
+`.codex/skills` discovery could not be verified because harmless `codex`
+app-session discovery has not been proven in the current environment. Keep
+runtime support blocked, not `working`.
 
 ## Worktree And Identity
 
@@ -73,7 +87,7 @@ If identity does not match, stop and show the corrective command and directory f
 
 ## Limits
 
-- This adapter does not publish a plugin or require plugin installation.
+- This adapter does not publish a plugin or marketplace package.
 - This adapter does not implement a CLI or runtime.
 - This adapter does not change `/diayn-*` command semantics.
 - Core DIAYN document workflow must remain usable without Codex-specific features.

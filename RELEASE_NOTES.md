@@ -1,5 +1,10 @@
 # DIAYN V1 Release Candidate Notes
 
+DDDV8 implementation note: this file records historical D5/D6 release-candidate
+evidence only. It is not the active DDDV8 release gate and does not override
+the 12-workflow-skill target described in `README.md`,
+`docs/install/README.md`, and `docs/meta/diayn_v1_implementation_plan.md`.
+
 Status: beta-only after D6-11 final truth audit and D6-11 blocker repair
 review. This file does not publish a release, push a tag, create a plugin
 release, or claim general availability.

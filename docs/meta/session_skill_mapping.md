@@ -1,114 +1,89 @@
-# Session Skill Mapping
+# DIAYN Skill And Dependency Mapping
 
-> This document maps multi-session roles to DIAYN-owned skills and optional upstream engineering skill references. DIAYN-owned skills and the upstream vendor snapshot already exist in this repository; ordinary `/diayn-*` users do not need to understand vendor sync details.
+> DDDV8 changes DIAYN from a public role-skill install set into a public workflow-skill install set. Roles remain real execution concepts, but they are internal/shared references rather than the user's main installed command surface.
 
-## 1. Current Boundary
+## 1. Public Workflow Skill Surface
 
-This file defines the mapping layer only. It does not install, invoke, overwrite, or replace any skill, adapter, or vendor content.
+The V1 public surface is exactly 12 workflow skills. Each supported platform should expose them through the matching `/diayn-*` trigger.
 
-Current facts:
+| Public command | Owning role concept | Lane | Primary internal references |
+| --- | --- | --- | --- |
+| `/diayn-init` | Controller, Owner UX, Identity Guard | none | command `init`, scaffold upgrade, skill router |
+| `/diayn-plan` | Controller, Identity Guard | none or applicable lanes | command `plan`, planning references, skill router |
+| `/diayn-worktrees` | Controller, Identity Guard | backend/frontend when applicable | command `worktrees`, worktree helper |
+| `/diayn-backend` | Executor, Identity Guard | backend | command `backend`, lane execution references, skill router |
+| `/diayn-frontend` | Executor, Identity Guard | frontend | command `frontend`, lane execution references, skill router |
+| `/diayn-review-backend` | Reviewer, Identity Guard | backend | command `review_backend`, review references, skill router |
+| `/diayn-review-frontend` | Reviewer, Identity Guard | frontend | command `review_frontend`, review references, skill router |
+| `/diayn-sync` | Controller, Integrator, Identity Guard | none | command `sync`, sync/integration protocol |
+| `/diayn-integration` | Controller, Integrator, Identity Guard | none | command `integration`, integration references, skill router |
+| `/diayn-bug` | Controller, Owner UX, Identity Guard | routed after triage | command `bug`, bug intake references |
+| `/diayn-new` | Controller, Owner UX, Identity Guard | routed after triage | command `new`, change intake references |
+| `/diayn-html` | Owner UX, Controller, Identity Guard | none | command `html`, HTML generator |
 
-- D5 canonical DIAYN Codex Skills live under `skills/diayn-*` plus `skills/update-diayn-scaffold/`.
-- Older pre-D5 skill folders may exist for historical source compatibility; do not use them as the D5 install set.
-- The upstream `agent-skills` snapshot lives under `third_party/agent-skills/**` for maintainer reference.
-- Tool adapters and plugin preparation notes live under `integrations/**`.
-- If a listed skill is missing in a downstream scaffold, treat the row as a mapping expectation, not as an executable capability.
+Implementation note: older role-skill folders such as `diayn-controller`, `diayn-executor`, `diayn-reviewer`, `diayn-integrator`, `diayn-identity-guard`, `diayn-owner-ux`, and `diayn-skill-router` may be reused as internal/shared source material. They must not remain the only user-installed DIAYN skill surface for DDDV8.
 
-## 2. Local DIAYN Skill Mapping
+The repository root `skills/` directory is not the install contract by itself.
+It may contain implementation source, historical D5/D6 skill folders, or
+internal role-reference copies. The public V1 install surface is the package
+surface: 12 `diayn-*` workflow skills exposed to the user, plus
+DIAYN-managed third-party dependency skills when the platform needs those
+dependency skills to be platform-visible. Legacy folders such as
+`multi-session-*`, `owner-decision-ux`, `session-identity-guard`, or
+`context-compact-reminder` are not additional public V1 commands.
 
-| Role | DIAYN-owned skill | Purpose |
-| --- | --- | --- |
-| Controller Session | `diayn-controller` | Planning, lane dispatch, sync, integration readiness, global summaries |
-| Backend Session | `diayn-executor` | Lane-local execution and evidence writing |
-| Frontend Session | `diayn-executor` | Lane-local execution and evidence writing |
-| Backend Review Session | `diayn-reviewer` | Lane diff, evidence, permission, and acceptance review |
-| Frontend Review Session | `diayn-reviewer` | Lane diff, evidence, permission, and acceptance review |
-| Controller Integration Review | `diayn-integrator` | Cross-lane contract and integration checks |
-| All `/diayn-*` sessions | `diayn-identity-guard` | Soft preflight against role, lane, directory, and manifest mismatch |
-| Owner Acceptance and OwnerGate support | `diayn-owner-ux` | Human-readable decision and acceptance support |
-| Any DIAYN session needing optional engineering guidance | `diayn-skill-router` | Explicitly routes to vendored upstream `agent-skills` guidance while DIAYN authority remains in control |
-| Existing project upgrade | `update-diayn-scaffold` | Dry-run-first scaffold migration and patch proposal |
+## 2. Internal Role References
 
-## 3. Upstream Skill Mapping
+Internal role references preserve responsibility boundaries:
 
-The upstream `agent-skills` project is a method library for single-session engineering behavior. DIAYN remains the multi-session control plane. When upstream guidance conflicts with DIAYN role, status, or document authority, DIAYN protocol wins.
+- Controller: requirements clarification, planning, worktree setup, sync, integration, bug/new triage, stage closeout.
+- Executor: one lane-local task slice at a time, evidence, worklog, candidate handoff.
+- Reviewer: independent lane review, tests/verification, rejection reasons, TODO uncheck when needed.
+- Integrator: reviewed-code integration checks, shared contract consistency, ready-for-e2e evidence.
+- Identity Guard: command, role, lane, path, manifest, and write-boundary preflight.
+- Owner UX: OwnerGate prompts, Owner-readable acceptance and HTML aids.
+- Skill Router: explicit routing to DIAYN-managed third-party skills while DIAYN authority remains in control.
 
-The upstream snapshot is vendored under `third_party/agent-skills/` for maintainer reference. Ordinary `/diayn-*` users do not need to understand vendor sync details. Maintainers must review upstream changes through `maintainers/upstream-agent-skills/` before adapting them into DIAYN docs or skills.
+These references should be loaded progressively by the workflow skill that needs them.
 
-D5-05 audited the actual vendor snapshot and found 23 upstream skills under `third_party/agent-skills/skills/**/SKILL.md`. Do not assume a different count in downstream copies. Route only to upstream skills that exist locally.
+## 3. DIAYN-Managed Third-Party Dependency Skills
 
-Audited upstream skills:
+DIAYN vendors the full third-party `agent-skills` baseline and locks source, version or commit, license, update time, maintainer review, and local modifications.
+
+The DIAYN install should provide those upstream skills as DIAYN-managed dependency skills when the platform requires platform-visible skills for native nested invocation.
+
+Rules:
+
+- Use DIAYN-managed dependency copies by default.
+- Do not silently route to arbitrary user-installed `agent-skills` copies.
+- Treat direct reading of vendored `SKILL.md` files as fallback/reference behavior, not true third-party skill invocation.
+- Keep routing low-noise for normal users; record routing evidence only when it affects the workflow result or validation.
+- DIAYN authority wins over upstream guidance for role, lane, status, permissions, review, integration, and Owner acceptance.
+
+## 4. Routing Reference
+
+The routing map lives at:
 
 ```text
-api-and-interface-design
-browser-testing-with-devtools
-ci-cd-and-automation
-code-review-and-quality
-code-simplification
-context-engineering
-debugging-and-error-recovery
-deprecation-and-migration
-documentation-and-adrs
-doubt-driven-development
-frontend-ui-engineering
-git-workflow-and-versioning
-idea-refine
-incremental-implementation
-interview-me
-performance-optimization
-planning-and-task-breakdown
-security-and-hardening
-shipping-and-launch
-source-driven-development
-spec-driven-development
-test-driven-development
-using-agent-skills
+skills/diayn-skill-router/references/upstream-routing-map.md
 ```
 
-Watched upstream areas:
+That map should state, for every vendored upstream skill:
 
-- Direct tracking: `test-driven-development`, `incremental-implementation`, `code-review-and-quality`, `git-workflow-and-versioning`.
-- Needs DIAYN adaptation: `planning-and-task-breakdown`, `context-engineering`, `documentation-and-adrs`, `api-and-interface-design`.
-- Reference only: orchestration patterns, tool-specific setup docs, and slash command implementations.
+- when DIAYN may route to it;
+- which DIAYN workflows may use it;
+- why the mapping exists;
+- what DIAYN rule overrides it;
+- whether the skill is unused in V1 and why.
 
-| Role | Useful upstream skill categories | Routing reference |
-| --- | --- | --- |
-| Controller Session | `interview-me`, `idea-refine`, `spec-driven-development`, `planning-and-task-breakdown`, `context-engineering`, `documentation-and-adrs`, `git-workflow-and-versioning` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
-| Backend Session | `incremental-implementation`, `test-driven-development`, `source-driven-development`, `api-and-interface-design`, `debugging-and-error-recovery`, `security-and-hardening` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
-| Frontend Session | `incremental-implementation`, `test-driven-development`, `source-driven-development`, `frontend-ui-engineering`, `browser-testing-with-devtools`, `performance-optimization` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
-| Backend Review Session | `code-review-and-quality`, `doubt-driven-development`, `security-and-hardening`, `debugging-and-error-recovery` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
-| Frontend Review Session | `code-review-and-quality`, `doubt-driven-development`, `browser-testing-with-devtools`, `frontend-ui-engineering`, `security-and-hardening` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
-| Controller Integration Review | `code-review-and-quality`, `api-and-interface-design`, `git-workflow-and-versioning`, `ci-cd-and-automation`, `shipping-and-launch` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
-| Owner Acceptance support | `idea-refine`, `interview-me`, `documentation-and-adrs`, `shipping-and-launch` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
-| Existing project upgrade | `deprecation-and-migration`, `documentation-and-adrs`, `context-engineering`, `git-workflow-and-versioning` | `skills/diayn-skill-router/references/upstream-routing-map.md` |
+## 5. Read-First Pattern
 
-## 4. Read-First Mapping
+Every public workflow skill should start small:
 
-| Role | Read first |
-| --- | --- |
-| Controller Session | `AGENTS.md` or `CLAUDE.md`, `docs/meta/multi_session_collaboration_protocol.md`, `docs/meta/session_roles.md`, `docs/meta/status_model.md`, current stage and project docs |
-| Backend Session | Entry file, `docs/meta/session_roles.md`, `docs/meta/status_model.md`, backend lane board and handoff, relevant shared contracts |
-| Frontend Session | Entry file, `docs/meta/session_roles.md`, `docs/meta/status_model.md`, frontend lane board and handoff, relevant shared contracts |
-| Review Session | Entry file, `docs/meta/session_roles.md`, `docs/meta/status_model.md`, target lane board, evidence, worklog, handoff, diff, and review criteria |
-| Controller Integration Review | Entry file, `docs/meta/multi_session_collaboration_protocol.md`, `docs/meta/status_model.md`, reviewed lane logs, shared contracts, integration evidence |
-| Owner Acceptance support | Owner acceptance path, engineering evidence summary, OwnerGate or decision record, stage acceptance criteria |
+1. Confirm command, role, lane, directory, manifest, and write boundary through the Identity Guard contract.
+2. Read `AGENTS.md` or the platform entry file only as needed for target-project cold start.
+3. Read `docs/meta/diayn_command_reference.md`.
+4. Read only the matching command detail under `docs/meta/diayn_commands/`.
+5. Read lane, stage, shared contract, TODO, or third-party dependency guidance only when the current task needs it.
 
-## 5. Skill Design Rules
-
-`SKILL.md` files should be short workflow entry points. They should include:
-
-- Use When.
-- Read First.
-- Workflow.
-- Allowed Writes.
-- Stop Conditions.
-- Output Expectations.
-
-Long protocol explanations should link back to `docs/meta/**` or skill `references/**`. Do not copy the full protocol into every skill.
-
-## 6. Conflict Rules
-
-- Role authority in `docs/meta/session_roles.md` overrides any generic engineering skill.
-- Status authority in `docs/meta/status_model.md` overrides generic completion language.
-- Document permissions in `docs/meta/agent_doc_permissions.md` override tool-specific convenience.
-- Session Identity Guard remains a soft preflight and must not be described as a security boundary.
+This preserves progressive disclosure and avoids loading all DIAYN rules into every command context.

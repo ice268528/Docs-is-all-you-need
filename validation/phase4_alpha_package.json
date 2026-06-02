@@ -1,0 +1,30 @@
+{
+  "ok": true,
+  "public_skill_count": 12,
+  "claude_command_count": 12,
+  "codex_manifest": {
+    "skills": "./skills/",
+    "defaultPrompt": [
+      "/diayn-init",
+      "/diayn-plan",
+      "/diayn-review-frontend"
+    ]
+  },
+  "codex_project_local": {
+    "install_target": ".codex/skills",
+    "workflow_skill_count": 12,
+    "dependency_skill_count": 23,
+    "total_skill_count": 35,
+    "runtime_status": {
+      "codex_desktop_discovery": "not_proven_access_denied_in_current_environment",
+      "direct_diayn_invocation": "not_proven_access_denied_in_current_environment",
+      "dependency_skill_invocation": "not_proven_access_denied_in_current_environment"
+    }
+  },
+  "claude_manifest": {
+    "commands": "./.claude/commands",
+    "skills": "./skills"
+  },
+  "dependency_payload_present": true,
+  "errors": []
+}

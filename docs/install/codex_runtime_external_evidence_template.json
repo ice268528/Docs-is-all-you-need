@@ -1,0 +1,106 @@
+{
+  "schema": "diayn.codex_runtime_external_evidence_input.v1",
+  "surface": "Codex Desktop",
+  "environment": {
+    "tester": "<name>",
+    "tested_at": "<ISO-8601 timestamp>",
+    "codex_version": "<Codex Desktop or Codex runtime version>",
+    "codex_home": "<path>",
+    "package_source": "packages/codex-project-local",
+    "install_mode": "<project_local|codex_home>"
+  },
+  "skill_discovery_snapshot": {
+    "observed": true,
+    "app_session": "<current|reloaded|new_thread|new_app_session>",
+    "observed_workflow_skills": [
+      "diayn-init",
+      "diayn-plan",
+      "diayn-worktrees",
+      "diayn-backend",
+      "diayn-frontend",
+      "diayn-review-backend",
+      "diayn-review-frontend",
+      "diayn-sync",
+      "diayn-integration",
+      "diayn-bug",
+      "diayn-new",
+      "diayn-html"
+    ],
+    "observed_dependency_skills": [
+      "<DIAYN-managed dependency skill name, for example idea-refine>"
+    ],
+    "observed_legacy_internal_skills": [
+      "<optional legacy internal skill name if still discovered>"
+    ],
+    "evidence_refs": ["<app-session skill list log, screenshot, or transcript>"]
+  },
+  "direct_command_invocations": [
+    { "command": "/diayn-init", "observed": true, "matched_skill": "diayn-init", "evidence_refs": ["<log-or-screenshot-or-transcript>"] },
+    { "command": "/diayn-plan", "observed": true, "matched_skill": "diayn-plan", "evidence_refs": ["<log-or-screenshot-or-transcript>"] },
+    { "command": "/diayn-worktrees", "observed": true, "matched_skill": "diayn-worktrees", "evidence_refs": ["<log-or-screenshot-or-transcript>"] },
+    { "command": "/diayn-backend", "observed": true, "matched_skill": "diayn-backend", "evidence_refs": ["<log-or-screenshot-or-transcript>"] },
+    { "command": "/diayn-frontend", "observed": true, "matched_skill": "diayn-frontend", "evidence_refs": ["<log-or-screenshot-or-transcript>"] },
+    { "command": "/diayn-review-backend", "observed": true, "matched_skill": "diayn-review-backend", "evidence_refs": ["<log-or-screenshot-or-transcript>"] },
+    { "command": "/diayn-review-frontend", "observed": true, "matched_skill": "diayn-review-frontend", "evidence_refs": ["<log-or-screenshot-or-transcript>"] },
+    { "command": "/diayn-sync", "observed": true, "matched_skill": "diayn-sync", "evidence_refs": ["<log-or-screenshot-or-transcript>"] },
+    { "command": "/diayn-integration", "observed": true, "matched_skill": "diayn-integration", "evidence_refs": ["<log-or-screenshot-or-transcript>"] },
+    { "command": "/diayn-bug", "observed": true, "matched_skill": "diayn-bug", "evidence_refs": ["<log-or-screenshot-or-transcript>"] },
+    { "command": "/diayn-new", "observed": true, "matched_skill": "diayn-new", "evidence_refs": ["<log-or-screenshot-or-transcript>"] },
+    { "command": "/diayn-html", "observed": true, "matched_skill": "diayn-html", "evidence_refs": ["<log-or-screenshot-or-transcript>"] }
+  ],
+  "dependency_skill_invocation": {
+    "observed": true,
+    "skill": "<DIAYN-managed dependency skill name, for example idea-refine>",
+    "invoked_from": "<workflow command, for example /diayn-init>",
+    "evidence_refs": ["<log-or-screenshot-or-transcript>"]
+  },
+  "release_gate_checks": [
+    { "id": "codex_runtime_discovered_installed_package", "passed": true, "evidence_refs": ["<evidence>"] },
+    { "id": "all_12_direct_diayn_invocations", "passed": true, "evidence_refs": ["<evidence>"] },
+    { "id": "native_routed_dependency_skill_invocation", "passed": true, "evidence_refs": ["<evidence>"] },
+    { "id": "progressive_disclosure_observed", "passed": true, "evidence_refs": ["<evidence>"] },
+    { "id": "role_responsibility_checks_observed", "passed": true, "evidence_refs": ["<evidence>"] },
+    { "id": "lane_boundaries_observed", "passed": true, "evidence_refs": ["<evidence>"] },
+    { "id": "review_rejection_observed", "passed": true, "evidence_refs": ["<evidence>"] },
+    { "id": "sync_integration_separation_observed", "passed": true, "evidence_refs": ["<evidence>"] },
+    { "id": "owner_acceptance_recorded", "passed": true, "evidence_refs": ["<evidence>"] },
+    { "id": "closeout_recorded", "passed": true, "evidence_refs": ["<evidence>"] },
+    { "id": "next_stage_baseline_refresh_recorded", "passed": true, "evidence_refs": ["<evidence>"] },
+    { "id": "focused_side_scenarios_covered", "passed": true, "evidence_refs": ["<evidence>"] }
+  ],
+  "installed_flow": {
+    "complete": true,
+    "commands": [
+      "/diayn-init",
+      "/diayn-plan",
+      "/diayn-worktrees",
+      "/diayn-backend",
+      "/diayn-frontend",
+      "/diayn-review-backend",
+      "/diayn-review-frontend",
+      "/diayn-sync",
+      "/diayn-integration",
+      "/diayn-html",
+      "/diayn-bug",
+      "/diayn-new"
+    ],
+    "workflow_errors": [],
+    "owner_acceptance_recorded": true,
+    "closeout_recorded": true,
+    "next_stage_baseline_refresh_recorded": true,
+    "evidence_refs": ["<installed-flow transcript or fixture output>"]
+  },
+  "side_scenarios": {
+    "non_git_target": { "passed": true, "evidence_refs": ["<evidence>"] },
+    "existing_project_conflict_report": { "passed": true, "evidence_refs": ["<evidence>"] },
+    "dirty_working_tree_preflight": { "passed": true, "evidence_refs": ["<evidence>"] },
+    "not_applicable_lane": { "passed": true, "evidence_refs": ["<evidence>"] },
+    "interrupted_command_recovery": { "passed": true, "evidence_refs": ["<evidence>"] },
+    "scaffold_migration_dry_run": { "passed": true, "evidence_refs": ["<evidence>"] },
+    "mismatched_pre_existing_agent_skills": { "passed": true, "evidence_refs": ["<evidence>"] },
+    "privacy_network_default": { "passed": true, "evidence_refs": ["<evidence>"] },
+    "cleanup_plan_boundary": { "passed": true, "evidence_refs": ["<evidence>"] },
+    "bug_triage_side_scenario": { "passed": true, "evidence_refs": ["<evidence>"] },
+    "additional_new_intake_or_next_stage_refresh": { "passed": true, "evidence_refs": ["<evidence>"] }
+  }
+}

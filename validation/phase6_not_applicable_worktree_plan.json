@@ -1,0 +1,57 @@
+{
+  "schema": "diayn.worktree_plan.v1",
+  "generated_at": "2026-06-01T01:30:13.479278+00:00",
+  "project_root": "<repo>\\validation\\minimal-fullstack-fixture",
+  "project_slug": "backend-only-fixture",
+  "stage_id": "phase6-demo",
+  "git": {
+    "ok": true,
+    "toplevel": "<repo>",
+    "branch": "main",
+    "head": "160254d3c1a09536117de89092b5efbb83e7cb5a",
+    "dirty": true,
+    "status_error": null,
+    "worktree_list_error": null
+  },
+  "worktree_root": "<repo>\\validation\\worktrees\\backend-only-fixture",
+  "lanes": [
+    {
+      "lane": "backend",
+      "applicable": "yes",
+      "status": "planned",
+      "reason": null,
+      "worktree_path": "<repo>\\validation\\worktrees\\backend-only-fixture\\backend",
+      "branch": "diayn/phase6-demo/backend",
+      "baseline": "160254d3c1a09536117de89092b5efbb83e7cb5a",
+      "copyable_add_command": "git worktree add <repo>\\validation\\worktrees\\backend-only-fixture\\backend -b diayn/phase6-demo/backend 160254d3c1a09536117de89092b5efbb83e7cb5a",
+      "worker_startup": [
+        "cd <repo>\\validation\\worktrees\\backend-only-fixture\\backend",
+        "codex",
+        "/diayn-backend"
+      ],
+      "review_startup": [
+        "cd <repo>\\validation\\worktrees\\backend-only-fixture\\backend",
+        "codex",
+        "/diayn-review-backend",
+        "\"<paste latest worker report here>\""
+      ],
+      "wip_rule": "Only one worker or reviewer activity should be active for this lane at a time."
+    },
+    {
+      "lane": "frontend",
+      "applicable": "not_applicable",
+      "status": "not_applicable",
+      "reason": "lane is not applicable to this stage"
+    }
+  ],
+  "owner_gates": [
+    {
+      "id": "OG-worktree-dirty",
+      "question": "Controller working tree is dirty. Which changes must be committed, preserved, or excluded before worktree creation?",
+      "blocks": "worktree creation"
+    }
+  ],
+  "execute_requested": false,
+  "executed": [],
+  "next_action": "resolve_owner_gates"
+}

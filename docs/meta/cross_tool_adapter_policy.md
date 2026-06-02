@@ -37,20 +37,20 @@ When a capability is unclear, write `Unknown / To be confirmed`.
 
 ## Tool Priority
 
-D5 adapter priority:
+DDDV8 adapter priority:
 
 1. Codex
 2. Claude Code
-3. OpenCode
-4. Cursor and Copilot remain out of V1 active scope unless a later DDDV5 stage changes that decision.
+3. OpenCode remains deferred until direct `/diayn-*` invocation is proven.
+4. Cursor and Copilot remain out of V1 active scope unless a later Owner decision changes that.
 
 ## Current Adapter Support Summary
 
 | Surface | Current level | Adapter location | Notes |
 | --- | --- | --- | --- |
-| Codex Skills | `manual_fallback` | `skills/**` | Manual copy install; no marketplace package or custom runtime. |
-| Claude Code | `manual_fallback` | `integrations/claude-code/commands/` | Command files exist; no local Claude Code smoke test. |
-| OpenCode | `manual_fallback` | `integrations/opencode/.opencode/` | Command files and skill wrappers exist; no local OpenCode smoke test. |
+| Codex Desktop | `install_fixtures_validated_runtime_blocked` | `plugins/docs-is-all-you-need/`, `packages/codex-project-local/`, `validation/phase9_codex_project_local_install_fixture.json`, `validation/phase9_codex_home_install_fixture.json` | 12 workflow skills plus DIAYN-managed dependency skills are statically packaged; the project-local and Codex-home install fixtures pass. Real Codex Home installs are local-only diagnostics by default. Runtime discovery/invocation still needs proof from the current or reloaded Codex app session. |
+| Claude Code | `project_local_installed_flow_proven` | `plugins/docs-is-all-you-need/`, `packages/claude-project-local/` | Project-local package proves all 12 public commands through the installed-flow fixture. |
+| OpenCode | `deferred` | `integrations/opencode/.opencode/` | Historical adapter evidence only; not a DDDV8 alpha surface until direct `/diayn-*` skill invocation is proven. |
 
 ## Agent Skills Boundary
 
@@ -60,13 +60,15 @@ DIAYN-owned adapters live under `integrations/**`. DIAYN-owned skills live under
 
 ## Plugin Boundary
 
-Codex plugin work remains preparation only:
+Codex plugin/runtime work remains blocked by missing app-session invocation
+evidence:
 
 - Draft manifest notes are allowed.
-- Scaffold asset plans are allowed.
+- Static package and scaffold asset plans are allowed.
+- Real Codex Home file-install diagnostics are allowed locally.
 - Readiness and risk checklists are allowed.
 
-Current DIAYN V1 documentation does not publish, install, or claim a working plugin. Core DIAYN document workflow must remain usable without any plugin.
+Current DIAYN V1 documentation does not publish or claim a working Codex plugin/runtime. Core DIAYN document workflow must remain usable without Codex-specific features.
 
 ## Lightweight Export Rule
 

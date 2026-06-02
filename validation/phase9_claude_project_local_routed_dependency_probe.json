@@ -1,0 +1,49 @@
+{
+  "schema": "diayn.phase9.claude_project_local_routed_dependency_probe.v1",
+  "date": "2026-06-01",
+  "package_root": "packages/claude-project-local",
+  "ok": true,
+  "surface": "Claude Code CLI project-local package",
+  "working_directory": "packages/claude-project-local",
+  "command": "claude --allowedTools Skill --max-budget-usd 0.35 --max-turns 4 --verbose --output-format stream-json -p \"/diayn-init Validation probe only. Use the Skill tool to load diayn-init. Inside the DIAYN init workflow, treat this as a vague idea requiring idea refinement. Use DIAYN dependency routing to invoke the DIAYN-managed idea-refine skill through the native Skill tool, then answer only with the loaded workflow skill, loaded dependency skill, and first stop condition. Do not edit files.\"",
+  "exit_code": 0,
+  "skill_tool_invocations": [
+    {
+      "order": 1,
+      "skill": "diayn-init",
+      "result": {
+        "success": true,
+        "commandName": "diayn-init"
+      }
+    },
+    {
+      "order": 2,
+      "skill": "idea-refine",
+      "result": {
+        "success": true,
+        "commandName": "idea-refine"
+      }
+    }
+  ],
+  "routing_context": {
+    "public_workflow": "/diayn-init",
+    "dependency_skill": "idea-refine",
+    "reason": "The active DIAYN init workflow treated the prompt as a vague idea requiring idea refinement.",
+    "authority_retained": [
+      "DIAYN command identity",
+      "Owner confirmation stop condition",
+      "no file edits"
+    ]
+  },
+  "final_result": {
+    "loaded_workflow_skill": "diayn-init",
+    "loaded_dependency_skill": "idea-refine",
+    "first_stop_condition": "The Owner has not confirmed project_slug."
+  },
+  "limits": {
+    "full_installed_flow": "not_run",
+    "codex_desktop": "not_proven_access_denied",
+    "plugin_dir_bare_command": "not_supported_namespaced_only"
+  },
+  "errors": []
+}

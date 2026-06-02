@@ -1,81 +1,10 @@
 # DIAYN Install And Support Truth
 
-This file describes what a new user can actually use today. It does not claim native command, plugin, or adapter support before a verified artifact exists.
+This file states what the DDDV8 implementation may truthfully claim. It replaces earlier D5/D6 wording where that wording conflicts with the DDDV8 V1 requirement baseline.
 
-## Current Best Path
+## Active Target
 
-Use DIAYN in Codex first by manually installing the canonical DIAYN skill folders, then run the `/diayn-*` workflows in Codex chat:
-
-```text
-1. Install the eight DIAYN Codex Skills from `skills/`.
-2. Open the target project in Codex.
-3. Type `/diayn-init` or explicitly ask Codex to use `diayn-controller` for `/diayn-init`.
-4. Continue with `/diayn-plan`, `/diayn-worktrees`, lane work, review, sync, and integration as the skills and documents instruct.
-```
-
-`/diayn-*` entries are workflow triggers, not shell commands. If Codex does not auto-select the intended skill, name it explicitly in chat. If a non-Codex tool does not support skills, use the manual document workflow fallback.
-
-Codex install details: `docs/install/codex_skills.md`.
-
-Codex plugin candidate note: `docs/install/codex_plugin_local_candidate.md`.
-The plugin candidate is not verified as working plugin discovery.
-
-Other manual adapters:
-
-- Claude Code command adapter: `docs/install/claude-code.md`
-- OpenCode command and skill-wrapper adapter: `docs/install/opencode.md`
-
-## Support Matrix
-
-| Surface | Support level | What exists | What does not exist yet |
-| --- | --- | --- | --- |
-| Codex Skills | `manual_fallback` | Eight canonical Codex Skill folders, concise `SKILL.md` files, references, and manual copy install instructions. | Automatic installer, marketplace package, or custom runtime enforcement. |
-| Manual document workflow | `manual_fallback` | README, AGENTS, command docs, lane docs, and templates for tools without installed DIAYN skills. | Native automation, guaranteed platform command parsing, or runtime enforcement. |
-| Codex plugin | `manual_fallback` | Local candidate under `plugins/docs-is-all-you-need/` with `.codex-plugin/plugin.json` and the eight DIAYN skills; D6-09 static fallback validation passed. | Published plugin, marketplace package, or verified Codex plugin discovery/execution. |
-| Claude Code CLI | `working` | Project-level manual copy install of the 12 command files was smoke-tested in D6-04 with Claude Code `2.1.145`; `/diayn-init` execution was observed from `.claude/commands/`. | Packaged installer, global auto-install, or guaranteed discovery in every environment. |
-| OpenCode CLI | `working` | Project-level manual copy install was smoke-tested in D6-05 with OpenCode `1.14.28`; DIAYN command and skill-wrapper discovery were observed. | Full model-backed workflow execution, package installer, custom runtime, global auto-install, or guaranteed behavior in every environment. |
-| Cursor | out of V1 scope | Future planning notes may exist. | Active V1 support claim. |
-| Copilot | out of V1 scope | Future planning notes may exist. | Active V1 support claim. |
-
-## D6-10 Release Candidate Snapshot
-
-D6-10 does not upgrade support levels. It packages the existing evidence into
-release-candidate notes and records the current freshness boundary:
-
-- Claude Code remains `working` only for local project-level manual copy
-  command discovery/execution.
-- OpenCode remains `working` only for local project-level command and
-  skill-wrapper discovery.
-- Codex Skills and the Codex plugin candidate remain `manual_fallback` because
-  Codex discovery/execution is not verified.
-- The Owner-approved `personal-site` validation remains `manual_fallback`
-  sequential workflow simulation, not production or true concurrent validation.
-- Upstream `agent-skills` freshness is not current: D6-10 observed remote HEAD
-  `6ce029897d2b794940325fc7148774a6ec51111c` while `vendor.lock.md` records
-  `250ffaa`. No vendor copy update was performed.
-
-Release candidate notes: `RELEASE_NOTES.md`.
-
-## D6-11 Final Truth Audit Snapshot
-
-The initial D6-11 final truth audit kept the release gate at `beta_only`
-because Claude Code and OpenCode adapter docs still contained stale support
-wording. The D6-11 blocker repair aligns those adapter docs with the D6-04 and
-D6-05 evidence:
-
-- Claude Code is scoped `working` for local project-level `.claude/commands/`
-  manual copy install, not global/package/plugin support.
-- OpenCode is scoped `working` for local project-level `.opencode/commands`
-  and skill-wrapper discovery, not full model-backed workflow execution or
-  global/package/plugin support.
-
-This repair does not upgrade Codex Skills or Codex plugin support. Codex Skills
-remain `manual_fallback`, and the Codex plugin remains a local candidate at
-`manual_fallback` until real Codex discovery/execution evidence exists.
-
-## Canonical Commands
-
-Use the one-segment command names:
+DIAYN V1 is a skill pack with exactly 12 public workflow skills:
 
 ```text
 /diayn-init
@@ -92,19 +21,113 @@ Use the one-segment command names:
 /diayn-html
 ```
 
-Older two-segment names are migration or historical wording only.
+The target user experience is one DIAYN install that makes these commands available as real workflow skills. The user should not need to clone the DIAYN source repository into every target project and then run unrelated setup commands before skills can be used.
 
-## What To Avoid Claiming
+## Alpha Surfaces
 
-Do not claim that this repository currently provides:
+| Surface | DDDV8 target | Current DDDV8 status |
+| --- | --- | --- |
+| Codex Desktop | Alpha target if installed workflow skills can be invoked through `/diayn-*` and can route to DIAYN-managed dependency skills. | Plugin artifact exists, and `packages/codex-project-local/` statically validates the `.codex/skills` package shape with 12 workflow skills plus 23 DIAYN-managed dependency skills. Executed install fixtures prove both project-local `.codex/skills` + `.diayn` shape and Codex-home `$CODEX_HOME/skills` shape without relying on a maintainer's private Codex Home. Direct `/diayn-*` invocation and native dependency-skill invocation still need proof from the current or reloaded Codex app session before Codex alpha can be claimed. |
+| Claude Code CLI | Alpha target if installed workflow skills can be invoked through `/diayn-*` and can route to DIAYN-managed dependency skills. | Plugin artifact exists and `claude plugin validate` passes, but plugin-dir commands are namespaced. A separate project-local package at `packages/claude-project-local/` proves bare `/diayn-init` command-to-`Skill` invocation, all 12 bare command/skill entries are visible and enter workflow context, direct native loading of the DIAYN-managed `idea-refine` dependency skill, routed `/diayn-init -> idea-refine` dependency invocation, and a complete installed-flow fixture for all 12 public commands. |
+| OpenCode CLI | Deferred unless installed workflow skills can be directly triggered through `/diayn-*`. | Deferred for DDDV8. Earlier D6 discovery notes are historical only. |
+| Cursor / Copilot | Out of V1 scope. | No active V1 support claim. |
 
-- a shell CLI;
-- a native slash-command runtime;
-- a working, published, or marketplace-backed Codex plugin;
-- automatically installed or globally guaranteed Claude Code command support;
-- full OpenCode model-backed DIAYN workflow execution before it is smoke-tested;
-- Cursor or Copilot V1 support;
-- hidden child-agent auto-launch;
-- global shell commands for the deterministic helper scripts. The helpers exist only as local skill support scripts.
+## Third-Party Skill Dependency Rule
 
-Those claims require later implementation and validation stages.
+DIAYN should carry a locked third-party `agent-skills` baseline and install or register those skills as DIAYN-managed dependency skills when a platform requires platform-visible skills for native nested invocation.
+
+Rules:
+
+- Reading a vendored upstream `SKILL.md` directly is only fallback/reference behavior; it does not count as real third-party skill invocation.
+- A real third-party skill call means platform-native nested skill invocation or an equivalent native skill tool call against the DIAYN-managed dependency copy.
+- User-installed third-party `agent-skills` copies are not selected silently unless they match DIAYN lock metadata or an Owner/maintainer explicitly approves the substitution.
+- DIAYN keeps authority over role, lane, state, review, integration, evidence, and Owner acceptance.
+
+## Historical Artifacts
+
+Alpha package artifact notes:
+
+- Codex package candidate: `docs/install/codex-alpha.md`
+- Claude Code package candidate: `docs/install/claude-code-alpha.md`
+
+This repository now contains DDDV8 public workflow skills, progressively disclosed workflow assets, deterministic helpers, alpha package artifacts, and a locked dependency payload plus useful D5/D6 artifacts:
+
+- 12 public workflow skills under `skills/diayn-init/` through `skills/diayn-html/`;
+- Controller scaffold audit/planning, worktree planning, lane/review/sync/integration, Owner UX, privacy/network, migration, and cleanup dry-run assets;
+- locked DIAYN-managed dependency skills under `plugins/docs-is-all-you-need/dependency-skills/`;
+- internal role/reference skills under `plugins/docs-is-all-you-need/internal-role-skills/`;
+- a local Codex plugin candidate under `plugins/docs-is-all-you-need/`;
+- Claude Code and OpenCode adapter notes under `integrations/`;
+- a controlled fixture under `validation/minimal-fullstack-fixture/`;
+- vendored upstream `agent-skills` under `third_party/agent-skills/`.
+
+The repository root `skills/` directory is implementation source material, not
+the install surface. The install surface is determined by the package being
+installed: the Codex plugin candidate exposes only
+`plugins/docs-is-all-you-need/skills/diayn-*`, and the Codex project-local/Home
+package installs 12 public `diayn-*` workflow skills plus 23 DIAYN-managed
+third-party dependency skills. Older root folders such as `multi-session-*`,
+`owner-decision-ux`, `session-identity-guard`, or role-only `diayn-controller`
+copies are historical/internal source material. They are not extra V1 public
+commands and should not be treated as proof of a correct DIAYN install.
+The root source layout is documented in `skills/README.md` and validated by
+`validation/phase2_public_skill_surface.json`.
+Real target installs report pre-existing non-package skills separately from the
+DIAYN V1 package and preserve them unless a separate cleanup action is
+explicitly authorized.
+
+These artifacts are implementation inputs. They are not final DDDV8 release evidence until each relevant phase in `docs/meta/diayn_v1_implementation_plan.md` marks the artifact validated.
+
+## Claims To Avoid
+
+Do not claim that the current repository already provides:
+
+- a published marketplace/plugin install;
+- a working all-platform V1;
+- OpenCode DDDV8 support;
+- exhaustive routed use of every vendored third-party skill from an active DIAYN workflow;
+- automatic hidden agent/session launching;
+- a shell CLI or custom agent runtime;
+- release readiness.
+
+Those claims require installed-flow validation on the controlled fixture.
+Surface support is evaluated independently: a proven surface may be described
+as an alpha-supported surface, but a blocked surface still blocks any Codex or
+all-surface release claim.
+
+## Validation Gate
+
+No alpha claim for a surface until that surface's installed package completes:
+
+```text
+install -> /diayn-init -> /diayn-plan -> /diayn-worktrees
+-> /diayn-backend and /diayn-frontend
+-> /diayn-review-backend and /diayn-review-frontend
+-> /diayn-sync -> /diayn-integration
+-> Owner acceptance -> closeout -> next-stage baseline refresh
+```
+
+No exhaustive third-party composition release claim until routed `agent-skills` coverage is broadened beyond the representative `/diayn-init -> idea-refine` smoke test.
+
+Current surface-specific result: the Claude project-local package has completed
+the installed flow and focused side scenarios, so it is the only supported alpha
+surface recorded by the gate. Codex package shape and install fixtures pass, but
+Codex runtime discovery/invocation is still blocked by `P9-CODEX-001`.
+
+Current installed-flow audit:
+
+```text
+docs/meta/diayn_v1_phase9_installed_flow_audit.md
+validation/phase9_capability_matrix.json
+validation/phase9_release_gate.json
+validation/phase9_codex_runtime_external_evidence_selftest.json
+```
+
+The current installed-flow audit uses `phase9_*` artifact names from the earlier implementation split, but now corresponds to the Phase 12 installed-flow release gate in the refined DDDV8 plan. It is an honest blocker record, not release readiness.
+
+Codex Desktop runtime evidence must be collected from Codex Desktop itself,
+not from a shell-launched Codex process. Use
+`docs/install/codex_runtime_external_evidence_template.json` to record a
+structured app-session `skill_discovery_snapshot` before claiming direct
+`/diayn-*` invocation. Maintainers may keep local manual runbooks while testing,
+but those files are not tracked as remote release evidence.

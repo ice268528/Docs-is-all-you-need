@@ -1,0 +1,40 @@
+{
+  "ok": true,
+  "release_ready": false,
+  "phase9_complete": false,
+  "prior_static_evidence_ok": true,
+  "claude_project_local_bare_command_ok": true,
+  "claude_project_local_dependency_skill_ok": true,
+  "claude_project_local_routed_dependency_ok": true,
+  "claude_project_local_command_sequence_visible": true,
+  "claude_project_local_command_sequence_entry_ok": true,
+  "claude_project_local_command_sequence_ok": true,
+  "phase11_installed_flow_fixture_ok": true,
+  "phase11_installed_flow_attempted": true,
+  "phase11_installed_flow_complete": true,
+  "phase11_native_workflow_skill_entry_ok": true,
+  "phase11_init_scaffold_ok": true,
+  "phase11_plan_artifacts_ok": true,
+  "phase11_worktree_artifacts_ok": true,
+  "phase11_lane_worker_artifacts_ok": true,
+  "phase11_review_artifacts_ok": true,
+  "phase11_sync_artifacts_ok": true,
+  "phase11_integration_artifacts_ok": true,
+  "phase11_owner_acceptance_artifacts_ok": true,
+  "phase11_bug_artifacts_ok": true,
+  "phase11_closeout_artifacts_ok": true,
+  "phase12_side_scenarios_ok": true,
+  "codex_project_local_static_package_ok": true,
+  "codex_project_local_install_fixture_ok": true,
+  "codex_home_install_fixture_ok": true,
+  "codex_runtime_external_evidence_ok": true,
+  "codex_runtime_external_evidence_selftest_ok": true,
+  "supported_alpha_surfaces": [
+    "claude_code_cli_project_local"
+  ],
+  "blocking_issue_ids": [
+    "P9-CODEX-001"
+  ],
+  "notes": "Claude project-local installed flow is complete for all 12 public commands, including Owner acceptance, /diayn-bug side-scenario triage, closeout, next-stage baseline refresh, and Phase 12 focused side-scenario coverage. Codex project-local .codex/skills package shape, project-local install fixture, and Codex-home install fixture are validated. Real Codex Home install and executable probes are local-only evidence, so release readiness remains blocked until the current/reloaded Codex app session proves direct /diayn-* invocation and native dependency-skill invocation.",
+  "errors": []
+}

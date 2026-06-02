@@ -1,0 +1,37 @@
+{
+  "schema": "diayn.codex_project_local_package.v1",
+  "generated_from": "plugins/docs-is-all-you-need",
+  "command_surface": "bare /diayn-* project-local Codex skills",
+  "workflow_skill_count": 12,
+  "dependency_skill_count": 23,
+  "workflow_skills": [
+    "diayn-init",
+    "diayn-plan",
+    "diayn-worktrees",
+    "diayn-backend",
+    "diayn-frontend",
+    "diayn-review-backend",
+    "diayn-review-frontend",
+    "diayn-sync",
+    "diayn-integration",
+    "diayn-bug",
+    "diayn-new",
+    "diayn-html"
+  ],
+  "dependency_source": "plugins/docs-is-all-you-need/dependency-skills/agent-skills",
+  "dependency_routing": ".diayn/dependency-routing/upstream-routing-map.md",
+  "internal_role_references": ".diayn/internal-role-skills",
+  "install_target": {
+    "skills": ".codex/skills"
+  },
+  "runtime_status": {
+    "codex_desktop_discovery": "not_proven_access_denied_in_current_environment",
+    "direct_diayn_invocation": "not_proven_access_denied_in_current_environment",
+    "dependency_skill_invocation": "not_proven_access_denied_in_current_environment"
+  },
+  "notes": [
+    "This package is the Codex project-local skills shape for the DDDV8 target.",
+    "Dependency skills are platform-visible implementation dependencies, not public DIAYN slash commands.",
+    "Static package validation does not prove Codex Desktop runtime discovery or /diayn-* invocation."
+  ]
+}

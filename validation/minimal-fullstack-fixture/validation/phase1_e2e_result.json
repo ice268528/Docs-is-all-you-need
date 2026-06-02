@@ -1,0 +1,82 @@
+{
+  "result": "pass",
+  "fixture": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\Docs-is-all-you-need\\validation\\minimal-fullstack-fixture",
+  "checks": [
+    {
+      "name": "backend health",
+      "result": "pass",
+      "details": {
+        "url": "http://127.0.0.1:63747/api/health"
+      }
+    },
+    {
+      "name": "frontend served and wired to API",
+      "result": "pass",
+      "details": {
+        "status": 200,
+        "has_form": true
+      }
+    },
+    {
+      "name": "register user",
+      "result": "pass",
+      "details": {
+        "status": 201,
+        "body": {
+          "ok": true,
+          "user": {
+            "id": 1,
+            "email": "owner-1780242382@example.test"
+          }
+        }
+      }
+    },
+    {
+      "name": "login user",
+      "result": "pass",
+      "details": {
+        "status": 200,
+        "body": {
+          "ok": true,
+          "user": {
+            "id": 1,
+            "email": "owner-1780242382@example.test"
+          }
+        }
+      }
+    },
+    {
+      "name": "duplicate registration rejected",
+      "result": "pass",
+      "details": {
+        "status": 409,
+        "body": {
+          "ok": false,
+          "error": "email_exists"
+        }
+      }
+    },
+    {
+      "name": "bad login rejected",
+      "result": "pass",
+      "details": {
+        "status": 401,
+        "body": {
+          "ok": false,
+          "error": "invalid_credentials"
+        }
+      }
+    },
+    {
+      "name": "user persisted in sqlite",
+      "result": "pass",
+      "details": {
+        "db": "C:\\Users\\YIYI_G~1\\AppData\\Local\\Temp\\diayn-fixture-8wfpmnvq\\fixture.sqlite3",
+        "email": "owner-1780242382@example.test",
+        "count": 1
+      }
+    }
+  ],
+  "failed_count": 0,
+  "support_boundary": "controlled fixture only; not real-project validation; not native slash-command smoke test"
+}

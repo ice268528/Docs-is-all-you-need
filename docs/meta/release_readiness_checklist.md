@@ -3,6 +3,11 @@
 This checklist is for preparing a DIAYN V1 scaffold release candidate after the
 DDDV6 validation pass. It does not publish a release by itself.
 
+DDDV8 supersedes the DDDV6 release-candidate boundary for the active 12-command
+skill-pack implementation. Current DDDV8 release truth is recorded in
+`validation/phase9_release_gate.json` and
+`validation/dddv8_requirement_completion_audit.json`.
+
 ## Required Before Release Preparation
 
 - [x] D6-01 through D6-09 execution records exist.
@@ -43,8 +48,29 @@ DDDV6 validation pass. It does not publish a release by itself.
 - [ ] Longer procedures stay in `references/**`.
 - [ ] Skills do not copy the full protocol.
 - [ ] Skills do not promise runtime enforcement.
-- [ ] Canonical Codex install set is the D5 skill set in
-      `docs/install/codex_skills.md`.
+- [ ] Canonical Codex package shape is the DDDV8 project-local
+      `.codex/skills` package in `packages/codex-project-local/`.
+- [ ] Codex install fixture evidence exists at
+      `validation/phase9_codex_project_local_install_fixture.json`, proving the
+      package copy shape without proving runtime discovery.
+- [ ] Codex-home install fixture evidence exists at
+      `validation/phase9_codex_home_install_fixture.json`, proving the
+      `$CODEX_HOME/skills` copy shape without proving runtime discovery.
+- [ ] Real Codex Home installs, if performed, are treated as local-only
+      diagnostics unless a maintainer intentionally sanitizes and promotes
+      them as release evidence.
+- [ ] Codex runtime external evidence validator exists at
+      `maintainers/scripts/validate_codex_runtime_external_evidence.js`; its
+      output remains blocked until current/reloaded/new Codex Desktop
+      app-session evidence records a `skill_discovery_snapshot` and proves
+      direct `/diayn-*` invocation plus native dependency-skill invocation.
+- [ ] Codex Desktop runtime validation instructions explicitly forbid
+      satisfying the gate with a shell-launched Codex process.
+- [ ] Codex runtime external evidence validator selftest exists at
+      `maintainers/scripts/validate_codex_runtime_external_evidence_selftest.js`
+      and records that complete concrete evidence clears the blocker while
+      placeholder templates, missing inputs, and nonexistent evidence references
+      remain blocked.
 
 ## Vendor And Maintainer Sync
 
@@ -69,8 +95,8 @@ DDDV6 validation pass. It does not publish a release by itself.
       `Unknown / To be confirmed`.
 - [ ] Cursor and Copilot remain out of V1 active scope unless a later Owner
       decision changes that.
-- [ ] Codex plugin support remains `manual_fallback` until official/local
-      validator and Codex plugin discovery/execution evidence pass.
+- [ ] Codex runtime support remains blocked until official/local validator plus
+      current/reloaded Codex app-session discovery/execution evidence pass.
 
 ## D6-10 Release Candidate Boundary
 

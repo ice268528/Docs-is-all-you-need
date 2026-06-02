@@ -2,15 +2,15 @@
   "id": "docs-is-all-you-need",
   "name": "docs-is-all-you-need",
   "version": "0.1.0",
-  "description": "Local DIAYN Codex plugin candidate that packages DIAYN skills for document-driven multi-session workflows.",
+  "description": "Local DIAYN Codex plugin candidate that packages the 12 DIAYN workflow skills for document-driven multi-session workflows.",
   "author": {
     "name": "DIAYN maintainers"
   },
   "skills": "./skills/",
   "interface": {
     "displayName": "Docs is all you need",
-    "shortDescription": "Use DIAYN skills for document-driven multi-session workflows.",
-    "longDescription": "Packages the DIAYN-owned Codex skills as a local plugin candidate. The core workflow remains document-driven and usable without this plugin.",
+    "shortDescription": "Use 12 DIAYN workflow skills for document-driven multi-session work.",
+    "longDescription": "Packages the 12 DIAYN-owned workflow skills as a local Codex plugin candidate. Internal role material is implementation reference only; the public workflow surface is /diayn-init through /diayn-html.",
     "developerName": "DIAYN maintainers",
     "category": "Productivity",
     "capabilities": [
@@ -18,9 +18,9 @@
       "Write"
     ],
     "defaultPrompt": [
-      "Use DIAYN to initialize this project.",
-      "Review a DIAYN lane worker report.",
-      "Run a DIAYN scaffold dry-run audit."
+      "/diayn-init",
+      "/diayn-plan",
+      "/diayn-review-frontend"
     ]
   }
 }

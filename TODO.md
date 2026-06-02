@@ -1,5 +1,5 @@
 ---
-document_role: "Controller-owned global summary"
+document_role: "Controller-owned global implementation summary"
 primary_writer: "Controller Session"
 audience:
   - "Owner"
@@ -7,97 +7,47 @@ audience:
   - "Review Session"
 permission: "Controller write"
 notes:
-  - "Worker sessions do not update this file by default."
-  - "Lane details belong in docs/lanes/<lane>/board.md, evidence.md, worklog.md, and review_log.md."
+  - "This file tracks the DDDV8 implementation of the DIAYN skill pack itself."
+  - "Detailed implementation evidence belongs in phase files, commits, validation logs, and review records."
 ---
 
 # TODO
 
-This file is the Controller-owned global summary for the current project.
-It is not the detailed workspace for backend, frontend, or other worker
-sessions.
+## Current Execution Context
 
-## 1. Current Execution Context
+- Project slug: `docs-is-all-you-need`
+- Current stage: `DDDV8 V1 implementation`
+- Current focus: `Phase 11 installed-flow blockers after Claude 12-command entry evidence`
+- Last updated: `2026-06-01`
+- Maintainer role: `Controller Session`
 
-- Project slug: `<project_slug>`
-- Current stage or milestone: `<stage_id or n/a>`
-- Current focus: `<short summary>`
-- Last updated: `<YYYY-MM-DD HH:mm>`
-- Maintainer: `Controller Session`
+## Global Implementation Board
 
-## 2. Canonical Statuses
+Use checkboxes for Owner-facing progress. Detailed internal state can live in phase evidence, validation logs, and commit messages.
 
-Use only the multi-session status model from
-`docs/meta/status_model.md`:
+| Done | Phase | Title | Evidence |
+| --- | --- | --- | --- |
+| [x] | Phase 0 | Establish active DDDV8 requirements baseline and traceability | `docs/meta/diayn_v1_implementation_plan.md` |
+| [x] | Phase 1 | Prove platform mechanics and prepare the controlled validation fixture | `docs/meta/diayn_v1_phase1_platform_mechanics.md`, `validation/minimal-fullstack-fixture/diayn_v1_gap_list.md` |
+| [x] | Phase 2 | Build 12 public workflow skill skeletons and shared protocol | `docs/meta/diayn_v1_phase2_skill_surface.md`, `validation/phase2_public_skill_surface.json` |
+| [x] | Phase 3 | Vendor, register, and route DIAYN-managed third-party dependency skills | `docs/meta/diayn_v1_phase3_dependency_skills.md`, `validation/phase3_dependency_skills.json` |
+| [x] | Phase 4 | Make installation real on Codex Desktop and Claude Code CLI alpha surfaces | `docs/meta/diayn_v1_phase4_alpha_package.md`, `validation/phase4_alpha_package.json` |
+| [x] | Phase 5 | Implement Controller initialization and planning workflows | `docs/meta/diayn_v1_phase5_controller_init_plan.md`, `validation/phase5_controller_assets.json` |
+| [x] | Phase 6 | Implement worktree and session entry control | `docs/meta/diayn_v1_phase6_worktree_session_control.md`, `validation/phase6_worktrees.json` |
+| [x] | Phase 7 | Implement lane worker execution | `docs/meta/diayn_v1_phase7_lane_review_integration.md`, `validation/phase7_workflows.json` |
+| [x] | Phase 8 | Implement lane review and rejection loops | `docs/meta/diayn_v1_phase7_lane_review_integration.md`, `validation/phase7_workflows.json` |
+| [x] | Phase 9 | Implement sync, integration, and stage lifecycle | `docs/meta/diayn_v1_phase7_lane_review_integration.md`, `validation/phase7_workflows.json` |
+| [x] | Phase 10 | Add Owner UX, reports, and maintainer utilities | `docs/meta/diayn_v1_phase8_owner_maintainer_utilities.md`, `validation/phase8_owner_utilities.json` |
+| [ ] | Phase 11 | Prove installed full flow and release gates | `docs/meta/diayn_v1_phase9_installed_flow_audit.md`, `validation/phase9_capability_matrix.json`, `validation/phase9_release_gate.json` |
 
-```text
-todo
-doing
-candidate_done
-reviewing
-done
-rejected
-owner_gate
-ready_for_e2e
-owner_accepted
-blocked
-archived
-dropped
-```
+## Current Owner Gates
 
-Summary rules:
+| ID | Question | Impact | Current handling |
+| --- | --- | --- | --- |
+| `OG-001` | Whether Codex Desktop can natively expose installed workflow skills through `/diayn-*` in the target package shape. | Determines Codex alpha support claim. | Codex Desktop remains blocked until app-session discovery and invocation are proven. |
+| `OG-002` | Whether Claude Code CLI should create native skills, command files, or a thin command-to-skill bridge for its real platform mechanics. | Determines Claude alpha package shape. | Plugin-dir mode is namespaced. Project-local packaging now proves bare `/diayn-init`, direct `idea-refine`, routed `/diayn-init -> idea-refine`, and all 12 bare `/diayn-*` commands entering workflow context. The full installed-flow is not proven. |
+| `OG-003` | Whether OpenCode can directly trigger installed workflow skills through `/diayn-*`. | Determines whether OpenCode remains deferred. | Do not implement OpenCode unless Phase 1 proves direct invocation. |
 
-- Workers may move same-lane work at most to `candidate_done`, `blocked`, or
-  `owner_gate`.
-- Review sessions decide `done` or `rejected`.
-- Controller Integration Review may mark `ready_for_e2e` only with evidence.
-- Owner Acceptance authorizes `owner_accepted`.
-- Legacy state names are migration inputs only; see
-  `docs/meta/legacy_migration_guide.md`.
+## Responsibility Boundary
 
-## 3. Global Summary Board
-
-| ID | Lane | Status | Source | Title | Evidence or review summary | Next action |
-| --- | --- | --- | --- | --- | --- | --- |
-| `G-001` | `<controller/backend/frontend/<lane>>` | `<todo>` | `<plan/REQ/BUG/review/integration>` | `<short title>` | `<path or summary>` | `<next command or decision>` |
-
-## 4. Lane Snapshot
-
-| Lane | Board | Current focus | Highest reviewed status | Blockers |
-| --- | --- | --- | --- | --- |
-| `backend` | `docs/lanes/backend/board.md` | `<summary>` | `<done/rejected/n/a>` | `<none or links>` |
-| `frontend` | `docs/lanes/frontend/board.md` | `<summary>` | `<done/rejected/n/a>` | `<none or links>` |
-
-## 5. Owner Gates
-
-| ID | Status | Owner response state | Question | Impact | Owner response needed |
-| --- | --- | --- | --- | --- | --- |
-| `Q-001` | `<owner_gate/blocked/archived>` | `<open/answered/n/a>` | `<question>` | `<scope/lane/contract/UX>` | `<copyable answer format>` |
-
-## 6. Ready For Owner Experience Acceptance
-
-| ID | User path or acceptance topic | Reviewed lane work | Integration evidence | Owner acceptance entry |
-| --- | --- | --- | --- | --- |
-| `E2E-001` | `<user-visible path>` | `<lane review links>` | `<sync/integration evidence>` | `docs/templates/owner_experience_acceptance_template.md` |
-
-## 7. Responsibility Boundary
-
-`TODO.md` keeps:
-
-- current Controller summary;
-- lane status snapshot;
-- global blockers and Owner gates;
-- integration readiness summary;
-- next recommended command or decision.
-
-`TODO.md` does not keep:
-
-- full lane task details;
-- worker process logs;
-- raw command output;
-- review evidence details;
-- complete Owner decision discussions;
-- historical archived task bodies.
-
-Those belong in lane boards, evidence, worklogs, review logs, Owner decision
-records, handoff packets, or archived snapshots.
+`TODO.md` keeps the high-level implementation checklist and Owner gates. It should not contain long worklogs, raw validation output, package manifests, or detailed command protocols. Those belong in dedicated docs, validation artifacts, skill files, and checkpoint commits.

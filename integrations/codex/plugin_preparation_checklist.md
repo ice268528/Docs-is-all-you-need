@@ -8,22 +8,33 @@ It does not publish or marketplace-install a plugin.
 - Draft plugin name: `docs-is-all-you-need`
 - Draft display name: `Docs is all you need`
 - Draft purpose: expose DIAYN docs, skills, templates, and command guidance as a convenient Codex package.
-- Current status: `manual_fallback`. D6-09 created a local candidate under
-  `plugins/docs-is-all-you-need/`, but Codex discovery/execution was not
-  verified.
+- Current status: `static_package_validated_runtime_blocked`. The local plugin
+  candidate and project-local `.codex/skills` package are statically validated,
+  but Codex discovery/execution is not verified because the local Codex
+  app-session discovery remains unproven.
 
 ## Candidate Contents
 
 Candidate skills:
 
-- `skills/diayn-controller/`
-- `skills/diayn-executor/`
-- `skills/diayn-reviewer/`
-- `skills/diayn-integrator/`
-- `skills/diayn-skill-router/`
-- `skills/diayn-identity-guard/`
-- `skills/diayn-owner-ux/`
-- `skills/update-diayn-scaffold/`
+- `skills/diayn-init/`
+- `skills/diayn-plan/`
+- `skills/diayn-worktrees/`
+- `skills/diayn-backend/`
+- `skills/diayn-frontend/`
+- `skills/diayn-review-backend/`
+- `skills/diayn-review-frontend/`
+- `skills/diayn-sync/`
+- `skills/diayn-integration/`
+- `skills/diayn-bug/`
+- `skills/diayn-new/`
+- `skills/diayn-html/`
+
+Project-local Codex package:
+
+- `packages/codex-project-local/.codex/skills/diayn-*`
+- `packages/codex-project-local/.codex/skills/<agent-skills-name>`
+- `packages/codex-project-local/.diayn/dependency-routing/upstream-routing-map.md`
 
 Candidate scaffold assets:
 
@@ -36,7 +47,7 @@ Candidate scaffold assets:
 
 Reference only:
 
-- `third_party/agent-skills/**`
+- `plugins/docs-is-all-you-need/internal-role-skills/**`
 - `maintainers/upstream-agent-skills/**`
 
 ## Excluded From Plugin Package By Default
@@ -52,13 +63,15 @@ Reference only:
 
 - Local candidate manifest path: `plugins/docs-is-all-you-need/.codex-plugin/plugin.json`.
 - Available local convention: `.codex-plugin/plugin.json` plus `skills: "./skills/"`.
-- Skills package shape: the eight DIAYN-owned skill folders are included under
+- Skills package shape: the 12 DIAYN workflow skills are included under
   `plugins/docs-is-all-you-need/skills/`.
-- Static validation: D6-09 fallback static validation passed.
+- Project-local shape: the 12 workflow skills and 23 DIAYN-managed dependency
+  skills are included under `packages/codex-project-local/.codex/skills/`.
+- Static validation: current DDDV8 validators pass.
 - Official/local validator blocker: the plugin-creator Python validator could
   not run in the available Python environments because `yaml` was missing.
 - Codex discovery blocker: `codex --version`, `codex --help`, and
-  `codex plugin --help` returned access denied.
+  Codex plugin discovery remains unproven in the current environment.
 - Scaffold asset installer behavior: `Unknown / To be confirmed`.
 - Plugin updates and marketplace review behavior: `Unknown / To be confirmed`.
 

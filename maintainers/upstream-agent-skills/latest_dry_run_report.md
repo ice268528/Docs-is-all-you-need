@@ -1,82 +1,150 @@
 # Agent Skills Vendor Sync Dry-Run Report
 
-Generated for D6-10 release packaging.
+- Generated at: 2026-06-01T08:09:29+08:00
+- Mode: `dry-run/report-only`
+- Source root: `<workspace>/agent-skills`
+- Vendor root: `<repo>/third_party/agent-skills`
+- Source commit: `250ffaa`
+- Source status: `clean`
+- Vendor lock source commit: `250ffaa`
+- Vendor lock sync method: `vendor copy`
 
-## Summary
+## Skill Count Check
 
-| Field | Value |
-| --- | --- |
-| Mode | `dry-run/report-only` |
-| Local source path | `E:/Allproject/VscodeProject/docs_is_all_you_need_for_AGENTS/agent-skills` |
-| Local source commit | `250ffaa` |
-| Local source status | `clean` |
-| Vendor path | `third_party/agent-skills/` |
-| Vendor lock commit | `250ffaa` |
-| Network remote HEAD | `6ce029897d2b794940325fc7148774a6ec51111c` |
-| Freshness decision | Remote upstream is newer than the vendored snapshot. |
+- Expected skills: 23
+- Vendor skills: 23
+- Source skills: 23
 
-## Local Source Versus Vendor Copy
+## Expected 23-Skill Map
 
-The maintainer dry-run helper compared the local outer `agent-skills/` snapshot
-to the vendored copy.
+Vendor missing expected:
+- None
 
-| Check | Result |
-| --- | --- |
-| Expected skill count | 23 |
-| Local source skill count | 23 |
-| Vendored skill count | 23 |
-| Added upstream skills in local source | None |
-| Removed upstream skills in local source | None |
-| Changed skill directories in local source | None |
-| Watched skills requiring review from local source/vendor diff | None |
-| Known non-material file diff | `.opencode/skills` symlink representation |
+Vendor extra:
+- None
 
-License checks:
+Source missing expected:
+- None
 
-- Source `LICENSE` present: true.
-- Vendor `LICENSE` present: true.
+Source extra:
+- None
 
-## Network Freshness
+## Upstream Skill Diff
 
-D6-10 ran:
+Added in source:
+- None
 
-```text
-git ls-remote https://github.com/addyosmani/agent-skills.git HEAD
-```
+Removed from source:
+- None
 
-Normal sandboxed network access failed. The command was rerun with tool
-authorization and returned:
+Changed:
+- None
 
-```text
-6ce029897d2b794940325fc7148774a6ec51111c	HEAD
-```
+- Unchanged common skills: 23
 
-Because `vendor.lock.md` records `250ffaa`, the vendored snapshot is stale
-relative to remote upstream.
+## Watched Skill Review
 
-## Protected Path Boundary
+| Skill | Status | Requires review |
+| --- | --- | --- |
+| `test-driven-development` | `unchanged` | false |
+| `incremental-implementation` | `unchanged` | false |
+| `code-review-and-quality` | `unchanged` | false |
+| `git-workflow-and-versioning` | `unchanged` | false |
+| `planning-and-task-breakdown` | `unchanged` | false |
+| `context-engineering` | `unchanged` | false |
+| `documentation-and-adrs` | `unchanged` | false |
+| `api-and-interface-design` | `unchanged` | false |
 
-Dry-run mode did not write protected paths. D6-10 did not update
-`third_party/agent-skills/**` and did not update `vendor.lock.md`.
+## File Diff Summary
 
-DIAYN-owned protected behavior remains authoritative:
+- Added files: 0
+- Removed files: 0
+- Changed files: 1
+Known non-material changed files:
+- `.opencode/skills`
 
-- role separation;
-- `candidate_done` versus `done`;
-- lane WIP and handoff;
-- Session Identity Guard;
-- OwnerGate and Owner acceptance UX;
-- ordinary `/diayn-*` workflow separated from maintainer vendor sync.
+Sample added files:
+- None
 
-## Decision
+Sample removed files:
+- None
 
-No vendor copy update was performed in D6-10.
+Sample changed files:
+- `.opencode/skills`
 
-A future vendor refresh should:
+## Protected Path Check
 
-1. fetch or otherwise provide a reviewed upstream snapshot at or after
-   `6ce029897d2b794940325fc7148774a6ec51111c`;
-2. run this dry-run helper against that snapshot;
-3. review watched skills and protected path conflicts;
-4. update `third_party/agent-skills/**` and `vendor.lock.md` only after review.
+- Dry-run writes protected paths: `false`
+- Vendor copy destination: `third_party/agent-skills/`
+- Source paths matching DIAYN protected names:
+- `AGENTS.md`
+- `CLAUDE.md`
+- `README.md`
+
+Protected DIAYN paths:
+- `skills/diayn-init/`
+- `skills/diayn-plan/`
+- `skills/diayn-worktrees/`
+- `skills/diayn-backend/`
+- `skills/diayn-frontend/`
+- `skills/diayn-review-backend/`
+- `skills/diayn-review-frontend/`
+- `skills/diayn-sync/`
+- `skills/diayn-integration/`
+- `skills/diayn-bug/`
+- `skills/diayn-new/`
+- `skills/diayn-html/`
+- `skills/diayn-controller/`
+- `skills/diayn-executor/`
+- `skills/diayn-reviewer/`
+- `skills/diayn-integrator/`
+- `skills/diayn-skill-router/`
+- `skills/diayn-identity-guard/`
+- `skills/diayn-owner-ux/`
+- `skills/update-diayn-scaffold/`
+- `skills/multi-session-controller/`
+- `skills/multi-session-executor/`
+- `skills/multi-session-reviewer/`
+- `skills/multi-session-integrator/`
+- `skills/session-identity-guard/`
+- `skills/owner-decision-ux/`
+- `skills/context-compact-reminder/`
+- `docs/meta/`
+- `.diayn/`
+- `AGENTS.md`
+- `CLAUDE.md`
+- `README.md`
+- `TODO.md`
+
+## License And Attribution
+
+- Source LICENSE present: true
+- Vendor LICENSE present: true
+
+## Vendor Lock Update Gate
+
+- May update vendor.lock.md after review: true
+- Update recommended for this dry-run: false
+- Reason: No vendor lock update is needed: source commit matches vendor.lock.md and no material source/vendor diff was detected.
+- Required before update:
+- `maintainer reviews changed skill list`
+- `DIAYN protected paths remain untouched`
+- `license and attribution remain present`
+- `sync report records source path, URL, commit, and limitations`
+- `OwnerGate handles any protocol conflict`
+
+## Maintainer/User Boundary
+
+- This report is maintainer-only.
+- It is not part of ordinary `/diayn-*` user workflows.
+- It does not replace `update-diayn-scaffold`.
+- It does not update `third_party/agent-skills/**` or `vendor.lock.md`.
+
+## Limitations
+
+- `No network check requested; upstream freshness beyond the local snapshot is not verified.`
+
+## Blocking Questions
+
+- None
 

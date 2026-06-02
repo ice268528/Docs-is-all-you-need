@@ -1,0 +1,28 @@
+{
+  "schema": "diayn.phase7.validation.v1",
+  "generated_at": "2026-06-01T01:39:13.589613+00:00",
+  "scenario": "validation\\phase7_fixture_scenario.json",
+  "ok": true,
+  "stage_id": "phase7-demo",
+  "lanes": {
+    "backend": {
+      "applicable": "yes",
+      "worker_status": "candidate_done",
+      "review_decisions": [
+        "rejected",
+        "done"
+      ]
+    },
+    "frontend": {
+      "applicable": "yes",
+      "worker_status": "candidate_done",
+      "review_decisions": [
+        "done"
+      ]
+    }
+  },
+  "sync_no_business_code_merge": true,
+  "integration_status": "ready_for_e2e",
+  "owner_decision": "accepted",
+  "errors": []
+}

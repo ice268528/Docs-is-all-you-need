@@ -1,0 +1,73 @@
+{
+  "schema": "diayn.worktree_plan.v1",
+  "generated_at": "2026-06-01T01:30:04.158750+00:00",
+  "project_root": "<repo>\\validation\\minimal-fullstack-fixture",
+  "project_slug": "minimal-fullstack-fixture",
+  "stage_id": "phase6-demo",
+  "git": {
+    "ok": true,
+    "toplevel": "<repo>",
+    "branch": "main",
+    "head": "160254d3c1a09536117de89092b5efbb83e7cb5a",
+    "dirty": true,
+    "status_error": null,
+    "worktree_list_error": null
+  },
+  "worktree_root": "<repo>\\validation\\worktrees\\minimal-fullstack-fixture",
+  "lanes": [
+    {
+      "lane": "backend",
+      "applicable": "yes",
+      "status": "planned",
+      "reason": null,
+      "worktree_path": "<repo>\\validation\\worktrees\\minimal-fullstack-fixture\\backend",
+      "branch": "diayn/phase6-demo/backend",
+      "baseline": "160254d3c1a09536117de89092b5efbb83e7cb5a",
+      "copyable_add_command": "git worktree add <repo>\\validation\\worktrees\\minimal-fullstack-fixture\\backend -b diayn/phase6-demo/backend 160254d3c1a09536117de89092b5efbb83e7cb5a",
+      "worker_startup": [
+        "cd <repo>\\validation\\worktrees\\minimal-fullstack-fixture\\backend",
+        "codex",
+        "/diayn-backend"
+      ],
+      "review_startup": [
+        "cd <repo>\\validation\\worktrees\\minimal-fullstack-fixture\\backend",
+        "codex",
+        "/diayn-review-backend",
+        "\"<paste latest worker report here>\""
+      ],
+      "wip_rule": "Only one worker or reviewer activity should be active for this lane at a time."
+    },
+    {
+      "lane": "frontend",
+      "applicable": "yes",
+      "status": "planned",
+      "reason": null,
+      "worktree_path": "<repo>\\validation\\worktrees\\minimal-fullstack-fixture\\frontend",
+      "branch": "diayn/phase6-demo/frontend",
+      "baseline": "160254d3c1a09536117de89092b5efbb83e7cb5a",
+      "copyable_add_command": "git worktree add <repo>\\validation\\worktrees\\minimal-fullstack-fixture\\frontend -b diayn/phase6-demo/frontend 160254d3c1a09536117de89092b5efbb83e7cb5a",
+      "worker_startup": [
+        "cd <repo>\\validation\\worktrees\\minimal-fullstack-fixture\\frontend",
+        "codex",
+        "/diayn-frontend"
+      ],
+      "review_startup": [
+        "cd <repo>\\validation\\worktrees\\minimal-fullstack-fixture\\frontend",
+        "codex",
+        "/diayn-review-frontend",
+        "\"<paste latest worker report here>\""
+      ],
+      "wip_rule": "Only one worker or reviewer activity should be active for this lane at a time."
+    }
+  ],
+  "owner_gates": [
+    {
+      "id": "OG-worktree-dirty",
+      "question": "Controller working tree is dirty. Which changes must be committed, preserved, or excluded before worktree creation?",
+      "blocks": "worktree creation"
+    }
+  ],
+  "execute_requested": false,
+  "executed": [],
+  "next_action": "resolve_owner_gates"
+}

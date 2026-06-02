@@ -1,0 +1,48 @@
+{
+  "schema": "diayn.phase12.side_scenarios.v1",
+  "ok": true,
+  "side_scenarios": {
+    "non_git_target": true,
+    "existing_project_conflict_report": true,
+    "dirty_working_tree_preflight": true,
+    "not_applicable_lane": true,
+    "interrupted_command_recovery": true,
+    "scaffold_migration_dry_run": true,
+    "mismatched_pre_existing_agent_skills": true,
+    "privacy_network_default": true,
+    "cleanup_plan_boundary": true,
+    "bug_triage_side_scenario": true,
+    "additional_new_intake_or_next_stage_refresh": true
+  },
+  "evidence": {
+    "generated_non_git_audit": {
+      "is_git_repository": false,
+      "owner_gate_ids": [
+        "OG-git-001"
+      ],
+      "recommended_action": "owner_review"
+    },
+    "generated_existing_project_conflict_audit": {
+      "is_git_repository": true,
+      "dirty": true,
+      "conflict_paths": [
+        "AGENTS.md",
+        "TODO.md"
+      ],
+      "owner_gate_ids": [
+        "OG-git-003",
+        "OG-scaffold-001"
+      ],
+      "recommended_action": "owner_review"
+    },
+    "existing_outputs": {
+      "phase5_fixture_harness_audit": "validation/phase5_fixture_harness_audit.json",
+      "phase6_not_applicable_worktree_plan": "validation/phase6_not_applicable_worktree_plan.json",
+      "phase8_scaffold_upgrade_audit": "validation/phase8_scaffold_upgrade_audit.json",
+      "phase8_cleanup_plan": "validation/phase8_cleanup_plan.json",
+      "phase3_dependency_skills": "validation/phase3_dependency_skills.json",
+      "phase11_installed_flow_fixture": "validation/phase11_installed_flow_fixture.json"
+    }
+  },
+  "errors": []
+}

@@ -1,0 +1,17 @@
+{
+  "schema": "diayn.phase9.codex_runtime_external_evidence_selftest.v1",
+  "ok": true,
+  "validator": "maintainers/scripts/validate_codex_runtime_external_evidence.js",
+  "cases": {
+    "complete_concrete_evidence_clears_blocker": true,
+    "placeholder_template_remains_blocked": true,
+    "nonexistent_evidence_refs_remain_blocked": true,
+    "missing_input_remains_blocked": true
+  },
+  "gaps_observed": {
+    "nonexistent_refs": 1,
+    "template": 46,
+    "missing": 39
+  },
+  "errors": []
+}

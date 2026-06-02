@@ -46,6 +46,18 @@ EXPECTED_SKILLS = [
 ]
 
 PROTECTED_PATHS = [
+    "skills/diayn-init/",
+    "skills/diayn-plan/",
+    "skills/diayn-worktrees/",
+    "skills/diayn-backend/",
+    "skills/diayn-frontend/",
+    "skills/diayn-review-backend/",
+    "skills/diayn-review-frontend/",
+    "skills/diayn-sync/",
+    "skills/diayn-integration/",
+    "skills/diayn-bug/",
+    "skills/diayn-new/",
+    "skills/diayn-html/",
     "skills/diayn-controller/",
     "skills/diayn-executor/",
     "skills/diayn-reviewer/",

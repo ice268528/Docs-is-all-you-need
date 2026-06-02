@@ -1,0 +1,125 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Should the next stage reuse clean lane worktrees or create new ones?</title>
+  <style>
+:root {
+  color-scheme: light;
+  --bg: #f7f7f5;
+  --panel: #ffffff;
+  --text: #1d2329;
+  --muted: #5b6670;
+  --line: #d8ddd8;
+  --accent: #1f6f64;
+  --accent-soft: #e4f1ee;
+  --warn: #8a5a16;
+  --warn-soft: #fff2d8;
+  --next: #255a8a;
+  --next-soft: #e6f0fa;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: Arial, Helvetica, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.55;
+}
+main { max-width: 1080px; margin: 0 auto; padding: 32px 20px 48px; }
+h1 { margin: 0 0 8px; font-size: 32px; line-height: 1.15; letter-spacing: 0; }
+h2 { margin: 26px 0 12px; font-size: 21px; letter-spacing: 0; }
+h3 { margin: 0 0 8px; font-size: 17px; letter-spacing: 0; }
+p { margin: 0 0 12px; }
+ul { margin: 0; padding-left: 20px; }
+li { margin: 6px 0; }
+table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--line); }
+th, td { padding: 10px 12px; border-bottom: 1px solid var(--line); text-align: left; vertical-align: top; }
+th { background: #eef1ee; }
+code, pre { font-family: Consolas, Monaco, monospace; }
+pre { white-space: pre-wrap; background: #172026; color: #f4f7f5; padding: 14px; border-radius: 8px; overflow: auto; }
+.muted { color: var(--muted); }
+.label { display: inline-block; margin-bottom: 8px; padding: 3px 8px; border-radius: 999px; background: var(--accent-soft); color: var(--accent); font-size: 13px; font-weight: 700; }
+.grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 14px; margin: 20px 0; }
+.panel, .option { background: var(--panel); border: 1px solid var(--line); border-radius: 8px; padding: 16px; }
+.recommended { border-color: var(--accent); background: var(--accent-soft); }
+.warning { background: var(--warn-soft); border-color: #edc46d; color: var(--warn); }
+.next { background: var(--next-soft); border-color: #aac8e6; }
+</style>
+</head>
+<body>
+  <main>
+    <p class="label">DIAYN Owner Decision Aid</p>
+    
+<header>
+  <h1>Should the next stage reuse clean lane worktrees or create new ones?</h1>
+  <p class="muted">The Owner needs a simple choice before the Controller prepares the next stage baseline.</p>
+</header>
+<section class="grid">
+  <div class="panel recommended">
+    <h2>Recommended</h2>
+    <p>A because reuse keeps the workflow simpler when worktrees are clean and aligned.</p>
+  </div>
+  <div class="panel">
+    <h2>What Changes</h2>
+    <p>The Controller either keeps the current lane directories or plans new ones.</p>
+  </div>
+  <div class="panel warning">
+    <h2>Main Risk</h2>
+    <p>Reusing a dirty or misaligned worktree could carry stale state into the next stage.</p>
+  </div>
+</section>
+<section>
+  <h2>Options</h2>
+  <div class="grid">
+    <article class="option recommended">
+  <span class="label">A Recommended</span>
+  <h3>Reuse clean aligned worktrees</h3>
+  <p><strong>Owner impact:</strong> Fewer directories and a faster next-stage start.</p>
+  <p><strong>Delivery impact:</strong> Controller verifies cleanliness and baseline alignment first.</p>
+  <p><strong>Risk:</strong> Must stop if any worktree is dirty or misaligned.</p>
+  <p><strong>Future impact:</strong> Keeps a stable lane directory layout.</p>
+</article><article class="option">
+  <span class="label">B</span>
+  <h3>Create new lane worktrees</h3>
+  <p><strong>Owner impact:</strong> More directories but stronger isolation.</p>
+  <p><strong>Delivery impact:</strong> Controller plans new paths and branch names.</p>
+  <p><strong>Risk:</strong> More cleanup and branch tracking later.</p>
+  <p><strong>Future impact:</strong> Keeps the old stage directories available for investigation.</p>
+</article>
+  </div>
+</section>
+<section>
+  <h2>Comparison</h2>
+  <table>
+    <thead><tr><th>Choice</th><th>Best for</th><th>Tradeoff</th><th>Next step</th></tr></thead>
+    <tbody><tr>
+  <td>A</td>
+  <td>Normal next-stage continuation</td>
+  <td>Requires a clean-state check</td>
+  <td>Run Controller baseline refresh</td>
+</tr><tr>
+  <td>B</td>
+  <td>Dirty or uncertain lane state</td>
+  <td>More workspace overhead</td>
+  <td>Run /diayn-worktrees with new paths</td>
+</tr></tbody>
+  </table>
+</section>
+<section class="panel">
+  <h2>Copy Back To The Agent</h2>
+  <pre>Owner decision feedback
+Decision ID: phase8-demo-decision
+Selected option: &lt;A/B/C&gt;
+Notes: &lt;short Owner note&gt;</pre>
+</section>
+<section class="panel">
+  <h2>Record Keeping</h2>
+  <p>This HTML page is an aid. The final decision must be recorded in <code>decision.md</code> or the appropriate project document.</p>
+  <p>Commit this HTML only when it documents long-term product, architecture, process, cost, risk, contract, security, deployment, or maintenance value.</p>
+</section>
+
+  </main>
+</body>
+</html>

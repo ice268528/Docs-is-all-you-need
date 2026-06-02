@@ -32,6 +32,13 @@ The Controller checks cross-lane integration after lane review has accepted enou
 - `docs/shared/integration_issues.md`
 - Responsible lane boards or handoffs when writing back integration issues.
 - Controller summary.
+- Stage-scoped integration summary, failure classification, `partial_attempt`, authorized-command, and closeout records.
+
+When the target project has no stronger local templates, use:
+
+```text
+skills/diayn-integration/assets/integration/
+```
 
 ## Forbidden
 
@@ -40,11 +47,16 @@ The Controller checks cross-lane integration after lane review has accepted enou
 - Do not silently change shared contracts.
 - Do not mark `owner_accepted`.
 - Do not merge by default unless explicitly authorized by the project workflow.
+- Do not treat environment failure, external-service outage, timeout, or inconclusive evidence as an automatic implementation rejection.
+- Do not run dependency installation, dev servers, containers, long-running background processes, destructive database operations, or external-service calls without the required OwnerGate or platform authorization.
+
+If an authorized action cannot run, provide a copyable command with explicit working directory and shell/platform assumptions. Do not claim it ran.
 
 ## Status Changes
 
 - Integrated work may become `ready_for_e2e` when evidence supports it.
 - Integration problems become lane `todo`, `blocked`, or `rejected`, or shared integration issues.
+- Interrupted integration becomes `partial_attempt` with visible completed steps, evidence, and a recovery path.
 
 ## Required Records
 
@@ -52,11 +64,16 @@ The Controller checks cross-lane integration after lane review has accepted enou
 - Evidence checked.
 - Issues written back.
 - Readiness decision.
+- Merge/integration conflict ownership.
+- Shared contract routing.
+- Authorized command and cleanup records when side-effecting commands are needed.
+- Stage closeout and next-stage accepted-baseline refresh after Owner acceptance.
 
 ## Stop Conditions
 
 - Lane review is missing.
 - Shared contract consistency cannot be checked.
+- Merge conflict or integration conflict ownership is unclear.
 - Required build, smoke, or E2E evidence is missing and affects readiness.
 - The next action requires Owner acceptance.
 

@@ -1,0 +1,20 @@
+{
+  "ok": true,
+  "required_file_count": 7,
+  "worktree_plan_lanes": [
+    {
+      "lane": "backend",
+      "applicable": "yes",
+      "status": "planned"
+    },
+    {
+      "lane": "frontend",
+      "applicable": "yes",
+      "status": "planned"
+    }
+  ],
+  "not_applicable_lanes": [
+    "frontend"
+  ],
+  "errors": []
+}

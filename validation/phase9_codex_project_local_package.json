@@ -1,0 +1,19 @@
+{
+  "ok": true,
+  "schema": "diayn.phase9.codex_project_local_package.v1",
+  "package_root": "packages/codex-project-local",
+  "install_target": ".codex/skills",
+  "workflow_skill_count": 12,
+  "dependency_skill_count": 23,
+  "total_project_local_skill_count": 35,
+  "bare_diayn_skill_surface": true,
+  "dependency_skills_platform_visible": true,
+  "dependency_routing_map_present": true,
+  "internal_role_references_present": true,
+  "runtime_validation": {
+    "codex_desktop_discovery": "not_proven_access_denied_in_current_environment",
+    "direct_diayn_invocation": "not_proven_access_denied_in_current_environment",
+    "dependency_skill_invocation": "not_proven_access_denied_in_current_environment"
+  },
+  "errors": []
+}

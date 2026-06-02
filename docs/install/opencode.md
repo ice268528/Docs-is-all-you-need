@@ -1,5 +1,10 @@
 # OpenCode Adapter Install
 
+DDDV8 status: deferred. This file records historical D6 OpenCode discovery
+evidence only. Do not claim OpenCode DDDV8 support unless a later phase proves
+that installed workflow skills can be directly triggered through `/diayn-*` and
+can use the required DIAYN-managed dependency-skill model.
+
 DIAYN provides an OpenCode command and skill-wrapper bundle at:
 
 ```text

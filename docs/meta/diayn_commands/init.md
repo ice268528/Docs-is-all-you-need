@@ -38,6 +38,14 @@ Fuzzy idea or fuzzy requirement:
 
 ## Required Behavior
 
+Run a dry-run scaffold audit before editing project files. The implementation may use the bundled helper:
+
+```text
+skills/diayn-init/scripts/harness_audit.py
+```
+
+The audit should report Git/non-Git status, dirty working tree, missing baseline files, existing-file conflicts, generated or large-file scan boundaries, nested repositories, possible secret-bearing file names without secret values, document language inference, and OwnerGate items.
+
 For an existing requirement document, do not assume it is complete. First assess:
 
 - Source and intended authority.
@@ -61,6 +69,19 @@ Use short decision options by default. When a decision would benefit from a visu
 ```text
 Run /diayn-html to generate a visual HTML decision aid.
 ```
+
+Use the bundled `skills/diayn-init/assets/scaffold/` templates as the starting point for target-project files after Owner approval:
+
+- `AGENTS.md`
+- `TODO.md`
+- `.diayn/worktree_manifest.md`
+- `.diayn/scaffold_version.md`
+- `.diayn/network_policy.md`
+- `docs/project/project_brief.md`
+- optional `docs/project/harness_audit_report.md`
+- optional `docs/project/owner_questions.md`
+
+These templates must be adapted to the target project. They are not DIAYN product documentation.
 
 ## Allowed Writes
 
@@ -99,6 +120,7 @@ draft -> owner_confirmed -> controlled_changes_only
 
 - Required source documents are missing or contradictory and the contradiction affects scope.
 - The Owner has not confirmed `project_slug`.
+- A dry-run audit found dirty state, existing-file conflicts, non-Git worktree assumptions, nested repository ambiguity, or possible secret-bearing files that need Owner review.
 - The session would need to invent project facts.
 - The next step would require implementation.
 

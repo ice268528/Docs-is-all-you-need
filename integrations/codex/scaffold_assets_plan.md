@@ -19,14 +19,18 @@ This plan identifies which DIAYN scaffold assets may later be packaged for Codex
 
 ### Skills
 
-- `skills/diayn-controller/**`
-- `skills/diayn-executor/**`
-- `skills/diayn-reviewer/**`
-- `skills/diayn-integrator/**`
-- `skills/diayn-skill-router/**`
-- `skills/diayn-identity-guard/**`
-- `skills/diayn-owner-ux/**`
-- `skills/update-diayn-scaffold/**`
+- `skills/diayn-init/**`
+- `skills/diayn-plan/**`
+- `skills/diayn-worktrees/**`
+- `skills/diayn-backend/**`
+- `skills/diayn-frontend/**`
+- `skills/diayn-review-backend/**`
+- `skills/diayn-review-frontend/**`
+- `skills/diayn-sync/**`
+- `skills/diayn-integration/**`
+- `skills/diayn-bug/**`
+- `skills/diayn-new/**`
+- `skills/diayn-html/**`
 
 ### Templates And Control Docs
 
@@ -39,6 +43,7 @@ This plan identifies which DIAYN scaffold assets may later be packaged for Codex
 
 - `vendor.lock.md`
 - `maintainers/upstream-agent-skills/**`
+- `plugins/docs-is-all-you-need/internal-role-skills/**`
 - `third_party/agent-skills/**`
 
 Maintainer reference material should not be installed into ordinary user projects unless the future plugin explicitly supports maintainer mode.
@@ -51,15 +56,17 @@ Maintainer reference material should not be installed into ordinary user project
 - Preserve core protocol as Markdown documents.
 - Do not require the plugin for normal `/diayn-*` operation.
 
-## D6-09 Local Candidate
+## Current Codex Candidates
 
-D6-09 created `plugins/docs-is-all-you-need/` as a local plugin candidate that
-packages the eight DIAYN-owned skills. It does not package scaffold assets into
-ordinary user projects and does not copy `third_party/agent-skills/**`.
+`plugins/docs-is-all-you-need/` is the local plugin candidate and
+`packages/codex-project-local/` is the project-local `.codex/skills` package
+candidate. They package the 12 DIAYN public workflow skills. The project-local
+package also includes 23 DIAYN-managed dependency skills so native nested skill
+invocation can be tested when Codex runtime access is available.
 
 ## Deferred Work
 
 - Plugin discovery/execution: blocked in the current environment because
-  harmless `codex` discovery commands returned access denied.
+  Codex app-session discovery remains unproven in the current environment.
 - Plugin installer behavior: `Unknown / To be confirmed`.
 - Upgrade and migration behavior: future stage or future plugin implementation.

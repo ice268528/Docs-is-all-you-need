@@ -1,5 +1,11 @@
 # Claude Code Command Adapter Install
 
+DDDV8 status: historical D6 manual-adapter note. It remains useful platform
+evidence, but it is not the final DDDV8 Claude Code install contract until
+Phase 1 and Phase 4 prove the 12 workflow skills and any required
+DIAYN-managed dependency skills can be installed and invoked through the target
+Claude Code mechanism.
+
 DIAYN provides a Claude Code command-file bundle at:
 
 ```text

@@ -3,3 +3,12 @@ docs/reports/codex_prompt_handoffs/
 # DIAYN local-only session identity and scratch files.
 .diayn/local/
 .diayn/tmp/
+validation/tmp/
+
+# Local-only Codex Desktop runtime/manual validation artifacts.
+docs/install/codex_desktop_runtime_evidence_runbook.md
+validation/codex_runtime_external_evidence.input.json
+validation/codex-runtime-evidence/
+validation/phase9_codex_home_install_actual.json
+validation/phase9_codex_home_install_actual_dry_run.json
+validation/phase9_codex_project_local_probe.json

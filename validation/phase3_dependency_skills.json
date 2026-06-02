@@ -1,0 +1,163 @@
+{
+  "ok": true,
+  "vendor_skill_count": 23,
+  "packaged_dependency_skill_count": 23,
+  "manifest_skill_count": 23,
+  "source_commit": "250ffaa",
+  "package_size_bytes": {
+    "vendor_skills": 289147,
+    "vendor_references": 43433,
+    "packaged_dependency_skills": 289147,
+    "packaged_dependency_references": 43433
+  },
+  "manual_upstream_update_report_present": true,
+  "license_present": {
+    "vendor": true,
+    "packaged_dependency": true
+  },
+  "reference_hashes": {
+    "vendor": "1596926913ecc8afb46213464d05173e4ff1f1239ba42ebf8d10b7ffca3b2865",
+    "packaged_dependency": "1596926913ecc8afb46213464d05173e4ff1f1239ba42ebf8d10b7ffca3b2865"
+  },
+  "hashes": [
+    {
+      "name": "api-and-interface-design",
+      "vendor_hash": "6924b462b69f7b931cc936d8cf820ed0284cedbb388b31fd4b021ad7ce4d6da5",
+      "packaged_hash": "6924b462b69f7b931cc936d8cf820ed0284cedbb388b31fd4b021ad7ce4d6da5",
+      "match": true
+    },
+    {
+      "name": "browser-testing-with-devtools",
+      "vendor_hash": "a11b2a6feda40018ddc7647b07ed8e7d908879c874cbc43a6d35ec8c46f6f303",
+      "packaged_hash": "a11b2a6feda40018ddc7647b07ed8e7d908879c874cbc43a6d35ec8c46f6f303",
+      "match": true
+    },
+    {
+      "name": "ci-cd-and-automation",
+      "vendor_hash": "4d57a0c94beaaa2c2d322af79e6fb9b021917832a3c1f5bd35e61de80677f9a1",
+      "packaged_hash": "4d57a0c94beaaa2c2d322af79e6fb9b021917832a3c1f5bd35e61de80677f9a1",
+      "match": true
+    },
+    {
+      "name": "code-review-and-quality",
+      "vendor_hash": "a66d6f4225f974f32486950c24aed37a3f87b1d55945655b73a6b62dab1ad14b",
+      "packaged_hash": "a66d6f4225f974f32486950c24aed37a3f87b1d55945655b73a6b62dab1ad14b",
+      "match": true
+    },
+    {
+      "name": "code-simplification",
+      "vendor_hash": "47d1ad2ef6a1c03dff8c8aa8eae035673ab984e581554147ab02f5253e0490ea",
+      "packaged_hash": "47d1ad2ef6a1c03dff8c8aa8eae035673ab984e581554147ab02f5253e0490ea",
+      "match": true
+    },
+    {
+      "name": "context-engineering",
+      "vendor_hash": "27564a3341bb3a8a7c957617ab595265ae34abcc2ea6d12f98d3b421caec7e5c",
+      "packaged_hash": "27564a3341bb3a8a7c957617ab595265ae34abcc2ea6d12f98d3b421caec7e5c",
+      "match": true
+    },
+    {
+      "name": "debugging-and-error-recovery",
+      "vendor_hash": "9a2d06b7581eb97a0df75924d912f5036a3122ff13ed5a7aba6974a86b8770ab",
+      "packaged_hash": "9a2d06b7581eb97a0df75924d912f5036a3122ff13ed5a7aba6974a86b8770ab",
+      "match": true
+    },
+    {
+      "name": "deprecation-and-migration",
+      "vendor_hash": "4d4fea0c244587934efe342b74968ae87a4953eddddf4ce05fa61fc42d44a472",
+      "packaged_hash": "4d4fea0c244587934efe342b74968ae87a4953eddddf4ce05fa61fc42d44a472",
+      "match": true
+    },
+    {
+      "name": "documentation-and-adrs",
+      "vendor_hash": "0815a22c76dc22ce3eef807f43d5ef17499356b92a2bf07b936722936ae13d93",
+      "packaged_hash": "0815a22c76dc22ce3eef807f43d5ef17499356b92a2bf07b936722936ae13d93",
+      "match": true
+    },
+    {
+      "name": "doubt-driven-development",
+      "vendor_hash": "49302c20c45b8a1e4ba87dfd7c3c62500f73fbfe110120798a0f36875a745b58",
+      "packaged_hash": "49302c20c45b8a1e4ba87dfd7c3c62500f73fbfe110120798a0f36875a745b58",
+      "match": true
+    },
+    {
+      "name": "frontend-ui-engineering",
+      "vendor_hash": "d68247a1fca03eda356eb0016d8d82bc488715756e5b8383e8fc890c7d808d60",
+      "packaged_hash": "d68247a1fca03eda356eb0016d8d82bc488715756e5b8383e8fc890c7d808d60",
+      "match": true
+    },
+    {
+      "name": "git-workflow-and-versioning",
+      "vendor_hash": "8c0ed24e13ad86d0a0838aa6881f278d4e63ce1bad74e1cee1466de6323ef108",
+      "packaged_hash": "8c0ed24e13ad86d0a0838aa6881f278d4e63ce1bad74e1cee1466de6323ef108",
+      "match": true
+    },
+    {
+      "name": "idea-refine",
+      "vendor_hash": "f2f90d0d349e2af63921ebd8f96be06c0307ce2ab753eef68a73e079d96ef463",
+      "packaged_hash": "f2f90d0d349e2af63921ebd8f96be06c0307ce2ab753eef68a73e079d96ef463",
+      "match": true
+    },
+    {
+      "name": "incremental-implementation",
+      "vendor_hash": "434676e370121e8ad928fcb5d7e67545b58cf5ef3abd6cb5896acacd891796c2",
+      "packaged_hash": "434676e370121e8ad928fcb5d7e67545b58cf5ef3abd6cb5896acacd891796c2",
+      "match": true
+    },
+    {
+      "name": "interview-me",
+      "vendor_hash": "39b1192e4b332acca8051009a931f16b7d6d758150b0df4abf362e446a8f6aab",
+      "packaged_hash": "39b1192e4b332acca8051009a931f16b7d6d758150b0df4abf362e446a8f6aab",
+      "match": true
+    },
+    {
+      "name": "performance-optimization",
+      "vendor_hash": "5e28ac600e459a63f358c64956518eefdd322a5eddb27ddf8fbfe4d4307bf774",
+      "packaged_hash": "5e28ac600e459a63f358c64956518eefdd322a5eddb27ddf8fbfe4d4307bf774",
+      "match": true
+    },
+    {
+      "name": "planning-and-task-breakdown",
+      "vendor_hash": "39e9040d2cdc18bcc932d07724dcf7b243db11f4db937d99c91ec2ac6bb62075",
+      "packaged_hash": "39e9040d2cdc18bcc932d07724dcf7b243db11f4db937d99c91ec2ac6bb62075",
+      "match": true
+    },
+    {
+      "name": "security-and-hardening",
+      "vendor_hash": "3abb4e35e48b7ecc40e246931e81dfbe8615a6a6ca97db5ad175a0a4fc3c8e38",
+      "packaged_hash": "3abb4e35e48b7ecc40e246931e81dfbe8615a6a6ca97db5ad175a0a4fc3c8e38",
+      "match": true
+    },
+    {
+      "name": "shipping-and-launch",
+      "vendor_hash": "e7e89fd3f6d29ec2a6d292513a13ea3ee985e11f0f56056febb96fe796581777",
+      "packaged_hash": "e7e89fd3f6d29ec2a6d292513a13ea3ee985e11f0f56056febb96fe796581777",
+      "match": true
+    },
+    {
+      "name": "source-driven-development",
+      "vendor_hash": "15869c73eec400e669cc9aa7efeb049d97a4d66dcfd9caa5a33163a3c2ff9608",
+      "packaged_hash": "15869c73eec400e669cc9aa7efeb049d97a4d66dcfd9caa5a33163a3c2ff9608",
+      "match": true
+    },
+    {
+      "name": "spec-driven-development",
+      "vendor_hash": "683bbcb49770b260c03dcf33c7da46d51fa65b783c0028da12170091d69acbc0",
+      "packaged_hash": "683bbcb49770b260c03dcf33c7da46d51fa65b783c0028da12170091d69acbc0",
+      "match": true
+    },
+    {
+      "name": "test-driven-development",
+      "vendor_hash": "d8ee28770b0b1efa7f859cf75b6332ab2e29cc5262cd5bc2a268b6d6b46f3442",
+      "packaged_hash": "d8ee28770b0b1efa7f859cf75b6332ab2e29cc5262cd5bc2a268b6d6b46f3442",
+      "match": true
+    },
+    {
+      "name": "using-agent-skills",
+      "vendor_hash": "19a084c903e84b23eb5b2b970ff7192d9158980567929879f218b03f482b3ffc",
+      "packaged_hash": "19a084c903e84b23eb5b2b970ff7192d9158980567929879f218b03f482b3ffc",
+      "match": true
+    }
+  ],
+  "errors": []
+}

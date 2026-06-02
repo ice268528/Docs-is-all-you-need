@@ -1,0 +1,91 @@
+{
+  "schema": "diayn.harness_audit.v1",
+  "generated_at": "2026-06-01T02:05:35.507077+00:00",
+  "project_root": "<repo>\\validation\\minimal-fullstack-fixture",
+  "git": {
+    "marker_root": "<repo>",
+    "is_git_repository": true,
+    "toplevel": "<repo>",
+    "branch": "main",
+    "head": "71a3ddee88f1214368bb8d36c7f61ac0eb9bf504",
+    "dirty": true,
+    "status_error": null
+  },
+  "expected_files": [
+    {
+      "path": "AGENTS.md",
+      "exists": false,
+      "proposed_action": "create",
+      "owner_preservation_required": false
+    },
+    {
+      "path": "TODO.md",
+      "exists": false,
+      "proposed_action": "create",
+      "owner_preservation_required": false
+    },
+    {
+      "path": ".diayn/worktree_manifest.md",
+      "exists": false,
+      "proposed_action": "create",
+      "owner_preservation_required": false
+    },
+    {
+      "path": ".diayn/scaffold_version.md",
+      "exists": false,
+      "proposed_action": "create",
+      "owner_preservation_required": false
+    },
+    {
+      "path": ".diayn/network_policy.md",
+      "exists": false,
+      "proposed_action": "create",
+      "owner_preservation_required": false
+    },
+    {
+      "path": "docs/project/project_brief.md",
+      "exists": false,
+      "proposed_action": "create",
+      "owner_preservation_required": false
+    }
+  ],
+  "missing_files": [
+    "AGENTS.md",
+    "TODO.md",
+    ".diayn/worktree_manifest.md",
+    ".diayn/scaffold_version.md",
+    ".diayn/network_policy.md",
+    "docs/project/project_brief.md"
+  ],
+  "conflicts": [],
+  "scan": {
+    "markdown_files": [
+      "README.md",
+      "diayn_v1_gap_list.md",
+      "shared/api_contract.md"
+    ],
+    "skipped_generated_dirs": [],
+    "large_files_skipped": [],
+    "nested_repositories": [],
+    "possible_secret_files": [],
+    "scan_limit_reached": false
+  },
+  "language": {
+    "inferred_language": "en",
+    "docs_inspected": [
+      "README.md",
+      "diayn_v1_gap_list.md",
+      "shared/api_contract.md"
+    ],
+    "chinese_chars": 0,
+    "latin_letters": 4237
+  },
+  "owner_gates": [
+    {
+      "id": "OG-git-003",
+      "question": "The working tree is dirty. Which existing changes must be preserved before DIAYN scaffold edits?",
+      "blocks": "scaffold edits"
+    }
+  ],
+  "recommended_action": "owner_review"
+}

@@ -1,0 +1,212 @@
+{
+  "project_root": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\Docs-is-all-you-need\\validation\\minimal-fullstack-fixture",
+  "project_slug": "minimal-fullstack-fixture",
+  "generated_at": "2026-06-01T02:05:35+00:00",
+  "mode": "dry-run",
+  "artifacts": [
+    {
+      "path": "README.md",
+      "kind": "entry",
+      "exists": true,
+      "classification": "preserve",
+      "reason": "Existing entry artifact should be preserved; preserve and add a short DIAYN entry if needed."
+    },
+    {
+      "path": "AGENTS.md",
+      "kind": "entry",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN entry artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "CLAUDE.md",
+      "kind": "entry",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN entry artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "TODO.md",
+      "kind": "control",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN control artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/project/project_brief.md",
+      "kind": "project",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN project artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/project/file_index.md",
+      "kind": "project",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN project artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/shared/README.md",
+      "kind": "shared",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN shared artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/shared/integration_issues.md",
+      "kind": "shared",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN shared artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/lanes/backend/board.md",
+      "kind": "lane",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN lane artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/lanes/backend/handoff.md",
+      "kind": "lane",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN lane artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/lanes/backend/evidence.md",
+      "kind": "lane",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN lane artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/lanes/backend/worklog.md",
+      "kind": "lane",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN lane artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/lanes/backend/review_log.md",
+      "kind": "lane",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN lane artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/lanes/frontend/board.md",
+      "kind": "lane",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN lane artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/lanes/frontend/handoff.md",
+      "kind": "lane",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN lane artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/lanes/frontend/evidence.md",
+      "kind": "lane",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN lane artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/lanes/frontend/worklog.md",
+      "kind": "lane",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN lane artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/lanes/frontend/review_log.md",
+      "kind": "lane",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN lane artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/meta/diayn_command_reference.md",
+      "kind": "meta",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN meta artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/meta/status_model.md",
+      "kind": "meta",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN meta artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/meta/agent_doc_permissions.md",
+      "kind": "meta",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN meta artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": "docs/templates/lane_board_template.md",
+      "kind": "template",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN template artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": ".diayn/worktree_manifest.md",
+      "kind": "control",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN control artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": ".diayn/session_registry.md",
+      "kind": "control",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN control artifact; propose creating from template or minimal scaffold."
+    },
+    {
+      "path": ".diayn/sync_log.md",
+      "kind": "control",
+      "exists": false,
+      "classification": "create",
+      "reason": "Missing DIAYN control artifact; propose creating from template or minimal scaffold."
+    }
+  ],
+  "issues": [],
+  "counts": {
+    "preserve": 1,
+    "create": 24
+  },
+  "migration_plan": [
+    {
+      "step": "preserve_existing_content",
+      "classification": "preserve",
+      "targets": "README.md",
+      "safety": "Do not replace existing user docs; patch around them."
+    },
+    {
+      "step": "create_missing_scaffold_docs",
+      "classification": "create",
+      "targets": "AGENTS.md, CLAUDE.md, TODO.md, docs/project/project_brief.md, docs/project/file_index.md, docs/shared/README.md, docs/shared/integration_issues.md, docs/lanes/backend/board.md, docs/lanes/backend/handoff.md, docs/lanes/backend/evidence.md ...",
+      "safety": "Create only after Owner approves the plan; use project-neutral placeholders."
+    },
+    {
+      "step": "record_migration",
+      "classification": "owner_decision",
+      "targets": "migration plan, conflict report, approved patch list",
+      "safety": "Keep an audit trail; do not claim upgrade completion until patches are applied and reviewed."
+    }
+  ],
+  "owner_questions": [
+    "Confirm initial lanes. Default is backend/frontend, but existing projects may need different lane names."
+  ],
+  "safety": "read-only audit; no overwrite; no worktree creation; no commit; no apply mode"
+}

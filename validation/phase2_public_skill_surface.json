@@ -1,0 +1,245 @@
+{
+  "ok": true,
+  "expected_public_skills": [
+    "diayn-init",
+    "diayn-plan",
+    "diayn-worktrees",
+    "diayn-backend",
+    "diayn-frontend",
+    "diayn-review-backend",
+    "diayn-review-frontend",
+    "diayn-sync",
+    "diayn-integration",
+    "diayn-bug",
+    "diayn-new",
+    "diayn-html"
+  ],
+  "root_skills": {
+    "root": "skills",
+    "requireExact": false,
+    "directories": [
+      "context-compact-reminder",
+      "diayn-backend",
+      "diayn-bug",
+      "diayn-controller",
+      "diayn-executor",
+      "diayn-frontend",
+      "diayn-html",
+      "diayn-identity-guard",
+      "diayn-init",
+      "diayn-integration",
+      "diayn-integrator",
+      "diayn-new",
+      "diayn-owner-ux",
+      "diayn-plan",
+      "diayn-review-backend",
+      "diayn-review-frontend",
+      "diayn-reviewer",
+      "diayn-skill-router",
+      "diayn-sync",
+      "diayn-worktrees",
+      "multi-session-controller",
+      "multi-session-executor",
+      "multi-session-integrator",
+      "multi-session-reviewer",
+      "owner-decision-ux",
+      "session-identity-guard",
+      "update-diayn-scaffold"
+    ],
+    "expected": [
+      "diayn-init",
+      "diayn-plan",
+      "diayn-worktrees",
+      "diayn-backend",
+      "diayn-frontend",
+      "diayn-review-backend",
+      "diayn-review-frontend",
+      "diayn-sync",
+      "diayn-integration",
+      "diayn-bug",
+      "diayn-new",
+      "diayn-html"
+    ],
+    "missing": [],
+    "extra": [],
+    "skills": [
+      {
+        "name": "diayn-init",
+        "path": "skills/diayn-init/SKILL.md"
+      },
+      {
+        "name": "diayn-plan",
+        "path": "skills/diayn-plan/SKILL.md"
+      },
+      {
+        "name": "diayn-worktrees",
+        "path": "skills/diayn-worktrees/SKILL.md"
+      },
+      {
+        "name": "diayn-backend",
+        "path": "skills/diayn-backend/SKILL.md"
+      },
+      {
+        "name": "diayn-frontend",
+        "path": "skills/diayn-frontend/SKILL.md"
+      },
+      {
+        "name": "diayn-review-backend",
+        "path": "skills/diayn-review-backend/SKILL.md"
+      },
+      {
+        "name": "diayn-review-frontend",
+        "path": "skills/diayn-review-frontend/SKILL.md"
+      },
+      {
+        "name": "diayn-sync",
+        "path": "skills/diayn-sync/SKILL.md"
+      },
+      {
+        "name": "diayn-integration",
+        "path": "skills/diayn-integration/SKILL.md"
+      },
+      {
+        "name": "diayn-bug",
+        "path": "skills/diayn-bug/SKILL.md"
+      },
+      {
+        "name": "diayn-new",
+        "path": "skills/diayn-new/SKILL.md"
+      },
+      {
+        "name": "diayn-html",
+        "path": "skills/diayn-html/SKILL.md"
+      }
+    ],
+    "ok": true,
+    "errors": []
+  },
+  "root_source_inventory": {
+    "root": "skills",
+    "purpose": "source_workspace_not_install_surface",
+    "public_workflow_skills": [
+      "diayn-backend",
+      "diayn-bug",
+      "diayn-frontend",
+      "diayn-html",
+      "diayn-init",
+      "diayn-integration",
+      "diayn-new",
+      "diayn-plan",
+      "diayn-review-backend",
+      "diayn-review-frontend",
+      "diayn-sync",
+      "diayn-worktrees"
+    ],
+    "internal_role_reference_skills": [
+      "diayn-controller",
+      "diayn-executor",
+      "diayn-identity-guard",
+      "diayn-integrator",
+      "diayn-owner-ux",
+      "diayn-reviewer",
+      "diayn-skill-router",
+      "update-diayn-scaffold"
+    ],
+    "historical_implementation_source": [
+      "context-compact-reminder",
+      "multi-session-controller",
+      "multi-session-executor",
+      "multi-session-integrator",
+      "multi-session-reviewer",
+      "owner-decision-ux",
+      "session-identity-guard"
+    ],
+    "unclassified": [],
+    "readme": "skills/README.md",
+    "ok": true,
+    "errors": []
+  },
+  "plugin_public_skills": {
+    "root": "plugins/docs-is-all-you-need/skills",
+    "requireExact": true,
+    "directories": [
+      "diayn-backend",
+      "diayn-bug",
+      "diayn-frontend",
+      "diayn-html",
+      "diayn-init",
+      "diayn-integration",
+      "diayn-new",
+      "diayn-plan",
+      "diayn-review-backend",
+      "diayn-review-frontend",
+      "diayn-sync",
+      "diayn-worktrees"
+    ],
+    "expected": [
+      "diayn-init",
+      "diayn-plan",
+      "diayn-worktrees",
+      "diayn-backend",
+      "diayn-frontend",
+      "diayn-review-backend",
+      "diayn-review-frontend",
+      "diayn-sync",
+      "diayn-integration",
+      "diayn-bug",
+      "diayn-new",
+      "diayn-html"
+    ],
+    "missing": [],
+    "extra": [],
+    "skills": [
+      {
+        "name": "diayn-init",
+        "path": "plugins/docs-is-all-you-need/skills/diayn-init/SKILL.md"
+      },
+      {
+        "name": "diayn-plan",
+        "path": "plugins/docs-is-all-you-need/skills/diayn-plan/SKILL.md"
+      },
+      {
+        "name": "diayn-worktrees",
+        "path": "plugins/docs-is-all-you-need/skills/diayn-worktrees/SKILL.md"
+      },
+      {
+        "name": "diayn-backend",
+        "path": "plugins/docs-is-all-you-need/skills/diayn-backend/SKILL.md"
+      },
+      {
+        "name": "diayn-frontend",
+        "path": "plugins/docs-is-all-you-need/skills/diayn-frontend/SKILL.md"
+      },
+      {
+        "name": "diayn-review-backend",
+        "path": "plugins/docs-is-all-you-need/skills/diayn-review-backend/SKILL.md"
+      },
+      {
+        "name": "diayn-review-frontend",
+        "path": "plugins/docs-is-all-you-need/skills/diayn-review-frontend/SKILL.md"
+      },
+      {
+        "name": "diayn-sync",
+        "path": "plugins/docs-is-all-you-need/skills/diayn-sync/SKILL.md"
+      },
+      {
+        "name": "diayn-integration",
+        "path": "plugins/docs-is-all-you-need/skills/diayn-integration/SKILL.md"
+      },
+      {
+        "name": "diayn-bug",
+        "path": "plugins/docs-is-all-you-need/skills/diayn-bug/SKILL.md"
+      },
+      {
+        "name": "diayn-new",
+        "path": "plugins/docs-is-all-you-need/skills/diayn-new/SKILL.md"
+      },
+      {
+        "name": "diayn-html",
+        "path": "plugins/docs-is-all-you-need/skills/diayn-html/SKILL.md"
+      }
+    ],
+    "ok": true,
+    "errors": []
+  }
+}

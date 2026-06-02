@@ -1,0 +1,293 @@
+{
+  "schema": "diayn.phase9.codex_home_install.v1",
+  "ok": true,
+  "mode": "execute",
+  "fixture_mode": true,
+  "install_surface": "codex_home",
+  "source_package_root": "packages/codex-project-local",
+  "target_root": "validation/tmp/codex-home-install-fixture",
+  "install_targets": {
+    "skills": "skills",
+    "metadata": "diayn/docs-is-all-you-need"
+  },
+  "target_preflight": {
+    "existing_skill_count": 0,
+    "existing_non_package_skill_count": 0,
+    "existing_non_package_skills": [],
+    "existing_legacy_internal_skill_count": 0,
+    "existing_legacy_internal_skills": []
+  },
+  "package_preflight": {
+    "workflow_skill_count": 12,
+    "dependency_skill_count": 23,
+    "total_package_skill_count": 35
+  },
+  "installed_result": {
+    "installed_workflow_skill_count": 12,
+    "installed_dependency_skill_count": 23,
+    "total_installed_skill_count": 35,
+    "preserved_non_package_skill_count": 0,
+    "preserved_non_package_skills": [],
+    "preserved_legacy_internal_skill_count": 0,
+    "preserved_legacy_internal_skills": [],
+    "installed_package_visible": true,
+    "metadata_present": true,
+    "routing_map_present": true
+  },
+  "actions": [
+    {
+      "label": "skills/api-and-interface-design",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/api-and-interface-design",
+      "target": "validation/tmp/codex-home-install-fixture/skills/api-and-interface-design"
+    },
+    {
+      "label": "skills/browser-testing-with-devtools",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/browser-testing-with-devtools",
+      "target": "validation/tmp/codex-home-install-fixture/skills/browser-testing-with-devtools"
+    },
+    {
+      "label": "skills/ci-cd-and-automation",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/ci-cd-and-automation",
+      "target": "validation/tmp/codex-home-install-fixture/skills/ci-cd-and-automation"
+    },
+    {
+      "label": "skills/code-review-and-quality",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/code-review-and-quality",
+      "target": "validation/tmp/codex-home-install-fixture/skills/code-review-and-quality"
+    },
+    {
+      "label": "skills/code-simplification",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/code-simplification",
+      "target": "validation/tmp/codex-home-install-fixture/skills/code-simplification"
+    },
+    {
+      "label": "skills/context-engineering",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/context-engineering",
+      "target": "validation/tmp/codex-home-install-fixture/skills/context-engineering"
+    },
+    {
+      "label": "skills/debugging-and-error-recovery",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/debugging-and-error-recovery",
+      "target": "validation/tmp/codex-home-install-fixture/skills/debugging-and-error-recovery"
+    },
+    {
+      "label": "skills/deprecation-and-migration",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/deprecation-and-migration",
+      "target": "validation/tmp/codex-home-install-fixture/skills/deprecation-and-migration"
+    },
+    {
+      "label": "skills/diayn-backend",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/diayn-backend",
+      "target": "validation/tmp/codex-home-install-fixture/skills/diayn-backend"
+    },
+    {
+      "label": "skills/diayn-bug",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/diayn-bug",
+      "target": "validation/tmp/codex-home-install-fixture/skills/diayn-bug"
+    },
+    {
+      "label": "skills/diayn-frontend",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/diayn-frontend",
+      "target": "validation/tmp/codex-home-install-fixture/skills/diayn-frontend"
+    },
+    {
+      "label": "skills/diayn-html",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/diayn-html",
+      "target": "validation/tmp/codex-home-install-fixture/skills/diayn-html"
+    },
+    {
+      "label": "skills/diayn-init",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/diayn-init",
+      "target": "validation/tmp/codex-home-install-fixture/skills/diayn-init"
+    },
+    {
+      "label": "skills/diayn-integration",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/diayn-integration",
+      "target": "validation/tmp/codex-home-install-fixture/skills/diayn-integration"
+    },
+    {
+      "label": "skills/diayn-new",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/diayn-new",
+      "target": "validation/tmp/codex-home-install-fixture/skills/diayn-new"
+    },
+    {
+      "label": "skills/diayn-plan",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/diayn-plan",
+      "target": "validation/tmp/codex-home-install-fixture/skills/diayn-plan"
+    },
+    {
+      "label": "skills/diayn-review-backend",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/diayn-review-backend",
+      "target": "validation/tmp/codex-home-install-fixture/skills/diayn-review-backend"
+    },
+    {
+      "label": "skills/diayn-review-frontend",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/diayn-review-frontend",
+      "target": "validation/tmp/codex-home-install-fixture/skills/diayn-review-frontend"
+    },
+    {
+      "label": "skills/diayn-sync",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/diayn-sync",
+      "target": "validation/tmp/codex-home-install-fixture/skills/diayn-sync"
+    },
+    {
+      "label": "skills/diayn-worktrees",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/diayn-worktrees",
+      "target": "validation/tmp/codex-home-install-fixture/skills/diayn-worktrees"
+    },
+    {
+      "label": "skills/documentation-and-adrs",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/documentation-and-adrs",
+      "target": "validation/tmp/codex-home-install-fixture/skills/documentation-and-adrs"
+    },
+    {
+      "label": "skills/doubt-driven-development",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/doubt-driven-development",
+      "target": "validation/tmp/codex-home-install-fixture/skills/doubt-driven-development"
+    },
+    {
+      "label": "skills/frontend-ui-engineering",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/frontend-ui-engineering",
+      "target": "validation/tmp/codex-home-install-fixture/skills/frontend-ui-engineering"
+    },
+    {
+      "label": "skills/git-workflow-and-versioning",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/git-workflow-and-versioning",
+      "target": "validation/tmp/codex-home-install-fixture/skills/git-workflow-and-versioning"
+    },
+    {
+      "label": "skills/idea-refine",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/idea-refine",
+      "target": "validation/tmp/codex-home-install-fixture/skills/idea-refine"
+    },
+    {
+      "label": "skills/incremental-implementation",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/incremental-implementation",
+      "target": "validation/tmp/codex-home-install-fixture/skills/incremental-implementation"
+    },
+    {
+      "label": "skills/interview-me",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/interview-me",
+      "target": "validation/tmp/codex-home-install-fixture/skills/interview-me"
+    },
+    {
+      "label": "skills/performance-optimization",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/performance-optimization",
+      "target": "validation/tmp/codex-home-install-fixture/skills/performance-optimization"
+    },
+    {
+      "label": "skills/planning-and-task-breakdown",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/planning-and-task-breakdown",
+      "target": "validation/tmp/codex-home-install-fixture/skills/planning-and-task-breakdown"
+    },
+    {
+      "label": "skills/security-and-hardening",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/security-and-hardening",
+      "target": "validation/tmp/codex-home-install-fixture/skills/security-and-hardening"
+    },
+    {
+      "label": "skills/shipping-and-launch",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/shipping-and-launch",
+      "target": "validation/tmp/codex-home-install-fixture/skills/shipping-and-launch"
+    },
+    {
+      "label": "skills/source-driven-development",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/source-driven-development",
+      "target": "validation/tmp/codex-home-install-fixture/skills/source-driven-development"
+    },
+    {
+      "label": "skills/spec-driven-development",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/spec-driven-development",
+      "target": "validation/tmp/codex-home-install-fixture/skills/spec-driven-development"
+    },
+    {
+      "label": "skills/test-driven-development",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/test-driven-development",
+      "target": "validation/tmp/codex-home-install-fixture/skills/test-driven-development"
+    },
+    {
+      "label": "skills/using-agent-skills",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.codex/skills/using-agent-skills",
+      "target": "validation/tmp/codex-home-install-fixture/skills/using-agent-skills"
+    },
+    {
+      "label": "diayn/docs-is-all-you-need",
+      "action": "copy",
+      "ok": true,
+      "source": "packages/codex-project-local/.diayn",
+      "target": "validation/tmp/codex-home-install-fixture/diayn/docs-is-all-you-need"
+    }
+  ],
+  "warnings": [],
+  "errors": []
+}

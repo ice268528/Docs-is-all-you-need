@@ -35,6 +35,16 @@ Report explanation:
 
 - HTML aid or report explanation at an explicitly chosen path.
 - A short pointer from the active Owner question or report record when appropriate.
+- Markdown Owner decision, acceptance, or cleanup-plan records when the workflow needs durable authority.
+
+Use the public skill helpers when appropriate:
+
+```text
+skills/diayn-html/scripts/diayn_html_generator.py
+skills/diayn-html/scripts/cleanup_plan.py
+```
+
+The HTML generator formats explicit structured input. It does not infer missing facts. The cleanup helper is dry-run only and never deletes files, worktrees, branches, logs, or evidence.
 
 ## Forbidden
 
@@ -42,6 +52,8 @@ Report explanation:
 - Do not treat generated HTML as the decision authority.
 - Do not replace Owner decisions with a visual artifact.
 - Do not write project facts that were not in the source documents.
+- Do not expose secrets, private logs, raw prompts, credentials, or unnecessary implementation internals.
+- Do not silently delete scaffold artifacts during cleanup/uninstall planning.
 
 ## Status Changes
 

@@ -38,10 +38,42 @@ Reference only:
 - Tool-specific setup and command material under `.claude/`, `.claude-plugin/`, `.gemini/`, `.opencode/`, and `docs/*-setup.md`
 - Slash command implementations under upstream tool directories
 
+## DDDV8 Managed Dependency Model
+
+- Normal DIAYN users install DIAYN once. They should not separately install
+  third-party `agent-skills` one by one.
+- The DIAYN package carries the locked upstream dependency payload under
+  `plugins/docs-is-all-you-need/dependency-skills/agent-skills/`.
+- Platforms that require dependency skills to be visible for nested invocation
+  must install or register that DIAYN-managed payload.
+- A real third-party dependency call means platform-native nested skill
+  invocation or an equivalent native skill tool call against the DIAYN-managed
+  locked copy.
+- Directly reading vendored upstream `SKILL.md` files is fallback/reference
+  behavior only. It does not count as native third-party composition evidence.
+- Do not silently select uncontrolled user-installed `agent-skills` copies
+  unless provenance, version, skill names, and routing compatibility match this
+  lock or an Owner/maintainer explicitly approves the substitution.
+
 ## DIAYN Protected Paths
 
 Upstream sync must not overwrite DIAYN-owned skills, protocol files, or local
-state templates. Current canonical D5+ skill paths are protected:
+state templates. Current DDDV8 public workflow skill paths are protected:
+
+- `skills/diayn-init/`
+- `skills/diayn-plan/`
+- `skills/diayn-worktrees/`
+- `skills/diayn-backend/`
+- `skills/diayn-frontend/`
+- `skills/diayn-review-backend/`
+- `skills/diayn-review-frontend/`
+- `skills/diayn-sync/`
+- `skills/diayn-integration/`
+- `skills/diayn-bug/`
+- `skills/diayn-new/`
+- `skills/diayn-html/`
+
+Internal/shared DIAYN role-reference paths are also protected:
 
 - `skills/diayn-controller/`
 - `skills/diayn-executor/`
@@ -72,4 +104,8 @@ Protocol and state paths protected from upstream vendor sync:
 
 ## Latest Sync Summary
 
-Stage 07 vendored the local outer `agent-skills/` snapshot at commit `250ffaa` into `third_party/agent-skills/` using vendor copy. This sync established maintainer-only update policy and review templates under `maintainers/upstream-agent-skills/`. It did not create a submodule, subtree, Codex plugin, adapter, CLI, runtime, or user-facing scaffold update workflow.
+Stage 07 vendored the local outer `agent-skills/` snapshot at commit `250ffaa`
+into `third_party/agent-skills/` using vendor copy. DDDV8 Phase 3 revalidated
+that local snapshot, added the DIAYN-managed packaged dependency payload, and
+defined native dependency-skill invocation requirements. This remains a
+maintainer-controlled vendor copy, not a runtime network fetch.

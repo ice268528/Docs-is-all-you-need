@@ -9,9 +9,10 @@ plugins/docs-is-all-you-need/.codex-plugin/plugin.json
 
 It is not published, marketplace-backed, or verified as discoverable by Codex.
 
-The D6-09 local convention uses `.codex-plugin/plugin.json` with
-`skills: "./skills/"`. Codex discovery remains unverified because local
-`codex` discovery commands returned access denied.
+The current DDDV8 local convention uses `.codex-plugin/plugin.json` with
+`skills: "./skills/"`, plus a project-local `.codex/skills` package at
+`packages/codex-project-local/`. Codex discovery remains unverified because
+local app-session discovery has not yet been proven.
 
 ## Draft Metadata
 
@@ -20,7 +21,7 @@ id: docs-is-all-you-need
 name: Docs is all you need
 version: Unknown / To be confirmed
 description: Document-driven multi-session agent collaboration scaffold for DIAYN workflows.
-status: Draft only
+status: Static package validated; runtime discovery blocked
 entry_files:
   - AGENTS.md
 core_docs:
@@ -28,14 +29,20 @@ core_docs:
   - docs/meta/diayn_command_reference.md
   - docs/meta/cross_tool_adapter_policy.md
 skills:
-  - skills/diayn-controller/SKILL.md
-  - skills/diayn-executor/SKILL.md
-  - skills/diayn-reviewer/SKILL.md
-  - skills/diayn-integrator/SKILL.md
-  - skills/diayn-skill-router/SKILL.md
-  - skills/diayn-identity-guard/SKILL.md
-  - skills/diayn-owner-ux/SKILL.md
-  - skills/update-diayn-scaffold/SKILL.md
+  - skills/diayn-init/SKILL.md
+  - skills/diayn-plan/SKILL.md
+  - skills/diayn-worktrees/SKILL.md
+  - skills/diayn-backend/SKILL.md
+  - skills/diayn-frontend/SKILL.md
+  - skills/diayn-review-backend/SKILL.md
+  - skills/diayn-review-frontend/SKILL.md
+  - skills/diayn-sync/SKILL.md
+  - skills/diayn-integration/SKILL.md
+  - skills/diayn-bug/SKILL.md
+  - skills/diayn-new/SKILL.md
+  - skills/diayn-html/SKILL.md
+project_local_package:
+  - packages/codex-project-local/.codex/skills/
 scaffold_assets:
   - docs/meta/
   - docs/templates/
@@ -55,5 +62,6 @@ excluded:
 - Confirm whether bundled skills need separate metadata.
 - Confirm versioning and update workflow.
 
-Until Codex discovery/execution is verified, the D6-09 candidate must be treated
-as `manual_fallback`, not `working` plugin support.
+Until Codex discovery/execution is verified, the candidate must be treated as
+static-package evidence only, not `working` plugin or `.codex/skills` runtime
+support.

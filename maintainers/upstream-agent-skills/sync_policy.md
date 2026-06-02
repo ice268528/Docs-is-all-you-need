@@ -11,11 +11,26 @@ The upstream library can inform implementation, review, testing, planning, and d
 - Sync method: vendor copy.
 - Vendor path: `third_party/agent-skills/`.
 - Lock file: `vendor.lock.md`.
+- Packaged dependency payload: `plugins/docs-is-all-you-need/dependency-skills/agent-skills/`.
 - Execution owner: project maintainers only.
 - Dry-run report helper: `maintainers/scripts/agent_skills_vendor_sync_report.py`.
 - User-facing `/diayn` workflows must not ask terminal users to understand or run vendor sync.
 
 Submodule and subtree are not used in this stage. A future change to that strategy requires an explicit Owner decision.
+
+## DDDV8 Dependency Invocation Boundary
+
+- DIAYN vendors the full upstream baseline and packages a DIAYN-managed locked
+  dependency payload.
+- Normal users install DIAYN once. They do not install each upstream skill
+  separately.
+- Platforms that require platform-visible skills for nested invocation must
+  install or register the DIAYN-managed dependency payload.
+- Real composition evidence requires platform-native nested skill invocation or
+  an equivalent native skill tool call against the locked DIAYN-managed copy.
+- Reading vendored `SKILL.md` files directly is fallback/reference behavior and
+  does not prove native dependency-skill composition.
+- Do not silently select uncontrolled user-installed dependency copies.
 
 ## Non-Negotiable DIAYN Boundary
 

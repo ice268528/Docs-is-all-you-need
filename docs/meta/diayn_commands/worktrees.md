@@ -26,6 +26,14 @@ Stage, batch, or lane planning is confirmed enough to prepare separate lane sess
 - `docs/meta/diayn_worktree_workflow.md`
 - `docs/meta/session_identity_protocol.md`
 
+Use the bundled helper when deterministic worktree preflight or copyable command generation is needed:
+
+```text
+skills/diayn-worktrees/scripts/worktree_plan.py
+```
+
+Default behavior is dry-run. Actual `git worktree add` execution requires explicit authorization in the active environment.
+
 ## Allowed Writes
 
 - `.diayn/worktree_manifest.md`
@@ -33,6 +41,7 @@ Stage, batch, or lane planning is confirmed enough to prepare separate lane sess
 - Lane handoff documents.
 - Launch prompt drafts using `docs/templates/lane_session_launch_prompt_template.md`
 - Review launch prompt drafts using `docs/templates/review_session_launch_prompt_template.md`
+- Session entry checklists and local identity guidance from `skills/diayn-worktrees/assets/worktrees/`
 
 ## Forbidden
 
@@ -40,8 +49,12 @@ Stage, batch, or lane planning is confirmed enough to prepare separate lane sess
 - Do not hide which session the user is controlling.
 - Do not assume uncommitted controller-only files are visible in worker worktrees.
 - Do not put stage identifiers into long-lived worktree directory names.
+- Do not create worktrees for `not_applicable` lanes.
+- Do not merge business code during `/diayn-worktrees`.
 
 Actual `git worktree` commands require explicit user authorization in the active project environment. The default behavior is to output instructions and prompts.
+
+If authorization is unavailable or denied, output copyable commands with the intended working directory and shell/platform assumptions. Do not claim worktrees were created.
 
 ## Status Changes
 
@@ -61,6 +74,10 @@ Actual `git worktree` commands require explicit user authorization in the active
 - A worktree path conflicts with another lane.
 - The user expects the Controller to run hidden interactive agents.
 - Worktree creation would require permission that has not been granted.
+- The current session is not the Controller session.
+- The same lane already has active worker or reviewer activity.
+- A reviewer would start before the same-lane worker stopped and reported.
+- Applicable lane handoff or board files are missing.
 
 ## Success Output
 

@@ -1,0 +1,12 @@
+{
+  "ok": true,
+  "command_count": 12,
+  "workflow_skill_count": 12,
+  "dependency_skill_count": 23,
+  "total_project_local_skill_count": 35,
+  "bare_command_surface": true,
+  "dependency_skills_platform_visible": true,
+  "dependency_routing_map_present": true,
+  "internal_role_references_present": true,
+  "errors": []
+}

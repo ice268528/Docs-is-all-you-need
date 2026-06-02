@@ -34,6 +34,15 @@ The Owner has confirmed enough project facts to plan work.
 - Shared contract placeholders or issue notes when authorized.
 - Controller summary and Owner question records.
 
+Use the bundled `skills/diayn-plan/assets/plan/` templates as the default structures:
+
+- `stage_plan.md` for Controller-owned stage planning.
+- `lane_board.md` for backend/frontend task slices and limited internal status.
+- `lane_handoff.md` for one-slice worker handoff.
+- `shared_contract_placeholder.md` for Controller-owned API/schema/event/interface contracts.
+
+Create only artifacts justified by the project analysis. Record `not_applicable` lanes instead of creating fake backend or frontend work.
+
 ## Forbidden
 
 - Do not write code.
