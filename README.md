@@ -21,8 +21,42 @@ flowchart LR
 
 ## Install
 
-For Codex Desktop, install the Codex Home skill package from this repository.
-Run these commands from the repository root. Start with a dry-run:
+### Claude Code CLI
+
+Claude Code project-local is the currently proven alpha surface. Install it by
+copying the project-local package into the target project. Run these commands
+from this repository root:
+
+```powershell
+$diaynRepo = Resolve-Path "."
+$targetProject = Resolve-Path "E:\path\to\your-project"
+
+New-Item -ItemType Directory -Force (Join-Path $targetProject ".claude") | Out-Null
+New-Item -ItemType Directory -Force (Join-Path $targetProject ".diayn") | Out-Null
+
+Copy-Item -Recurse -Force (Join-Path $diaynRepo "packages\claude-project-local\.claude\commands") (Join-Path $targetProject ".claude")
+Copy-Item -Recurse -Force (Join-Path $diaynRepo "packages\claude-project-local\.claude\skills") (Join-Path $targetProject ".claude")
+Copy-Item -Recurse -Force (Join-Path $diaynRepo "packages\claude-project-local\.diayn\*") (Join-Path $targetProject ".diayn")
+```
+
+Then open Claude Code in the target project and start with:
+
+```text
+/diayn-init
+```
+
+This installs project-local `.claude/commands`, `.claude/skills`, and `.diayn`
+metadata. The public command surface stays exactly 12 bare `/diayn-*`
+commands. The `.claude/skills` directory also includes the locked
+DIAYN-managed `agent-skills` dependency skills so DIAYN workflows can route to
+them through Claude's native `Skill` tool.
+
+### Codex Desktop
+
+Codex Desktop package shape and install fixtures are ready, but runtime
+discovery from the current or reloaded Codex Desktop app session is still a
+manual validation blocker. To install the Codex Home skill package from this
+repository, run these commands from the repository root. Start with a dry-run:
 
 ```powershell
 node maintainers\scripts\install_codex_project_local_package.js --target-codex-home $env:USERPROFILE\.codex
@@ -49,6 +83,29 @@ with:
 ```text
 /diayn-init
 ```
+
+Codex Desktop support must not be claimed as proven until the app session shows
+direct `/diayn-*` invocation and native dependency-skill invocation.
+
+### Dependency Skill Routing
+
+DIAYN carries 23 locked third-party `agent-skills` as managed dependency
+skills. They are not extra public DIAYN commands. A `/diayn-*` workflow owns the
+role, lane, state, review, integration, evidence, and Owner boundary first;
+then the DIAYN router selects the smallest relevant dependency skill set.
+
+The routing map is:
+
+```text
+skills/diayn-skill-router/references/upstream-routing-map.md
+```
+
+Current evidence proves a representative native routed dependency call on
+Claude Code project-local: `/diayn-init` routed a vague idea workflow to the
+DIAYN-managed `idea-refine` skill through the native `Skill` tool. The package
+contains all 23 dependency skills and a routing rationale for each one, but it
+does not claim every dependency skill has been exhaustively exercised in a live
+workflow.
 
 ## Public Commands
 
@@ -102,8 +159,8 @@ sequenceDiagram
 
 | Surface | Status |
 | --- | --- |
-| Claude Code project-local | Complete alpha surface for the validated fixture flow. |
-| Codex Desktop | Package and install fixtures are ready; app-session runtime validation is manual and still pending. |
+| Claude Code project-local | Proven alpha surface for the validated installed flow. |
+| Codex Desktop | Package and install fixtures are ready; app-session runtime validation is still pending. |
 | OpenCode | Deferred until direct `/diayn-*` skill invocation is proven. |
 
 Codex Desktop runtime validation must be performed inside Codex Desktop itself.

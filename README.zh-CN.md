@@ -21,8 +21,39 @@ flowchart LR
 
 ## 安装
 
-Codex Desktop 使用 Codex Home skill package 安装。请在本仓库根目录执行。
-先执行 dry-run：
+### Claude Code CLI
+
+Claude Code project-local 是当前已经证明可用的 alpha surface。安装方式是把
+project-local package 复制到目标项目。请在本仓库根目录执行：
+
+```powershell
+$diaynRepo = Resolve-Path "."
+$targetProject = Resolve-Path "E:\path\to\your-project"
+
+New-Item -ItemType Directory -Force (Join-Path $targetProject ".claude") | Out-Null
+New-Item -ItemType Directory -Force (Join-Path $targetProject ".diayn") | Out-Null
+
+Copy-Item -Recurse -Force (Join-Path $diaynRepo "packages\claude-project-local\.claude\commands") (Join-Path $targetProject ".claude")
+Copy-Item -Recurse -Force (Join-Path $diaynRepo "packages\claude-project-local\.claude\skills") (Join-Path $targetProject ".claude")
+Copy-Item -Recurse -Force (Join-Path $diaynRepo "packages\claude-project-local\.diayn\*") (Join-Path $targetProject ".diayn")
+```
+
+然后在目标项目里打开 Claude Code，从这个命令开始：
+
+```text
+/diayn-init
+```
+
+这会安装项目本地的 `.claude/commands`、`.claude/skills` 和 `.diayn` 元数据。
+公开命令面仍然只有 12 条裸 `/diayn-*` 命令。`.claude/skills` 里也会包含
+DIAYN 锁定管理的第三方 `agent-skills` 依赖 skills，DIAYN workflow 可以通过
+Claude 原生 `Skill` tool 显式路由调用它们。
+
+### Codex Desktop
+
+Codex Desktop 的 package shape 和安装 fixture 已准备好，但当前或重新加载后的
+Codex Desktop app session 运行时发现仍需要人工验证。安装 Codex Home skill
+package 时，请在本仓库根目录执行。先执行 dry-run：
 
 ```powershell
 node maintainers\scripts\install_codex_project_local_package.js --target-codex-home $env:USERPROFILE\.codex
@@ -48,6 +79,28 @@ node maintainers\scripts\install_codex_project_local_package.js --target-codex-h
 ```text
 /diayn-init
 ```
+
+在 Codex Desktop 里证明可直接执行 `/diayn-*`，并且能原生调用 dependency
+skill 之前，不能把 Codex Desktop 支持说成已证明。
+
+### 第三方 Skills 路由
+
+DIAYN 内置并锁定 23 个第三方 `agent-skills`，把它们作为 DIAYN 管理的
+dependency skills。它们不是额外的公开 DIAYN 命令。每次 `/diayn-*` workflow
+先由 DIAYN 掌握角色、lane、状态、审查、集成、证据和 Owner 边界，然后 router
+再选择最小必要的 dependency skill 集合。
+
+路由表在：
+
+```text
+skills/diayn-skill-router/references/upstream-routing-map.md
+```
+
+当前证据已经证明 Claude Code project-local 上存在代表性的原生路由调用：
+`/diayn-init` 在模糊 idea 场景下，通过 Claude 原生 `Skill` tool 路由调用了
+DIAYN 管理的 `idea-refine` skill。安装包包含全部 23 个 dependency skills，
+也为每个 skill 写了路由依据；但这不等于 23 个 dependency skills 都已经在真实
+workflow 里逐个完整运行过。
 
 ## 12 条公开命令
 
@@ -101,7 +154,7 @@ sequenceDiagram
 
 | 平台 | 状态 |
 | --- | --- |
-| Claude Code project-local | 已完成 alpha fixture 流程验证。 |
+| Claude Code project-local | 已证明 alpha installed flow。 |
 | Codex Desktop | package 和安装 fixture 已准备好；app session runtime 需要人工验证。 |
 | OpenCode | 暂缓，直到能证明可直接触发 `/diayn-*` skills。 |
 

@@ -88,4 +88,9 @@ Command sequence probe recorded in `validation/phase9_claude_project_local_comma
 - all 12 bare `/diayn-*` commands entered workflow context;
 - validation short-circuit arguments are not reliable evidence because normal workflow startup may run before the requested identity echo.
 
-Conclusion: Claude Code CLI has a working project-local package candidate for bare `/diayn-*` discovery, 12-command workflow entry, and routed dependency-skill smoke validation. It is not yet a release or full alpha support claim because the complete install-to-Owner-acceptance fixture has not run green.
+Conclusion: Claude Code CLI has a proven project-local alpha surface for bare
+`/diayn-*` discovery, 12-command workflow entry, routed dependency-skill smoke
+validation, and the complete installed-flow fixture through Owner acceptance,
+closeout, and next-stage baseline refresh. This is still not a broad release or
+all-surface claim because Codex Desktop runtime discovery/invocation remains
+blocked and OpenCode is deferred.
