@@ -9,7 +9,8 @@ packages/claude-project-local/
 
 ## Plugin Package
 
-Relevant plugin files:
+This is the standard target for Claude Code, following the same plugin-first
+model used by `superpowers` and `agent-skills`. Relevant plugin files:
 
 ```text
 .claude-plugin/plugin.json
@@ -41,7 +42,11 @@ Phase 9 plugin-dir probe:
 - `claude --plugin-dir plugins\docs-is-all-you-need ... /docs-is-all-you-need:diayn-init` loads namespaced commands/skills and triggers the native `Skill` tool for `docs-is-all-you-need:diayn-init`.
 - `claude --bare --plugin-dir plugins\docs-is-all-you-need ... /diayn-init` returns `Unknown command: /diayn-init`.
 
-Conclusion: plugin-dir mode is valid for namespaced Claude plugin behavior, but it is not the bare `/diayn-*` user-facing path.
+Conclusion: plugin-dir mode is valid local Claude plugin proof. In current
+validation it exposed namespaced commands, so it does not by itself prove the
+bare `/diayn-*` user-facing path required by DDDV8. That gap must be resolved
+through marketplace/runtime validation or a plugin design change, not by
+pretending manual project-local copying is the final install model.
 
 ## Project-Local Package
 
@@ -88,9 +93,9 @@ Command sequence probe recorded in `validation/phase9_claude_project_local_comma
 - all 12 bare `/diayn-*` commands entered workflow context;
 - validation short-circuit arguments are not reliable evidence because normal workflow startup may run before the requested identity echo.
 
-Conclusion: Claude Code CLI has a proven project-local alpha surface for bare
+Conclusion: Claude Code CLI has a proven project-local fallback for bare
 `/diayn-*` discovery, 12-command workflow entry, routed dependency-skill smoke
 validation, and the complete installed-flow fixture through Owner acceptance,
-closeout, and next-stage baseline refresh. This is still not a broad release or
-all-surface claim because Codex Desktop runtime discovery/invocation remains
-blocked and OpenCode is deferred.
+closeout, and next-stage baseline refresh. This is an alpha fallback, not the
+normative final Claude install model. The final Claude path should be
+plugin/marketplace install once bare `/diayn-*` behavior is proven there.

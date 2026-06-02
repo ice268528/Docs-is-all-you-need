@@ -23,31 +23,41 @@ flowchart LR
 
 ### Claude Code CLI
 
-Claude Code project-local 是当前已经证明可用的 alpha surface。安装方式是把
-project-local package 复制到目标项目。请在本仓库根目录执行：
+Claude Code 应该采用和 `superpowers`、`agent-skills` 一样的 plugin-first
+安装模型。
 
-```powershell
-$diaynRepo = Resolve-Path "."
-$targetProject = Resolve-Path "E:\path\to\your-project"
+DIAYN 发布 Claude marketplace 后，目标用户安装方式应该是：
 
-New-Item -ItemType Directory -Force (Join-Path $targetProject ".claude") | Out-Null
-New-Item -ItemType Directory -Force (Join-Path $targetProject ".diayn") | Out-Null
-
-Copy-Item -Recurse -Force (Join-Path $diaynRepo "packages\claude-project-local\.claude\commands") (Join-Path $targetProject ".claude")
-Copy-Item -Recurse -Force (Join-Path $diaynRepo "packages\claude-project-local\.claude\skills") (Join-Path $targetProject ".claude")
-Copy-Item -Recurse -Force (Join-Path $diaynRepo "packages\claude-project-local\.diayn\*") (Join-Path $targetProject ".diayn")
+```text
+/plugin marketplace add <diayn-marketplace-or-repo>
+/plugin install docs-is-all-you-need@<marketplace-name>
 ```
 
-然后在目标项目里打开 Claude Code，从这个命令开始：
+发布前的本地开发验证，用 Claude Code 直接加载 plugin candidate：
+
+```powershell
+claude --plugin-dir E:\Allproject\VscodeProject\docs_is_all_you_need_for_AGENTS\Docs-is-all-you-need\plugins\docs-is-all-you-need
+```
+
+Claude plugin candidate 的结构是：
+
+```text
+plugins/docs-is-all-you-need/.claude-plugin/plugin.json
+plugins/docs-is-all-you-need/.claude/commands/diayn-*.md
+plugins/docs-is-all-you-need/skills/diayn-*/
+plugins/docs-is-all-you-need/dependency-skills/
+```
+
+从这个命令开始：
 
 ```text
 /diayn-init
 ```
 
-这会安装项目本地的 `.claude/commands`、`.claude/skills` 和 `.diayn` 元数据。
-公开命令面仍然只有 12 条裸 `/diayn-*` 命令。`.claude/skills` 里也会包含
-DIAYN 锁定管理的第三方 `agent-skills` 依赖 skills，DIAYN workflow 可以通过
-Claude 原生 `Skill` tool 显式路由调用它们。
+当前边界：本地 `--plugin-dir` 验证路径观察到的是 namespaced plugin commands，
+但 DDDV8 的用户入口要求是裸 `/diayn-*`。因此
+`packages/claude-project-local/` 只保留为裸 `/diayn-*` 的 alpha fallback 和
+验证 fixture，不是最终规范安装模型。
 
 ### Codex Desktop
 
@@ -144,9 +154,9 @@ sequenceDiagram
 | 路径 | 作用 |
 | --- | --- |
 | `skills/` | DIAYN 源码工作区，包含公开 workflow 源码、内部参考源码和历史源码。它不是安装 surface。 |
-| `plugins/docs-is-all-you-need/skills/` | Codex plugin candidate 的公开 surface，只包含 12 个 DIAYN workflow skills。 |
-| `packages/codex-project-local/` | Codex project-local/Home 安装包。 |
-| `packages/claude-project-local/` | Claude Code project-local 安装包，已完成 fixture 流程验证。 |
+| `plugins/docs-is-all-you-need/` | Claude/Codex plugin candidate，只暴露 12 个公开 DIAYN workflow skills。 |
+| `packages/codex-project-local/` | Codex project-local/Home 安装包和 fixture 路径。 |
+| `packages/claude-project-local/` | Claude Code 裸命令 alpha fallback 和 installed-flow fixture。 |
 | `plugins/docs-is-all-you-need/dependency-skills/` | 锁定的、由 DIAYN 管理的第三方 `agent-skills` 依赖。 |
 | `validation/` | 已提交的 fixture 证据和 release gate 输出。本机 runtime 证据会被忽略。 |
 
@@ -154,7 +164,8 @@ sequenceDiagram
 
 | 平台 | 状态 |
 | --- | --- |
-| Claude Code project-local | 已证明 alpha installed flow。 |
+| Claude Code plugin candidate | 标准安装目标；本地 plugin-dir 已验证 plugin shape，但裸 `/diayn-*` 还需要 marketplace/runtime 证明。 |
+| Claude Code project-local fallback | 已证明裸 `/diayn-*` alpha fixture；不是最终安装模型。 |
 | Codex Desktop | package 和安装 fixture 已准备好；app session runtime 需要人工验证。 |
 | OpenCode | 暂缓，直到能证明可直接触发 `/diayn-*` skills。 |
 

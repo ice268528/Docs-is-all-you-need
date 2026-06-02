@@ -28,7 +28,7 @@ The target user experience is one DIAYN install that makes these commands availa
 | Surface | DDDV8 target | Current DDDV8 status |
 | --- | --- | --- |
 | Codex Desktop | Alpha target if installed workflow skills can be invoked through `/diayn-*` and can route to DIAYN-managed dependency skills. | Plugin artifact exists, and `packages/codex-project-local/` statically validates the `.codex/skills` package shape with 12 workflow skills plus 23 DIAYN-managed dependency skills. Executed install fixtures prove both project-local `.codex/skills` + `.diayn` shape and Codex-home `$CODEX_HOME/skills` shape without relying on a maintainer's private Codex Home. Direct `/diayn-*` invocation and native dependency-skill invocation still need proof from the current or reloaded Codex app session before Codex alpha can be claimed. |
-| Claude Code CLI | Alpha target if installed workflow skills can be invoked through `/diayn-*` and can route to DIAYN-managed dependency skills. | Plugin artifact exists and `claude plugin validate` passes, but plugin-dir commands are namespaced. A separate project-local package at `packages/claude-project-local/` proves bare `/diayn-init` command-to-`Skill` invocation, all 12 bare command/skill entries are visible and enter workflow context, direct native loading of the DIAYN-managed `idea-refine` dependency skill, routed `/diayn-init -> idea-refine` dependency invocation, and a complete installed-flow fixture for all 12 public commands. |
+| Claude Code CLI | Alpha target if installed workflow skills can be invoked through `/diayn-*` and can route to DIAYN-managed dependency skills. The standard install target is plugin/marketplace install, following `superpowers` and `agent-skills`. | Plugin artifact exists and `claude plugin validate` passes, but local plugin-dir validation exposes namespaced commands. A separate project-local fallback at `packages/claude-project-local/` proves bare `/diayn-init` command-to-`Skill` invocation, all 12 bare command/skill entries, routed `/diayn-init -> idea-refine`, and a complete installed-flow fixture. This fallback is not the final install model. |
 | OpenCode CLI | Deferred unless installed workflow skills can be directly triggered through `/diayn-*`. | Deferred for DDDV8. Earlier D6 discovery notes are historical only. |
 | Cursor / Copilot | Out of V1 scope. | No active V1 support claim. |
 
@@ -48,7 +48,7 @@ Rules:
 Alpha package artifact notes:
 
 - Codex package candidate: `docs/install/codex-alpha.md`
-- Claude Code package candidate: `docs/install/claude-code-alpha.md`
+- Claude Code package candidate and fallback boundary: `docs/install/claude-code-alpha.md`
 
 This repository now contains DDDV8 public workflow skills, progressively disclosed workflow assets, deterministic helpers, alpha package artifacts, and a locked dependency payload plus useful D5/D6 artifacts:
 
@@ -83,6 +83,7 @@ These artifacts are implementation inputs. They are not final DDDV8 release evid
 Do not claim that the current repository already provides:
 
 - a published marketplace/plugin install;
+- a final Claude Code marketplace install that proves bare `/diayn-*`;
 - a working all-platform V1;
 - OpenCode DDDV8 support;
 - exhaustive routed use of every vendored third-party skill from an active DIAYN workflow;
@@ -109,10 +110,12 @@ install -> /diayn-init -> /diayn-plan -> /diayn-worktrees
 
 No exhaustive third-party composition release claim until routed `agent-skills` coverage is broadened beyond the representative `/diayn-init -> idea-refine` smoke test.
 
-Current surface-specific result: the Claude project-local package has completed
-the installed flow and focused side scenarios, so it is the only supported alpha
-surface recorded by the gate. Codex package shape and install fixtures pass, but
-Codex runtime discovery/invocation is still blocked by `P9-CODEX-001`.
+Current surface-specific result: the Claude project-local fallback has
+completed the installed flow and focused side scenarios, so it is the only
+supported bare-command alpha evidence recorded by the gate. The standard Claude
+plugin/marketplace install path still needs bare `/diayn-*` proof. Codex package
+shape and install fixtures pass, but Codex runtime discovery/invocation is still
+blocked by `P9-CODEX-001`.
 
 Current installed-flow audit:
 

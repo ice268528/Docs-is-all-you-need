@@ -23,33 +23,44 @@ flowchart LR
 
 ### Claude Code CLI
 
-Claude Code project-local is the currently proven alpha surface. Install it by
-copying the project-local package into the target project. Run these commands
-from this repository root:
+Claude Code should follow the same plugin-first installation model used by
+`superpowers` and `agent-skills`.
 
-```powershell
-$diaynRepo = Resolve-Path "."
-$targetProject = Resolve-Path "E:\path\to\your-project"
+Once DIAYN has a published Claude marketplace entry, the intended user install
+shape is:
 
-New-Item -ItemType Directory -Force (Join-Path $targetProject ".claude") | Out-Null
-New-Item -ItemType Directory -Force (Join-Path $targetProject ".diayn") | Out-Null
-
-Copy-Item -Recurse -Force (Join-Path $diaynRepo "packages\claude-project-local\.claude\commands") (Join-Path $targetProject ".claude")
-Copy-Item -Recurse -Force (Join-Path $diaynRepo "packages\claude-project-local\.claude\skills") (Join-Path $targetProject ".claude")
-Copy-Item -Recurse -Force (Join-Path $diaynRepo "packages\claude-project-local\.diayn\*") (Join-Path $targetProject ".diayn")
+```text
+/plugin marketplace add <diayn-marketplace-or-repo>
+/plugin install docs-is-all-you-need@<marketplace-name>
 ```
 
-Then open Claude Code in the target project and start with:
+For local development before publication, run Claude Code with the plugin
+candidate:
+
+```powershell
+claude --plugin-dir E:\Allproject\VscodeProject\docs_is_all_you_need_for_AGENTS\Docs-is-all-you-need\plugins\docs-is-all-you-need
+```
+
+The Claude plugin candidate has:
+
+```text
+plugins/docs-is-all-you-need/.claude-plugin/plugin.json
+plugins/docs-is-all-you-need/.claude/commands/diayn-*.md
+plugins/docs-is-all-you-need/skills/diayn-*/
+plugins/docs-is-all-you-need/dependency-skills/
+```
+
+Start with:
 
 ```text
 /diayn-init
 ```
 
-This installs project-local `.claude/commands`, `.claude/skills`, and `.diayn`
-metadata. The public command surface stays exactly 12 bare `/diayn-*`
-commands. The `.claude/skills` directory also includes the locked
-DIAYN-managed `agent-skills` dependency skills so DIAYN workflows can route to
-them through Claude's native `Skill` tool.
+Current boundary: the local `--plugin-dir` validation path has observed
+namespaced plugin commands, while the DDDV8 user-facing requirement is bare
+`/diayn-*`. The `packages/claude-project-local/` copy package is therefore kept
+as an alpha fallback and validation fixture for bare `/diayn-*`; it is not the
+normative final installation model.
 
 ### Codex Desktop
 
@@ -149,9 +160,9 @@ sequenceDiagram
 | Path | Purpose |
 | --- | --- |
 | `skills/` | DIAYN source workspace. It includes public workflow source plus internal/historical source. It is not the install surface. |
-| `plugins/docs-is-all-you-need/skills/` | Codex plugin candidate public surface with exactly 12 DIAYN workflow skills. |
-| `packages/codex-project-local/` | Codex project-local/Home install package. |
-| `packages/claude-project-local/` | Claude Code project-local package with completed installed-flow evidence. |
+| `plugins/docs-is-all-you-need/` | Claude/Codex plugin candidate with exactly 12 public DIAYN workflow skills. |
+| `packages/codex-project-local/` | Codex project-local/Home install package and fixture path. |
+| `packages/claude-project-local/` | Claude Code bare-command alpha fallback and installed-flow fixture. |
 | `plugins/docs-is-all-you-need/dependency-skills/` | Locked DIAYN-managed third-party `agent-skills` payload. |
 | `validation/` | Committed fixture evidence and release-gate outputs. Local runtime evidence is ignored. |
 
@@ -159,7 +170,8 @@ sequenceDiagram
 
 | Surface | Status |
 | --- | --- |
-| Claude Code project-local | Proven alpha surface for the validated installed flow. |
+| Claude Code plugin candidate | Standard install target; local plugin-dir validates plugin shape but bare `/diayn-*` still needs marketplace/runtime proof. |
+| Claude Code project-local fallback | Proven alpha fixture for bare `/diayn-*` installed flow; not the final install model. |
 | Codex Desktop | Package and install fixtures are ready; app-session runtime validation is still pending. |
 | OpenCode | Deferred until direct `/diayn-*` skill invocation is proven. |
 
