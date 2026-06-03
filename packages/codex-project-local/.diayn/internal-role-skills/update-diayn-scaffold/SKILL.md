@@ -32,7 +32,7 @@ local project path is available.
 ## Helper
 
 ```powershell
-python skills/update-diayn-scaffold/scripts/scaffold_upgrade_audit.py --project-root <project>
+python .diayn/internal-role-skills/update-diayn-scaffold/scripts/scaffold_upgrade_audit.py --project-root <project>
 ```
 
 The helper is read-only by default, writes only an explicitly requested report

@@ -270,7 +270,7 @@ Phase 11 evidence:
 
 - Privacy/network policy: `docs/meta/diayn_privacy_network_policy.md`
 - Cleanup dry-run helper: `skills/diayn-html/scripts/cleanup_plan.py`
-- Existing-project migration helper: `skills/update-diayn-scaffold/scripts/scaffold_upgrade_audit.py`
+- Existing-project migration helper: `maintainers/internal-skills/update-diayn-scaffold/scripts/scaffold_upgrade_audit.py`
 - Cleanup plan: `validation/phase8_cleanup_plan.json`
 - Scaffold migration audit: `validation/phase8_scaffold_upgrade_audit.json`
 - Vendor sync report: `maintainers/upstream-agent-skills/latest_dry_run_report.md`

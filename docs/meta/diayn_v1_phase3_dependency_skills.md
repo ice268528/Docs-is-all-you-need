@@ -77,7 +77,7 @@ The routing map now covers:
 Routing map:
 
 ```text
-skills/diayn-skill-router/references/upstream-routing-map.md
+maintainers/internal-skills/diayn-skill-router/references/upstream-routing-map.md
 ```
 
 ## 5. Validation

@@ -1,9 +1,0 @@
-{
-  "ok": true,
-  "owner_html_aid": true,
-  "cleanup_plan_mode": "dry-run",
-  "cleanup_automatic_delete": false,
-  "scaffold_upgrade_mode": "dry-run",
-  "vendor_report_present": true,
-  "errors": []
-}

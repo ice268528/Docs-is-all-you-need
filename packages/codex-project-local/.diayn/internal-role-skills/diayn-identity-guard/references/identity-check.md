@@ -31,7 +31,7 @@ Never rewrite identity files just to make the check pass.
 Run the bundled soft checker when the session needs deterministic local evidence:
 
 ```text
-python skills/diayn-identity-guard/scripts/identity_guard_check.py --repo-root <repo> --cwd <current-path> --command /diayn-backend
+python .diayn/internal-role-skills/diayn-identity-guard/scripts/identity_guard_check.py --repo-root <repo> --cwd <current-path> --command /diayn-backend
 ```
 
 Use `--format json` when the result needs to be copied into evidence. Use `--strict-exit` only when a caller wants non-zero exit codes for warn/fail results.

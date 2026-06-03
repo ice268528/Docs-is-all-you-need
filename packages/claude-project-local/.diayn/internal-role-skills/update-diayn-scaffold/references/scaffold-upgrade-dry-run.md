@@ -7,13 +7,13 @@ Use this reference before modifying an existing project.
 Run the bundled dry-run helper when the project is available locally:
 
 ```powershell
-python skills/update-diayn-scaffold/scripts/scaffold_upgrade_audit.py --project-root <project>
+python .diayn/internal-role-skills/update-diayn-scaffold/scripts/scaffold_upgrade_audit.py --project-root <project>
 ```
 
 Optional report file:
 
 ```powershell
-python skills/update-diayn-scaffold/scripts/scaffold_upgrade_audit.py --project-root <project> --output diayn_scaffold_upgrade_report.md
+python .diayn/internal-role-skills/update-diayn-scaffold/scripts/scaffold_upgrade_audit.py --project-root <project> --output diayn_scaffold_upgrade_report.md
 ```
 
 The helper is read-only. It has no apply mode, does not create worktrees, does

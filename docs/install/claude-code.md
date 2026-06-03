@@ -130,7 +130,7 @@ Normal routing:
 The routing map is:
 
 ```text
-skills/diayn-skill-router/references/upstream-routing-map.md
+maintainers/internal-skills/diayn-skill-router/references/upstream-routing-map.md
 plugins/docs-is-all-you-need/dependency-skills/
 ```
 

@@ -21,17 +21,19 @@ The V1 public surface is exactly 12 workflow skills. Each supported platform sho
 | `/diayn-new` | Controller, Owner UX, Identity Guard | routed after triage | command `new`, change intake references |
 | `/diayn-html` | Owner UX, Controller, Identity Guard | none | command `html`, HTML generator |
 
-Implementation note: older role-skill folders such as `diayn-controller`, `diayn-executor`, `diayn-reviewer`, `diayn-integrator`, `diayn-identity-guard`, `diayn-owner-ux`, and `diayn-skill-router` may be reused as internal/shared source material. They must not remain the only user-installed DIAYN skill surface for DDDV8.
+Implementation note: role/router/scaffold source such as `diayn-controller`,
+`diayn-executor`, `diayn-reviewer`, `diayn-integrator`,
+`diayn-identity-guard`, `diayn-owner-ux`, and `diayn-skill-router` lives under
+`maintainers/internal-skills/` and may be packaged as
+`.diayn/internal-role-skills` metadata. It is not the user-installed DIAYN
+skill surface.
 
 The repository root `skills/` directory is not the install contract by itself.
-It contains implementation source and internal role-reference copies. The
-public V1 install surface is the package surface: 12 `diayn-*` workflow skills
-exposed to the user, plus DIAYN-managed third-party dependency skills when the
-platform needs those dependency skills to be platform-visible. Legacy source
-folders such as `multi-session-*`, `owner-decision-ux`,
-`session-identity-guard`, and `context-compact-reminder` are kept under
-`maintainers/legacy-skills/` for maintainer reference only. They are not
-additional public V1 commands.
+It contains only the 12 public workflow sources. The public V1 install surface
+is the package surface: 12 `diayn-*` workflow skills exposed to the user, plus
+DIAYN-managed third-party dependency skills when the platform needs those
+dependency skills to be platform-visible. Historical legacy role-skill source
+is not part of the public repository.
 
 ## 2. Internal Role References
 
@@ -66,7 +68,7 @@ Rules:
 The routing map lives at:
 
 ```text
-skills/diayn-skill-router/references/upstream-routing-map.md
+maintainers/internal-skills/diayn-skill-router/references/upstream-routing-map.md
 ```
 
 That map should state, for every vendored upstream skill:

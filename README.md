@@ -150,7 +150,7 @@ installed skills root.
 The routing map is:
 
 ```text
-skills/diayn-skill-router/references/upstream-routing-map.md
+maintainers/internal-skills/diayn-skill-router/references/upstream-routing-map.md
 ```
 
 Current evidence proves a representative native routed dependency call on
@@ -160,14 +160,8 @@ contains all 23 dependency skills and a routing rationale for each one, but it
 does not claim every dependency skill has been exhaustively exercised in a live
 workflow.
 
-The Claude skill-creator alignment record is:
-
-```text
-validation/phase9_claude_skill_creator_alignment.json
-```
-
-The Claude skill-authoring authority for that record is Anthropic's official
-skills repository:
+The Claude skill-authoring authority used for local maintainer alignment is
+Anthropic's official skills repository:
 
 ```text
 git@github.com:anthropics/skills.git
@@ -217,13 +211,16 @@ sequenceDiagram
 
 | Path | Purpose |
 | --- | --- |
-| `skills/` | DIAYN source workspace. It includes public workflow source plus internal role/reference source. It is not the install surface. |
-| `maintainers/legacy-skills/` | Maintainer-only legacy D5/D6 skill source, not installable DIAYN V1 skills. |
+| `skills/` | Public DIAYN workflow source. It contains exactly 12 public `/diayn-*` skills. |
+| `maintainers/internal-skills/` | Maintainer-only internal role/router/scaffold source used by package builders. It is not installable public skill surface. |
 | `plugins/docs-is-all-you-need/` | Claude/Codex plugin candidate with exactly 12 public DIAYN workflow skills. |
 | `packages/codex-project-local/` | Codex project-local/Home install package. |
 | `packages/claude-project-local/` | Claude Code bare-command development and validation package. |
 | `plugins/docs-is-all-you-need/dependency-skills/` | Locked DIAYN-managed third-party `agent-skills` payload. |
-| `validation/` | Committed, sanitized validation evidence and release-gate outputs. See `validation/README.md`. |
+
+Maintainer validation outputs are local-only under `validation/` and are ignored
+by Git. They are useful for implementation and release checks, but they are not
+uploaded as repository content because ordinary users do not need them.
 
 ## Current Support Status
 
@@ -245,8 +242,8 @@ app-session runtime proof.
 | Implementation phases | `docs/meta/diayn_v1_implementation_plan.md` |
 | Completion audit | `docs/meta/diayn_v1_completion_audit.md` |
 | Command behavior | `docs/meta/diayn_command_reference.md` |
-| Root `skills/` explanation | `skills/README.md` |
-| Validation evidence policy | `validation/README.md` |
+| Public `skills/` explanation | `skills/README.md` |
+| Internal source explanation | `maintainers/internal-skills/README.md` |
 
 Keep durable facts in repository documents. Keep chat for immediate
 coordination, clarification, and user feedback.

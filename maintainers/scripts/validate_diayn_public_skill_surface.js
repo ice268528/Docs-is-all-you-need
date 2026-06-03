@@ -29,15 +29,6 @@ const internalReferenceSkills = [
   "diayn-skill-router",
   "update-diayn-scaffold",
 ];
-const legacySourceSkills = [
-  "context-compact-reminder",
-  "multi-session-controller",
-  "multi-session-executor",
-  "multi-session-integrator",
-  "multi-session-reviewer",
-  "owner-decision-ux",
-  "session-identity-guard",
-];
 
 function readSkill(skillDir) {
   const skillPath = path.join(skillDir, "SKILL.md");
@@ -127,30 +118,21 @@ function validateSkillSet(root, requireExact) {
 
 function validateRootSourceInventory(rootSkills) {
   const publicSet = new Set(expected);
-  const internalSet = new Set(internalReferenceSkills);
-  const legacySet = new Set(legacySourceSkills);
   const dirs = rootSkills.directories;
   const publicWorkflowSkills = dirs.filter((name) => publicSet.has(name));
-  const internalRoleReferenceSkills = dirs.filter((name) => internalSet.has(name));
-  const legacyInRoot = dirs.filter((name) => legacySet.has(name));
-  const classified = new Set([
-    ...publicWorkflowSkills,
-    ...internalRoleReferenceSkills,
-  ]);
-  const unclassified = dirs.filter((name) => !classified.has(name));
+  const unclassified = dirs.filter((name) => !publicSet.has(name));
   const errors = [];
 
   const readmePath = path.join(repoRoot, "skills", "README.md");
   if (!fs.existsSync(readmePath)) {
-    errors.push("skills/README.md must explain that root skills/ is source material, not an install surface");
+    errors.push("skills/README.md must explain that root skills/ contains only the public workflow source");
   } else {
     const readme = fs.readFileSync(readmePath, "utf8");
     for (const phrase of [
-      "source workspace",
-      "not the install surface",
+      "public workflow source",
+      "exactly 12 public workflow skills",
       "12 public workflow skills",
-      "internal role/reference",
-      "maintainers/legacy-skills",
+      "Internal role/reference source lives in `maintainers/internal-skills/`",
     ]) {
       if (!readme.includes(phrase)) errors.push(`skills/README.md must mention "${phrase}"`);
     }
@@ -159,19 +141,14 @@ function validateRootSourceInventory(rootSkills) {
   if (publicWorkflowSkills.length !== expected.length) {
     errors.push("root skills source inventory must classify exactly 12 public workflow skills");
   }
-  if (legacyInRoot.length > 0) {
-    errors.push(`legacy skill directories must live under maintainers/legacy-skills, not root skills/: ${legacyInRoot.join(", ")}`);
-  }
   if (unclassified.length > 0) {
-    errors.push(`root skills source inventory has unclassified directories: ${unclassified.join(", ")}`);
+    errors.push(`root skills source inventory must not contain non-public skill directories: ${unclassified.join(", ")}`);
   }
 
   return {
     root: "skills",
-    purpose: "source_workspace_not_install_surface",
+    purpose: "public_workflow_source_only",
     public_workflow_skills: publicWorkflowSkills,
-    internal_role_reference_skills: internalRoleReferenceSkills,
-    legacy_in_root: legacyInRoot,
     unclassified,
     readme: "skills/README.md",
     ok: errors.length === 0,
@@ -179,42 +156,54 @@ function validateRootSourceInventory(rootSkills) {
   };
 }
 
-function validateLegacySourceInventory() {
-  const legacyRoot = path.join(repoRoot, "maintainers", "legacy-skills");
+function validateInternalSourceInventory() {
+  const internalRoot = path.join(repoRoot, "maintainers", "internal-skills");
   const errors = [];
   let dirs = [];
-  if (!fs.existsSync(legacyRoot)) {
-    errors.push("maintainers/legacy-skills must contain historical D5/D6 skill sources");
+  if (!fs.existsSync(internalRoot)) {
+    errors.push("maintainers/internal-skills must contain internal role/router/scaffold source");
   } else {
     dirs = fs
-      .readdirSync(legacyRoot, { withFileTypes: true })
+      .readdirSync(internalRoot, { withFileTypes: true })
       .filter((entry) => entry.isDirectory())
       .map((entry) => entry.name)
       .sort();
-    for (const name of legacySourceSkills) {
-      if (!dirs.includes(name)) errors.push(`maintainers/legacy-skills missing ${name}`);
+    for (const name of internalReferenceSkills) {
+      if (!dirs.includes(name)) errors.push(`maintainers/internal-skills missing ${name}`);
     }
-    const extra = dirs.filter((name) => !legacySourceSkills.includes(name));
-    if (extra.length > 0) errors.push(`maintainers/legacy-skills has unclassified directories: ${extra.join(", ")}`);
+    const extra = dirs.filter((name) => !internalReferenceSkills.includes(name));
+    if (extra.length > 0) errors.push(`maintainers/internal-skills has unclassified directories: ${extra.join(", ")}`);
   }
 
-  const readmePath = path.join(legacyRoot, "README.md");
+  const readmePath = path.join(internalRoot, "README.md");
   if (!fs.existsSync(readmePath)) {
-    errors.push("maintainers/legacy-skills/README.md must explain these folders are maintainer-only legacy source");
+    errors.push("maintainers/internal-skills/README.md must explain these folders are maintainer-only internal source");
   } else {
     const readme = fs.readFileSync(readmePath, "utf8");
-    for (const phrase of ["legacy source", "not installable", "not public DIAYN V1 skills"]) {
-      if (!readme.includes(phrase)) errors.push(`maintainers/legacy-skills/README.md must mention "${phrase}"`);
+    for (const phrase of ["internal role/reference source", "not installable", "not public DIAYN V1 skills"]) {
+      if (!readme.includes(phrase)) errors.push(`maintainers/internal-skills/README.md must mention "${phrase}"`);
     }
   }
 
   return {
-    root: "maintainers/legacy-skills",
-    purpose: "maintainer_only_legacy_source",
+    root: "maintainers/internal-skills",
+    purpose: "maintainer_only_internal_source",
     directories: dirs,
-    expected: legacySourceSkills,
+    expected: internalReferenceSkills,
     ok: errors.length === 0,
     errors,
+  };
+}
+
+function validateLegacyDeleted() {
+  const legacyRoot = path.join(repoRoot, "maintainers", "legacy-skills");
+  const exists = fs.existsSync(legacyRoot);
+  return {
+    root: "maintainers/legacy-skills",
+    purpose: "deleted_historical_source",
+    exists,
+    ok: !exists,
+    errors: exists ? ["maintainers/legacy-skills must not be present in the public repository"] : [],
   };
 }
 
@@ -228,13 +217,15 @@ function main() {
   const rootSkills = validateSkillSet(path.join(repoRoot, "skills"), false);
   const pluginSkills = validateSkillSet(path.join(repoRoot, "plugins", "docs-is-all-you-need", "skills"), true);
   const rootSourceInventory = validateRootSourceInventory(rootSkills);
-  const legacySourceInventory = validateLegacySourceInventory();
+  const internalSourceInventory = validateInternalSourceInventory();
+  const legacyDeleted = validateLegacyDeleted();
   const result = {
-    ok: rootSkills.ok && pluginSkills.ok && rootSourceInventory.ok && legacySourceInventory.ok,
+    ok: rootSkills.ok && pluginSkills.ok && rootSourceInventory.ok && internalSourceInventory.ok && legacyDeleted.ok,
     expected_public_skills: expected,
     root_skills: rootSkills,
     root_source_inventory: rootSourceInventory,
-    legacy_source_inventory: legacySourceInventory,
+    internal_source_inventory: internalSourceInventory,
+    legacy_deleted: legacyDeleted,
     plugin_public_skills: pluginSkills,
   };
 

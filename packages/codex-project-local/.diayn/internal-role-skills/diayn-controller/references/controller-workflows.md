@@ -38,7 +38,7 @@ Do not claim upstream guidance was applied unless the local `third_party/agent-s
 Use the bundled helper for `/diayn-worktrees` when the Controller needs deterministic launch evidence:
 
 ```text
-python skills/diayn-controller/scripts/worktree_dry_run.py --repo-root <repo> --project-slug <project_slug>
+python .diayn/internal-role-skills/diayn-controller/scripts/worktree_dry_run.py --repo-root <repo> --project-slug <project_slug>
 ```
 
 Pass `--base <branch-or-commit>` when the current git branch cannot be inspected in the active environment.

@@ -434,7 +434,7 @@ function main() {
         "skills/diayn-init/scripts/harness_audit.py",
         "skills/diayn-worktrees/scripts/worktree_plan.py",
         "skills/diayn-html/scripts/cleanup_plan.py",
-        "skills/update-diayn-scaffold/scripts/scaffold_upgrade_audit.py",
+        "maintainers/internal-skills/update-diayn-scaffold/scripts/scaffold_upgrade_audit.py",
         "validation/phase12_side_scenarios.json",
       ],
     ),

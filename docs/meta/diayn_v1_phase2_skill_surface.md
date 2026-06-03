@@ -31,18 +31,18 @@ Each public `SKILL.md` includes:
 - stop conditions;
 - output expectations.
 
-The repository root `skills/` directory is a source workspace, not the
-install surface. It contains public workflow source plus internal
-role/reference source. Historical D5/D6 skill sources are isolated under
-`maintainers/legacy-skills/`; they are not extra public V1 commands.
+The repository root `skills/` directory now contains only public workflow
+source. Internal role/router/scaffold source lives under
+`maintainers/internal-skills/` and is not public install surface. Historical
+D5/D6 legacy skill source has been removed from the public repository.
 
 Current root source inventory:
 
 ```text
 public_workflow_skills: 12
-internal_role_reference_skills: 8
-legacy_in_root: 0
-legacy_source_inventory: 7
+internal_role_reference_skills_in_root: 0
+internal_role_reference_skills_in_maintainers: 8
+legacy_source_present: false
 unclassified: 0
 ```
 
@@ -88,18 +88,17 @@ Result: `ok: true`.
 Validation checks:
 
 - all 12 expected root workflow skills exist;
-- root `skills/` has a README explaining it is source material, not an install
-  surface;
-- all non-public root skill directories are classified as internal
-  role/reference source;
-- historical D5/D6 skill sources are isolated under
-  `maintainers/legacy-skills/`;
+- root `skills/` has a README explaining it contains only the public workflow
+  source;
+- non-public internal role/router/scaffold source lives under
+  `maintainers/internal-skills/`;
+- historical D5/D6 legacy skill source is not present in the public repository;
 - plugin public skill directory contains exactly the 12 expected workflow skills;
 - each public skill has `SKILL.md` frontmatter;
 - each public skill description mentions the matching `/diayn-*` command;
 - each public skill has progressive startup, allowed writes, and stop conditions.
 
-Evidence file:
+When maintainers run the validator locally, it may write ignored local evidence:
 
 ```text
 validation/phase2_public_skill_surface.json

@@ -9,8 +9,8 @@ const repoRoot = path.resolve(__dirname, "..", "..");
 const vendorRoot = path.join(repoRoot, "third_party", "agent-skills");
 const dependencyRoot = path.join(repoRoot, "plugins", "docs-is-all-you-need", "dependency-skills", "agent-skills");
 const manifestPath = path.join(repoRoot, "plugins", "docs-is-all-you-need", "dependency-skills", "manifest.json");
-const routingMapPath = path.join(repoRoot, "skills", "diayn-skill-router", "references", "upstream-routing-map.md");
-const routerSkillPath = path.join(repoRoot, "skills", "diayn-skill-router", "SKILL.md");
+const routingMapPath = path.join(repoRoot, "maintainers", "internal-skills", "diayn-skill-router", "references", "upstream-routing-map.md");
+const routerSkillPath = path.join(repoRoot, "maintainers", "internal-skills", "diayn-skill-router", "SKILL.md");
 const pluginRouterSkillPath = path.join(
   repoRoot,
   "plugins",

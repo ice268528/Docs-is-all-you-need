@@ -76,7 +76,7 @@ function main() {
   for (const relative of ["SKILL.md", "scripts/scaffold_upgrade_audit.py", "references/scaffold-upgrade-dry-run.md"]) {
     compare(
       errors,
-      path.join(repoRoot, "skills", "update-diayn-scaffold", relative),
+      path.join(repoRoot, "maintainers", "internal-skills", "update-diayn-scaffold", relative),
       path.join(pluginRoot, "internal-role-skills", "update-diayn-scaffold", relative),
       `internal-role-skills/update-diayn-scaffold/${relative}`,
     );

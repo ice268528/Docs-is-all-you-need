@@ -46,22 +46,23 @@ The local references do not satisfy the DDDV8 OpenCode rule:
 - `superpowers` uses an OpenCode plugin to inject bootstrap context and skills paths, not a proven `/diayn-*` workflow-skill trigger.
 - DDDV8 should keep OpenCode out of alpha until direct installed workflow-skill invocation is proven.
 
-## 4. Current DIAYN Package Gap
+## 4. DIAYN Package Shape Resolution
 
-The current DIAYN repository still has an older public role-skill shape:
+Earlier DIAYN prototypes had an older public role-skill shape:
 
 ```text
-skills/diayn-controller/
-skills/diayn-executor/
-skills/diayn-reviewer/
-skills/diayn-integrator/
-skills/diayn-skill-router/
-skills/diayn-identity-guard/
-skills/diayn-owner-ux/
-skills/update-diayn-scaffold/
+diayn-controller
+diayn-executor
+diayn-reviewer
+diayn-integrator
+diayn-skill-router
+diayn-identity-guard
+diayn-owner-ux
+update-diayn-scaffold
 ```
 
-DDDV8 requires a public workflow-skill shape:
+DDDV8 resolves that gap by keeping the public root `skills/` directory to the
+required workflow-skill shape:
 
 ```text
 skills/diayn-init/
@@ -77,6 +78,11 @@ skills/diayn-bug/
 skills/diayn-new/
 skills/diayn-html/
 ```
+
+The role/router/scaffold material remains available only as maintainer internal
+source under `maintainers/internal-skills/` and as packaged
+`.diayn/internal-role-skills` metadata where a platform package needs it. It is
+not an extra public skill surface.
 
 The older role skills can be reused as internal/shared references, but they are not the final public install surface.
 

@@ -39,7 +39,7 @@ HTML is an explanation aid. It does not replace Markdown decision records, infer
 The internal `update-diayn-scaffold` helper remains dry-run first:
 
 ```text
-skills/update-diayn-scaffold/scripts/scaffold_upgrade_audit.py
+maintainers/internal-skills/update-diayn-scaffold/scripts/scaffold_upgrade_audit.py
 ```
 
 It inventories existing content, classifies create/preserve/conflict work, and proposes a migration plan. It has no apply mode and does not claim an upgrade until the Owner approves and the listed edits are actually made.

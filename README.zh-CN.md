@@ -145,7 +145,7 @@ skill id。
 路由表在：
 
 ```text
-skills/diayn-skill-router/references/upstream-routing-map.md
+maintainers/internal-skills/diayn-skill-router/references/upstream-routing-map.md
 ```
 
 当前证据已经证明 Claude Code project-local 上存在代表性的原生路由调用：
@@ -154,13 +154,8 @@ DIAYN 管理的 `idea-refine` skill。安装包包含全部 23 个 dependency sk
 也为每个 skill 写了路由依据；但这不等于 23 个 dependency skills 都已经在真实
 workflow 里逐个完整运行过。
 
-Claude skill-creator 对齐记录在：
-
-```text
-validation/phase9_claude_skill_creator_alignment.json
-```
-
-这份记录采用的 Claude skill 编写权威来源是 Anthropic 官方 skills 仓库：
+本地维护者对齐 Claude skill-creator 时采用的 Claude skill 编写权威来源是
+Anthropic 官方 skills 仓库：
 
 ```text
 git@github.com:anthropics/skills.git
@@ -210,13 +205,15 @@ sequenceDiagram
 
 | 路径 | 作用 |
 | --- | --- |
-| `skills/` | DIAYN 源码工作区，包含公开 workflow 源码和内部参考源码。它不是安装 surface。 |
-| `maintainers/legacy-skills/` | 维护者专用的历史 D5/D6 skill source，不是可安装的 DIAYN V1 skills。 |
+| `skills/` | 公开 DIAYN workflow 源码，只包含 12 个公开 `/diayn-*` skills。 |
+| `maintainers/internal-skills/` | 维护者专用的内部 role/router/scaffold 源码，供打包和实现参考使用，不是可安装的公开 skill surface。 |
 | `plugins/docs-is-all-you-need/` | Claude/Codex plugin candidate，只暴露 12 个公开 DIAYN workflow skills。 |
 | `packages/codex-project-local/` | Codex project-local/Home 安装包和 fixture 路径。 |
 | `packages/claude-project-local/` | Claude Code 裸命令 alpha fallback 和 installed-flow fixture。 |
 | `plugins/docs-is-all-you-need/dependency-skills/` | 锁定的、由 DIAYN 管理的第三方 `agent-skills` 依赖。 |
-| `validation/` | 已提交且清理过的 fixture 证据和 release gate 输出。提交规则见 `validation/README.md`。 |
+
+维护者验证输出放在本地 `validation/` 下，并由 Git 忽略。它们可以给实现者和维护者
+本地查看，但不作为远程仓库内容上传，因为普通用户用不到这些文件。
 
 ## 当前支持状态
 
@@ -238,7 +235,7 @@ runtime 证明。当前验证边界明确停在 Desktop 启动之前。
 | 实现阶段 | `docs/meta/diayn_v1_implementation_plan.md` |
 | 完成度审计 | `docs/meta/diayn_v1_completion_audit.md` |
 | 命令行为 | `docs/meta/diayn_command_reference.md` |
-| 根目录 `skills/` 为什么有额外目录 | `skills/README.md` |
-| validation 目录提交规则 | `validation/README.md` |
+| 公开 `skills/` 目录说明 | `skills/README.md` |
+| 内部源码目录说明 | `maintainers/internal-skills/README.md` |
 
 长期事实写进仓库文档；聊天只用于即时协作、澄清和反馈。

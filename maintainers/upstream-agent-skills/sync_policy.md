@@ -49,13 +49,26 @@ When upstream guidance conflicts with DIAYN control-plane rules, DIAYN wins. If 
 
 Do not overwrite these paths from upstream:
 
-- `maintainers/legacy-skills/multi-session-controller/`
-- `maintainers/legacy-skills/multi-session-executor/`
-- `maintainers/legacy-skills/multi-session-reviewer/`
-- `maintainers/legacy-skills/multi-session-integrator/`
-- `maintainers/legacy-skills/session-identity-guard/`
-- `maintainers/legacy-skills/owner-decision-ux/`
-- `maintainers/legacy-skills/context-compact-reminder/`
+- `skills/diayn-init/`
+- `skills/diayn-plan/`
+- `skills/diayn-worktrees/`
+- `skills/diayn-backend/`
+- `skills/diayn-frontend/`
+- `skills/diayn-review-backend/`
+- `skills/diayn-review-frontend/`
+- `skills/diayn-sync/`
+- `skills/diayn-integration/`
+- `skills/diayn-bug/`
+- `skills/diayn-new/`
+- `skills/diayn-html/`
+- `maintainers/internal-skills/diayn-controller/`
+- `maintainers/internal-skills/diayn-executor/`
+- `maintainers/internal-skills/diayn-reviewer/`
+- `maintainers/internal-skills/diayn-integrator/`
+- `maintainers/internal-skills/diayn-skill-router/`
+- `maintainers/internal-skills/diayn-identity-guard/`
+- `maintainers/internal-skills/diayn-owner-ux/`
+- `maintainers/internal-skills/update-diayn-scaffold/`
 - `docs/meta/multi_session_collaboration_protocol.md`
 - `docs/meta/session_roles.md`
 - `docs/meta/status_model.md`

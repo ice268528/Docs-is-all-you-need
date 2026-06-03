@@ -20,8 +20,8 @@ Final decisions must be preserved in Markdown or formal project docs whether HTM
 Optional deterministic helper:
 
 ```text
-python skills/diayn-owner-ux/scripts/diayn_html_generator.py --mode decision --output <path.html> --data <decision.json>
-python skills/diayn-owner-ux/scripts/diayn_html_generator.py --mode report --output <path.html> --data <report.json>
+python .diayn/internal-role-skills/diayn-owner-ux/scripts/diayn_html_generator.py --mode decision --output <path.html> --data <decision.json>
+python .diayn/internal-role-skills/diayn-owner-ux/scripts/diayn_html_generator.py --mode report --output <path.html> --data <report.json>
 ```
 
 The helper formats provided facts only. It does not infer missing decisions or summarize a report by itself. If only raw report text is provided, the page must say which facts still need human or agent interpretation.

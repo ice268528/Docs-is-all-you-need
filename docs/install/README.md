@@ -59,22 +59,21 @@ This repository now contains DDDV8 public workflow skills, progressively disclos
 - repository-root Claude/Codex plugin entrypoints under `.claude-plugin/` and `.codex-plugin/`;
 - a local Codex plugin candidate under `plugins/docs-is-all-you-need/`;
 - Claude Code and OpenCode adapter notes under `integrations/`;
-- a controlled fixture under `validation/minimal-fullstack-fixture/`;
 - vendored upstream `agent-skills` under `third_party/agent-skills/`.
 
-The repository root `skills/` directory is implementation source material, not
-the install surface. The install surface is determined by the package being
-installed: the Codex plugin candidate exposes only
+The repository root `skills/` directory now contains only the 12 public
+workflow skill sources. Internal role/router/scaffold sources live under
+`maintainers/internal-skills/` and are copied into package metadata where
+needed. The install surface is determined by the package being installed:
+the Codex plugin candidate exposes only
 `plugins/docs-is-all-you-need/skills/diayn-*`, and the Codex project-local/Home
 package installs 12 public `diayn-*` workflow skills plus 23 DIAYN-managed
 third-party dependency skills. Role-only folders such as `diayn-controller`
-are internal source material. Legacy folders such as `multi-session-*`,
-`owner-decision-ux`, `session-identity-guard`, and
-`context-compact-reminder` live under `maintainers/legacy-skills/` only. They
 are not extra V1 public commands and should not be treated as proof of a
 correct DIAYN install.
-The root source layout is documented in `skills/README.md` and validated by
-`validation/phase2_public_skill_surface.json`.
+The root source layout is documented in `skills/README.md`.
+Maintainer validation outputs are local-only under `validation/` and ignored by
+Git; they are not uploaded as public repository content.
 Real target installs report pre-existing non-package skills separately from the
 DIAYN V1 package and preserve them unless a separate cleanup action is
 explicitly authorized.
@@ -120,13 +119,10 @@ package/install scope is also validated: the package shape, install commands,
 and installed directory inspection pass. Codex Desktop app-session runtime is
 outside the current validation scope and is not claimed.
 
-Current installed-flow audit:
+Current installed-flow audit documents:
 
 ```text
 docs/meta/diayn_v1_phase9_installed_flow_audit.md
-validation/phase9_capability_matrix.json
-validation/phase9_release_gate.json
-validation/phase9_codex_runtime_external_evidence_selftest.json
 ```
 
 The current installed-flow audit uses `phase9_*` artifact names from the
