@@ -166,6 +166,13 @@ The Claude skill-creator alignment record is:
 validation/phase9_claude_skill_creator_alignment.json
 ```
 
+The Claude skill-authoring authority for that record is Anthropic's official
+skills repository:
+
+```text
+git@github.com:anthropics/skills.git
+```
+
 It prepares per-skill trigger eval seeds and keeps the boundary that no
 with-skill vs baseline benchmark has been committed yet.
 

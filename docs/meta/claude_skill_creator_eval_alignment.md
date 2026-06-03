@@ -10,8 +10,11 @@ installation, and validation rules.
 Reference authority:
 
 ```text
-<path-to-claude-skill-creator>
+git@github.com:anthropics/skills.git
 ```
+
+When this document shows `<claude-skill-creator>` in a command, it means the
+local checkout path for that official Anthropic `skills` repository.
 
 ## Current Scope
 

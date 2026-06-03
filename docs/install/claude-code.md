@@ -184,8 +184,11 @@ expectations, not Codex's `skill-creator`.
 Claude skill-authoring reference used for this repository:
 
 ```text
-<path-to-claude-skill-creator>
+git@github.com:anthropics/skills.git
 ```
+
+For local evaluation commands, `<claude-skill-creator>` means the local checkout
+of that official Anthropic `skills` repository.
 
 Key implications:
 

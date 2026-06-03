@@ -160,6 +160,12 @@ Claude skill-creator 对齐记录在：
 validation/phase9_claude_skill_creator_alignment.json
 ```
 
+这份记录采用的 Claude skill 编写权威来源是 Anthropic 官方 skills 仓库：
+
+```text
+git@github.com:anthropics/skills.git
+```
+
 它准备了每个 workflow skill 的触发评测种子，并明确保留边界：目前还没有提交
 with-skill vs baseline benchmark 结果。
 

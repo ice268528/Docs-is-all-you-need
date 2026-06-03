@@ -138,7 +138,7 @@ function main() {
     ok: errors.length === 0,
     date: "2026-06-02",
     surface: "claude_code_cli_project_local",
-    reference: "<path-to-claude-skill-creator>",
+    reference: "git@github.com:anthropics/skills.git",
     alignment_doc: "docs/meta/claude_skill_creator_eval_alignment.md",
     trigger_eval_sets: "validation/claude_skill_creator_trigger_eval_sets.json",
     expected_workflow_skill_count: expectedWorkflowSkills.length,
