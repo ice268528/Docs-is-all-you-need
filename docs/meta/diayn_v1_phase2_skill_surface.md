@@ -32,17 +32,17 @@ Each public `SKILL.md` includes:
 - output expectations.
 
 The repository root `skills/` directory is a source workspace, not the
-install surface. It also contains internal role/reference source and historical
-implementation source. Those folders are classified in `skills/README.md` and
-in `validation/phase2_public_skill_surface.json`; they are not extra public
-V1 commands.
+install surface. It contains public workflow source plus internal
+role/reference source. Historical D5/D6 skill sources are isolated under
+`maintainers/legacy-skills/`; they are not extra public V1 commands.
 
 Current root source inventory:
 
 ```text
 public_workflow_skills: 12
 internal_role_reference_skills: 8
-historical_implementation_source: 7
+legacy_in_root: 0
+legacy_source_inventory: 7
 unclassified: 0
 ```
 
@@ -91,7 +91,9 @@ Validation checks:
 - root `skills/` has a README explaining it is source material, not an install
   surface;
 - all non-public root skill directories are classified as internal
-  role/reference source or historical implementation source;
+  role/reference source;
+- historical D5/D6 skill sources are isolated under
+  `maintainers/legacy-skills/`;
 - plugin public skill directory contains exactly the 12 expected workflow skills;
 - each public skill has `SKILL.md` frontmatter;
 - each public skill description mentions the matching `/diayn-*` command;

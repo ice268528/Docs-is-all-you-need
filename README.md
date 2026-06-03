@@ -217,12 +217,13 @@ sequenceDiagram
 
 | Path | Purpose |
 | --- | --- |
-| `skills/` | DIAYN source workspace. It includes public workflow source plus internal/historical source. It is not the install surface. |
+| `skills/` | DIAYN source workspace. It includes public workflow source plus internal role/reference source. It is not the install surface. |
+| `maintainers/legacy-skills/` | Maintainer-only legacy D5/D6 skill source, not installable DIAYN V1 skills. |
 | `plugins/docs-is-all-you-need/` | Claude/Codex plugin candidate with exactly 12 public DIAYN workflow skills. |
 | `packages/codex-project-local/` | Codex project-local/Home install package. |
 | `packages/claude-project-local/` | Claude Code bare-command development and validation package. |
 | `plugins/docs-is-all-you-need/dependency-skills/` | Locked DIAYN-managed third-party `agent-skills` payload. |
-| `validation/` | Committed validation evidence and release-gate outputs. |
+| `validation/` | Committed, sanitized validation evidence and release-gate outputs. See `validation/README.md`. |
 
 ## Current Support Status
 
@@ -245,6 +246,7 @@ app-session runtime proof.
 | Completion audit | `docs/meta/diayn_v1_completion_audit.md` |
 | Command behavior | `docs/meta/diayn_command_reference.md` |
 | Root `skills/` explanation | `skills/README.md` |
+| Validation evidence policy | `validation/README.md` |
 
 Keep durable facts in repository documents. Keep chat for immediate
 coordination, clarification, and user feedback.

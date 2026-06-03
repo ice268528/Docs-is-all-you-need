@@ -24,13 +24,14 @@ The V1 public surface is exactly 12 workflow skills. Each supported platform sho
 Implementation note: older role-skill folders such as `diayn-controller`, `diayn-executor`, `diayn-reviewer`, `diayn-integrator`, `diayn-identity-guard`, `diayn-owner-ux`, and `diayn-skill-router` may be reused as internal/shared source material. They must not remain the only user-installed DIAYN skill surface for DDDV8.
 
 The repository root `skills/` directory is not the install contract by itself.
-It may contain implementation source, historical D5/D6 skill folders, or
-internal role-reference copies. The public V1 install surface is the package
-surface: 12 `diayn-*` workflow skills exposed to the user, plus
-DIAYN-managed third-party dependency skills when the platform needs those
-dependency skills to be platform-visible. Legacy folders such as
-`multi-session-*`, `owner-decision-ux`, `session-identity-guard`, or
-`context-compact-reminder` are not additional public V1 commands.
+It contains implementation source and internal role-reference copies. The
+public V1 install surface is the package surface: 12 `diayn-*` workflow skills
+exposed to the user, plus DIAYN-managed third-party dependency skills when the
+platform needs those dependency skills to be platform-visible. Legacy source
+folders such as `multi-session-*`, `owner-decision-ux`,
+`session-identity-guard`, and `context-compact-reminder` are kept under
+`maintainers/legacy-skills/` for maintainer reference only. They are not
+additional public V1 commands.
 
 ## 2. Internal Role References
 

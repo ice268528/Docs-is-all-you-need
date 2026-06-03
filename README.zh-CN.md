@@ -210,12 +210,13 @@ sequenceDiagram
 
 | 路径 | 作用 |
 | --- | --- |
-| `skills/` | DIAYN 源码工作区，包含公开 workflow 源码、内部参考源码和历史源码。它不是安装 surface。 |
+| `skills/` | DIAYN 源码工作区，包含公开 workflow 源码和内部参考源码。它不是安装 surface。 |
+| `maintainers/legacy-skills/` | 维护者专用的历史 D5/D6 skill source，不是可安装的 DIAYN V1 skills。 |
 | `plugins/docs-is-all-you-need/` | Claude/Codex plugin candidate，只暴露 12 个公开 DIAYN workflow skills。 |
 | `packages/codex-project-local/` | Codex project-local/Home 安装包和 fixture 路径。 |
 | `packages/claude-project-local/` | Claude Code 裸命令 alpha fallback 和 installed-flow fixture。 |
 | `plugins/docs-is-all-you-need/dependency-skills/` | 锁定的、由 DIAYN 管理的第三方 `agent-skills` 依赖。 |
-| `validation/` | 已提交的 fixture 证据和 release gate 输出。Codex package/install 证据会提交；app-session runtime 证据是后续可选证据。 |
+| `validation/` | 已提交且清理过的 fixture 证据和 release gate 输出。提交规则见 `validation/README.md`。 |
 
 ## 当前支持状态
 
@@ -238,5 +239,6 @@ runtime 证明。当前验证边界明确停在 Desktop 启动之前。
 | 完成度审计 | `docs/meta/diayn_v1_completion_audit.md` |
 | 命令行为 | `docs/meta/diayn_command_reference.md` |
 | 根目录 `skills/` 为什么有额外目录 | `skills/README.md` |
+| validation 目录提交规则 | `validation/README.md` |
 
 长期事实写进仓库文档；聊天只用于即时协作、澄清和反馈。

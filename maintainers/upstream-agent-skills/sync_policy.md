@@ -49,13 +49,13 @@ When upstream guidance conflicts with DIAYN control-plane rules, DIAYN wins. If 
 
 Do not overwrite these paths from upstream:
 
-- `skills/multi-session-controller/`
-- `skills/multi-session-executor/`
-- `skills/multi-session-reviewer/`
-- `skills/multi-session-integrator/`
-- `skills/session-identity-guard/`
-- `skills/owner-decision-ux/`
-- `skills/context-compact-reminder/`
+- `maintainers/legacy-skills/multi-session-controller/`
+- `maintainers/legacy-skills/multi-session-executor/`
+- `maintainers/legacy-skills/multi-session-reviewer/`
+- `maintainers/legacy-skills/multi-session-integrator/`
+- `maintainers/legacy-skills/session-identity-guard/`
+- `maintainers/legacy-skills/owner-decision-ux/`
+- `maintainers/legacy-skills/context-compact-reminder/`
 - `docs/meta/multi_session_collaboration_protocol.md`
 - `docs/meta/session_roles.md`
 - `docs/meta/status_model.md`

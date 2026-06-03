@@ -45,25 +45,6 @@ These are not extra public V1 commands. They are implementation references for
 Controller, Executor, Reviewer, Integrator, Owner UX, Identity Guard, Skill
 Router, and scaffold-upgrade behavior.
 
-## Historical Implementation Source
-
-Some folders are historical implementation source retained from earlier D5/D6
-iterations:
-
-```text
-context-compact-reminder
-multi-session-controller
-multi-session-executor
-multi-session-integrator
-multi-session-reviewer
-owner-decision-ux
-session-identity-guard
-```
-
-These folders are not part of the public V1 command surface. Treat them as
-historical implementation source unless a later maintainer task explicitly
-updates, migrates, or removes them.
-
 ## Install Surfaces
 
 Installable DIAYN surfaces are separate from this source workspace:
@@ -74,3 +55,16 @@ Installable DIAYN surfaces are separate from this source workspace:
 
 Those package surfaces are the places to check for installable public commands.
 The root `skills/` directory is where implementation source lives.
+
+## Legacy Source
+
+Historical D5/D6 skill sources live outside this directory:
+
+```text
+maintainers/legacy-skills/
+```
+
+Do not move legacy `multi-session-*`, `owner-decision-ux`,
+`session-identity-guard`, or `context-compact-reminder` folders back into
+`skills/`. They are retained only for maintainer reference and must not be
+treated as installable DIAYN V1 skills.

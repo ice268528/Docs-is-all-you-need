@@ -18,7 +18,6 @@
     "root": "skills",
     "requireExact": false,
     "directories": [
-      "context-compact-reminder",
       "diayn-backend",
       "diayn-bug",
       "diayn-controller",
@@ -38,12 +37,6 @@
       "diayn-skill-router",
       "diayn-sync",
       "diayn-worktrees",
-      "multi-session-controller",
-      "multi-session-executor",
-      "multi-session-integrator",
-      "multi-session-reviewer",
-      "owner-decision-ux",
-      "session-identity-guard",
       "update-diayn-scaffold"
     ],
     "expected": [
@@ -142,7 +135,16 @@
       "diayn-skill-router",
       "update-diayn-scaffold"
     ],
-    "historical_implementation_source": [
+    "legacy_in_root": [],
+    "unclassified": [],
+    "readme": "skills/README.md",
+    "ok": true,
+    "errors": []
+  },
+  "legacy_source_inventory": {
+    "root": "maintainers/legacy-skills",
+    "purpose": "maintainer_only_legacy_source",
+    "directories": [
       "context-compact-reminder",
       "multi-session-controller",
       "multi-session-executor",
@@ -151,8 +153,15 @@
       "owner-decision-ux",
       "session-identity-guard"
     ],
-    "unclassified": [],
-    "readme": "skills/README.md",
+    "expected": [
+      "context-compact-reminder",
+      "multi-session-controller",
+      "multi-session-executor",
+      "multi-session-integrator",
+      "multi-session-reviewer",
+      "owner-decision-ux",
+      "session-identity-guard"
+    ],
     "ok": true,
     "errors": []
   },

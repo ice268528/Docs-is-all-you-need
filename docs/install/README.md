@@ -67,10 +67,12 @@ the install surface. The install surface is determined by the package being
 installed: the Codex plugin candidate exposes only
 `plugins/docs-is-all-you-need/skills/diayn-*`, and the Codex project-local/Home
 package installs 12 public `diayn-*` workflow skills plus 23 DIAYN-managed
-third-party dependency skills. Older root folders such as `multi-session-*`,
-`owner-decision-ux`, `session-identity-guard`, or role-only `diayn-controller`
-copies are historical/internal source material. They are not extra V1 public
-commands and should not be treated as proof of a correct DIAYN install.
+third-party dependency skills. Role-only folders such as `diayn-controller`
+are internal source material. Legacy folders such as `multi-session-*`,
+`owner-decision-ux`, `session-identity-guard`, and
+`context-compact-reminder` live under `maintainers/legacy-skills/` only. They
+are not extra V1 public commands and should not be treated as proof of a
+correct DIAYN install.
 The root source layout is documented in `skills/README.md` and validated by
 `validation/phase2_public_skill_surface.json`.
 Real target installs report pre-existing non-package skills separately from the

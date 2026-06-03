@@ -29,7 +29,7 @@ const internalReferenceSkills = [
   "diayn-skill-router",
   "update-diayn-scaffold",
 ];
-const historicalSourceSkills = [
+const legacySourceSkills = [
   "context-compact-reminder",
   "multi-session-controller",
   "multi-session-executor",
@@ -128,15 +128,14 @@ function validateSkillSet(root, requireExact) {
 function validateRootSourceInventory(rootSkills) {
   const publicSet = new Set(expected);
   const internalSet = new Set(internalReferenceSkills);
-  const historicalSet = new Set(historicalSourceSkills);
+  const legacySet = new Set(legacySourceSkills);
   const dirs = rootSkills.directories;
   const publicWorkflowSkills = dirs.filter((name) => publicSet.has(name));
   const internalRoleReferenceSkills = dirs.filter((name) => internalSet.has(name));
-  const historicalImplementationSource = dirs.filter((name) => historicalSet.has(name));
+  const legacyInRoot = dirs.filter((name) => legacySet.has(name));
   const classified = new Set([
     ...publicWorkflowSkills,
     ...internalRoleReferenceSkills,
-    ...historicalImplementationSource,
   ]);
   const unclassified = dirs.filter((name) => !classified.has(name));
   const errors = [];
@@ -151,7 +150,7 @@ function validateRootSourceInventory(rootSkills) {
       "not the install surface",
       "12 public workflow skills",
       "internal role/reference",
-      "historical implementation source",
+      "maintainers/legacy-skills",
     ]) {
       if (!readme.includes(phrase)) errors.push(`skills/README.md must mention "${phrase}"`);
     }
@@ -159,6 +158,9 @@ function validateRootSourceInventory(rootSkills) {
 
   if (publicWorkflowSkills.length !== expected.length) {
     errors.push("root skills source inventory must classify exactly 12 public workflow skills");
+  }
+  if (legacyInRoot.length > 0) {
+    errors.push(`legacy skill directories must live under maintainers/legacy-skills, not root skills/: ${legacyInRoot.join(", ")}`);
   }
   if (unclassified.length > 0) {
     errors.push(`root skills source inventory has unclassified directories: ${unclassified.join(", ")}`);
@@ -169,9 +171,48 @@ function validateRootSourceInventory(rootSkills) {
     purpose: "source_workspace_not_install_surface",
     public_workflow_skills: publicWorkflowSkills,
     internal_role_reference_skills: internalRoleReferenceSkills,
-    historical_implementation_source: historicalImplementationSource,
+    legacy_in_root: legacyInRoot,
     unclassified,
     readme: "skills/README.md",
+    ok: errors.length === 0,
+    errors,
+  };
+}
+
+function validateLegacySourceInventory() {
+  const legacyRoot = path.join(repoRoot, "maintainers", "legacy-skills");
+  const errors = [];
+  let dirs = [];
+  if (!fs.existsSync(legacyRoot)) {
+    errors.push("maintainers/legacy-skills must contain historical D5/D6 skill sources");
+  } else {
+    dirs = fs
+      .readdirSync(legacyRoot, { withFileTypes: true })
+      .filter((entry) => entry.isDirectory())
+      .map((entry) => entry.name)
+      .sort();
+    for (const name of legacySourceSkills) {
+      if (!dirs.includes(name)) errors.push(`maintainers/legacy-skills missing ${name}`);
+    }
+    const extra = dirs.filter((name) => !legacySourceSkills.includes(name));
+    if (extra.length > 0) errors.push(`maintainers/legacy-skills has unclassified directories: ${extra.join(", ")}`);
+  }
+
+  const readmePath = path.join(legacyRoot, "README.md");
+  if (!fs.existsSync(readmePath)) {
+    errors.push("maintainers/legacy-skills/README.md must explain these folders are maintainer-only legacy source");
+  } else {
+    const readme = fs.readFileSync(readmePath, "utf8");
+    for (const phrase of ["legacy source", "not installable", "not public DIAYN V1 skills"]) {
+      if (!readme.includes(phrase)) errors.push(`maintainers/legacy-skills/README.md must mention "${phrase}"`);
+    }
+  }
+
+  return {
+    root: "maintainers/legacy-skills",
+    purpose: "maintainer_only_legacy_source",
+    directories: dirs,
+    expected: legacySourceSkills,
     ok: errors.length === 0,
     errors,
   };
@@ -187,11 +228,13 @@ function main() {
   const rootSkills = validateSkillSet(path.join(repoRoot, "skills"), false);
   const pluginSkills = validateSkillSet(path.join(repoRoot, "plugins", "docs-is-all-you-need", "skills"), true);
   const rootSourceInventory = validateRootSourceInventory(rootSkills);
+  const legacySourceInventory = validateLegacySourceInventory();
   const result = {
-    ok: rootSkills.ok && pluginSkills.ok && rootSourceInventory.ok,
+    ok: rootSkills.ok && pluginSkills.ok && rootSourceInventory.ok && legacySourceInventory.ok,
     expected_public_skills: expected,
     root_skills: rootSkills,
     root_source_inventory: rootSourceInventory,
+    legacy_source_inventory: legacySourceInventory,
     plugin_public_skills: pluginSkills,
   };
 

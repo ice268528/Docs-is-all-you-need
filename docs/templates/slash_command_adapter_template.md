@@ -16,7 +16,7 @@
 
 ## Preflight
 
-1. Run `session-identity-guard`.
+1. Run `diayn-identity-guard`.
 2. Confirm role and lane.
 3. Confirm current path and manifest or local identity when available.
 4. Confirm allowed read and write boundaries.
