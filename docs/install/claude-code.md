@@ -66,13 +66,13 @@ The public command surface remains exactly 12 workflow commands:
 Before marketplace publication, use Claude Code's local plugin loading path:
 
 ```powershell
-claude --plugin-dir E:\Allproject\VscodeProject\docs_is_all_you_need_for_AGENTS\Docs-is-all-you-need
+claude --plugin-dir <path-to-this-repo>
 ```
 
 The inner candidate can still be loaded for focused plugin-dir debugging:
 
 ```powershell
-claude --plugin-dir E:\Allproject\VscodeProject\docs_is_all_you_need_for_AGENTS\Docs-is-all-you-need\plugins\docs-is-all-you-need
+claude --plugin-dir <path-to-this-repo>\plugins\docs-is-all-you-need
 ```
 
 This is the Claude-Code-native development equivalent of the local/plugin-dir
@@ -181,10 +181,10 @@ validation/phase12_side_scenarios.json
 DIAYN Claude Code skills should be evaluated against Claude Code skill
 expectations, not Codex's `skill-creator`.
 
-Local Claude reference used for this repository:
+Claude skill-authoring reference used for this repository:
 
 ```text
-E:\Allproject\VscodeProject\docs_is_all_you_need_for_AGENTS\claude_skills\skills\skill-creator
+<path-to-claude-skill-creator>
 ```
 
 Key implications:

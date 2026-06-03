@@ -154,7 +154,7 @@ function main() {
       codexPackage.dependency_skill_count === 23 &&
       codexPackage.total_project_local_skill_count === 35 &&
       codexPackage.runtime_validation &&
-      codexPackage.runtime_validation.direct_diayn_invocation === "not_attempted_by_owner_instruction"
+      codexPackage.runtime_validation.direct_diayn_invocation === "not_attempted_current_scope"
   );
   const codexExternalRuntimeEvidenceOk = Boolean(
     codexExternalRuntimeEvidence &&
@@ -235,7 +235,7 @@ function main() {
   const codexDesktopAppSessionRuntimeNotClaimed = Boolean(
     matrix &&
       matrix.validation_scope &&
-      matrix.validation_scope.codex_desktop_app_session_runtime === "not_attempted_by_owner_instruction" &&
+      matrix.validation_scope.codex_desktop_app_session_runtime === "not_attempted_current_scope" &&
       matrix.validation_scope.codex_runtime_claim_allowed === false &&
       matrix.surfaces &&
       matrix.surfaces.codex_desktop &&
@@ -265,7 +265,7 @@ function main() {
       releaseGate.phase12_side_scenarios_ok === true &&
       releaseGate.claude_skill_creator_alignment_ok === true &&
       releaseGate.codex_package_install_scope_ok === true &&
-      releaseGate.codex_app_session_runtime_not_attempted_by_owner_boundary_ok === true &&
+      releaseGate.codex_app_session_runtime_current_scope_boundary_ok === true &&
       Array.isArray(releaseGate.supported_alpha_surfaces) &&
       releaseGate.supported_alpha_surfaces.includes("claude_code_cli_project_local") &&
       releaseGate.supported_alpha_surfaces.includes("codex_package_install") &&
@@ -483,7 +483,7 @@ function main() {
     schema: "diayn.dddv8.completion_audit.v1",
     ok: errors.length === 0,
     goal_complete: goalComplete,
-    completion_status: goalComplete ? "complete_for_owner_approved_package_install_scope" : "incomplete",
+    completion_status: goalComplete ? "complete_for_package_install_scope" : "incomplete",
     release_ready: Boolean(releaseGate && releaseGate.release_ready === true),
     supported_alpha_surfaces: supportedAlphaSurfaces,
     blocked_surfaces: blockedSurfaces,
@@ -494,10 +494,10 @@ function main() {
     surface_summary: {
       claude_code_cli_project_local: installedFlowOk ? "proven_full_flow" : "not_proven",
       codex_package_install: codexPackageInstallScopeOk
-        ? "package_install_validated_app_session_runtime_not_attempted_by_owner_instruction"
+        ? "package_install_validated_app_session_runtime_not_attempted_current_scope"
         : "not_proven",
       codex_desktop_app_session_runtime: codexDesktopAppSessionRuntimeNotClaimed
-        ? "not_attempted_by_owner_instruction_not_claimed"
+        ? "not_attempted_current_scope_not_claimed"
         : "unknown",
       opencode_cli: opencodeDeferred ? "deferred_by_requirement" : "unknown",
     },
@@ -526,7 +526,7 @@ function main() {
           "validation/phase9_codex_runtime_external_evidence.json",
           "validation/phase9_codex_runtime_external_evidence_selftest.json",
         ],
-        boundary: "Codex Desktop app-session runtime was not attempted by Owner instruction and is not claimed.",
+        boundary: "Codex Desktop app-session runtime requires separate runtime evidence and is not claimed.",
       },
       opencode_cli: {
         status: opencodeDeferred ? "deferred_by_requirement" : "unknown",

@@ -10,13 +10,12 @@ node maintainers/scripts/validate_diayn_dddv8_completion_audit.js --json validat
 
 ## Current Result
 
-The DDDV8 implementation is complete for the current Owner-approved validation
-scope.
+The DDDV8 implementation is complete for the current validation scope.
 
 Current completion status:
 
 ```text
-complete_for_owner_approved_package_install_scope
+complete_for_package_install_scope
 ```
 
 The machine audit separates total-goal completion from surface-specific support:
@@ -59,8 +58,7 @@ There is no remaining blocker for the current validation scope.
 `W9-CODEX-RUNTIME-NOT-ATTEMPTED`: Codex package/install scope is validated
 through install commands and directory inspection, but Codex Desktop
 app-session discovery, direct `/diayn-*` invocation, and native
-dependency-skill invocation were not attempted by Owner instruction and must
-not be claimed.
+dependency-skill invocation require separate runtime evidence before they can be claimed.
 
 A future Desktop runtime claim can use
 `docs/install/codex_runtime_external_evidence_template.json` and

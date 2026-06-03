@@ -1,7 +1,7 @@
 {
   "schema": "diayn.claude_skill_creator_trigger_eval_sets.v1",
   "date": "2026-06-02",
-  "reference": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\claude_skills\\skills\\skill-creator\\scripts\\run_eval.py",
+  "reference": "<path-to-claude-skill-creator>\\scripts\\run_eval.py",
   "purpose": "Seed trigger evals for the 12 DIAYN public workflow skills. These are ready for future Claude skill-creator trigger evaluation but are not recorded as executed benchmark results.",
   "eval_sets": {
     "diayn-init": [

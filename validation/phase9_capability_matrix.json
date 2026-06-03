@@ -13,10 +13,10 @@
   ],
   "validation_scope": {
     "codex_install_verification": "install_command_and_directory_inspection",
-    "codex_desktop_app_session_runtime": "not_attempted_by_owner_instruction",
+    "codex_desktop_app_session_runtime": "not_attempted_current_scope",
     "codex_desktop_launch_required": false,
     "codex_runtime_claim_allowed": false,
-    "notes": "Per Owner instruction on 2026-06-02, current Codex validation stops at running the install command and inspecting the installed directory shape. Codex Desktop app-session launch, discovery, and /diayn-* runtime invocation are intentionally not attempted and are not claimed."
+    "notes": "Current Codex validation stops at running the install command and inspecting the installed directory shape. Codex Desktop app-session launch, discovery, and /diayn-* runtime invocation are intentionally not attempted and are not claimed."
   },
   "static_evidence": {
     "phase2_public_skill_surface": "validation/phase2_public_skill_surface.json",
@@ -60,18 +60,18 @@
         "static_validation": "ok",
         "install_fixture": "validation/phase9_codex_project_local_install_fixture.json",
         "codex_home_install_fixture": "validation/phase9_codex_home_install_fixture.json",
-        "runtime_validation": "not_attempted_by_owner_instruction",
+        "runtime_validation": "not_attempted_current_scope",
         "external_runtime_evidence": "validation/phase9_codex_runtime_external_evidence.json",
         "external_runtime_evidence_selftest": "validation/phase9_codex_runtime_external_evidence_selftest.json"
       },
       "validation_boundary": {
         "install_command_and_directory_inspection": "validated",
-        "desktop_app_session_runtime": "not_attempted_by_owner_instruction",
+        "desktop_app_session_runtime": "not_attempted_current_scope",
         "notes": "Do not launch Codex Desktop for this validation scope. The current proof is package shape plus executed project-local and Codex-home install fixtures with directory inspection."
       },
       "bare_diayn_invocation": "package_install_validated_app_session_not_attempted",
       "dependency_native_invocation": "package_install_validated_app_session_not_attempted",
-      "full_flow": "not_run_for_codex_app_session_by_owner_instruction",
+      "full_flow": "not_run_for_codex_app_session_current_scope",
       "package_install_claim_allowed": true,
       "alpha_claim_allowed": false
     },
@@ -214,14 +214,14 @@
       "next-stage baseline refresh"
     ],
     "installed_flow_status": "complete_for_claude_project_local_package_primary_flow_with_phase12_side_scenarios",
-    "reason": "Claude project-local packaging passes bare-command, direct dependency-skill, DIAYN workflow routed dependency-skill smoke probes, and 12-command workflow-entry probes. A clean installed-flow fixture has now run all 12 public commands from an installed project-local package: /diayn-init -> /diayn-plan -> /diayn-worktrees -> /diayn-backend -> /diayn-frontend -> /diayn-review-backend -> /diayn-review-frontend -> /diayn-sync -> /diayn-integration -> /diayn-html -> /diayn-bug -> /diayn-new. It proves package installation, clean baseline, local E2E, native workflow entry, scaffold creation, planning artifacts, authorized worktree creation, backend/frontend lane execution and review, document-only sync, integration evidence, durable Owner acceptance, no-active-bug side-scenario triage, closeout, next-stage baseline refresh, and per-command fixture checkpoints. Phase 12 side-scenario validation additionally proves non-Git handling, existing-project conflict reports, dirty preflight, not_applicable lane behavior, interrupted recovery, scaffold migration dry-run, dependency substitution policy, privacy/network defaults, and cleanup boundaries. Codex package/install validation now also has a statically validated project-local .codex/skills package shape with 12 workflow skills and 23 DIAYN-managed dependency skills, an executed project-local install fixture that writes the package into .codex/skills shape, an executed Codex-home install fixture that writes the package into CODEX_HOME skills shape, and inspected installed directory evidence. Per Owner instruction on 2026-06-02, Codex Desktop app-session launch/runtime invocation is intentionally not attempted and is not claimed. The release claim is therefore complete for Claude project-local plus Codex package/install scope, with a warning that Codex Desktop app-session runtime remains outside the current validation scope."
+    "reason": "Claude project-local packaging passes bare-command, direct dependency-skill, DIAYN workflow routed dependency-skill smoke probes, and 12-command workflow-entry probes. A clean installed-flow fixture has now run all 12 public commands from an installed project-local package: /diayn-init -> /diayn-plan -> /diayn-worktrees -> /diayn-backend -> /diayn-frontend -> /diayn-review-backend -> /diayn-review-frontend -> /diayn-sync -> /diayn-integration -> /diayn-html -> /diayn-bug -> /diayn-new. It proves package installation, clean baseline, local E2E, native workflow entry, scaffold creation, planning artifacts, authorized worktree creation, backend/frontend lane execution and review, document-only sync, integration evidence, durable Owner acceptance, no-active-bug side-scenario triage, closeout, next-stage baseline refresh, and per-command fixture checkpoints. Phase 12 side-scenario validation additionally proves non-Git handling, existing-project conflict reports, dirty preflight, not_applicable lane behavior, interrupted recovery, scaffold migration dry-run, dependency substitution policy, privacy/network defaults, and cleanup boundaries. Codex package/install validation now also has a statically validated project-local .codex/skills package shape with 12 workflow skills and 23 DIAYN-managed dependency skills, an executed project-local install fixture that writes the package into .codex/skills shape, an executed Codex-home install fixture that writes the package into CODEX_HOME skills shape, and inspected installed directory evidence. Codex Desktop app-session launch/runtime invocation requires separate runtime evidence and is not claimed. The release claim is therefore complete for Claude project-local plus Codex package/install scope, with a warning that Codex Desktop app-session runtime remains outside the current validation scope."
   },
   "blocking_issues": [],
   "warnings": [
     {
       "id": "W9-CODEX-RUNTIME-NOT-ATTEMPTED",
       "surface": "Codex Desktop app-session",
-      "issue": "Codex package/install scope is validated through install commands and directory inspection, but Codex Desktop app-session discovery, direct /diayn-* invocation, and native dependency-skill invocation were not attempted by Owner instruction and must not be claimed."
+      "issue": "Codex package/install scope is validated through install commands and directory inspection, but Codex Desktop app-session discovery, direct /diayn-* invocation, and native dependency-skill invocation require separate runtime evidence before they can be claimed."
     },
     {
       "id": "W9-CLAUDE-PLUGIN-001",

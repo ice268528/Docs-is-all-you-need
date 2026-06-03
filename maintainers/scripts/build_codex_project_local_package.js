@@ -183,9 +183,9 @@ function main() {
       skills: ".codex/skills",
     },
     runtime_status: {
-      codex_desktop_discovery: "not_attempted_by_owner_instruction",
-      direct_diayn_invocation: "not_attempted_by_owner_instruction",
-      dependency_skill_invocation: "not_attempted_by_owner_instruction",
+      codex_desktop_discovery: "not_attempted_current_scope",
+      direct_diayn_invocation: "not_attempted_current_scope",
+      dependency_skill_invocation: "not_attempted_current_scope",
     },
     notes: [
       "This package is the Codex project-local skills shape for the DDDV8 target.",

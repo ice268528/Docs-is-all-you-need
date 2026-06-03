@@ -28,7 +28,7 @@ skill-pack implementation. Current DDDV8 release truth is recorded in
       claimed by this checklist.
 - [x] Remaining risks are documented for D6-10 review.
 - [x] Real-project validation status is explicit: D6-06 through D6-08 cover an
-      Owner-approved validation project only, not an existing production
+      approved validation project only, not an existing production
       project.
 
 ## Protocol And Templates

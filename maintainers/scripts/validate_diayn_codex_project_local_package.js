@@ -80,13 +80,13 @@ function main() {
     if (!manifest.install_target || manifest.install_target.skills !== ".codex/skills") {
       errors.push("manifest install target must be .codex/skills");
     }
-    if (!manifest.runtime_status || manifest.runtime_status.codex_desktop_discovery !== "not_attempted_by_owner_instruction") {
-      errors.push("manifest must record that Codex Desktop app-session discovery was not attempted by Owner instruction");
+    if (!manifest.runtime_status || manifest.runtime_status.codex_desktop_discovery !== "not_attempted_current_scope") {
+      errors.push("manifest must record that Codex Desktop app-session discovery requires separate runtime evidence");
     }
-    if (!manifest.runtime_status || manifest.runtime_status.direct_diayn_invocation !== "not_attempted_by_owner_instruction") {
+    if (!manifest.runtime_status || manifest.runtime_status.direct_diayn_invocation !== "not_attempted_current_scope") {
       errors.push("manifest must not claim direct Codex app-session /diayn-* invocation");
     }
-    if (!manifest.runtime_status || manifest.runtime_status.dependency_skill_invocation !== "not_attempted_by_owner_instruction") {
+    if (!manifest.runtime_status || manifest.runtime_status.dependency_skill_invocation !== "not_attempted_current_scope") {
       errors.push("manifest must not claim Codex app-session dependency-skill invocation");
     }
   }
@@ -171,9 +171,9 @@ function main() {
     dependency_routing_map_present: fs.existsSync(path.join(packageRoot, ".diayn", "dependency-routing", "upstream-routing-map.md")),
     internal_role_references_present: fs.existsSync(path.join(packageRoot, ".diayn", "internal-role-skills", "diayn-skill-router", "SKILL.md")),
     runtime_validation: {
-      codex_desktop_discovery: "not_attempted_by_owner_instruction",
-      direct_diayn_invocation: "not_attempted_by_owner_instruction",
-      dependency_skill_invocation: "not_attempted_by_owner_instruction",
+      codex_desktop_discovery: "not_attempted_current_scope",
+      direct_diayn_invocation: "not_attempted_current_scope",
+      dependency_skill_invocation: "not_attempted_current_scope",
     },
     codex_agents_openai_yaml_count: expectedWorkflowSkills.filter((name) =>
       fs.existsSync(path.join(skillsRoot, name, "agents", "openai.yaml")),

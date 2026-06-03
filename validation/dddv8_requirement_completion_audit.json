@@ -2,7 +2,7 @@
   "schema": "diayn.dddv8.completion_audit.v1",
   "ok": true,
   "goal_complete": true,
-  "completion_status": "complete_for_owner_approved_package_install_scope",
+  "completion_status": "complete_for_package_install_scope",
   "release_ready": true,
   "supported_alpha_surfaces": [
     "claude_code_cli_project_local",
@@ -41,8 +41,8 @@
   ],
   "surface_summary": {
     "claude_code_cli_project_local": "proven_full_flow",
-    "codex_package_install": "package_install_validated_app_session_runtime_not_attempted_by_owner_instruction",
-    "codex_desktop_app_session_runtime": "not_attempted_by_owner_instruction_not_claimed",
+    "codex_package_install": "package_install_validated_app_session_runtime_not_attempted_current_scope",
+    "codex_desktop_app_session_runtime": "not_attempted_current_scope_not_claimed",
     "opencode_cli": "deferred_by_requirement"
   },
   "surface_completion": {
@@ -70,7 +70,7 @@
         "validation/phase9_codex_runtime_external_evidence.json",
         "validation/phase9_codex_runtime_external_evidence_selftest.json"
       ],
-      "boundary": "Codex Desktop app-session runtime was not attempted by Owner instruction and is not claimed."
+      "boundary": "Codex Desktop app-session runtime requires separate runtime evidence and is not claimed."
     },
     "opencode_cli": {
       "status": "deferred_by_requirement",
@@ -253,7 +253,7 @@
     {
       "id": "W9-CODEX-RUNTIME-NOT-ATTEMPTED",
       "surface": "Codex Desktop app-session",
-      "issue": "Codex package/install scope is validated through install commands and directory inspection, but Codex Desktop app-session discovery, direct /diayn-* invocation, and native dependency-skill invocation were not attempted by Owner instruction and must not be claimed."
+      "issue": "Codex package/install scope is validated through install commands and directory inspection, but Codex Desktop app-session discovery, direct /diayn-* invocation, and native dependency-skill invocation require separate runtime evidence before they can be claimed."
     },
     {
       "id": "W9-CLAUDE-PLUGIN-001",

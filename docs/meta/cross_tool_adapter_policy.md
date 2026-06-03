@@ -60,7 +60,7 @@ DIAYN-owned adapters live under `integrations/**`. DIAYN-owned skills live under
 
 ## Plugin Boundary
 
-Codex package/install work is validated for the current Owner-approved scope:
+Codex package/install work is validated for the current package/install scope:
 
 - Draft manifest notes are allowed.
 - Static package and scaffold asset plans are allowed.

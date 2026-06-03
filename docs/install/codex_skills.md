@@ -170,7 +170,7 @@ Owner/maintainer authorization.
 
 ## Validation Boundary
 
-Per Owner instruction on 2026-06-02, Codex validation stops at the install
+Current Codex validation stops at the install
 command and installed directory inspection. The current repository proves that
 the right files can be packaged and copied into Codex-compatible shapes:
 
@@ -183,8 +183,8 @@ the right files can be packaged and copied into Codex-compatible shapes:
 This file documents a validated Codex package/install alpha surface, not a
 Codex Desktop app-session runtime flow. Codex Desktop discovery, direct
 `/diayn-*` invocation, native dependency-skill invocation, and complete flow
-execution inside the Desktop app were not attempted by Owner instruction and
-must not be claimed.
+execution inside the Desktop app require separate runtime evidence before they
+can be claimed.
 
 The committed runtime-evidence validator remains as an optional future intake
 for app-session evidence:

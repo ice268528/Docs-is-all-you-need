@@ -144,7 +144,7 @@ function main() {
     }
     if (
       !codexProjectLocalManifest.runtime_status ||
-      codexProjectLocalManifest.runtime_status.direct_diayn_invocation !== "not_attempted_by_owner_instruction"
+      codexProjectLocalManifest.runtime_status.direct_diayn_invocation !== "not_attempted_current_scope"
     ) {
       errors.push("Codex project-local package must record Owner-instructed non-attempt for app-session /diayn-* invocation");
     }

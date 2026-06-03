@@ -1,6 +1,6 @@
 {
   "result": "pass",
-  "fixture": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\Docs-is-all-you-need\\validation\\minimal-fullstack-fixture",
+  "fixture": "<repo>\\validation\\minimal-fullstack-fixture",
   "checks": [
     {
       "name": "backend health",
@@ -71,7 +71,7 @@
       "name": "user persisted in sqlite",
       "result": "pass",
       "details": {
-        "db": "C:\\Users\\YIYI_G~1\\AppData\\Local\\Temp\\diayn-fixture-8wfpmnvq\\fixture.sqlite3",
+        "db": "<temp-dir>\\diayn-fixture-8wfpmnvq\\fixture.sqlite3",
         "email": "owner-1780242382@example.test",
         "count": 1
       }

@@ -49,13 +49,13 @@ DIAYN 发布 Claude marketplace 后，目标用户安装方式应该是：
 发布前的本地开发验证，用 Claude Code 直接加载 plugin candidate：
 
 ```powershell
-claude --plugin-dir E:\Allproject\VscodeProject\docs_is_all_you_need_for_AGENTS\Docs-is-all-you-need
+claude --plugin-dir <path-to-this-repo>
 ```
 
 旧的内层候选包仍然保留，用于聚焦的本地 plugin-dir 测试：
 
 ```powershell
-claude --plugin-dir E:\Allproject\VscodeProject\docs_is_all_you_need_for_AGENTS\Docs-is-all-you-need\plugins\docs-is-all-you-need
+claude --plugin-dir <path-to-this-repo>\plugins\docs-is-all-you-need
 ```
 
 Claude plugin candidate 的结构是：

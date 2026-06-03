@@ -332,8 +332,7 @@ coverage. Codex project-local packaging statically validates the
 skills, and `install_codex_project_local_package.js` proves the package can be
 copied into both a temporary project-local `.codex/skills` plus `.diayn`
 metadata shape and a temporary Codex-home `skills` plus
-`diayn/docs-is-all-you-need` metadata shape. Per Owner instruction on
-2026-06-02, Codex validation stops at install command plus installed directory
+`diayn/docs-is-all-you-need` metadata shape. Current Codex validation stops at install command plus installed directory
 inspection; Codex Desktop app-session invocation is not attempted and is not
 claimed. `validate_codex_runtime_external_evidence.js` and its selftest remain
 optional future tooling for a separate Desktop runtime claim.

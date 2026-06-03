@@ -248,9 +248,9 @@ function main() {
     !Array.isArray(releaseGate.blocking_issue_ids) ||
     releaseGate.blocking_issue_ids.length !== 0 ||
     releaseGate.codex_package_install_scope_ok !== true ||
-    releaseGate.codex_app_session_runtime_not_attempted_by_owner_boundary_ok !== true
+    releaseGate.codex_app_session_runtime_current_scope_boundary_ok !== true
   ) {
-    errors.push("reference alignment must preserve the Owner-approved Codex package/install boundary without claiming Desktop app-session runtime");
+    errors.push("reference alignment must preserve the Codex package/install boundary without claiming Desktop app-session runtime");
   }
 
   const result = {

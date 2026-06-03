@@ -35,14 +35,14 @@
           "tool_name": "Read",
           "tool_use_id": "tool_RbF6jiCMTsjWCwW2KxtnFu5U",
           "tool_input": {
-            "file_path": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\Docs-is-all-you-need\\docs\\meta\\session_identity_protocol.md"
+            "file_path": "<repo>\\docs\\meta\\session_identity_protocol.md"
           }
         },
         {
           "tool_name": "Read",
           "tool_use_id": "tool_XkalXA9WIOm6o3FKCYdlg71p",
           "tool_input": {
-            "file_path": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\Docs-is-all-you-need\\docs\\meta\\diayn_commands\\sync.md"
+            "file_path": "<repo>\\docs\\meta\\diayn_commands\\sync.md"
           }
         }
       ],
@@ -92,21 +92,21 @@
           "tool_name": "Read",
           "tool_use_id": "tool_PVv1JzW0VM8tMl30RUaRo2A5",
           "tool_input": {
-            "file_path": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\Docs-is-all-you-need\\docs\\meta\\session_identity_protocol.md"
+            "file_path": "<repo>\\docs\\meta\\session_identity_protocol.md"
           }
         },
         {
           "tool_name": "Read",
           "tool_use_id": "tool_ZwxMaM2eG7X3h73KmuXtywy1",
           "tool_input": {
-            "file_path": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\Docs-is-all-you-need\\docs\\meta\\diayn_command_reference.md"
+            "file_path": "<repo>\\docs\\meta\\diayn_command_reference.md"
           }
         },
         {
           "tool_name": "Read",
           "tool_use_id": "tool_KqSMgztKV2pBrxcDDdfMRS1g",
           "tool_input": {
-            "file_path": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\Docs-is-all-you-need\\docs\\meta\\diayn_commands\\bug.md"
+            "file_path": "<repo>\\docs\\meta\\diayn_commands\\bug.md"
           }
         }
       ],
@@ -135,21 +135,21 @@
           "tool_name": "Read",
           "tool_use_id": "tool_tErBKjXpuFMwlyaYDVAFTMhV",
           "tool_input": {
-            "file_path": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\Docs-is-all-you-need\\docs\\meta\\session_identity_protocol.md"
+            "file_path": "<repo>\\docs\\meta\\session_identity_protocol.md"
           }
         },
         {
           "tool_name": "Read",
           "tool_use_id": "tool_HGqjMwI44dZsv9evKmj2roTw",
           "tool_input": {
-            "file_path": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\Docs-is-all-you-need\\docs\\meta\\diayn_command_reference.md"
+            "file_path": "<repo>\\docs\\meta\\diayn_command_reference.md"
           }
         },
         {
           "tool_name": "Read",
           "tool_use_id": "tool_3i5VXjIl4LXXE4iUN7mmnfI6",
           "tool_input": {
-            "file_path": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\Docs-is-all-you-need\\docs\\meta\\diayn_commands\\new.md"
+            "file_path": "<repo>\\docs\\meta\\diayn_commands\\new.md"
           }
         }
       ],
@@ -178,21 +178,21 @@
           "tool_name": "Read",
           "tool_use_id": "tool_rFnz9sydhCq3SVn20FrLEVTz",
           "tool_input": {
-            "file_path": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\Docs-is-all-you-need\\docs\\meta\\session_identity_protocol.md"
+            "file_path": "<repo>\\docs\\meta\\session_identity_protocol.md"
           }
         },
         {
           "tool_name": "Read",
           "tool_use_id": "tool_uqFLEGY2IopdoMDaK0AlCxqw",
           "tool_input": {
-            "file_path": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\Docs-is-all-you-need\\docs\\meta\\diayn_command_reference.md"
+            "file_path": "<repo>\\docs\\meta\\diayn_command_reference.md"
           }
         },
         {
           "tool_name": "Read",
           "tool_use_id": "tool_zkvGfmTbthQJgwgQYE9LqJxP",
           "tool_input": {
-            "file_path": "E:\\Allproject\\VscodeProject\\docs_is_all_you_need_for_AGENTS\\Docs-is-all-you-need\\docs\\meta\\diayn_commands\\html.md"
+            "file_path": "<repo>\\docs\\meta\\diayn_commands\\html.md"
           }
         }
       ],

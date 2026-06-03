@@ -90,7 +90,7 @@ function main() {
 
   if (matrix) {
     if (matrix.schema !== "diayn.phase9.capability_matrix.v1") errors.push("phase9 matrix schema mismatch");
-    if (matrix.phase9_complete !== true) errors.push("phase9 matrix must mark phase9_complete true for the current Owner-approved package/install validation scope");
+    if (matrix.phase9_complete !== true) errors.push("phase9 matrix must mark phase9_complete true for the current package/install validation scope");
     if (matrix.release_claim_allowed !== true) errors.push("phase9 matrix must allow the current package/install scoped release claim");
     if (
       !Array.isArray(matrix.supported_alpha_surfaces) ||
@@ -103,7 +103,7 @@ function main() {
       errors.push("supported_alpha_surfaces must not claim Codex Desktop app-session runtime support");
     }
     if (blockers.length !== 0) {
-      errors.push("phase9 matrix must not retain blocking issues after Owner-approved package/install validation scope is complete");
+      errors.push("phase9 matrix must not retain blocking issues after package/install validation scope is complete");
     }
     if (blockerIds.has("P9-CODEX-001")) {
       errors.push("P9-CODEX-001 must be a warning/boundary note, not a release blocker, after Owner removed Desktop launch validation from scope");
@@ -111,11 +111,11 @@ function main() {
     if (
       !matrix.validation_scope ||
       matrix.validation_scope.codex_install_verification !== "install_command_and_directory_inspection" ||
-      matrix.validation_scope.codex_desktop_app_session_runtime !== "not_attempted_by_owner_instruction" ||
+      matrix.validation_scope.codex_desktop_app_session_runtime !== "not_attempted_current_scope" ||
       matrix.validation_scope.codex_desktop_launch_required !== false ||
       matrix.validation_scope.codex_runtime_claim_allowed !== false
     ) {
-      errors.push("phase9 matrix must record the Owner-approved Codex validation boundary");
+      errors.push("phase9 matrix must record the Codex package/install validation boundary");
     }
     if (
       !matrix.static_evidence ||
@@ -250,7 +250,7 @@ function main() {
       !codex ||
       !codex.validation_boundary ||
       codex.validation_boundary.install_command_and_directory_inspection !== "validated" ||
-      codex.validation_boundary.desktop_app_session_runtime !== "not_attempted_by_owner_instruction"
+      codex.validation_boundary.desktop_app_session_runtime !== "not_attempted_current_scope"
     ) {
       errors.push("Codex package/install validation boundary must be recorded");
     } else {
@@ -273,8 +273,8 @@ function main() {
         if (projectLocal.codex_home_install_actual) {
           errors.push("Actual Codex-home install record must be local-only, not part of the remote matrix");
         }
-        if (projectLocal.runtime_validation !== "not_attempted_by_owner_instruction") {
-          errors.push("Codex project-local package runtime validation must record Owner-instructed non-attempt");
+        if (projectLocal.runtime_validation !== "not_attempted_current_scope") {
+          errors.push("Codex project-local package runtime validation must require separate runtime evidence");
         }
         if (projectLocal.runtime_probe) {
           errors.push("Codex project-local executable runtime probe must be local-only, not part of the remote matrix");
@@ -431,7 +431,7 @@ function main() {
     }
     if (
       !codexPackage.runtime_validation ||
-      codexPackage.runtime_validation.direct_diayn_invocation !== "not_attempted_by_owner_instruction"
+      codexPackage.runtime_validation.direct_diayn_invocation !== "not_attempted_current_scope"
     ) {
       errors.push("Codex project-local validator must record Owner-instructed non-attempt for app-session /diayn-* invocation");
     }
@@ -932,7 +932,7 @@ function main() {
       codexPackage.dependency_skill_count === 23 &&
       codexPackage.total_project_local_skill_count === 35 &&
       codexPackage.runtime_validation &&
-      codexPackage.runtime_validation.direct_diayn_invocation === "not_attempted_by_owner_instruction"
+      codexPackage.runtime_validation.direct_diayn_invocation === "not_attempted_current_scope"
   );
   const codexProjectLocalInstallFixtureOk = Boolean(
     codexInstallFixture &&
@@ -1284,10 +1284,10 @@ function main() {
         codexProjectLocalInstallFixtureOk &&
         codexHomeInstallFixtureOk
     ),
-    codex_app_session_runtime_not_attempted_by_owner_boundary_ok: Boolean(
+    codex_app_session_runtime_current_scope_boundary_ok: Boolean(
       matrix &&
         matrix.validation_scope &&
-        matrix.validation_scope.codex_desktop_app_session_runtime === "not_attempted_by_owner_instruction" &&
+        matrix.validation_scope.codex_desktop_app_session_runtime === "not_attempted_current_scope" &&
         matrix.validation_scope.codex_runtime_claim_allowed === false
     ),
     codex_runtime_external_evidence_ok: codexExternalRuntimeEvidenceOk,
@@ -1295,7 +1295,7 @@ function main() {
     supported_alpha_surfaces: matrix && Array.isArray(matrix.supported_alpha_surfaces) ? matrix.supported_alpha_surfaces : [],
     blocking_issue_ids: Array.from(blockerIds).sort(),
     notes: releaseReady
-      ? "Package/install scoped release gate is ready. Claude project-local flow is proven end to end; Codex package/install shape is validated by executed install fixtures and directory inspection. Codex Desktop app-session runtime was not attempted by Owner instruction and is not claimed."
+      ? "Package/install scoped release gate is ready. Claude project-local flow is proven end to end; Codex package/install shape is validated by executed install fixtures and directory inspection. Codex Desktop app-session runtime requires separate runtime evidence and is not claimed."
       : phase11InstalledFlowComplete
         ? "Claude project-local installed flow is complete for all 12 public commands, including Owner acceptance, /diayn-bug side-scenario triage, closeout, next-stage baseline refresh, and Phase 12 focused side-scenario coverage. Repository-root Claude/Codex plugin entrypoints are present and statically validated against the generated platform-visible package skills. Codex package/install validation is expected to use install commands plus directory inspection, not Codex Desktop launch."
         : "Installed-flow audit is recorded, but release readiness is blocked. Claude project-local command/dependency/routed-dependency smoke passes and all 12 commands are visible and enter workflow context. The installed fixture is green through the latest recorded command subset, but full Owner acceptance, closeout, next-stage refresh, and Phase 12 side scenarios remain unproven.",

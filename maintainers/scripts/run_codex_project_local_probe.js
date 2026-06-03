@@ -68,7 +68,7 @@ function probeCommand(command, args) {
 }
 
 function classifyCodexProbe(versionProbe, executeProbe) {
-  if (!executeProbe) return "not_attempted_by_owner_instruction";
+  if (!executeProbe) return "not_attempted_current_scope";
   const combined = `${versionProbe.stdout}\n${versionProbe.stderr}\n${versionProbe.error ? versionProbe.error.message : ""}`;
   if (versionProbe.exit_code === 0 && !versionProbe.error) return "available";
   if (

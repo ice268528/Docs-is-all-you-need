@@ -10,7 +10,7 @@ installation, and validation rules.
 Reference authority:
 
 ```text
-E:\Allproject\VscodeProject\docs_is_all_you_need_for_AGENTS\claude_skills\skills\skill-creator
+<path-to-claude-skill-creator>
 ```
 
 ## Current Scope

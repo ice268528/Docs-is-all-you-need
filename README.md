@@ -51,14 +51,14 @@ For local development before publication, run Claude Code with the plugin
 candidate:
 
 ```powershell
-claude --plugin-dir E:\Allproject\VscodeProject\docs_is_all_you_need_for_AGENTS\Docs-is-all-you-need
+claude --plugin-dir <path-to-this-repo>
 ```
 
 The older inner candidate remains available for focused local plugin-dir
 tests:
 
 ```powershell
-claude --plugin-dir E:\Allproject\VscodeProject\docs_is_all_you_need_for_AGENTS\Docs-is-all-you-need\plugins\docs-is-all-you-need
+claude --plugin-dir <path-to-this-repo>\plugins\docs-is-all-you-need
 ```
 
 The Claude plugin candidate has:
@@ -79,11 +79,10 @@ Start with:
 /diayn-init
 ```
 
-Current boundary: the local `--plugin-dir` validation path has observed
-namespaced plugin commands, while the DDDV8 user-facing requirement is bare
-`/diayn-*`. The `packages/claude-project-local/` copy package is therefore kept
-as an alpha fallback and validation fixture for bare `/diayn-*`; it is not the
-normative final installation model.
+Current boundary: the plugin candidate validates package shape, but bare
+`/diayn-*` runtime behavior still needs marketplace/runtime proof. The
+`packages/claude-project-local/` package is a validation and development aid for
+bare `/diayn-*`; it is not the normative final installation model.
 
 ### Codex Desktop
 
@@ -99,11 +98,11 @@ inner Codex plugin candidate remains under `plugins/docs-is-all-you-need/` for
 local packaging experiments. The 12 public DIAYN skills in the generated Codex
 package also include Codex-specific `agents/openai.yaml` metadata.
 
-Codex package/install validation is complete for the current Owner-approved
-scope. Validation runs the install command and inspects the installed directory
-shape; it does not launch Codex Desktop and does not claim app-session runtime
-discovery. To install the Codex Home skill package from this repository, run
-these commands from the repository root. Start with a dry-run:
+Codex package/install validation runs the install command and inspects the
+installed directory shape. It does not launch Codex Desktop and does not claim
+app-session runtime discovery. To install the Codex Home skill package from
+this repository, run these commands from the repository root. Start with a
+dry-run:
 
 ```powershell
 node maintainers\scripts\install_codex_project_local_package.js --target-codex-home $env:USERPROFILE\.codex
@@ -133,8 +132,8 @@ with:
 
 The current release claim is `codex_package_install`: package shape, install
 command, and directory inspection are validated. Codex Desktop app-session
-direct `/diayn-*` invocation and native dependency-skill invocation were not
-attempted by Owner instruction and must not be claimed.
+direct `/diayn-*` invocation and native dependency-skill invocation require
+separate runtime evidence before they can be claimed.
 
 ### Dependency Skill Routing
 
@@ -213,23 +212,22 @@ sequenceDiagram
 | --- | --- |
 | `skills/` | DIAYN source workspace. It includes public workflow source plus internal/historical source. It is not the install surface. |
 | `plugins/docs-is-all-you-need/` | Claude/Codex plugin candidate with exactly 12 public DIAYN workflow skills. |
-| `packages/codex-project-local/` | Codex project-local/Home install package and fixture path. |
-| `packages/claude-project-local/` | Claude Code bare-command alpha fallback and installed-flow fixture. |
+| `packages/codex-project-local/` | Codex project-local/Home install package. |
+| `packages/claude-project-local/` | Claude Code bare-command development and validation package. |
 | `plugins/docs-is-all-you-need/dependency-skills/` | Locked DIAYN-managed third-party `agent-skills` payload. |
-| `validation/` | Committed fixture evidence and release-gate outputs. Codex package/install evidence is committed; app-session runtime evidence is optional future evidence. |
+| `validation/` | Committed validation evidence and release-gate outputs. |
 
 ## Current Support Status
 
 | Surface | Status |
 | --- | --- |
 | Claude Code plugin candidate | Standard install target; local plugin-dir validates plugin shape but bare `/diayn-*` still needs marketplace/runtime proof. |
-| Claude Code project-local fallback | Proven alpha fixture for bare `/diayn-*` installed flow; not the final install model. |
-| Codex package/install | Validated alpha surface: package shape, install command, and directory inspection pass. Desktop app-session runtime is not attempted and not claimed. |
+| Claude Code project-local package | Proven development package for bare `/diayn-*` installed flow; not the final marketplace install model. |
+| Codex package/install | Validated package surface: package shape, install command, and directory inspection pass. Desktop app-session runtime requires separate evidence. |
 | OpenCode | Deferred until direct `/diayn-*` skill invocation is proven. |
 
-Do not treat shell-launched Codex or install-fixture output as Codex Desktop
-app-session runtime proof. The current validation boundary intentionally stops
-before Desktop launch.
+Do not treat shell-launched Codex or install-output inspection as Codex Desktop
+app-session runtime proof.
 
 ## Read Next
 

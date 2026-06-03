@@ -9,9 +9,9 @@ through Phase 12.
 
 ## 1. Release Gate Result
 
-The current release gate is complete for the Owner-approved surfaces: Claude
+The current release gate is complete for the validated surfaces: Claude
 project-local installed flow and Codex package/install. Codex Desktop
-app-session runtime discovery/invocation was not attempted by Owner instruction
+app-session runtime discovery/invocation requires separate runtime evidence
 and is not claimed.
 
 The package has strong static evidence from Phases 2-8, and Claude Code now has a project-local package shape that satisfies three important smoke checks:
@@ -291,7 +291,7 @@ node maintainers\scripts\validate_codex_runtime_external_evidence.js --json vali
 ```
 
 Current result: `runtime_proven: false` because Desktop app-session evidence is
-outside the current Owner-approved validation scope.
+outside the current validation scope.
 
 Conclusion: Codex package shape, project-local install/copy shape, and
 Codex-home install/copy shape are proven. Codex Desktop app-session discovery,
@@ -384,7 +384,7 @@ phase11_closeout_artifacts_ok: true
 phase11_installed_flow_complete: true
 phase12_side_scenarios_ok: true
 codex_package_install_scope_ok: true
-codex_app_session_runtime_not_attempted_by_owner_boundary_ok: true
+codex_app_session_runtime_current_scope_boundary_ok: true
 ```
 
 The validator should pass as an honest audit for the current release scope. It

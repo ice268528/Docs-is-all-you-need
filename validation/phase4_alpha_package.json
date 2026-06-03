@@ -36,9 +36,9 @@
     "dependency_skill_count": 23,
     "total_skill_count": 35,
     "runtime_status": {
-      "codex_desktop_discovery": "not_attempted_by_owner_instruction",
-      "direct_diayn_invocation": "not_attempted_by_owner_instruction",
-      "dependency_skill_invocation": "not_attempted_by_owner_instruction"
+      "codex_desktop_discovery": "not_attempted_current_scope",
+      "direct_diayn_invocation": "not_attempted_current_scope",
+      "dependency_skill_invocation": "not_attempted_current_scope"
     },
     "agents_openai_yaml_count": 12
   },

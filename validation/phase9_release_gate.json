@@ -30,7 +30,7 @@
   "codex_project_local_install_fixture_ok": true,
   "codex_home_install_fixture_ok": true,
   "codex_package_install_scope_ok": true,
-  "codex_app_session_runtime_not_attempted_by_owner_boundary_ok": true,
+  "codex_app_session_runtime_current_scope_boundary_ok": true,
   "codex_runtime_external_evidence_ok": true,
   "codex_runtime_external_evidence_selftest_ok": true,
   "supported_alpha_surfaces": [
@@ -38,6 +38,6 @@
     "codex_package_install"
   ],
   "blocking_issue_ids": [],
-  "notes": "Package/install scoped release gate is ready. Claude project-local flow is proven end to end; Codex package/install shape is validated by executed install fixtures and directory inspection. Codex Desktop app-session runtime was not attempted by Owner instruction and is not claimed.",
+  "notes": "Package/install scoped release gate is ready. Claude project-local flow is proven end to end; Codex package/install shape is validated by executed install fixtures and directory inspection. Codex Desktop app-session runtime requires separate runtime evidence and is not claimed.",
   "errors": []
 }
