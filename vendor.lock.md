@@ -73,27 +73,18 @@ state templates. Current DDDV8 public workflow skill paths are protected:
 - `skills/diayn-new/`
 - `skills/diayn-html/`
 
-Internal/shared DIAYN role-reference paths are also protected:
+Internal/shared DIAYN role-reference paths are protected in their maintainer
+location. They are not public workflow skills and must not be restored under
+the public `skills/` directory:
 
-- `skills/diayn-controller/`
-- `skills/diayn-executor/`
-- `skills/diayn-reviewer/`
-- `skills/diayn-integrator/`
-- `skills/diayn-skill-router/`
-- `skills/diayn-identity-guard/`
-- `skills/diayn-owner-ux/`
-- `skills/update-diayn-scaffold/`
-
-Legacy pre-D5 DIAYN skill paths are also protected while they remain in the
-repository for compatibility or migration context:
-
-- `skills/multi-session-controller/`
-- `skills/multi-session-executor/`
-- `skills/multi-session-reviewer/`
-- `skills/multi-session-integrator/`
-- `skills/session-identity-guard/`
-- `skills/owner-decision-ux/`
-- `skills/context-compact-reminder/`
+- `maintainers/internal-skills/diayn-controller/`
+- `maintainers/internal-skills/diayn-executor/`
+- `maintainers/internal-skills/diayn-reviewer/`
+- `maintainers/internal-skills/diayn-integrator/`
+- `maintainers/internal-skills/diayn-skill-router/`
+- `maintainers/internal-skills/diayn-identity-guard/`
+- `maintainers/internal-skills/diayn-owner-ux/`
+- `maintainers/internal-skills/update-diayn-scaffold/`
 
 Protocol and state paths protected from upstream vendor sync:
 

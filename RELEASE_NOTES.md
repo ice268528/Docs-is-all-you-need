@@ -55,22 +55,36 @@ Core entry and protocol:
 - `docs/templates/**`
 - `.diayn/**`
 
-DIAYN-owned skills:
+Current DDDV8 public workflow skills:
 
-- `skills/diayn-controller/`
-- `skills/diayn-executor/`
-- `skills/diayn-reviewer/`
-- `skills/diayn-integrator/`
-- `skills/diayn-skill-router/`
-- `skills/diayn-identity-guard/`
-- `skills/diayn-owner-ux/`
-- `skills/update-diayn-scaffold/`
+- `skills/diayn-init/`
+- `skills/diayn-plan/`
+- `skills/diayn-worktrees/`
+- `skills/diayn-backend/`
+- `skills/diayn-frontend/`
+- `skills/diayn-review-backend/`
+- `skills/diayn-review-frontend/`
+- `skills/diayn-sync/`
+- `skills/diayn-integration/`
+- `skills/diayn-bug/`
+- `skills/diayn-new/`
+- `skills/diayn-html/`
+
+Current DDDV8 internal role/reference sources:
+
+- `maintainers/internal-skills/`
 
 Tool adapters and local package candidates:
 
+- `integrations/claude-code/adapter.md`
+- `integrations/opencode/`
+- `plugins/docs-is-all-you-need/`
+
+Retired historical D5/D6 paths are not current DDDV8 install surfaces:
+
 - `integrations/claude-code/commands/`
 - `integrations/opencode/.opencode/`
-- `plugins/docs-is-all-you-need/`
+- `skills/diayn-controller/` through `skills/update-diayn-scaffold/`
 
 Maintainer-only vendor reference:
 
