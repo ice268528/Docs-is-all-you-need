@@ -36,11 +36,13 @@ DIAYN 对 Claude Code 明确区分两条路径，不能混用它们的证据：
 
 根 manifest 使用 `name: "diayn"`，因此预期 plugin namespace 是 `diayn`。它把命令指向 `.claude/commands` 下的薄 adapter，把 skills 指向 `packages/claude-project-local/.claude/skills`。这个 skills root 包含 12 个 DIAYN workflow skills 和 23 个锁定版本的 DIAYN-managed `agent-skills` 依赖。
 
+root plugin manifest 指向 `packages/claude-project-local/.claude/skills` 是为了复用生成后的 Claude-visible skills root；project-local fallback 仍然是独立安装路径。
+
 DIAYN 现在不声明已经进入 Anthropic 官方 marketplace。GitHub marketplace-style 安装的目标形式是：
 
 ```text
 /plugin marketplace add ice268528/Docs-is-all-you-need
-/plugin install diayn@<marketplace-name>
+/plugin install diayn@diayn-local-alpha
 ```
 
 发布前的本地 plugin 开发可以这样运行：

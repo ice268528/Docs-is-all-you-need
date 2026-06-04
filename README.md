@@ -48,12 +48,16 @@ platform-visible Claude skills under `packages/claude-project-local/.claude/skil
 That skills root contains the 12 DIAYN workflow skills plus 23 locked
 DIAYN-managed `agent-skills` dependency skills.
 
+The root plugin manifest points at `packages/claude-project-local/.claude/skills`
+to reuse the generated Claude-visible skills root; the project-local fallback
+remains a separate installation path.
+
 DIAYN is not claiming Anthropic official marketplace listing. For GitHub
 marketplace-style installation, the intended shape is:
 
 ```text
 /plugin marketplace add ice268528/Docs-is-all-you-need
-/plugin install diayn@<marketplace-name>
+/plugin install diayn@diayn-local-alpha
 ```
 
 For local development before publication, run Claude Code with the plugin

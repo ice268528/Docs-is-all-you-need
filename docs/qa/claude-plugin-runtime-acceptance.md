@@ -46,6 +46,10 @@ plugin command adapters invoke diayn:diayn-*
 project-local command adapters invoke local diayn-* skill ids
 ```
 
+The root plugin manifest points at `packages/claude-project-local/.claude/skills`
+to reuse the generated Claude-visible skills root; the project-local fallback
+remains a separate installation path.
+
 ## Local Plugin-Dir Runtime Verification
 
 Use a clean demo repository. Start Claude Code with the repository-root plugin:
@@ -114,7 +118,7 @@ If testing GitHub marketplace-style install:
 
 ```text
 /plugin marketplace add ice268528/Docs-is-all-you-need
-/plugin install diayn@<marketplace-name>
+/plugin install diayn@diayn-local-alpha
 ```
 
 Record:

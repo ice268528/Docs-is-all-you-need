@@ -32,12 +32,16 @@ contains the 12 DIAYN workflow skills plus 23 DIAYN-managed `agent-skills`
 dependency skills, so native dependency routing can use platform-visible skills
 when Claude Code supports them.
 
+The root plugin manifest points at `packages/claude-project-local/.claude/skills`
+to reuse the generated Claude-visible skills root; the project-local fallback
+remains a separate installation path.
+
 DIAYN does not claim Anthropic official marketplace listing. GitHub
 marketplace-style install should use the actual repository:
 
 ```text
 /plugin marketplace add ice268528/Docs-is-all-you-need
-/plugin install diayn@<marketplace-name>
+/plugin install diayn@diayn-local-alpha
 ```
 
 For local plugin development before publication:
