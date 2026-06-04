@@ -42,12 +42,13 @@ skills/diayn-*/
 dependency-skills/
 ```
 
-The 12 Claude plugin command files are thin entry points. In plugin-dir mode they invoke namespaced workflow skills:
+The 12 Claude plugin command files are thin entry points. The current plugin
+namespace is `diayn`, so plugin mode is expected to expose namespaced commands:
 
 ```text
-/docs-is-all-you-need:diayn-init -> docs-is-all-you-need:diayn-init
+/diayn:diayn-init -> diayn:diayn-init
 ...
-/docs-is-all-you-need:diayn-html -> docs-is-all-you-need:diayn-html
+/diayn:diayn-html -> diayn:diayn-html
 ```
 
 Validation performed:
@@ -60,16 +61,17 @@ node maintainers\scripts\validate_diayn_alpha_package.js --json validation\phase
 
 Result: the repository-root and inner Claude plugin manifests validate, and the local package validator confirms 12 commands, 12 public workflow skills, 23 platform-visible dependency skills in the generated packages, and the locked dependency payload.
 
-Phase 9 plugin-dir probe:
+Historical Phase 9 plugin-dir probe before the namespace rename:
 
-- `claude --plugin-dir plugins\docs-is-all-you-need ... /docs-is-all-you-need:diayn-init` loads namespaced commands/skills and triggers the native `Skill` tool for `docs-is-all-you-need:diayn-init`.
+- `claude --plugin-dir plugins\docs-is-all-you-need ... /docs-is-all-you-need:diayn-init` loaded namespaced commands/skills and triggered the native `Skill` tool for `docs-is-all-you-need:diayn-init`.
 - `claude --bare --plugin-dir plugins\docs-is-all-you-need ... /diayn-init` returns `Unknown command: /diayn-init`.
 
 Conclusion: plugin-dir mode is valid local Claude plugin proof. In current
-validation it exposed namespaced commands, so it does not by itself prove the
-bare `/diayn-*` user-facing path required by DDDV8. That gap must be resolved
-through marketplace/runtime validation or a plugin design change, not by
-pretending manual project-local copying is the final install model.
+validation it exposed namespaced commands, so it does not by itself prove bare
+`/diayn-*`. After the low-risk manifest rename to `name: "diayn"`, the actual
+runtime command names must be manually re-verified; the expected command is
+`/diayn:diayn-init`. Do not use the old `/docs-is-all-you-need:*` probe as
+current namespace proof.
 
 ## Project-Local Package
 
@@ -121,4 +123,6 @@ Conclusion: Claude Code CLI has a proven project-local fallback for bare
 validation, and the complete installed-flow fixture through Owner acceptance,
 closeout, and next-stage baseline refresh. This is an alpha fallback, not the
 normative final Claude install model. The final Claude path should be
-plugin/marketplace install once bare `/diayn-*` behavior is proven there.
+plugin/marketplace install with `/diayn:diayn-*` namespaced commands. Bare
+`/diayn-*` should remain documented as project-local fallback unless future
+runtime verification proves otherwise.

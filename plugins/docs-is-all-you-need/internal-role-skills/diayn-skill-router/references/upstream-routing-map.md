@@ -16,7 +16,7 @@ Normal composition:
 Skill id resolution:
 
 - Project-local bare-command installs use dependency names directly, for example `idea-refine`.
-- Claude plugin namespace installs use `docs-is-all-you-need:<dependency-skill>` when the native Skill tool requires namespaced skill ids.
+- Claude plugin namespace installs use `diayn:<dependency-skill>` when the native Skill tool requires namespaced skill ids.
 - Codex installed package surfaces use the discovered Codex skill id from the selected skills root. Current Codex package paths place DIAYN workflow skills and managed dependency skills side by side.
 
 Fallback only:

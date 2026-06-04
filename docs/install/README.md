@@ -23,12 +23,16 @@ DIAYN V1 is a skill pack with exactly 12 public workflow skills:
 
 The target user experience is one DIAYN install that makes these commands available as real workflow skills. The user should not need to clone the DIAYN source repository into every target project and then run unrelated setup commands before skills can be used.
 
+In Claude Code, the standard plugin path exposes these workflows as
+plugin-namespaced commands such as `/diayn:diayn-init`. Bare `/diayn-*` is the
+project-local fallback command surface.
+
 ## Alpha Surfaces
 
 | Surface | DDDV8 target | Current DDDV8 status |
 | --- | --- | --- |
 | Codex package/install | Alpha target for the current Codex package/install scope: installed workflow skills, DIAYN-managed dependency skills, and routing metadata must be copied into the expected Codex skills shape. | Repository-root `.codex-plugin/plugin.json` now points to `packages/codex-project-local/.codex/skills/`, which contains 12 workflow skills plus 23 DIAYN-managed dependency skills. The inner plugin artifact also exists. Static validation plus executed project-local and Codex-home install fixtures prove package shape, install commands, and installed directory inspection. Codex Desktop app-session runtime discovery/invocation is intentionally not attempted and must not be claimed. |
-| Claude Code CLI | Alpha target if installed workflow skills can be invoked through `/diayn-*` and can route to DIAYN-managed dependency skills. The standard install target is plugin/marketplace install, following `superpowers` and `agent-skills`. | Repository-root `.claude-plugin/plugin.json` now points commands to root `.claude/commands` and skills to `packages/claude-project-local/.claude/skills/`, which contains 12 workflow skills plus 23 DIAYN-managed dependency skills. `claude plugin validate` passes for both the repository root and the inner candidate, but local plugin-dir validation still exposes namespaced commands. A separate project-local fallback at `packages/claude-project-local/` proves bare `/diayn-init` command-to-`Skill` invocation, all 12 bare command/skill entries, routed `/diayn-init -> idea-refine`, and a complete installed-flow fixture. This fallback is not the final install model. |
+| Claude Code CLI | Standard install target is plugin/marketplace install with plugin-namespaced commands. Project-local fallback is kept separately for bare `/diayn-*` short commands. | Repository-root `.claude-plugin/plugin.json` now uses `name: "diayn"`, points commands to root `.claude/commands`, and points skills to `packages/claude-project-local/.claude/skills/`, which contains 12 workflow skills plus 23 DIAYN-managed dependency skills. The expected plugin command shape is `/diayn:diayn-init`, not bare `/diayn-init`. A separate project-local fallback at `packages/claude-project-local/` proves bare `/diayn-init` command-to-`Skill` invocation, all 12 bare command/skill entries, routed `/diayn-init -> idea-refine`, and a complete installed-flow fixture. This fallback is not plugin/marketplace proof. |
 | OpenCode CLI | Deferred unless installed workflow skills can be directly triggered through `/diayn-*`. | Deferred for DDDV8. Earlier D6 discovery notes are historical only. |
 | Cursor / Copilot | Out of V1 scope. | No active V1 support claim. |
 
@@ -113,11 +117,13 @@ install -> /diayn-init -> /diayn-plan -> /diayn-worktrees
 No exhaustive third-party composition release claim until routed `agent-skills` coverage is broadened beyond the representative `/diayn-init -> idea-refine` smoke test.
 
 Current surface-specific result: the Claude project-local fallback has
-completed the installed flow and focused side scenarios. The standard Claude
-plugin/marketplace install path still needs bare `/diayn-*` proof. Codex
-package/install scope is also validated: the package shape, install commands,
-and installed directory inspection pass. Codex Desktop app-session runtime is
-outside the current validation scope and is not claimed.
+completed the installed flow and focused side scenarios for bare `/diayn-*`.
+The standard Claude plugin/marketplace path now targets the short namespace
+`/diayn:*`, with expected commands such as `/diayn:diayn-init`; that namespace
+still needs Owner runtime verification. Codex package/install scope is also
+validated: the package shape, install commands, and installed directory
+inspection pass. Codex Desktop app-session runtime is outside the current
+validation scope and is not claimed.
 
 Current installed-flow audit documents:
 

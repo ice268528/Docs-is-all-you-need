@@ -6,6 +6,7 @@ const path = require("path");
 
 const repoRoot = path.resolve(__dirname, "..", "..");
 const pluginRoot = path.join(repoRoot, "plugins", "docs-is-all-you-need");
+const pluginNamespace = "diayn";
 const workflowSkills = [
   "diayn-init",
   "diayn-plan",
@@ -115,8 +116,8 @@ Then stop.
 Native Skill Invocation Gate:
 
 - This command adapter is only an entrypoint, not the DIAYN workflow implementation.
-- First action required: invoke the native Skill tool with skill: "docs-is-all-you-need:${skillName}".
-- Unless Validation Probe Mode applies, the first action must be a native Skill tool invocation with skill: "docs-is-all-you-need:${skillName}".
+- First action required: invoke the native Skill tool with skill: "${pluginNamespace}:${skillName}".
+- Unless Validation Probe Mode applies, the first action must be a native Skill tool invocation with skill: "${pluginNamespace}:${skillName}".
 - Do not inspect files, run Bash, answer the user, or perform workflow steps from this adapter before that Skill invocation succeeds.
 - If the Skill tool is unavailable or denied, stop and report that the installed command cannot run because native DIAYN skill invocation failed.
 - After the Skill loads, follow that skill's instructions. Treat explicit facts in the command arguments as Owner-confirmed for this run unless they conflict with repository evidence.

@@ -1,50 +1,132 @@
 # Claude Code Install
 
-Claude Code support should follow the plugin-first model used by `superpowers`
-and `agent-skills`.
+DIAYN supports two separate Claude Code installation paths. Keep their design,
+documentation, and validation evidence separate.
 
-## Standard Target
+## Path A: Standard Claude Code Plugin / Marketplace
 
-The intended DIAYN install shape for Claude Code is marketplace/plugin install,
-not asking end users to copy `.claude/commands`, `.claude/skills`, or `.diayn`
-by hand.
+Use this path for standard Claude Code distribution and centralized plugin
+management. It uses plugin-namespaced commands, not bare `/diayn-*` commands.
 
-After publication, the user-facing flow should be:
-
-```text
-/plugin marketplace add <diayn-marketplace-or-repo>
-/plugin install docs-is-all-you-need@<marketplace-name>
-```
-
-The plugin manifest is:
+Current root plugin files:
 
 ```text
 .claude-plugin/plugin.json
+.claude-plugin/marketplace.json
+.claude/commands/diayn-*.md
+packages/claude-project-local/.claude/skills/
+```
+
+The root plugin manifest uses:
+
+```json
+{
+  "name": "diayn",
+  "commands": "./.claude/commands",
+  "skills": "./packages/claude-project-local/.claude/skills"
+}
+```
+
+The short plugin namespace is expected to be `diayn`. The root skills path
+contains the 12 DIAYN workflow skills plus 23 DIAYN-managed `agent-skills`
+dependency skills, so native dependency routing can use platform-visible skills
+when Claude Code supports them.
+
+DIAYN does not claim Anthropic official marketplace listing. GitHub
+marketplace-style install should use the actual repository:
+
+```text
+/plugin marketplace add ice268528/Docs-is-all-you-need
+/plugin install diayn@<marketplace-name>
+```
+
+For local plugin development before publication:
+
+```powershell
+claude --plugin-dir <path-to-this-repo>
+```
+
+Expected plugin commands:
+
+```text
+/diayn:diayn-init
+/diayn:diayn-plan
+/diayn:diayn-worktrees
+/diayn:diayn-backend
+/diayn:diayn-frontend
+/diayn:diayn-review-backend
+/diayn:diayn-review-frontend
+/diayn:diayn-sync
+/diayn:diayn-integration
+/diayn:diayn-bug
+/diayn:diayn-new
+/diayn:diayn-html
+```
+
+Plugin mode does not promise bare `/diayn-*`. If a future Claude Code runtime
+exposes bare commands from a plugin install, record it only as observed behavior
+for that Claude Code version until broader support is proven.
+
+## Optional Alias Boundary
+
+Short namespaced aliases such as `/diayn:init` are not implemented in this
+release. The low-risk route would be command alias wrappers such as:
+
+```text
+.claude/commands/init.md -> Invoke the diayn:diayn-init skill.
+```
+
+That would add extra plugin commands and requires runtime verification. DIAYN
+keeps exactly 12 public workflow command files in this release, so alias wrappers
+are deferred.
+
+## Inner Plugin Candidate
+
+The inner candidate remains available for focused local plugin-dir debugging:
+
+```text
+plugins/docs-is-all-you-need/
 plugins/docs-is-all-you-need/.claude-plugin/plugin.json
+plugins/docs-is-all-you-need/.claude-plugin/marketplace.json
+plugins/docs-is-all-you-need/.claude/commands/diayn-*.md
+plugins/docs-is-all-you-need/skills/diayn-*/
+plugins/docs-is-all-you-need/dependency-skills/
 ```
 
-The repository-root manifest is the closer marketplace-style entrypoint. It
-points Claude Code at:
+Load it with:
+
+```powershell
+claude --plugin-dir <path-to-this-repo>\plugins\docs-is-all-you-need
+```
+
+The inner manifest also uses `name: "diayn"`. It is a focused local candidate;
+the root manifest is the closer marketplace-style entrypoint because it points
+at the generated platform-visible skills package.
+
+## Path B: Project-Local Fallback
+
+Use this path when the target project needs bare `/diayn-*` short commands.
+This is a local project install, not proof that the standard plugin path
+supports bare commands.
+
+Package source:
 
 ```text
-.claude/commands
-packages/claude-project-local/.claude/skills
+packages/claude-project-local/
 ```
 
-That skills root contains the 12 DIAYN workflow skills plus the 23
-DIAYN-managed dependency skills so dependency routing can use platform-visible
-skills when the runtime supports native Skill invocation.
-The root command files are synchronized from the inner plugin command adapters
-by `maintainers/scripts/build_claude_root_plugin_commands.js`.
-
-The inner local plugin candidate still points at:
+It installs this shape into a target project:
 
 ```text
-plugins/docs-is-all-you-need/.claude/commands
-plugins/docs-is-all-you-need/skills
+.claude/commands/diayn-*.md
+.claude/skills/diayn-*/
+.claude/skills/<agent-skills-name>/
+.diayn/dependency-routing/upstream-routing-map.md
+.diayn/internal-role-skills/
+.diayn/dependency-skills-manifest.json
 ```
 
-The public command surface remains exactly 12 workflow commands:
+Expected project-local commands:
 
 ```text
 /diayn-init
@@ -61,73 +143,29 @@ The public command surface remains exactly 12 workflow commands:
 /diayn-html
 ```
 
-## Local Development
-
-Before marketplace publication, use Claude Code's local plugin loading path:
-
-```powershell
-claude --plugin-dir <path-to-this-repo>
-```
-
-The inner candidate can still be loaded for focused plugin-dir debugging:
-
-```powershell
-claude --plugin-dir <path-to-this-repo>\plugins\docs-is-all-you-need
-```
-
-This is the Claude-Code-native development equivalent of the local/plugin-dir
-flows shown by `agent-skills` and `superpowers`.
-
-Current validation observed that local `--plugin-dir` exposes plugin commands
-as namespaced commands, for example:
-
-```text
-/docs-is-all-you-need:diayn-init
-```
-
-That is useful plugin proof, but it does not by itself satisfy the DDDV8
-user-facing requirement for bare `/diayn-*`.
-
-## Project-Local Fallback
-
-`packages/claude-project-local/` exists to prove and validate bare `/diayn-*`
-behavior while the plugin/marketplace path is not yet proven to expose bare
-commands.
-
-It installs this shape into a target project:
-
-```text
-.claude/commands/diayn-*.md
-.claude/skills/diayn-*/
-.claude/skills/<agent-skills-name>/
-.diayn/dependency-routing/upstream-routing-map.md
-.diayn/internal-role-skills/
-.diayn/dependency-skills-manifest.json
-```
-
-This fallback has completed the installed-flow fixture, but it is not the
-preferred final user install model. It should not be documented as the primary
-Claude Code install path.
+Project-local command adapters invoke local skill ids such as `diayn-init`, not
+plugin namespaced ids such as `diayn:diayn-init`.
 
 ## Third-Party Dependency Skills
 
-DIAYN installs 23 locked third-party `agent-skills` as DIAYN-managed dependency
-skills. They are implementation dependencies, not extra public DIAYN commands.
+DIAYN carries 23 locked third-party `agent-skills` as managed dependency skills.
+They are implementation dependencies, not extra public DIAYN commands.
 
 Normal routing:
 
-1. A public `/diayn-*` workflow takes control.
-2. DIAYN checks command identity, role/lane expectations, write boundary, and
+1. A public DIAYN workflow skill takes control.
+2. DIAYN checks command identity, role/lane expectations, write boundaries, and
    stop conditions.
 3. DIAYN selects the smallest relevant dependency skill set from the routing
    map.
-4. DIAYN resolves the platform-visible skill id for the active surface:
-   project-local installs use names such as `idea-refine`, and plugin
-   namespace installs may require `docs-is-all-you-need:idea-refine`.
+4. DIAYN resolves the skill id for the active surface:
+   - project-local fallback uses names such as `idea-refine`;
+   - plugin namespace mode may require names such as `diayn:idea-refine`;
+   - Codex uses the id discovered from its installed skills root.
 5. Claude Code invokes the selected DIAYN-managed dependency skill through the
    native `Skill` tool when relevant.
 
-The routing map is:
+Routing map:
 
 ```text
 maintainers/internal-skills/diayn-skill-router/references/upstream-routing-map.md
@@ -137,58 +175,66 @@ plugins/docs-is-all-you-need/dependency-skills/
 Reading a vendored `SKILL.md` directly is fallback/reference behavior and does
 not count as native dependency-skill invocation evidence.
 
+## Comparison
+
+| Topic | Plugin / marketplace | Project-local fallback |
+| --- | --- | --- |
+| Install location | Claude Code plugin system | Target project's `.claude/` and `.diayn/` |
+| Command format | `/diayn:diayn-init` | `/diayn-init` |
+| Distribution fit | Preferred standard distribution path | Local short-command fallback |
+| Target project files | No direct `.claude/` scaffold required by the plugin itself | Writes `.claude/` and `.diayn/` into the target project |
+| Bare `/diayn-*` | Not promised | Yes |
+| GitHub marketplace | Yes, via repository marketplace source | No |
+| Anthropic official marketplace | Not claimed | Not relevant |
+| Codex / generic scaffold impact | Must remain separate | Must not require Claude plugin namespace |
+| Validation method | `claude plugin validate` plus manual runtime command proof | Project-local package validator plus installed-flow runtime fixture |
+
 ## Validation Evidence
 
-Claude plugin validation:
+Static plugin validation:
 
 ```text
-claude plugin validate .
-claude plugin validate plugins\docs-is-all-you-need
+claude plugin validate .claude-plugin/plugin.json
+claude plugin validate .claude-plugin/marketplace.json
+claude plugin validate plugins\docs-is-all-you-need\.claude-plugin\plugin.json
+claude plugin validate plugins\docs-is-all-you-need\.claude-plugin\marketplace.json
 ```
 
 Project-local fallback validation:
 
 ```text
-node maintainers\scripts\validate_diayn_claude_project_local_package.js --json validation\phase9_claude_project_local_package.json
+node maintainers\scripts\validate_diayn_claude_project_local_package.js
 ```
 
-Recorded project-local fallback evidence proves:
-
-- bare `/diayn-init` can trigger the native `Skill` tool for `diayn-init`;
-- all 12 bare `/diayn-*` commands are visible and enter workflow context;
-- `idea-refine` can be loaded as a DIAYN-managed dependency skill through the
-  native `Skill` tool;
-- `/diayn-init` can route a vague idea workflow to `idea-refine`;
-- the complete installed-flow fixture covers `/diayn-init -> /diayn-plan ->
-  /diayn-worktrees -> /diayn-backend -> /diayn-frontend ->
-  /diayn-review-backend -> /diayn-review-frontend -> /diayn-sync ->
-  /diayn-integration -> /diayn-html -> /diayn-bug -> /diayn-new`.
-
-Primary evidence files:
+Other repository validators:
 
 ```text
-validation/phase9_claude_project_local_package.json
-validation/phase9_claude_project_local_probe.json
-validation/phase9_claude_project_local_routed_dependency_probe.json
-validation/phase9_claude_project_local_command_sequence.json
-validation/phase9_claude_skill_creator_alignment.json
-validation/phase11_installed_flow_fixture.json
-validation/phase12_side_scenarios.json
+node maintainers\scripts\validate_diayn_public_skill_surface.js
+node maintainers\scripts\validate_diayn_dependency_skills.js
+node maintainers\scripts\validate_diayn_alpha_package.js
+git diff --check
+```
+
+Historical plugin-dir evidence from the old `docs-is-all-you-need` namespace is
+not evidence for the new `diayn` namespace. After this namespace correction,
+Owner runtime verification must confirm the actual visible command names.
+
+Manual runtime verification steps live in:
+
+```text
+docs/qa/claude-plugin-runtime-acceptance.md
 ```
 
 ## Skill Authoring Authority
 
 DIAYN Claude Code skills should be evaluated against Claude Code skill
-expectations, not Codex's `skill-creator`.
+expectations, not Codex's skill creator.
 
 Claude skill-authoring reference used for this repository:
 
 ```text
 git@github.com:anthropics/skills.git
 ```
-
-For local evaluation commands, `<claude-skill-creator>` means the local checkout
-of that official Anthropic `skills` repository.
 
 Key implications:
 
@@ -197,16 +243,3 @@ Key implications:
 - `SKILL.md` should progressively disclose references, scripts, and assets;
 - plugin installation should make skills discoverable natively;
 - test/eval evidence matters before claiming broad support.
-
-DIAYN also keeps a Claude-specific eval alignment record:
-
-```text
-docs/meta/claude_skill_creator_eval_alignment.md
-validation/claude_skill_creator_trigger_eval_sets.json
-validation/phase9_claude_skill_creator_alignment.json
-```
-
-This record proves the Claude project-local package is aligned with the local
-Claude skill-creator expectations that can be verified today, while preserving
-the boundary that trigger eval prompts are only prepared and no with-skill vs
-baseline benchmark has been committed yet.

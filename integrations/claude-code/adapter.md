@@ -32,19 +32,20 @@ the plugin-first direction used by the reference projects:
 
 ```text
 /plugin marketplace add <diayn-marketplace-or-repo>
-/plugin install docs-is-all-you-need@<marketplace-name>
+/plugin install diayn@<marketplace-name>
 ```
 
-In a Claude plugin, commands and skills are plugin-scoped. Local validation of
-`--plugin-dir plugins/docs-is-all-you-need` exposed commands as namespaced
-entries such as:
+In a Claude plugin, commands and skills are plugin-scoped. DIAYN now uses
+`name: "diayn"` in the Claude plugin manifests, so the expected namespaced
+entries are:
 
 ```text
-/docs-is-all-you-need:diayn-init
+/diayn:diayn-init
 ```
 
-This proves plugin loading, but it does not prove the DDDV8 user-facing
-requirement for bare `/diayn-*` commands.
+This must be confirmed by runtime verification after the namespace rename. Even
+when verified, it proves namespaced plugin loading, not the project-local bare
+`/diayn-*` command surface.
 
 ## Bare Command Fallback
 

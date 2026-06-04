@@ -163,11 +163,17 @@ function main() {
   if (!rootClaude || rootClaude.commands !== "./.claude/commands") {
     errors.push("target root Claude manifest must point at root ./.claude/commands");
   }
+  if (!rootClaude || rootClaude.name !== "diayn") {
+    errors.push("target root Claude manifest must use plugin namespace name diayn");
+  }
   if (!rootClaude || rootClaude.skills !== "./packages/claude-project-local/.claude/skills") {
     errors.push("target root Claude manifest must point at generated Claude package skills");
   }
   if (!innerClaude || innerClaude.commands !== "./.claude/commands" || innerClaude.skills !== "./skills") {
     errors.push("target inner Claude candidate must follow agent-skills command/skills shape");
+  }
+  if (!innerClaude || innerClaude.name !== "diayn") {
+    errors.push("target inner Claude candidate must use plugin namespace name diayn");
   }
   if (!sameSorted(rootCommands, expectedWorkflowSkills) || !sameSorted(innerCommands, expectedWorkflowSkills)) {
     errors.push("target Claude command adapters must be exactly the 12 DIAYN workflow commands");
@@ -179,7 +185,7 @@ function main() {
       const rootText = fs.readFileSync(rootCommand, "utf8");
       const innerText = fs.readFileSync(innerCommand, "utf8");
       if (rootText !== innerText) errors.push(`root and inner Claude command differ: ${name}`);
-      if (!rootText.includes(`docs-is-all-you-need:${name}`)) {
+      if (!rootText.includes(`diayn:${name}`)) {
         errors.push(`Claude plugin command must invoke namespaced workflow skill: ${name}`);
       }
     }

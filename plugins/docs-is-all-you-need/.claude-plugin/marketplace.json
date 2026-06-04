@@ -6,7 +6,7 @@
   },
   "plugins": [
     {
-      "name": "docs-is-all-you-need",
+      "name": "diayn",
       "description": "DIAYN 12-command workflow skill pack.",
       "version": "0.1.0",
       "source": "./",

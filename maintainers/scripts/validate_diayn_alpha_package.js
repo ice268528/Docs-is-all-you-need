@@ -81,10 +81,10 @@ function main() {
     ["repository-root Codex manifest", rootCodexManifest],
     ["inner Codex manifest", codexManifest],
   ]) {
-    if (manifest.homepage !== "https://github.com/DIAYN/docs-is-all-you-need") {
+    if (manifest.homepage !== "https://github.com/ice268528/Docs-is-all-you-need") {
       errors.push(`${label} must include homepage metadata`);
     }
-    if (manifest.repository !== "https://github.com/DIAYN/docs-is-all-you-need") {
+    if (manifest.repository !== "https://github.com/ice268528/Docs-is-all-you-need") {
       errors.push(`${label} must include repository metadata`);
     }
     if (manifest.license !== "MIT") {
@@ -100,7 +100,7 @@ function main() {
         errors.push(`${label} must include ${capability} capability`);
       }
     }
-    if (iface.websiteURL !== "https://github.com/DIAYN/docs-is-all-you-need") {
+    if (iface.websiteURL !== "https://github.com/ice268528/Docs-is-all-you-need") {
       errors.push(`${label} must include websiteURL metadata`);
     }
     if (!iface.privacyPolicyURL || !iface.termsOfServiceURL || !iface.brandColor || !Array.isArray(iface.screenshots)) {
@@ -112,6 +112,7 @@ function main() {
   }
   if (claudeManifest.skills !== "./skills") errors.push("Claude manifest must point skills to ./skills");
   if (claudeManifest.commands !== "./.claude/commands") errors.push("Claude manifest must point commands to ./.claude/commands");
+  if (claudeManifest.name !== "diayn") errors.push("Claude manifest must use short namespace name diayn");
   if (rootCodexManifest.skills !== "./packages/codex-project-local/.codex/skills/") {
     errors.push("Repository-root Codex manifest must point to the platform-visible Codex package skills");
   }
@@ -121,8 +122,11 @@ function main() {
   if (rootClaudeManifest.skills !== "./packages/claude-project-local/.claude/skills") {
     errors.push("Repository-root Claude manifest must point to the platform-visible Claude package skills");
   }
-  if (!rootClaudeMarketplace.plugins || !rootClaudeMarketplace.plugins.some((plugin) => plugin.name === "docs-is-all-you-need")) {
-    errors.push("Repository-root Claude marketplace manifest must publish docs-is-all-you-need");
+  if (rootClaudeManifest.name !== "diayn") {
+    errors.push("Repository-root Claude plugin manifest must use short namespace name diayn");
+  }
+  if (!rootClaudeMarketplace.plugins || !rootClaudeMarketplace.plugins.some((plugin) => plugin.name === "diayn")) {
+    errors.push("Repository-root Claude marketplace manifest must publish diayn");
   }
   if (JSON.stringify(rootClaudeCommands) !== JSON.stringify([...expected].sort())) {
     errors.push("Repository-root Claude command files must be exactly the 12 DIAYN workflow commands");
@@ -173,7 +177,7 @@ function main() {
     const commandPath = path.join(pluginRoot, ".claude", "commands", `${name}.md`);
     const text = fs.readFileSync(commandPath, "utf8");
     const lowerText = text.toLowerCase();
-    const expectedSkillLoad = `first action required: invoke the native skill tool with skill: "docs-is-all-you-need:${name}"`;
+    const expectedSkillLoad = `first action required: invoke the native skill tool with skill: "diayn:${name}"`;
     if (!lowerText.includes(expectedSkillLoad)) {
       errors.push(`${commandPath} does not force native Skill tool loading for the matching workflow skill`);
     }
@@ -220,6 +224,7 @@ function main() {
       claude_commands: rootClaudeManifest.commands,
       claude_skills: rootClaudeManifest.skills,
       claude_marketplace_plugins: (rootClaudeMarketplace.plugins || []).map((plugin) => plugin.name),
+      claude_plugin_name: rootClaudeManifest.name,
     },
     codex_project_local: {
       install_target: ".codex/skills",
@@ -238,6 +243,7 @@ function main() {
       total_skill_count: claudeProjectLocalSkills.length,
     },
     claude_manifest: {
+      name: claudeManifest.name,
       commands: claudeManifest.commands,
       skills: claudeManifest.skills,
     },

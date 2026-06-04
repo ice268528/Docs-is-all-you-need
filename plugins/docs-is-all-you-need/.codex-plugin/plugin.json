@@ -6,8 +6,8 @@
   "author": {
     "name": "DIAYN maintainers"
   },
-  "homepage": "https://github.com/DIAYN/docs-is-all-you-need",
-  "repository": "https://github.com/DIAYN/docs-is-all-you-need",
+  "homepage": "https://github.com/ice268528/Docs-is-all-you-need",
+  "repository": "https://github.com/ice268528/Docs-is-all-you-need",
   "license": "MIT",
   "keywords": [
     "skills",
@@ -34,7 +34,7 @@
       "/diayn-plan",
       "/diayn-review-frontend"
     ],
-    "websiteURL": "https://github.com/DIAYN/docs-is-all-you-need",
+    "websiteURL": "https://github.com/ice268528/Docs-is-all-you-need",
     "privacyPolicyURL": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
     "termsOfServiceURL": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
     "brandColor": "#2563EB",

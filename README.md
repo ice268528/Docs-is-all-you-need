@@ -8,6 +8,9 @@ collaboration control plane delivered as an installable skill pack.
 DIAYN V1 exposes exactly 12 public `/diayn-*` workflow skills. Internal roles
 such as Controller, Executor, Reviewer, Integrator, Identity Guard, Owner UX,
 and Skill Router are implementation references, not extra public commands.
+In Claude plugin mode, those workflows are expected to be invoked through
+namespaced commands such as `/diayn:diayn-init`; bare `/diayn-*` belongs to the
+project-local fallback path.
 
 ```mermaid
 flowchart LR
@@ -23,28 +26,34 @@ flowchart LR
 
 ### Claude Code CLI
 
-Claude Code should follow the same plugin-first installation model used by
-`superpowers` and `agent-skills`.
+DIAYN supports two separate Claude Code paths. Do not mix their evidence:
 
-The repository now includes a root Claude plugin entrypoint:
+1. **Standard Claude Code plugin / marketplace path** uses plugin-namespaced
+   commands.
+2. **Project-local fallback path** installs files into a target project's
+   `.claude/` directory and provides bare `/diayn-*` short commands.
+
+#### Standard Plugin / Marketplace Path
+
+The repository includes a root Claude plugin entrypoint:
 
 ```text
 .claude-plugin/plugin.json
 .claude-plugin/marketplace.json
 ```
 
-The root manifest points to DIAYN command adapters under `.claude/commands`
-and to the platform-visible Claude package skills under
-`packages/claude-project-local/.claude/skills`.
-That skills root contains the 12 DIAYN workflow skills plus the 23 locked
+The root manifest uses `name: "diayn"`, so the plugin namespace is expected to
+be `diayn`. It points to thin command adapters under `.claude/commands` and to
+platform-visible Claude skills under `packages/claude-project-local/.claude/skills`.
+That skills root contains the 12 DIAYN workflow skills plus 23 locked
 DIAYN-managed `agent-skills` dependency skills.
 
-Once DIAYN has a published Claude marketplace entry, the intended user install
-shape is:
+DIAYN is not claiming Anthropic official marketplace listing. For GitHub
+marketplace-style installation, the intended shape is:
 
 ```text
-/plugin marketplace add <diayn-marketplace-or-repo>
-/plugin install docs-is-all-you-need@<marketplace-name>
+/plugin marketplace add ice268528/Docs-is-all-you-need
+/plugin install diayn@<marketplace-name>
 ```
 
 For local development before publication, run Claude Code with the plugin
@@ -54,8 +63,20 @@ candidate:
 claude --plugin-dir <path-to-this-repo>
 ```
 
-The older inner candidate remains available for focused local plugin-dir
-tests:
+Expected plugin command format:
+
+```text
+/diayn:diayn-init
+/diayn:diayn-plan
+/diayn:diayn-backend
+```
+
+Optional aliases such as `/diayn:init` are not implemented in this release.
+They would require command alias wrappers plus runtime proof. Plugin mode does
+not promise bare `/diayn-*` commands unless a future Claude Code runtime test
+proves that behavior.
+
+The older inner candidate remains available for focused local plugin-dir tests:
 
 ```powershell
 claude --plugin-dir <path-to-this-repo>\plugins\docs-is-all-you-need
@@ -73,16 +94,35 @@ plugins/docs-is-all-you-need/skills/diayn-*/
 plugins/docs-is-all-you-need/dependency-skills/
 ```
 
-Start with:
+#### Project-Local Fallback Path
+
+Use the fallback when you specifically want bare `/diayn-*` short commands in a
+target project. This path writes DIAYN files into that target project's
+`.claude/` and `.diayn/` directories:
+
+```text
+.claude/commands/diayn-*.md
+.claude/skills/diayn-*/
+.claude/skills/<agent-skills-name>/
+.diayn/dependency-routing/upstream-routing-map.md
+.diayn/internal-role-skills/
+.diayn/dependency-skills-manifest.json
+```
+
+The fallback package source is:
+
+```text
+packages/claude-project-local/
+```
+
+After project-local installation, start with:
 
 ```text
 /diayn-init
 ```
 
-Current boundary: the plugin candidate validates package shape, but bare
-`/diayn-*` runtime behavior still needs marketplace/runtime proof. The
-`packages/claude-project-local/` package is a validation and development aid for
-bare `/diayn-*`; it is not the normative final installation model.
+This is local short-command installation. It is not evidence that the plugin /
+marketplace path supports bare `/diayn-*`.
 
 ### Codex Desktop
 
@@ -144,8 +184,8 @@ then the DIAYN router selects the smallest relevant dependency skill set.
 
 Dependency skill ids are resolved per surface. Project-local installs use names
 such as `idea-refine`; Claude plugin namespace installs may require
-`docs-is-all-you-need:idea-refine`; Codex uses the skill id discovered from the
-installed skills root.
+`diayn:idea-refine`; Codex uses the skill id discovered from the installed
+skills root.
 
 The routing map is:
 
@@ -226,7 +266,7 @@ uploaded as repository content because ordinary users do not need them.
 
 | Surface | Status |
 | --- | --- |
-| Claude Code plugin candidate | Standard install target; local plugin-dir validates plugin shape but bare `/diayn-*` still needs marketplace/runtime proof. |
+| Claude Code plugin candidate | Standard install target; static plugin shape validates. Expected command shape is `/diayn:diayn-*`; runtime visibility still needs Owner verification. |
 | Claude Code project-local package | Proven development package for bare `/diayn-*` installed flow; not the final marketplace install model. |
 | Codex package/install | Validated package surface: package shape, install command, and directory inspection pass. Desktop app-session runtime requires separate evidence. |
 | OpenCode | Deferred until direct `/diayn-*` skill invocation is proven. |
