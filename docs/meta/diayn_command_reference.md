@@ -1,6 +1,6 @@
 # DIAYN Command Reference
 
-> `/diayn-*` commands are document-driven workflow triggers for existing coding agents. They are not a built-in CLI, plugin, shell command, native slash-command runtime, or hidden agent launcher.
+> DIAYN commands are document-driven workflow triggers for existing coding agents. Project-local installs expose bare `/diayn-*` commands; Claude plugin installs expose short namespaced commands such as `/diayn:init`. They are not a built-in shell CLI, custom agent runtime, or hidden agent launcher.
 
 Use this reference with:
 
@@ -13,7 +13,8 @@ Use this reference with:
 
 ## 1. Command Rules
 
-Canonical DIAYN commands are one-segment names:
+Canonical DIAYN workflow skill ids and project-local commands are one-segment
+`/diayn-*` names:
 
 ```text
 /diayn-init
@@ -30,7 +31,25 @@ Canonical DIAYN commands are one-segment names:
 /diayn-html
 ```
 
-Older two-segment forms such as `/diayn init` are migration or historical wording only. Current user-facing instructions should use `/diayn-*`.
+Claude plugin install uses the same workflows through short namespaced command
+adapters:
+
+```text
+/diayn:init
+/diayn:plan
+/diayn:worktrees
+/diayn:backend
+/diayn:frontend
+/diayn:review-backend
+/diayn:review-frontend
+/diayn:sync
+/diayn:integration
+/diayn:bug
+/diayn:new
+/diayn:html
+```
+
+Older two-segment forms such as `/diayn init` are migration or historical wording only. Current project-local instructions should use `/diayn-*`; current Claude plugin instructions should use `/diayn:<short-command>`.
 
 Every command must start with the Session Identity Guard.
 

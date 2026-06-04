@@ -1,5 +1,5 @@
 ---
-description: Integrate reviewed DIAYN lane work and check contracts, build, smoke, and E2E evidence.
+description: Runs the DIAYN /diayn-integration workflow. Use when Controller must integrate reviewed lane code, check contracts/build/smoke/E2E evidence, classify failures, and prepare Owner acceptance.
 ---
 
 Command arguments:

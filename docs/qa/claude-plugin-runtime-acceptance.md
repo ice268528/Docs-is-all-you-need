@@ -42,7 +42,7 @@ Expected static result:
 
 ```text
 plugin.json name = diayn
-plugin command adapters invoke diayn:diayn-*
+plugin command adapters expose /diayn:<short-command> and invoke diayn:diayn-*
 project-local command adapters invoke local diayn-* skill ids
 ```
 
@@ -61,31 +61,31 @@ claude --plugin-dir <Docs-is-all-you-need repo path>
 Verify what commands Claude Code actually exposes:
 
 ```text
-/diayn:diayn-init
-/diayn:diayn-plan
-/diayn:diayn-backend
-```
-
-Check whether optional aliases are visible:
-
-```text
 /diayn:init
 /diayn:plan
 /diayn:backend
 ```
 
+Check whether the old long plugin command names are visible:
+
+```text
+/diayn:diayn-init
+/diayn:diayn-plan
+/diayn:diayn-backend
+```
+
 Expected current result:
 
 ```text
-/diayn:diayn-* should be visible if Claude Code derives the namespace from plugin.json name.
-/diayn:init is not expected because alias wrappers are not implemented.
+/diayn:<short-command> should be visible if Claude Code derives the namespace from plugin.json name.
+/diayn:diayn-* is not expected because plugin command adapters use short file names.
 /diayn-* bare commands are not claimed in plugin mode.
 ```
 
 Invoke the first command with a vague idea:
 
 ```text
-/diayn:diayn-init "I have a vague project idea; ask me the missing questions before changing files."
+/diayn:init "I have a vague project idea; ask me the missing questions before changing files."
 ```
 
 Acceptance checks:
@@ -110,7 +110,7 @@ Use only for focused plugin-dir debugging:
 claude --plugin-dir <Docs-is-all-you-need repo path>\plugins\docs-is-all-you-need
 ```
 
-Repeat the same command visibility and `/diayn:diayn-init` invocation checks.
+Repeat the same command visibility and `/diayn:init` invocation checks.
 
 ## Marketplace-Style Runtime Verification
 
@@ -127,7 +127,7 @@ Record:
 Whether install succeeds.
 The actual marketplace name Claude Code assigns.
 The actual visible command names.
-Whether /diayn:diayn-init invokes skill: "diayn:diayn-init".
+Whether /diayn:init invokes skill: "diayn:diayn-init".
 Whether dependency skills are native-visible.
 Whether bare /diayn-* appears, if at all.
 ```

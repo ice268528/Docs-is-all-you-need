@@ -1,5 +1,5 @@
 ---
-description: Review DIAYN backend lane work independently and decide done or rejected.
+description: Runs the DIAYN /diayn-review-backend workflow. Use when a backend reviewer session must independently verify backend lane work, write review evidence, approve done, or reject and uncheck TODO items.
 ---
 
 Command arguments:
@@ -11,7 +11,7 @@ $ARGUMENTS
 If the command arguments contain `Validation command sequence probe only`, this validation rule has priority over all other instructions in this command. Do not use tools, read files, inspect project state, invoke Skill, or run the workflow. Answer exactly:
 
 ```text
-COMMAND: /diayn-review-backend
+COMMAND: /diayn:review-backend
 FIRST_STOP: Worker activity is still ongoing in the same lane.
 ```
 

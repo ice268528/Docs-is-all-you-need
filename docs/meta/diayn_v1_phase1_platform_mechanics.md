@@ -14,7 +14,7 @@ This file records the Phase 1 evidence for implementing DIAYN V1 as a real 12-wo
 | Surface | Local observation | DDDV8 implication |
 | --- | --- | --- |
 | Codex Desktop / Codex executable | Codex package shape can be inspected statically, but this environment cannot prove Codex app-session discovery or `/diayn-*` invocation. | Codex package shape can follow the `superpowers` `.codex-plugin/plugin.json` pattern, but app-session runtime proof remains a Phase 4 validation blocker. |
-| Claude Code CLI | `claude --version` returned `2.1.149 (Claude Code)`. `claude --help` shows `--plugin-dir`, plugin management, and skill resolution. `claude plugin validate ../agent-skills` and `claude plugin validate ../superpowers` passed. | Claude is the strongest alpha surface candidate. DIAYN should use a `.claude-plugin/plugin.json` that declares both short `/diayn-*` command files and real workflow skills. |
+| Claude Code CLI | `claude --version` returned `2.1.149 (Claude Code)`. `claude --help` shows `--plugin-dir`, plugin management, and skill resolution. `claude plugin validate ../agent-skills` and `claude plugin validate ../superpowers` passed. | Claude is the strongest alpha surface candidate. DIAYN should use a `.claude-plugin/plugin.json` that declares both short plugin command files and real workflow skills. |
 | OpenCode CLI | `opencode --version` returned `1.14.28` only after using isolated XDG dirs. `../agent-skills/docs/opencode-setup.md` states OpenCode uses `AGENTS.md` plus the `skill` tool rather than native slash commands. | OpenCode remains deferred for DDDV8 unless later evidence proves installed workflow skills can be directly triggered through `/diayn-*`. Do not build an OpenCode-first adapter to bypass the requirement. |
 
 ## 3. Reference Pattern Conclusions
@@ -26,7 +26,7 @@ This file records the Phase 1 evidence for implementing DIAYN V1 as a real 12-wo
 - `.claude-plugin/plugin.json` can declare `commands`, `skills`, and optional `agents`.
 - `.claude/commands/*.md` files can be small command adapters.
 - A command can explicitly say `Invoke the agent-skills:<skill-name> skill`.
-- For DIAYN, each `.claude/commands/diayn-*.md` should invoke the matching public DIAYN workflow skill, not an internal role skill.
+- For DIAYN plugin mode, each short `.claude/commands/*.md` adapter should invoke the matching public DIAYN workflow skill, not an internal role skill. Project-local fallback keeps `.claude/commands/diayn-*.md` adapters for bare `/diayn-*`.
 - DIAYN-managed third-party dependency skills can be packaged in the same plugin or dependency structure if native nested skill invocation requires platform-visible skills.
 
 ### Codex Desktop

@@ -13,7 +13,7 @@ Current root plugin files:
 ```text
 .claude-plugin/plugin.json
 .claude-plugin/marketplace.json
-.claude/commands/diayn-*.md
+.claude/commands/*.md
 packages/claude-project-local/.claude/skills/
 ```
 
@@ -27,10 +27,12 @@ The root plugin manifest uses:
 }
 ```
 
-The short plugin namespace is expected to be `diayn`. The root skills path
-contains the 12 DIAYN workflow skills plus 23 DIAYN-managed `agent-skills`
-dependency skills, so native dependency routing can use platform-visible skills
-when Claude Code supports them.
+The short plugin namespace is `diayn`. Root command adapters use short command
+file names such as `init.md` and `plan.md`, so the expected user command shape
+is `/diayn:init`, not `/diayn:diayn-init`. The root skills path contains the 12
+DIAYN workflow skills plus 23 DIAYN-managed `agent-skills` dependency skills,
+so native dependency routing can use platform-visible skills when Claude Code
+supports them.
 
 The root plugin manifest points at `packages/claude-project-local/.claude/skills`
 to reuse the generated Claude-visible skills root; the project-local fallback
@@ -53,36 +55,35 @@ claude --plugin-dir <path-to-this-repo>
 Expected plugin commands:
 
 ```text
-/diayn:diayn-init
-/diayn:diayn-plan
-/diayn:diayn-worktrees
-/diayn:diayn-backend
-/diayn:diayn-frontend
-/diayn:diayn-review-backend
-/diayn:diayn-review-frontend
-/diayn:diayn-sync
-/diayn:diayn-integration
-/diayn:diayn-bug
-/diayn:diayn-new
-/diayn:diayn-html
+/diayn:init
+/diayn:plan
+/diayn:worktrees
+/diayn:backend
+/diayn:frontend
+/diayn:review-backend
+/diayn:review-frontend
+/diayn:sync
+/diayn:integration
+/diayn:bug
+/diayn:new
+/diayn:html
 ```
 
 Plugin mode does not promise bare `/diayn-*`. If a future Claude Code runtime
 exposes bare commands from a plugin install, record it only as observed behavior
 for that Claude Code version until broader support is proven.
 
-## Optional Alias Boundary
+## Command Naming Boundary
 
-Short namespaced aliases such as `/diayn:init` are not implemented in this
-release. The low-risk route would be command alias wrappers such as:
+Plugin command adapters and project-local command adapters are intentionally
+separate:
 
 ```text
-.claude/commands/init.md -> Invoke the diayn:diayn-init skill.
+Plugin command:        .claude/commands/init.md -> /diayn:init -> skill "diayn:diayn-init"
+Project-local command: .claude/commands/diayn-init.md -> /diayn-init -> skill "diayn-init"
 ```
 
-That would add extra plugin commands and requires runtime verification. DIAYN
-keeps exactly 12 public workflow command files in this release, so alias wrappers
-are deferred.
+The workflow skill content remains shared; only the command adapter names differ.
 
 ## Inner Plugin Candidate
 
@@ -92,7 +93,7 @@ The inner candidate remains available for focused local plugin-dir debugging:
 plugins/docs-is-all-you-need/
 plugins/docs-is-all-you-need/.claude-plugin/plugin.json
 plugins/docs-is-all-you-need/.claude-plugin/marketplace.json
-plugins/docs-is-all-you-need/.claude/commands/diayn-*.md
+plugins/docs-is-all-you-need/.claude/commands/*.md
 plugins/docs-is-all-you-need/skills/diayn-*/
 plugins/docs-is-all-you-need/dependency-skills/
 ```
@@ -117,6 +118,15 @@ Package source:
 
 ```text
 packages/claude-project-local/
+```
+
+From a cloned DIAYN repository or release package, install it into a target
+project with:
+
+```powershell
+$target = "E:\path\to\target-project"
+Copy-Item -Path .\packages\claude-project-local\.claude -Destination $target -Recurse -Force
+Copy-Item -Path .\packages\claude-project-local\.diayn -Destination $target -Recurse -Force
 ```
 
 It installs this shape into a target project:
@@ -184,7 +194,7 @@ not count as native dependency-skill invocation evidence.
 | Topic | Plugin / marketplace | Project-local fallback |
 | --- | --- | --- |
 | Install location | Claude Code plugin system | Target project's `.claude/` and `.diayn/` |
-| Command format | `/diayn:diayn-init` | `/diayn-init` |
+| Command format | `/diayn:init` | `/diayn-init` |
 | Distribution fit | Preferred standard distribution path | Local short-command fallback |
 | Target project files | No direct `.claude/` scaffold required by the plugin itself | Writes `.claude/` and `.diayn/` into the target project |
 | Bare `/diayn-*` | Not promised | Yes |

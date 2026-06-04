@@ -20,6 +20,21 @@ const expected = [
   "diayn-new",
   "diayn-html",
 ];
+const pluginCommandMap = [
+  ["init", "diayn-init"],
+  ["plan", "diayn-plan"],
+  ["worktrees", "diayn-worktrees"],
+  ["backend", "diayn-backend"],
+  ["frontend", "diayn-frontend"],
+  ["review-backend", "diayn-review-backend"],
+  ["review-frontend", "diayn-review-frontend"],
+  ["sync", "diayn-sync"],
+  ["integration", "diayn-integration"],
+  ["bug", "diayn-bug"],
+  ["new", "diayn-new"],
+  ["html", "diayn-html"],
+];
+const expectedPluginCommands = pluginCommandMap.map(([commandName]) => commandName);
 
 function readJson(file) {
   return JSON.parse(fs.readFileSync(file, "utf8"));
@@ -73,8 +88,8 @@ function main() {
   if (JSON.stringify(publicSkills) !== JSON.stringify([...expected].sort())) {
     errors.push("plugin public skills must be exactly the 12 DIAYN workflow skills");
   }
-  if (JSON.stringify(claudeCommands) !== JSON.stringify([...expected].sort())) {
-    errors.push("Claude command files must be exactly the 12 DIAYN workflow commands");
+  if (JSON.stringify(claudeCommands) !== JSON.stringify([...expectedPluginCommands].sort())) {
+    errors.push("Claude plugin command files must be exactly the 12 short DIAYN workflow commands");
   }
   if (codexManifest.skills !== "./skills/") errors.push("Codex manifest must point skills to ./skills/");
   for (const [label, manifest] of [
@@ -128,8 +143,8 @@ function main() {
   if (!rootClaudeMarketplace.plugins || !rootClaudeMarketplace.plugins.some((plugin) => plugin.name === "diayn")) {
     errors.push("Repository-root Claude marketplace manifest must publish diayn");
   }
-  if (JSON.stringify(rootClaudeCommands) !== JSON.stringify([...expected].sort())) {
-    errors.push("Repository-root Claude command files must be exactly the 12 DIAYN workflow commands");
+  if (JSON.stringify(rootClaudeCommands) !== JSON.stringify([...expectedPluginCommands].sort())) {
+    errors.push("Repository-root Claude plugin command files must be exactly the 12 short DIAYN workflow commands");
   }
   if (dependencyManifest.public_diayn_command_surface !== false) {
     errors.push("Dependency payload must not be public DIAYN command surface");
@@ -173,15 +188,15 @@ function main() {
     }
   }
 
-  for (const name of expected) {
-    const commandPath = path.join(pluginRoot, ".claude", "commands", `${name}.md`);
+  for (const [commandName, name] of pluginCommandMap) {
+    const commandPath = path.join(pluginRoot, ".claude", "commands", `${commandName}.md`);
     const text = fs.readFileSync(commandPath, "utf8");
     const lowerText = text.toLowerCase();
     const expectedSkillLoad = `first action required: invoke the native skill tool with skill: "diayn:${name}"`;
     if (!lowerText.includes(expectedSkillLoad)) {
       errors.push(`${commandPath} does not force native Skill tool loading for the matching workflow skill`);
     }
-    if (!text.includes("Validation command sequence probe only") || !text.includes(`COMMAND: /${name}`)) {
+    if (!text.includes("Validation command sequence probe only") || !text.includes(`COMMAND: /diayn:${commandName}`)) {
       errors.push(`${commandPath} must include validation command sequence probe mode`);
     }
     if (!text.includes("$ARGUMENTS")) {
@@ -190,11 +205,11 @@ function main() {
     if (!text.includes("validation rule has priority over all other instructions")) {
       errors.push(`${commandPath} must make validation probe mode higher priority than normal workflow loading`);
     }
-    const rootCommandPath = path.join(repoRoot, ".claude", "commands", `${name}.md`);
+    const rootCommandPath = path.join(repoRoot, ".claude", "commands", `${commandName}.md`);
     if (!fs.existsSync(rootCommandPath)) {
-      errors.push(`repository-root Claude command ${name}.md is missing`);
+      errors.push(`repository-root Claude command ${commandName}.md is missing`);
     } else if (fs.readFileSync(rootCommandPath, "utf8") !== text) {
-      errors.push(`repository-root Claude command ${name}.md must match the inner plugin command adapter`);
+      errors.push(`repository-root Claude command ${commandName}.md must match the inner plugin command adapter`);
     }
   }
 

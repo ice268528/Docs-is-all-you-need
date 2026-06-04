@@ -1,5 +1,5 @@
 ---
-description: Triage a DIAYN bug, Owner acceptance failure, or rollback concern.
+description: Runs the DIAYN /diayn-bug workflow. Use when Owner acceptance fails, a defect is reported, or accepted behavior needs triage, routing, rollback analysis, or lane assignment.
 ---
 
 Command arguments:

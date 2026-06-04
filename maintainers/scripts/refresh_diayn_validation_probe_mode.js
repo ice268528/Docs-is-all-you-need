@@ -7,19 +7,19 @@ const path = require("path");
 const repoRoot = path.resolve(__dirname, "..", "..");
 const pluginRoot = path.join(repoRoot, "plugins", "docs-is-all-you-need");
 const pluginNamespace = "diayn";
-const workflowSkills = [
-  "diayn-init",
-  "diayn-plan",
-  "diayn-worktrees",
-  "diayn-backend",
-  "diayn-frontend",
-  "diayn-review-backend",
-  "diayn-review-frontend",
-  "diayn-sync",
-  "diayn-integration",
-  "diayn-bug",
-  "diayn-new",
-  "diayn-html",
+const workflowCommands = [
+  ["init", "diayn-init"],
+  ["plan", "diayn-plan"],
+  ["worktrees", "diayn-worktrees"],
+  ["backend", "diayn-backend"],
+  ["frontend", "diayn-frontend"],
+  ["review-backend", "diayn-review-backend"],
+  ["review-frontend", "diayn-review-frontend"],
+  ["sync", "diayn-sync"],
+  ["integration", "diayn-integration"],
+  ["bug", "diayn-bug"],
+  ["new", "diayn-new"],
+  ["html", "diayn-html"],
 ];
 
 function ensureInsideRepo(target) {
@@ -46,54 +46,23 @@ function readFirstStop(skillPath) {
   return match[1].replace(/`/g, "");
 }
 
-function replaceValidationBlock(skillPath, skillName, firstStop) {
+function readSkillDescription(skillPath) {
   const text = readFile(skillPath);
-  const block = `## Command Arguments
-
-\`\`\`text
-$ARGUMENTS
-\`\`\`
-
-## Owner-Confirmed Command Facts
-
-Treat explicit facts in the current command arguments or current user message as Owner-confirmed for this run unless they conflict with existing project evidence. For example, if project identity, stage id, lane applicability, language, or approval boundaries are stated in the command, use those values directly and record them in the generated docs instead of asking the same question again.
-
-The literal phrase \`Owner-confirmed project_slug = <value>\` is a direct Owner answer. Use \`<value>\` as the project slug and do not ask for it again unless repository evidence contradicts it.
-
-If the command arguments say scaffold creation is approved, or say all OwnerGate choices needed for the automated fixture are approved, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
-
-Ask only when the fact is absent, ambiguous, contradicted by repository evidence, or would cause existing user content to be overwritten without a preservation decision.
-
-## Validation Probe Mode
-
-If the command arguments above or current user message contain \`Validation command sequence probe only\`, Validation Probe Mode has priority over Progressive Startup, Identity Guard, helper scripts, project inspection, dependency-skill routing, and all normal workflow steps.
-
-In this mode, do not use tools, read files, inspect project state, invoke helper scripts, invoke dependency skills, or write files. Answer exactly:
-
-\`\`\`text
-COMMAND: /${skillName}
-FIRST_STOP: ${firstStop}
-\`\`\`
-
-Then stop. This mode only validates package command routing; it does not prove the full workflow.
-
-## Progressive Startup`;
-  const pattern = /(?:## Command Arguments[\s\S]*?\r?\n)?## Validation Probe Mode[\s\S]*?\r?\n## Progressive Startup/;
-  if (!pattern.test(text)) throw new Error(`failed to find Validation Probe Mode: ${skillPath}`);
-  const next = text.replace(pattern, block);
-  writeFile(skillPath, next);
+  const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  if (!match) throw new Error(`missing skill frontmatter: ${skillPath}`);
+  for (const line of match[1].split(/\r?\n/)) {
+    const idx = line.indexOf(":");
+    if (idx > 0 && line.slice(0, idx).trim() === "description") {
+      return line.slice(idx + 1).trim().replace(/^["']|["']$/g, "");
+    }
+  }
+  throw new Error(`missing skill description: ${skillPath}`);
 }
 
-function readCommandDescription(commandPath) {
-  const text = readFile(commandPath);
-  const match = text.match(/^---\r?\ndescription: (.*?)\r?\n---/);
-  if (!match) throw new Error(`missing command description: ${commandPath}`);
-  return match[1];
-}
-
-function writePluginCommand(skillName, firstStop) {
-  const commandPath = path.join(pluginRoot, ".claude", "commands", `${skillName}.md`);
-  const description = readCommandDescription(commandPath);
+function writePluginCommand(commandName, skillName, firstStop) {
+  const skillPath = path.join(pluginRoot, "skills", skillName, "SKILL.md");
+  const commandPath = path.join(pluginRoot, ".claude", "commands", `${commandName}.md`);
+  const description = readSkillDescription(skillPath);
   const text = `---
 description: ${description}
 ---
@@ -107,7 +76,7 @@ $ARGUMENTS
 If the command arguments contain \`Validation command sequence probe only\`, this validation rule has priority over all other instructions in this command. Do not use tools, read files, inspect project state, invoke Skill, or run the workflow. Answer exactly:
 
 \`\`\`text
-COMMAND: /${skillName}
+COMMAND: /${pluginNamespace}:${commandName}
 FIRST_STOP: ${firstStop}
 \`\`\`
 
@@ -126,15 +95,17 @@ Native Skill Invocation Gate:
 }
 
 function main() {
-  for (const skillName of workflowSkills) {
+  const pluginCommandsRoot = path.join(pluginRoot, ".claude", "commands");
+  ensureInsideRepo(pluginCommandsRoot);
+  fs.rmSync(pluginCommandsRoot, { recursive: true, force: true });
+  fs.mkdirSync(pluginCommandsRoot, { recursive: true });
+
+  for (const [commandName, skillName] of workflowCommands) {
     const pluginSkill = path.join(pluginRoot, "skills", skillName, "SKILL.md");
-    const rootSkill = path.join(repoRoot, "skills", skillName, "SKILL.md");
     const firstStop = readFirstStop(pluginSkill);
-    replaceValidationBlock(rootSkill, skillName, firstStop);
-    replaceValidationBlock(pluginSkill, skillName, firstStop);
-    writePluginCommand(skillName, firstStop);
+    writePluginCommand(commandName, skillName, firstStop);
   }
-  console.log(JSON.stringify({ ok: true, refreshed_workflow_skills: workflowSkills.length }, null, 2));
+  console.log(JSON.stringify({ ok: true, refreshed_plugin_commands: workflowCommands.length }, null, 2));
 }
 
 main();

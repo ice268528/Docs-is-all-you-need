@@ -16,10 +16,10 @@ model used by `superpowers` and `agent-skills`. Relevant plugin files:
 ```text
 .claude-plugin/plugin.json
 .claude-plugin/marketplace.json
-.claude/commands/diayn-*.md
+.claude/commands/*.md
 plugins/docs-is-all-you-need/.claude-plugin/plugin.json
 plugins/docs-is-all-you-need/.claude-plugin/marketplace.json
-plugins/docs-is-all-you-need/.claude/commands/diayn-*.md
+plugins/docs-is-all-you-need/.claude/commands/*.md
 plugins/docs-is-all-you-need/skills/diayn-*/
 plugins/docs-is-all-you-need/dependency-skills/
 ```
@@ -37,7 +37,7 @@ The inner candidate's relative plugin files are:
 ```text
 .claude-plugin/plugin.json
 .claude-plugin/marketplace.json
-.claude/commands/diayn-*.md
+.claude/commands/*.md
 skills/diayn-*/
 dependency-skills/
 ```
@@ -46,9 +46,9 @@ The 12 Claude plugin command files are thin entry points. The current plugin
 namespace is `diayn`, so plugin mode is expected to expose namespaced commands:
 
 ```text
-/diayn:diayn-init -> diayn:diayn-init
+/diayn:init -> diayn:diayn-init
 ...
-/diayn:diayn-html -> diayn:diayn-html
+/diayn:html -> diayn:diayn-html
 ```
 
 Validation performed:
@@ -70,7 +70,7 @@ Conclusion: plugin-dir mode is valid local Claude plugin proof. In current
 validation it exposed namespaced commands, so it does not by itself prove bare
 `/diayn-*`. After the low-risk manifest rename to `name: "diayn"`, the actual
 runtime command names must be manually re-verified; the expected command is
-`/diayn:diayn-init`. Do not use the old `/docs-is-all-you-need:*` probe as
+`/diayn:init`. Do not use the old `/docs-is-all-you-need:*` probe as
 current namespace proof.
 
 ## Project-Local Package
@@ -123,6 +123,6 @@ Conclusion: Claude Code CLI has a proven project-local fallback for bare
 validation, and the complete installed-flow fixture through Owner acceptance,
 closeout, and next-stage baseline refresh. This is an alpha fallback, not the
 normative final Claude install model. The final Claude path should be
-plugin/marketplace install with `/diayn:diayn-*` namespaced commands. Bare
+plugin/marketplace install with short `/diayn:*` namespaced commands. Bare
 `/diayn-*` should remain documented as project-local fallback unless future
 runtime verification proves otherwise.

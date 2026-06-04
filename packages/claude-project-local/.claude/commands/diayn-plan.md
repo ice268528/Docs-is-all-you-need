@@ -1,5 +1,5 @@
 ---
-description: Turn DIAYN requirements into stages, lanes, task slices, and acceptance criteria.
+description: Runs the DIAYN /diayn-plan workflow. Use when confirmed or draft requirements need to become stages, backend/frontend lane plans, task slices, acceptance criteria, and OwnerGate questions.
 ---
 
 Command arguments:

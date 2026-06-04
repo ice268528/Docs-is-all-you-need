@@ -1,5 +1,5 @@
 ---
-description: Review DIAYN backend lane work independently and decide done or rejected.
+description: Runs the DIAYN /diayn-review-backend workflow. Use when a backend reviewer session must independently verify backend lane work, write review evidence, approve done, or reject and uncheck TODO items.
 ---
 
 Command arguments:

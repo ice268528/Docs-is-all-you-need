@@ -1,5 +1,5 @@
 ---
-description: Generate an Owner-facing DIAYN HTML decision aid or report while Markdown remains authoritative.
+description: Runs the DIAYN /diayn-html workflow. Use when the Owner asks for a readable HTML decision aid, comparison, report, or acceptance summary while Markdown remains the durable authority.
 ---
 
 Command arguments:
@@ -11,7 +11,7 @@ $ARGUMENTS
 If the command arguments contain `Validation command sequence probe only`, this validation rule has priority over all other instructions in this command. Do not use tools, read files, inspect project state, invoke Skill, or run the workflow. Answer exactly:
 
 ```text
-COMMAND: /diayn-html
+COMMAND: /diayn:html
 FIRST_STOP: The request is really for a durable requirement change and no Markdown record exists.
 ```
 

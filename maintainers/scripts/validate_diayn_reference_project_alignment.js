@@ -25,6 +25,21 @@ const expectedWorkflowSkills = [
   "diayn-new",
   "diayn-html",
 ];
+const pluginCommandMap = [
+  ["init", "diayn-init"],
+  ["plan", "diayn-plan"],
+  ["worktrees", "diayn-worktrees"],
+  ["backend", "diayn-backend"],
+  ["frontend", "diayn-frontend"],
+  ["review-backend", "diayn-review-backend"],
+  ["review-frontend", "diayn-review-frontend"],
+  ["sync", "diayn-sync"],
+  ["integration", "diayn-integration"],
+  ["bug", "diayn-bug"],
+  ["new", "diayn-new"],
+  ["html", "diayn-html"],
+];
+const expectedPluginCommands = pluginCommandMap.map(([commandName]) => commandName);
 
 function readText(file, errors, label = file) {
   if (!fs.existsSync(file)) {
@@ -175,18 +190,18 @@ function main() {
   if (!innerClaude || innerClaude.name !== "diayn") {
     errors.push("target inner Claude candidate must use plugin namespace name diayn");
   }
-  if (!sameSorted(rootCommands, expectedWorkflowSkills) || !sameSorted(innerCommands, expectedWorkflowSkills)) {
-    errors.push("target Claude command adapters must be exactly the 12 DIAYN workflow commands");
+  if (!sameSorted(rootCommands, expectedPluginCommands) || !sameSorted(innerCommands, expectedPluginCommands)) {
+    errors.push("target Claude plugin command adapters must be exactly the 12 short DIAYN workflow commands");
   }
-  for (const name of expectedWorkflowSkills) {
-    const rootCommand = path.join(repoRoot, ".claude", "commands", `${name}.md`);
-    const innerCommand = path.join(repoRoot, "plugins", "docs-is-all-you-need", ".claude", "commands", `${name}.md`);
+  for (const [commandName, name] of pluginCommandMap) {
+    const rootCommand = path.join(repoRoot, ".claude", "commands", `${commandName}.md`);
+    const innerCommand = path.join(repoRoot, "plugins", "docs-is-all-you-need", ".claude", "commands", `${commandName}.md`);
     if (fs.existsSync(rootCommand) && fs.existsSync(innerCommand)) {
       const rootText = fs.readFileSync(rootCommand, "utf8");
       const innerText = fs.readFileSync(innerCommand, "utf8");
-      if (rootText !== innerText) errors.push(`root and inner Claude command differ: ${name}`);
+      if (rootText !== innerText) errors.push(`root and inner Claude command differ: ${commandName}`);
       if (!rootText.includes(`diayn:${name}`)) {
-        errors.push(`Claude plugin command must invoke namespaced workflow skill: ${name}`);
+        errors.push(`Claude plugin command must invoke namespaced workflow skill: ${commandName} -> ${name}`);
       }
     }
   }

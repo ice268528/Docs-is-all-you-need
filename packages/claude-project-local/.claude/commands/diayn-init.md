@@ -1,5 +1,5 @@
 ---
-description: Initialize or retrofit a project with the DIAYN harness.
+description: Runs the DIAYN /diayn-init workflow. Use when the Owner has a vague idea, draft requirement, or existing project that needs DIAYN harness initialization, requirement clarification, scaffold audit, or dry-run retrofit planning.
 ---
 
 Command arguments:

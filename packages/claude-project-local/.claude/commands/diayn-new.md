@@ -1,5 +1,5 @@
 ---
-description: Intake a new DIAYN requirement, scope change, or superseding request.
+description: Runs the DIAYN /diayn-new workflow. Use when the Owner introduces a new requirement, scope change, dependency change, or direction change that must be routed without silently overwriting prior requirements.
 ---
 
 Command arguments:

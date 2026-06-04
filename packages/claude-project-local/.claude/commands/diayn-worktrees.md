@@ -1,5 +1,5 @@
 ---
-description: Prepare DIAYN lane worktrees, manifests, and session launch guidance.
+description: Runs the DIAYN /diayn-worktrees workflow. Use when Controller needs to prepare backend/frontend lane worktrees, branch guidance, manifests, and session launch instructions after planning.
 ---
 
 Command arguments:

@@ -9,10 +9,10 @@ Added package files:
 ```text
 .claude-plugin/plugin.json
 .claude-plugin/marketplace.json
-.claude/commands/diayn-*.md
+.claude/commands/*.md
 plugins/docs-is-all-you-need/.claude-plugin/plugin.json
 plugins/docs-is-all-you-need/.claude-plugin/marketplace.json
-plugins/docs-is-all-you-need/.claude/commands/diayn-*.md
+plugins/docs-is-all-you-need/.claude/commands/*.md
 ```
 
 The repository-root Claude package declares:
@@ -35,7 +35,7 @@ The inner local plugin candidate declares:
 Each command file invokes the matching public workflow skill, for example:
 
 ```text
-/docs-is-all-you-need:diayn-init -> docs-is-all-you-need:diayn-init
+/diayn:init -> diayn:diayn-init
 ```
 
 Validation:
@@ -121,8 +121,8 @@ Result: `ok: true`.
 Validation checks:
 
 - plugin public skill surface has exactly 12 workflow skills;
-- Claude command directory has exactly 12 `diayn-*.md` files;
-- each Claude command invokes the matching public workflow skill;
+- Claude plugin command directories have exactly 12 short command files;
+- each Claude plugin command invokes the matching namespaced public workflow skill;
 - repository-root Claude manifest points commands to root DIAYN command adapters and skills to the generated platform-visible Claude package;
 - Codex manifest points at the public skill directory;
 - repository-root Codex manifest points at the generated platform-visible Codex package;
@@ -149,6 +149,6 @@ Phase 4 creates and validates package artifacts and repeatable install/copy smok
 
 Those remain installed-flow release gates.
 
-Phase 9 follow-up found that Claude Code loads the plugin as namespaced commands and namespaced skills and can invoke `docs-is-all-you-need:diayn-init` through the native `Skill` tool. Bare `/diayn-init` returns `Unknown command` in the plugin-dir probe.
+Phase 9 historical follow-up found that Claude Code loaded the old plugin namespace as namespaced commands and namespaced skills and could invoke `docs-is-all-you-need:diayn-init` through the native `Skill` tool. Bare `/diayn-init` returned `Unknown command` in that plugin-dir probe. Current DIAYN plugin command names are short namespaced commands such as `/diayn:init` and require current runtime verification.
 
 Phase 9 also adds a separate Claude project-local package candidate at `packages/claude-project-local/`. That package proves bare `/diayn-init` command-to-skill smoke behavior, direct native loading of the DIAYN-managed `idea-refine` dependency skill, and routed `/diayn-init -> idea-refine` dependency loading. The Phase 4 plugin artifact still must not be described as satisfying the final DDDV8 bare `/diayn-*` entry requirement by itself.

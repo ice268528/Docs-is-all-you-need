@@ -1,5 +1,5 @@
 ---
-description: Generate an Owner-facing DIAYN HTML decision aid or report while Markdown remains authoritative.
+description: Runs the DIAYN /diayn-html workflow. Use when the Owner asks for a readable HTML decision aid, comparison, report, or acceptance summary while Markdown remains the durable authority.
 ---
 
 Command arguments:

@@ -19,7 +19,7 @@ function ensureInsideRepo(target) {
 function listCommandFiles(root) {
   return fs
     .readdirSync(root, { withFileTypes: true })
-    .filter((entry) => entry.isFile() && entry.name.startsWith("diayn-") && entry.name.endsWith(".md"))
+    .filter((entry) => entry.isFile() && entry.name.endsWith(".md"))
     .map((entry) => entry.name)
     .sort();
 }
