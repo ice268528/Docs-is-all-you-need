@@ -25,12 +25,21 @@ plugins/docs-is-all-you-need/dependency-skills/
 ```
 
 The repository-root plugin entrypoint points commands to root `.claude/commands`
-and skills to `packages/claude-project-local/.claude/skills/`, which contains
-both the 12 DIAYN workflow skills and 23 DIAYN-managed dependency skills. Root
-command adapters are synchronized from the inner plugin command adapters with
+and explicitly registers bundled dependency skills from
+`plugins/docs-is-all-you-need/dependency-skills/agent-skills/skills/`. Claude
+Code discovers the 12 workflow skills from repository-root `skills/`, so the
+plugin installs workflow skills and dependency skills without registering the
+workflow skills twice. Root command adapters are synchronized from the inner
+plugin command adapters with
 `maintainers/scripts/build_claude_root_plugin_commands.js`. The inner plugin
 candidate keeps its own local manifest under
 `plugins/docs-is-all-you-need/`.
+
+The root plugin is the authority for marketplace-style install. The inner
+plugin candidate is for isolated local debugging only and must not be enabled
+at the same time as the root plugin when evaluating `/diayn` autocomplete or
+`/plugin details diayn`; enabling both intentionally registers duplicate
+`diayn` surfaces.
 
 The inner candidate's relative plugin files are:
 
@@ -51,6 +60,10 @@ namespace is `diayn`, so plugin mode is expected to expose namespaced commands:
 /diayn:html -> diayn:diayn-html
 ```
 
+Every command adapter records `platform: claude-code` and `entry_file:
+CLAUDE.md`. Claude Code init must create or update `CLAUDE.md`; it must not
+default-create `AGENTS.md`.
+
 Validation performed:
 
 ```text
@@ -59,7 +72,12 @@ claude plugin validate plugins\docs-is-all-you-need
 node maintainers\scripts\validate_diayn_alpha_package.js --json validation\phase4_alpha_package.json
 ```
 
-Result: the repository-root and inner Claude plugin manifests validate, and the local package validator confirms 12 commands, 12 public workflow skills, 23 platform-visible dependency skills in the generated packages, and the locked dependency payload.
+Result: the repository-root and inner Claude plugin manifests validate. The
+root plugin runtime surface should show 12 short commands, 12 workflow skills,
+and 23 platform-visible dependency skills without duplicate workflow skill
+registration. The local package validator separately confirms the project-local
+fallback package contains 12 commands, 12 public workflow skills,
+23 platform-visible dependency skills, and the locked dependency payload.
 
 Historical Phase 9 plugin-dir probe before the namespace rename:
 
@@ -92,7 +110,7 @@ packages/claude-project-local/.diayn/internal-role-skills/
 packages/claude-project-local/diayn-package.json
 ```
 
-The project-local package keeps the public command surface to 12 bare `/diayn-*` commands. It also exposes the locked `agent-skills` dependency copy as project-local skills so Claude can load them through the native `Skill` tool.
+The project-local package keeps the public command surface to 12 bare `/diayn-*` commands. It also exposes the locked `agent-skills` dependency copy as project-local skills so Claude can load them through the native `Skill` tool. It records `platform: claude-code` and `entry_file: CLAUDE.md`, so the fallback init path has the same Claude entry-file behavior as the plugin path.
 
 Validation performed:
 

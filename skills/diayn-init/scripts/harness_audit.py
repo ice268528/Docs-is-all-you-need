@@ -17,12 +17,19 @@ from datetime import datetime, timezone
 from pathlib import Path
 
 
-EXPECTED_FILES = [
-    "AGENTS.md",
+ENTRY_FILE_BY_PLATFORM = {
+    "claude-code": "CLAUDE.md",
+    "codex": "AGENTS.md",
+    "opencode": "AGENTS.md",
+    "generic": "AGENTS.md",
+}
+
+BASE_EXPECTED_FILES = [
     "TODO.md",
     ".diayn/worktree_manifest.md",
     ".diayn/scaffold_version.md",
     ".diayn/network_policy.md",
+    ".diayn/dependency-routing/upstream-routing-map.md",
     "docs/project/project_brief.md",
 ]
 
@@ -102,6 +109,17 @@ def classify_expected_file(project_root: Path, relative: str) -> dict:
             result["owner_preservation_required"] = False
         result["size_bytes"] = path.stat().st_size
     return result
+
+
+def resolve_platform(platform: str, entry_file: str | None) -> tuple[str, str, str]:
+    normalized = platform.strip().lower()
+    if normalized not in ENTRY_FILE_BY_PLATFORM:
+        raise SystemExit(f"unsupported platform: {platform}")
+    resolved_entry = entry_file or ENTRY_FILE_BY_PLATFORM[normalized]
+    if resolved_entry not in {"AGENTS.md", "CLAUDE.md"}:
+        raise SystemExit("--entry-file must be AGENTS.md or CLAUDE.md")
+    other_entry = "AGENTS.md" if resolved_entry == "CLAUDE.md" else "CLAUDE.md"
+    return normalized, resolved_entry, other_entry
 
 
 def scan_project(project_root: Path, max_files: int, max_file_bytes: int) -> dict:
@@ -211,11 +229,28 @@ def main() -> None:
         "--git-safe-directory",
         help="Optional read-only git safe.directory value supplied by the calling agent",
     )
+    parser.add_argument(
+        "--platform",
+        choices=sorted(ENTRY_FILE_BY_PLATFORM),
+        default="generic",
+        help="Explicit adapter platform. Claude Code uses CLAUDE.md; Codex/OpenCode/generic use AGENTS.md.",
+    )
+    parser.add_argument(
+        "--entry-file",
+        choices=["AGENTS.md", "CLAUDE.md"],
+        help="Optional explicit entry file override supplied by the adapter or Owner.",
+    )
+    parser.add_argument(
+        "--source",
+        default="explicit_adapter_or_generic_default",
+        help="Human-readable install or adapter source to record in the audit.",
+    )
     args = parser.parse_args()
 
     project_root = Path(args.project_root).resolve()
     if not project_root.exists():
         raise SystemExit(f"project root does not exist: {project_root}")
+    platform, entry_file, other_entry_file = resolve_platform(args.platform, args.entry_file)
 
     git_marker_root = find_git_marker(project_root)
     safe_directory = Path(args.git_safe_directory).resolve() if args.git_safe_directory else None
@@ -226,7 +261,8 @@ def main() -> None:
 
     scan = scan_project(project_root, args.max_files, args.max_file_bytes)
     language = infer_language(project_root, scan["markdown_files"])
-    expected = [classify_expected_file(project_root, relative) for relative in EXPECTED_FILES]
+    expected_file_paths = [entry_file, *BASE_EXPECTED_FILES]
+    expected = [classify_expected_file(project_root, relative) for relative in expected_file_paths]
     conflicts = [item for item in expected if item["exists"] and item["proposed_action"] == "owner_review"]
     missing = [item for item in expected if not item["exists"]]
 
@@ -260,6 +296,19 @@ def main() -> None:
         "schema": "diayn.harness_audit.v1",
         "generated_at": datetime.now(timezone.utc).isoformat(),
         "project_root": str(project_root),
+        "platform": {
+            "name": platform,
+            "entry_file": entry_file,
+            "source": args.source,
+            "entry_file_override": args.entry_file,
+            "other_entry_file": other_entry_file,
+            "other_entry_exists": (project_root / other_entry_file).exists(),
+            "other_entry_action": "existing_only_no_default_update"
+            if (project_root / other_entry_file).exists()
+            else "not_created_by_default",
+            "non_default_entry_file_policy": "preserve_existing_only",
+            "reason_other_entry_file_not_generated": f"{platform} adapters use {entry_file} by default",
+        },
         "git": {
             "marker_root": str(git_marker_root) if git_marker_root else None,
             "is_git_repository": bool(git_marker_root),

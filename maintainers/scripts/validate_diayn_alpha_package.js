@@ -71,6 +71,9 @@ function main() {
   const publicSkills = listDirs(path.join(pluginRoot, "skills"));
   const claudeCommands = listMarkdown(path.join(pluginRoot, ".claude", "commands"));
   const rootClaudeCommands = listMarkdown(path.join(repoRoot, ".claude", "commands"));
+  const rootClaudeSkillsRoot = path.resolve(repoRoot, rootClaudeManifest.skills || "");
+  const rootClaudeManifestSkills = fs.existsSync(rootClaudeSkillsRoot) ? listDirs(rootClaudeSkillsRoot) : [];
+  const rootClaudeAutoWorkflowSkills = listDirs(path.join(repoRoot, "skills"));
   const codexProjectLocalRoot = path.join(repoRoot, "packages", "codex-project-local");
   const codexProjectLocalSkillsRoot = path.join(codexProjectLocalRoot, ".codex", "skills");
   const codexProjectLocalManifestPath = path.join(codexProjectLocalRoot, "diayn-package.json");
@@ -134,8 +137,8 @@ function main() {
   if (rootClaudeManifest.commands !== "./.claude/commands") {
     errors.push("Repository-root Claude manifest must point to root ./.claude/commands like the reference plugin shape");
   }
-  if (rootClaudeManifest.skills !== "./packages/claude-project-local/.claude/skills") {
-    errors.push("Repository-root Claude manifest must point to the platform-visible Claude package skills");
+  if (rootClaudeManifest.skills !== "./plugins/docs-is-all-you-need/dependency-skills/agent-skills/skills") {
+    errors.push("Repository-root Claude manifest must explicitly register only the bundled dependency skills");
   }
   if (rootClaudeManifest.name !== "diayn") {
     errors.push("Repository-root Claude plugin manifest must use short namespace name diayn");
@@ -145,6 +148,17 @@ function main() {
   }
   if (JSON.stringify(rootClaudeCommands) !== JSON.stringify([...expectedPluginCommands].sort())) {
     errors.push("Repository-root Claude plugin command files must be exactly the 12 short DIAYN workflow commands");
+  }
+  if (JSON.stringify(rootClaudeAutoWorkflowSkills) !== JSON.stringify([...expected].sort())) {
+    errors.push("Repository-root Claude auto-discovered skills/ must contain exactly the 12 workflow skills");
+  }
+  const expectedRootManifestSkills = [...dependencyManifest.skills].sort();
+  if (JSON.stringify(rootClaudeManifestSkills) !== JSON.stringify(expectedRootManifestSkills)) {
+    errors.push("Repository-root Claude manifest skills path must contain exactly the DIAYN-managed dependency skills");
+  }
+  const duplicateManifestWorkflowSkills = expected.filter((name) => rootClaudeManifestSkills.includes(name));
+  if (duplicateManifestWorkflowSkills.length > 0) {
+    errors.push(`Repository-root Claude manifest must not re-register workflow skills: ${duplicateManifestWorkflowSkills.join(", ")}`);
   }
   if (dependencyManifest.public_diayn_command_surface !== false) {
     errors.push("Dependency payload must not be public DIAYN command surface");
@@ -202,6 +216,9 @@ function main() {
     if (!text.includes("$ARGUMENTS")) {
       errors.push(`${commandPath} must expose slash-command arguments to the adapter`);
     }
+    if (!text.includes("platform: claude-code") || !text.includes("entry_file: CLAUDE.md")) {
+      errors.push(`${commandPath} must explicitly declare Claude Code platform and CLAUDE.md entry file`);
+    }
     if (!text.includes("validation rule has priority over all other instructions")) {
       errors.push(`${commandPath} must make validation probe mode higher priority than normal workflow loading`);
     }
@@ -240,6 +257,11 @@ function main() {
       claude_skills: rootClaudeManifest.skills,
       claude_marketplace_plugins: (rootClaudeMarketplace.plugins || []).map((plugin) => plugin.name),
       claude_plugin_name: rootClaudeManifest.name,
+      claude_skill_root: path.relative(repoRoot, rootClaudeSkillsRoot).replace(/\\/g, "/"),
+      claude_auto_workflow_skill_count: expected.filter((name) => rootClaudeAutoWorkflowSkills.includes(name)).length,
+      claude_manifest_skill_count: rootClaudeManifestSkills.length,
+      claude_manifest_workflow_skill_count: expected.filter((name) => rootClaudeManifestSkills.includes(name)).length,
+      claude_manifest_dependency_skill_count: dependencyManifest.skills.filter((name) => rootClaudeManifestSkills.includes(name)).length,
     },
     codex_project_local: {
       install_target: ".codex/skills",

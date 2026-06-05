@@ -9,5 +9,5 @@
   "repository": "https://github.com/ice268528/Docs-is-all-you-need",
   "license": "MIT",
   "commands": "./.claude/commands",
-  "skills": "./packages/claude-project-local/.claude/skills"
+  "skills": "./plugins/docs-is-all-you-need/dependency-skills/agent-skills/skills"
 }

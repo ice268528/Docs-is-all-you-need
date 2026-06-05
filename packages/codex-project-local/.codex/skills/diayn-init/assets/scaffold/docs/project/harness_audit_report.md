@@ -5,6 +5,9 @@ Status: `draft`
 ## Summary
 
 - Project root: `<path>`
+- Platform: `<claude-code/codex/opencode/generic>`
+- Entry file this run: `<CLAUDE.md/AGENTS.md>`
+- Other entry file: `<existing_only/not_created_by_default>`
 - Git repository: `<yes/no>`
 - Dirty working tree: `<yes/no/Unknown>`
 - Existing DIAYN scaffold: `<yes/no/partial>`
@@ -14,7 +17,7 @@ Status: `draft`
 
 | Path | Exists | Proposed action | Owner preservation note |
 | --- | --- | --- | --- |
-| `AGENTS.md` | `<yes/no>` | `<create/merge/review>` | `<note>` |
+| `<CLAUDE.md_or_AGENTS.md>` | `<yes/no>` | `<create/merge/review>` | `<platform entry file for this run>` |
 | `TODO.md` | `<yes/no>` | `<create/merge/review>` | `<note>` |
 | `.diayn/worktree_manifest.md` | `<yes/no>` | `<create/merge/review>` | `<note>` |
 | `.diayn/scaffold_version.md` | `<yes/no>` | `<create/merge/review>` | `<note>` |

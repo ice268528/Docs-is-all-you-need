@@ -25,6 +25,12 @@ Docs-is-all-you-need，简称 DIAYN，是一个面向多会话 coding agent 协�
 
 插件安装使用 `diayn` 命名空间，所以命令形式是 `/diayn:<command>`。
 
+这个 plugin 安装会注册 12 个 DIAYN workflow skills，也会注册内置的
+DIAYN-managed `agent-skills` dependency skills。用户主入口仍然只有 12 个
+commands；workflow 加载后会在需要时 native 调用 workflow/dependency skills。
+在 Claude Code 里，`/diayn:init` 会创建或更新 `CLAUDE.md`，不默认创建
+`AGENTS.md`。
+
 ### Claude Project-Local Fallback
 
 只有当你明确需要在目标项目里使用裸 `/diayn-*` 命令时，才使用这条路径。
@@ -42,6 +48,9 @@ Copy-Item -Path .\packages\claude-project-local\.diayn -Destination $target -Rec
 ```text
 /diayn-init
 ```
+
+这条 fallback 路径同样按 Claude Code 处理，所以 `/diayn-init` 会创建或更新
+`CLAUDE.md`。不要把 fallback 成功当成 plugin path 成功的证据。
 
 fallback package 生成在：
 
@@ -66,6 +75,8 @@ node maintainers\scripts\install_codex_project_local_package.js --target-codex-h
 ```powershell
 node maintainers\scripts\install_codex_project_local_package.js --target-codex-home $env:USERPROFILE\.codex --execute
 ```
+
+Codex init 使用 `AGENTS.md`，不默认创建 `CLAUDE.md`。
 
 ## 命令
 
@@ -102,6 +113,9 @@ Project-local fallback 使用同一套流程，但命令是 `/diayn-init`、`/di
 ## DIAYN 会安装什么
 
 DIAYN 只暴露 12 个公开 workflow skills。它还携带锁定版本的 DIAYN-managed `agent-skills` 依赖，用于在合适场景路由到第三方 specialist skill。这些 dependency skills 不是额外的 DIAYN 公开命令。
+这些 dependency skills 是随 DIAYN 安装的 native-callable skills，不是纯文本 routing notes。
+
+`/diayn:init` 会在目标项目里写入 `.diayn/dependency-routing/upstream-routing-map.md`，后续 workflow commands 可以通过这份项目内 routing map 路由到随 DIAYN 安装的 dependency skills，不需要 Owner 另外安装 `agent-skills`。
 
 ## 当前状态
 

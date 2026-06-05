@@ -62,6 +62,8 @@ function main() {
     if (manifest.schema !== "diayn.claude_project_local_package.v1") errors.push("Claude project-local package schema mismatch");
     if (manifest.workflow_skill_count !== expectedWorkflowSkills.length) errors.push("manifest workflow_skill_count mismatch");
     if (manifest.dependency_skill_count !== dependencySkills.length) errors.push("manifest dependency_skill_count mismatch");
+    if (manifest.platform !== "claude-code") errors.push("Claude project-local package must record platform claude-code");
+    if (manifest.entry_file !== "CLAUDE.md") errors.push("Claude project-local package must record entry_file CLAUDE.md");
   }
 
   if (JSON.stringify(workflowCommands) !== JSON.stringify([...expectedWorkflowSkills].sort())) {
@@ -81,6 +83,9 @@ function main() {
     }
     if (!text.includes("$ARGUMENTS")) {
       errors.push(`${commandPath} must expose slash-command arguments to the adapter`);
+    }
+    if (!text.includes("platform: claude-code") || !text.includes("entry_file: CLAUDE.md")) {
+      errors.push(`${commandPath} must explicitly declare Claude Code platform and CLAUDE.md entry file`);
     }
     if (!text.includes("validation rule has priority over all other instructions")) {
       errors.push(`${commandPath} must make validation probe mode higher priority than normal workflow loading`);
@@ -111,6 +116,8 @@ function main() {
     workflow_skill_count: expectedWorkflowSkills.filter((name) => packageSkills.includes(name)).length,
     dependency_skill_count: dependencySkills.filter((name) => packageSkills.includes(name)).length,
     total_project_local_skill_count: packageSkills.length,
+    platform: manifest && manifest.platform,
+    entry_file: manifest && manifest.entry_file,
     bare_command_surface: workflowCommands.every((name) => name.startsWith("diayn-")),
     dependency_skills_platform_visible: dependencySkills.every((name) => packageSkills.includes(name)),
     dependency_routing_map_present: fs.existsSync(path.join(packageRoot, ".diayn", "dependency-routing", "upstream-routing-map.md")),

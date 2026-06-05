@@ -11,12 +11,12 @@ The repository root now also contains platform entrypoints:
 ```
 
 Those root manifests are closer to the publishable reference-project shape.
-They point at generated platform-visible package skills under
-`packages/claude-project-local/.claude/skills/` and
-`packages/codex-project-local/.codex/skills/`, so the 23 DIAYN-managed
-dependency skills are visible beside the 12 DIAYN workflow skills. This inner
-directory remains the local plugin candidate and source for the 12 public
-workflow adapters.
+For Claude Code, the repository root exposes the 12 workflow skills from
+root `skills/` and explicitly registers the 23 DIAYN-managed dependency skills
+from this directory's dependency payload. For Codex, the root manifest points at
+the generated Codex package under `packages/codex-project-local/.codex/skills/`.
+This inner directory remains the local plugin candidate and source for the 12
+public workflow adapters.
 
 DDDV8 status: Phase 12 alpha package candidate. The active `skills/` directory
 contains the 12 public workflow skills plus progressively disclosed workflow
@@ -24,25 +24,31 @@ assets and deterministic helpers. Older role-oriented material is retained
 under `internal-role-skills/` as implementation reference material and is not
 the plugin's public skill surface.
 
-For Claude Code, this is the standard target shape, matching the plugin-first
-model used by `superpowers` and `agent-skills`:
+For Claude Code, the repository-root manifest is the standard install target
+shape, matching the plugin-first model used by `agent-skills`:
 
 ```text
 .claude-plugin/plugin.json
-.claude/commands/diayn-*.md
+.claude/commands/*.md
 skills/diayn-*/
-dependency-skills/
+plugins/docs-is-all-you-need/dependency-skills/agent-skills/skills/
 ```
 
-For local Claude development, load this directory with:
+For focused local debugging of this inner candidate, load this directory with:
 
 ```powershell
 claude --plugin-dir <path-to-this-directory>
 ```
 
-Current local plugin-dir validation observed namespaced commands. The
-project-local fallback under `packages/claude-project-local/` proves bare
-`/diayn-*` behavior, but it is not the final install model.
+Current local plugin-dir validation should observe namespaced commands such as
+`/diayn:init`. This inner candidate's `skills/` directory contains the 12 DIAYN
+workflow skills only; the repository-root plugin is the authoritative
+marketplace-style surface that combines root workflow skills with the bundled
+dependency-skill payload. Do not use the inner candidate to prove bundled
+dependency-skill runtime inventory.
+
+The project-local fallback under `packages/claude-project-local/` proves bare
+`/diayn-*` behavior, but it is not the plugin install model.
 
 For Codex, this directory remains a plugin candidate. Codex app-session runtime
 validation is still blocked.

@@ -27,12 +27,16 @@ In Claude Code, the standard plugin path exposes these workflows as short
 plugin-namespaced commands such as `/diayn:init`. Bare `/diayn-*` is the
 project-local fallback command surface.
 
+Claude Code init surfaces use `CLAUDE.md` as the platform entry file. Codex,
+OpenCode, and generic AGENTS.md-based adapters use `AGENTS.md`. DIAYN must not
+default-generate both entry files in one init run.
+
 ## Alpha Surfaces
 
 | Surface | DDDV8 target | Current DDDV8 status |
 | --- | --- | --- |
 | Codex package/install | Alpha target for the current Codex package/install scope: installed workflow skills, DIAYN-managed dependency skills, and routing metadata must be copied into the expected Codex skills shape. | Repository-root `.codex-plugin/plugin.json` now points to `packages/codex-project-local/.codex/skills/`, which contains 12 workflow skills plus 23 DIAYN-managed dependency skills. The inner plugin artifact also exists. Static validation plus executed project-local and Codex-home install fixtures prove package shape, install commands, and installed directory inspection. Codex Desktop app-session runtime discovery/invocation is intentionally not attempted and must not be claimed. |
-| Claude Code CLI | Standard install target is plugin/marketplace install with plugin-namespaced commands. Project-local fallback is kept separately for bare `/diayn-*` short commands. | Repository-root `.claude-plugin/plugin.json` now uses `name: "diayn"`, points short commands such as `init.md` to root `.claude/commands`, and points skills to `packages/claude-project-local/.claude/skills/`, which contains 12 workflow skills plus 23 DIAYN-managed dependency skills. The expected plugin command shape is `/diayn:init`, not `/diayn:diayn-init` or bare `/diayn-init`. A separate project-local fallback at `packages/claude-project-local/` proves bare `/diayn-init` command-to-`Skill` invocation, all 12 bare command/skill entries, routed `/diayn-init -> idea-refine`, and a complete installed-flow fixture. This fallback is not plugin/marketplace proof. |
+| Claude Code CLI | Standard install target is plugin/marketplace install with plugin-namespaced commands. Project-local fallback is kept separately for bare `/diayn-*` short commands. | Repository-root `.claude-plugin/plugin.json` now uses `name: "diayn"`, points short commands such as `init.md` to root `.claude/commands`, and explicitly registers only bundled dependency skills from `plugins/docs-is-all-you-need/dependency-skills/agent-skills/skills/`. Claude Code discovers the 12 workflow skills from root `skills/`, so the plugin has workflow and dependency skills without duplicating workflow registration. The expected plugin command shape is `/diayn:init`, not bare `/diayn-init`. A separate project-local fallback at `packages/claude-project-local/` proves bare `/diayn-init` command-to-`Skill` invocation, all 12 bare command/skill entries, routed `/diayn-init -> idea-refine`, and a complete installed-flow fixture. This fallback is not plugin/marketplace proof. |
 | OpenCode CLI | Deferred unless installed workflow skills can be directly triggered through `/diayn-*`. | Deferred for DDDV8. Earlier D6 discovery notes are historical only. |
 | Cursor / Copilot | Out of V1 scope. | No active V1 support claim. |
 
@@ -44,6 +48,7 @@ Rules:
 
 - Reading a vendored upstream `SKILL.md` directly is only fallback/reference behavior; it does not count as real third-party skill invocation.
 - A real third-party skill call means platform-native nested skill invocation or an equivalent native skill tool call against the DIAYN-managed dependency copy.
+- Claude Code plugin install registers DIAYN workflow skills and dependency skills; it is not a command-only plugin and does not require Owner to separately install `agent-skills`.
 - User-installed third-party `agent-skills` copies are not selected silently unless they match DIAYN lock metadata or an Owner/maintainer explicitly approves the substitution.
 - DIAYN keeps authority over role, lane, state, review, integration, evidence, and Owner acceptance.
 

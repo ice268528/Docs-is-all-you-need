@@ -184,7 +184,7 @@ Observed:
 - the fixture starts from a clean git baseline and the local E2E preflight passes;
 - the runner resolves `claude.exe` directly on Windows instead of going through the shell shim, avoiding shell command-length failures for longer installed-flow prompts;
 - `/diayn-init`, `/diayn-plan`, `/diayn-worktrees`, `/diayn-backend`, and `/diayn-frontend` are visible and enter native workflow skill context;
-- `/diayn-init` creates the required minimum scaffold files: `AGENTS.md`, `TODO.md`, `.diayn/worktree_manifest.md`, `.diayn/scaffold_version.md`, and `docs/project/project_brief.md`;
+- Historical fixture note: the old `/diayn-init` fixture created `AGENTS.md`, `TODO.md`, `.diayn/worktree_manifest.md`, `.diayn/scaffold_version.md`, and `docs/project/project_brief.md`. Current corrected Claude Code behavior is `CLAUDE.md` for Claude plugin/project-local init and `AGENTS.md` for Codex/OpenCode/generic init;
 - `.diayn/network_policy.md` is also created as part of the baseline scaffold;
 - the runner checkpoints fixture changes after `/diayn-init`, `/diayn-plan`, `/diayn-worktrees`, `/diayn-backend`, and `/diayn-frontend`;
 - `/diayn-plan` creates a stage plan under `docs/stages/<stage-id>/stage_plan.md`, backend/frontend lane boards, backend/frontend handoffs, and a shared contract note under `docs/shared/<contract>.md`;

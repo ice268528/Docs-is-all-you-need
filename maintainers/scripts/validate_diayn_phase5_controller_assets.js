@@ -10,10 +10,12 @@ const pluginRoot = path.join(repoRoot, "plugins", "docs-is-all-you-need");
 
 const requiredInitAssets = [
   "assets/scaffold/AGENTS.md",
+  "assets/scaffold/CLAUDE.md",
   "assets/scaffold/TODO.md",
   "assets/scaffold/.diayn/worktree_manifest.md",
   "assets/scaffold/.diayn/scaffold_version.md",
   "assets/scaffold/.diayn/network_policy.md",
+  "assets/scaffold/.diayn/dependency-routing/upstream-routing-map.md",
   "assets/scaffold/docs/project/project_brief.md",
   "assets/scaffold/docs/project/harness_audit_report.md",
   "assets/scaffold/docs/project/owner_questions.md",
@@ -74,6 +76,7 @@ function validateAuditOutput(errors) {
     "TODO.md",
     ".diayn/worktree_manifest.md",
     ".diayn/scaffold_version.md",
+    ".diayn/dependency-routing/upstream-routing-map.md",
     "docs/project/project_brief.md",
   ]) {
     if (!audit.expected_files.some((item) => item.path === required)) {
@@ -82,6 +85,9 @@ function validateAuditOutput(errors) {
   }
   if (!audit.git || !Object.prototype.hasOwnProperty.call(audit.git, "dirty")) {
     errors.push("phase5 audit must include git dirty preflight");
+  }
+  if (!audit.platform || audit.platform.entry_file !== "AGENTS.md") {
+    errors.push("phase5 generic audit must record platform entry_file AGENTS.md");
   }
   if (!audit.language || !audit.language.inferred_language) {
     errors.push("phase5 audit must include document language inference");
@@ -130,6 +136,7 @@ function main() {
     fixture_audit: audit
       ? {
           recommended_action: audit.recommended_action,
+          platform: audit.platform,
           missing_files: audit.missing_files,
           owner_gate_count: audit.owner_gates.length,
           inferred_language: audit.language.inferred_language,

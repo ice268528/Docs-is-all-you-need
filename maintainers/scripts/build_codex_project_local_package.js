@@ -173,6 +173,8 @@ function main() {
     schema: "diayn.codex_project_local_package.v1",
     generated_from: "plugins/docs-is-all-you-need",
     command_surface: "bare /diayn-* project-local Codex skills",
+    platform: "codex",
+    entry_file: "AGENTS.md",
     workflow_skill_count: expectedWorkflowSkills.length,
     dependency_skill_count: listSkillDirs(dependencySource).length,
     workflow_skills: expectedWorkflowSkills,

@@ -29,6 +29,12 @@ Start a project or clarify a vague idea:
 Plugin commands use the `diayn` namespace, so the command shape is
 `/diayn:<command>`.
 
+This plugin install registers the 12 DIAYN workflow skills and the bundled
+DIAYN-managed `agent-skills` dependency skills. The 12 commands are the user
+entrypoints; the loaded DIAYN workflow may invoke workflow/dependency skills
+natively when relevant. In Claude Code, `/diayn:init` creates or updates
+`CLAUDE.md` and does not create `AGENTS.md` by default.
+
 ### Claude Project-Local Fallback
 
 Use this path only when you specifically need bare `/diayn-*` commands inside a
@@ -48,6 +54,9 @@ Then start with:
 ```text
 /diayn-init
 ```
+
+This fallback also runs as Claude Code, so `/diayn-init` creates or updates
+`CLAUDE.md`. Do not use fallback success as evidence that the plugin path works.
 
 The fallback package is generated at:
 
@@ -74,6 +83,8 @@ Then install:
 ```powershell
 node maintainers\scripts\install_codex_project_local_package.js --target-codex-home $env:USERPROFILE\.codex --execute
 ```
+
+Codex init uses `AGENTS.md` and does not create `CLAUDE.md` by default.
 
 ## Commands
 
@@ -112,8 +123,13 @@ Project-local fallback uses the same sequence with bare commands such as
 
 DIAYN exposes exactly 12 public workflow skills. It also carries locked,
 DIAYN-managed `agent-skills` dependency skills so the workflows can route to
-the right specialist skill when relevant. Those dependency skills are not extra
+the right specialist skill when relevant. Those dependency skills are bundled
+native-callable skills, not text-only routing notes, and they are not extra
 public DIAYN commands.
+
+`/diayn:init` seeds `.diayn/dependency-routing/upstream-routing-map.md` in the
+target project so later workflow commands can route to bundled dependency
+skills without asking the Owner to install `agent-skills` separately.
 
 ## Status
 

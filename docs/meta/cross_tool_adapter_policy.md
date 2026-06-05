@@ -49,7 +49,7 @@ DDDV8 adapter priority:
 | Surface | Current level | Adapter location | Notes |
 | --- | --- | --- | --- |
 | Codex package/install | `package_install_validated_app_session_runtime_not_attempted` | `.codex-plugin/`, `plugins/docs-is-all-you-need/`, `packages/codex-project-local/`, `validation/phase9_codex_project_local_install_fixture.json`, `validation/phase9_codex_home_install_fixture.json` | Repository-root Codex manifest points at the platform-visible generated skills package. 12 workflow skills plus DIAYN-managed dependency skills are statically packaged; the project-local and Codex-home install fixtures pass. Desktop app-session runtime is intentionally not attempted and not claimed. |
-| Claude Code | `project_local_installed_flow_proven` | `.claude-plugin/`, `.claude/commands/`, `plugins/docs-is-all-you-need/`, `packages/claude-project-local/` | Repository-root Claude manifest points commands to root DIAYN adapters and skills to the generated platform-visible package. Project-local package proves all 12 public commands through the installed-flow fixture. |
+| Claude Code | `project_local_installed_flow_proven` | `.claude-plugin/`, `.claude/commands/`, `skills/`, `plugins/docs-is-all-you-need/`, `packages/claude-project-local/` | Repository-root Claude manifest points commands to root DIAYN adapters and explicitly registers bundled dependency skills; Claude Code discovers the 12 workflow skills from root `skills/`. Project-local package proves all 12 public commands through the installed-flow fixture. |
 | OpenCode | `deferred` | `integrations/opencode/.opencode/` | Historical adapter evidence only; not a DDDV8 alpha surface until direct `/diayn-*` skill invocation is proven. |
 
 ## Agent Skills Boundary

@@ -575,7 +575,7 @@ function main() {
         ? phase11InstalledFlowFixture.flow_artifacts.produced_required_minimum_files
         : [];
     for (const required of [
-      "AGENTS.md",
+      "CLAUDE.md",
       "TODO.md",
       ".diayn/worktree_manifest.md",
       ".diayn/scaffold_version.md",
@@ -1041,7 +1041,7 @@ function main() {
       phase11InstalledFlowFixture.claude.command_execution_ok === true &&
       phase11InstalledFlowFixture.flow_artifacts &&
       Array.isArray(phase11InstalledFlowFixture.flow_artifacts.produced_required_minimum_files) &&
-      phase11InstalledFlowFixture.flow_artifacts.produced_required_minimum_files.includes("AGENTS.md") &&
+      phase11InstalledFlowFixture.flow_artifacts.produced_required_minimum_files.includes("CLAUDE.md") &&
       phase11InstalledFlowFixture.flow_artifacts.produced_required_minimum_files.includes("TODO.md") &&
       phase11InstalledFlowFixture.flow_artifacts.produced_required_minimum_files.includes(".diayn/worktree_manifest.md") &&
       phase11InstalledFlowFixture.flow_artifacts.produced_required_minimum_files.includes(".diayn/scaffold_version.md") &&

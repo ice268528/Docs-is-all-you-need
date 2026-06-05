@@ -248,6 +248,11 @@ Then continue with the canonical flow:
 
 The commands are workflow triggers inside chat. They are not shell commands and do not create a hidden agent runtime.
 
+For Codex, `/diayn-init` uses `platform = codex`, creates or updates
+`AGENTS.md`, and does not create `CLAUDE.md` by default. If `CLAUDE.md` already
+exists, DIAYN should preserve it and record it as an existing Claude-specific
+entry file in the harness audit.
+
 ## Existing Project Upgrade
 
 Existing project upgrade behavior is part of `/diayn-init`. Use `/diayn-init`

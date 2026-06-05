@@ -7,6 +7,10 @@ support unless a later phase proves that installed workflow skills can be
 directly triggered through `/diayn-*` and can use the required DIAYN-managed
 dependency-skill model.
 
+If OpenCode support is implemented later, its init adapter must use
+`platform = opencode`, create or update `AGENTS.md`, and not default-create
+`CLAUDE.md`.
+
 Earlier D6 discovery used a local `.opencode` adapter with command files and
 role-oriented wrappers. That adapter has been removed from the public
 repository because it does not satisfy the current DDDV8 requirement. Keeping it

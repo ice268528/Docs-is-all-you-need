@@ -750,7 +750,7 @@ function main() {
 
   const filesAfter = listRelativeFiles(targetRoot);
   const requiredFlowFiles = [
-    "AGENTS.md",
+    "CLAUDE.md",
     "TODO.md",
     ".diayn/worktree_manifest.md",
     ".diayn/scaffold_version.md",

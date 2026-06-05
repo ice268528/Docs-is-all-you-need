@@ -77,6 +77,8 @@ function main() {
     if (manifest.schema !== "diayn.codex_project_local_package.v1") errors.push("Codex project-local package schema mismatch");
     if (manifest.workflow_skill_count !== expectedWorkflowSkills.length) errors.push("manifest workflow_skill_count mismatch");
     if (manifest.dependency_skill_count !== dependencySkills.length) errors.push("manifest dependency_skill_count mismatch");
+    if (manifest.platform !== "codex") errors.push("Codex project-local package must record platform codex");
+    if (manifest.entry_file !== "AGENTS.md") errors.push("Codex project-local package must record entry_file AGENTS.md");
     if (!manifest.install_target || manifest.install_target.skills !== ".codex/skills") {
       errors.push("manifest install target must be .codex/skills");
     }
@@ -163,6 +165,8 @@ function main() {
     schema: "diayn.phase9.codex_project_local_package.v1",
     package_root: "packages/codex-project-local",
     install_target: ".codex/skills",
+    platform: manifest && manifest.platform,
+    entry_file: manifest && manifest.entry_file,
     workflow_skill_count: expectedWorkflowSkills.filter((name) => packageSkills.includes(name)).length,
     dependency_skill_count: dependencySkills.filter((name) => packageSkills.includes(name)).length,
     total_project_local_skill_count: packageSkills.length,

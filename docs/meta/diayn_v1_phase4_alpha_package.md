@@ -18,14 +18,16 @@ plugins/docs-is-all-you-need/.claude/commands/*.md
 The repository-root Claude package declares:
 
 - `commands`: `./.claude/commands`
-- `skills`: `./packages/claude-project-local/.claude/skills`
+- `skills`: `./plugins/docs-is-all-you-need/dependency-skills/agent-skills/skills`
 
 This root entrypoint follows the reference-project pattern where the repository
 root can be the plugin source. Its root `.claude/commands` files are synchronized
 from the inner plugin command adapters so the published root entrypoint does not
-point through a nested plugin directory. It makes the 12 DIAYN workflow skills
-and 23 DIAYN-managed dependency skills platform-visible through the generated
-Claude package skills root.
+point through a nested plugin directory. Claude Code discovers the 12 DIAYN
+workflow skills from repository-root `skills/`; the manifest explicitly
+registers only the 23 DIAYN-managed dependency skills. This makes both workflow
+and dependency skills platform-visible without re-registering the workflow
+skills through the project-local package.
 
 The inner local plugin candidate declares:
 
@@ -123,7 +125,7 @@ Validation checks:
 - plugin public skill surface has exactly 12 workflow skills;
 - Claude plugin command directories have exactly 12 short command files;
 - each Claude plugin command invokes the matching namespaced public workflow skill;
-- repository-root Claude manifest points commands to root DIAYN command adapters and skills to the generated platform-visible Claude package;
+- repository-root Claude manifest points commands to root DIAYN command adapters and explicitly registers only the bundled dependency skills;
 - Codex manifest points at the public skill directory;
 - repository-root Codex manifest points at the generated platform-visible Codex package;
 - Codex project-local package points at `.codex/skills`;

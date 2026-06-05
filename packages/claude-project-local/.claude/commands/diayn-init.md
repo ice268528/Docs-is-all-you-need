@@ -17,6 +17,13 @@ FIRST_STOP: Existing content conflicts with DIAYN scaffold changes and no preser
 
 Then stop.
 
+DIAYN Runtime Context:
+
+- platform: claude-code
+- entry_file: CLAUDE.md
+- command_surface: Claude Code project-local fallback command /diayn-init
+- dependency_skills: bundled with DIAYN and available for native Skill invocation when the loaded workflow routes to them.
+
 Native Skill Invocation Gate:
 
 - This command adapter is only an entrypoint, not the DIAYN workflow implementation.

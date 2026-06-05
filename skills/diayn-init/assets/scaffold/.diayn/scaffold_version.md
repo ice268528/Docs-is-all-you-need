@@ -4,6 +4,9 @@
 - Created by command: `/diayn-init`
 - Created at: `<YYYY-MM-DD>`
 - Source skill pack: `docs-is-all-you-need`
+- Platform: `<claude-code/codex/opencode/generic>`
+- Entry file: `<CLAUDE.md/AGENTS.md>`
+- Source adapter: `<plugin/project-local/generic>`
 - Project slug: `<project_slug>`
 
 ## Migration Notes

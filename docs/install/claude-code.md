@@ -14,7 +14,8 @@ Current root plugin files:
 .claude-plugin/plugin.json
 .claude-plugin/marketplace.json
 .claude/commands/*.md
-packages/claude-project-local/.claude/skills/
+skills/diayn-*/
+plugins/docs-is-all-you-need/dependency-skills/agent-skills/skills/
 ```
 
 The root plugin manifest uses:
@@ -23,20 +24,29 @@ The root plugin manifest uses:
 {
   "name": "diayn",
   "commands": "./.claude/commands",
-  "skills": "./packages/claude-project-local/.claude/skills"
+  "skills": "./plugins/docs-is-all-you-need/dependency-skills/agent-skills/skills"
 }
 ```
 
 The short plugin namespace is `diayn`. Root command adapters use short command
 file names such as `init.md` and `plan.md`, so the expected user command shape
-is `/diayn:init`, not `/diayn:diayn-init`. The root skills path contains the 12
-DIAYN workflow skills plus 23 DIAYN-managed `agent-skills` dependency skills,
-so native dependency routing can use platform-visible skills when Claude Code
-supports them.
+is `/diayn:init`, not `/diayn:diayn-init`. Claude Code also discovers the
+repository-root `skills/` directory, which contains the 12 DIAYN workflow
+skills. The manifest's explicit `skills` path registers only the 23 bundled
+DIAYN-managed `agent-skills` dependency skills. This split avoids registering
+the same workflow skills twice while keeping both workflow and dependency
+skills native-callable.
 
-The root plugin manifest points at `packages/claude-project-local/.claude/skills`
-to reuse the generated Claude-visible skills root; the project-local fallback
-remains a separate installation path.
+The project-local fallback remains a separate installation path under
+`packages/claude-project-local/`. Do not point the root plugin manifest at the
+project-local fallback skills root; doing so duplicates the workflow skills
+because Claude Code already auto-discovers repository-root `skills/`.
+
+The root plugin install surface must be one authoritative Claude plugin:
+12 short commands, 12 workflow skills, and 23 DIAYN-managed dependency skills.
+`/plugin details diayn` may show these skills, but the same skill names must
+not be registered more than once from root, inner, fallback, or vendored plugin
+paths.
 
 DIAYN does not claim Anthropic official marketplace listing. GitHub
 marketplace-style install should use the actual repository:
@@ -73,6 +83,11 @@ Plugin mode does not promise bare `/diayn-*`. If a future Claude Code runtime
 exposes bare commands from a plugin install, record it only as observed behavior
 for that Claude Code version until broader support is proven.
 
+In plugin mode, `/diayn:init` runs with `platform: claude-code`, creates or
+updates `CLAUDE.md`, and does not create `AGENTS.md` by default. If `AGENTS.md`
+already exists, DIAYN records it as an existing cross-agent entry file and
+preserves it unless the Owner explicitly asks for cross-platform entry updates.
+
 ## Command Naming Boundary
 
 Plugin command adapters and project-local command adapters are intentionally
@@ -104,9 +119,18 @@ Load it with:
 claude --plugin-dir <path-to-this-repo>\plugins\docs-is-all-you-need
 ```
 
-The inner manifest also uses `name: "diayn"`. It is a focused local candidate;
-the root manifest is the closer marketplace-style entrypoint because it points
-at the generated platform-visible skills package.
+The inner manifest also uses `name: "diayn"` because its command adapters call
+`diayn:<workflow-skill>`. It is a focused local candidate only. Do not enable
+the root plugin and inner plugin in the same Claude Code runtime when judging
+`/diayn` autocomplete; doing so deliberately registers two `diayn` plugin
+surfaces and can duplicate command/skill entries. The root manifest is the
+marketplace-style entrypoint because it pairs root command adapters with
+root workflow skills plus the bundled dependency-skill path.
+
+The inner candidate is not the authoritative proof for bundled dependency-skill
+inventory. Use the repository-root plugin when validating that DIAYN installs
+the 12 workflow skills plus the DIAYN-managed dependency skills as native
+callable skills.
 
 ## Path B: Project-Local Fallback
 
@@ -160,6 +184,9 @@ Expected project-local commands:
 Project-local command adapters invoke local skill ids such as `diayn-init`, not
 plugin namespaced ids such as `diayn:diayn-init`.
 
+The project-local fallback also runs with `platform: claude-code`, creates or
+updates `CLAUDE.md`, and does not create `AGENTS.md` by default.
+
 ## Third-Party Dependency Skills
 
 DIAYN carries 23 locked third-party `agent-skills` as managed dependency skills.
@@ -178,6 +205,10 @@ Normal routing:
    - Codex uses the id discovered from its installed skills root.
 5. Claude Code invokes the selected DIAYN-managed dependency skill through the
    native `Skill` tool when relevant.
+
+Dependency skills are installed with DIAYN and are native-callable. They are
+not downgraded to text-only routing notes, and the Owner should not need to
+install `agent-skills` separately for the DIAYN plugin path.
 
 Routing map:
 

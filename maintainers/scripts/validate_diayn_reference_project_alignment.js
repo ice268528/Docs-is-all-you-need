@@ -181,8 +181,8 @@ function main() {
   if (!rootClaude || rootClaude.name !== "diayn") {
     errors.push("target root Claude manifest must use plugin namespace name diayn");
   }
-  if (!rootClaude || rootClaude.skills !== "./packages/claude-project-local/.claude/skills") {
-    errors.push("target root Claude manifest must point at generated Claude package skills");
+  if (!rootClaude || rootClaude.skills !== "./plugins/docs-is-all-you-need/dependency-skills/agent-skills/skills") {
+    errors.push("target root Claude manifest must explicitly register only bundled dependency skills");
   }
   if (!innerClaude || innerClaude.commands !== "./.claude/commands" || innerClaude.skills !== "./skills") {
     errors.push("target inner Claude candidate must follow agent-skills command/skills shape");

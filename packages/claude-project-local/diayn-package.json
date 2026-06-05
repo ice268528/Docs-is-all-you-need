@@ -2,6 +2,8 @@
   "schema": "diayn.claude_project_local_package.v1",
   "generated_from": "plugins/docs-is-all-you-need",
   "command_surface": "bare /diayn-* project-local Claude commands",
+  "platform": "claude-code",
+  "entry_file": "CLAUDE.md",
   "workflow_skill_count": 12,
   "dependency_skill_count": 23,
   "workflow_skills": [

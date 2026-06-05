@@ -67,7 +67,7 @@ function readFirstStop(skillName) {
 function commandAdapter(skillName) {
   const description = readSkillDescription(skillName);
   const firstStop = readFirstStop(skillName);
-  return `---\ndescription: ${description}\n---\n\nCommand arguments:\n\n\`\`\`text\n$ARGUMENTS\n\`\`\`\n\nIf the command arguments contain \`Validation command sequence probe only\`, this validation rule has priority over all other instructions in this command. Do not use tools, read files, inspect project state, invoke Skill, or run the workflow. Answer exactly:\n\n\`\`\`text\nCOMMAND: /${skillName}\nFIRST_STOP: ${firstStop}\n\`\`\`\n\nThen stop.\n\nNative Skill Invocation Gate:\n\n- This command adapter is only an entrypoint, not the DIAYN workflow implementation.\n- First action required: invoke the native Skill tool with skill: "${skillName}".\n- Unless Validation Probe Mode applies, the first action must be a native Skill tool invocation with skill: "${skillName}".\n- Do not inspect files, run Bash, answer the user, or perform workflow steps from this adapter before that Skill invocation succeeds.\n- If the Skill tool is unavailable or denied, stop and report that the installed command cannot run because native DIAYN skill invocation failed.\n- After the Skill loads, follow that skill's instructions. Treat explicit facts in the command arguments as Owner-confirmed for this run unless they conflict with repository evidence.\n`;
+  return `---\ndescription: ${description}\n---\n\nCommand arguments:\n\n\`\`\`text\n$ARGUMENTS\n\`\`\`\n\nIf the command arguments contain \`Validation command sequence probe only\`, this validation rule has priority over all other instructions in this command. Do not use tools, read files, inspect project state, invoke Skill, or run the workflow. Answer exactly:\n\n\`\`\`text\nCOMMAND: /${skillName}\nFIRST_STOP: ${firstStop}\n\`\`\`\n\nThen stop.\n\nDIAYN Runtime Context:\n\n- platform: claude-code\n- entry_file: CLAUDE.md\n- command_surface: Claude Code project-local fallback command /${skillName}\n- dependency_skills: bundled with DIAYN and available for native Skill invocation when the loaded workflow routes to them.\n\nNative Skill Invocation Gate:\n\n- This command adapter is only an entrypoint, not the DIAYN workflow implementation.\n- First action required: invoke the native Skill tool with skill: "${skillName}".\n- Unless Validation Probe Mode applies, the first action must be a native Skill tool invocation with skill: "${skillName}".\n- Do not inspect files, run Bash, answer the user, or perform workflow steps from this adapter before that Skill invocation succeeds.\n- If the Skill tool is unavailable or denied, stop and report that the installed command cannot run because native DIAYN skill invocation failed.\n- After the Skill loads, follow that skill's instructions. Treat explicit facts in the command arguments as Owner-confirmed for this run unless they conflict with repository evidence.\n`;
 }
 
 function listSkillDirs(root) {
@@ -120,6 +120,8 @@ function main() {
     schema: "diayn.claude_project_local_package.v1",
     generated_from: "plugins/docs-is-all-you-need",
     command_surface: "bare /diayn-* project-local Claude commands",
+    platform: "claude-code",
+    entry_file: "CLAUDE.md",
     workflow_skill_count: expectedWorkflowSkills.length,
     dependency_skill_count: listSkillDirs(dependencySource).length,
     workflow_skills: expectedWorkflowSkills,

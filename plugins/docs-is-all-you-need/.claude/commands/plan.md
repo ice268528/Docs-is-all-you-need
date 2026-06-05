@@ -17,6 +17,13 @@ FIRST_STOP: Requirements are too vague to plan without more Owner answers.
 
 Then stop.
 
+DIAYN Runtime Context:
+
+- platform: claude-code
+- entry_file: CLAUDE.md
+- command_surface: Claude Code plugin command /diayn:plan
+- dependency_skills: bundled with DIAYN and available for native Skill invocation when the loaded workflow routes to them.
+
 Native Skill Invocation Gate:
 
 - This command adapter is only an entrypoint, not the DIAYN workflow implementation.
