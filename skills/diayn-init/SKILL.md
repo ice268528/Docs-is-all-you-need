@@ -1,6 +1,7 @@
 ---
 name: diayn-init
 description: Runs the DIAYN /diayn-init workflow. Use when the Owner has a vague idea, draft requirement, or existing project that needs DIAYN harness initialization, requirement clarification, scaffold audit, or dry-run retrofit planning.
+user-invocable: false
 ---
 
 # DIAYN Init

@@ -1,0 +1,1247 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>DIAYN Claude Code Plugin 调用逻辑可视化</title>
+  <style>
+    :root {
+      --bg: #f5f7fb;
+      --ink: #101828;
+      --muted: #5b667a;
+      --line: #d9e0ec;
+      --paper: #ffffff;
+      --blue: #1f64d6;
+      --blue-2: #e8f0ff;
+      --green: #008568;
+      --green-2: #e6f6f1;
+      --purple: #7246c6;
+      --purple-2: #f0e9ff;
+      --orange: #b75f00;
+      --orange-2: #fff0db;
+      --red: #c03a50;
+      --red-2: #fff0f3;
+      --teal: #00788a;
+      --teal-2: #e6f7fa;
+      --yellow: #8d6a00;
+      --yellow-2: #fff7d6;
+      --shadow: 0 20px 70px rgba(16, 24, 40, 0.10);
+      --soft-shadow: 0 10px 36px rgba(16, 24, 40, 0.08);
+      --radius: 12px;
+      --radius-sm: 8px;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      color: var(--ink);
+      background:
+        radial-gradient(circle at 12% 0%, rgba(31, 100, 214, 0.15), transparent 30%),
+        linear-gradient(135deg, rgba(0, 133, 104, 0.10), transparent 28%),
+        var(--bg);
+      font-family: Inter, "Segoe UI", "Microsoft YaHei", Arial, sans-serif;
+      line-height: 1.58;
+      letter-spacing: 0;
+    }
+
+    a {
+      color: inherit;
+      text-decoration: none;
+    }
+
+    code {
+      padding: 2px 6px;
+      border-radius: 6px;
+      background: rgba(16, 24, 40, 0.07);
+      font-family: var(--mono);
+      font-size: 0.94em;
+    }
+
+    .page {
+      width: min(1220px, calc(100% - 32px));
+      margin: 0 auto;
+      padding: 24px 0 64px;
+    }
+
+    .hero {
+      min-height: 520px;
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(360px, 0.95fr);
+      gap: 28px;
+      align-items: stretch;
+      padding: 26px 0 18px;
+    }
+
+    .hero-main,
+    .hero-map,
+    section {
+      border: 1px solid rgba(217, 224, 236, 0.88);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.90);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(10px);
+    }
+
+    .hero-main {
+      padding: clamp(26px, 5vw, 46px);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .hero-main::after {
+      content: "";
+      position: absolute;
+      right: -90px;
+      bottom: -110px;
+      width: 280px;
+      height: 280px;
+      border: 34px solid rgba(31, 100, 214, 0.09);
+      border-radius: 50%;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      width: fit-content;
+      align-items: center;
+      gap: 8px;
+      padding: 7px 11px;
+      border: 1px solid rgba(31, 100, 214, 0.20);
+      border-radius: 999px;
+      background: #fff;
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    h1 {
+      max-width: 760px;
+      margin: 18px 0 16px;
+      font-size: clamp(34px, 5.4vw, 62px);
+      line-height: 1.04;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      margin: 0 0 18px;
+      font-size: clamp(24px, 3vw, 32px);
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      margin: 0 0 8px;
+      font-size: 18px;
+      line-height: 1.28;
+      letter-spacing: 0;
+    }
+
+    p {
+      margin: 0;
+    }
+
+    .lead {
+      max-width: 820px;
+      color: var(--muted);
+      font-size: 18px;
+    }
+
+    .verdict {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 14px;
+      margin-top: 26px;
+      position: relative;
+      z-index: 1;
+    }
+
+    .verdict-card {
+      padding: 16px;
+      border-radius: var(--radius-sm);
+      border: 1px solid var(--line);
+      background: #fff;
+      min-height: 142px;
+    }
+
+    .verdict-card.no {
+      border-color: rgba(192, 58, 80, 0.26);
+      background: var(--red-2);
+    }
+
+    .verdict-card.yes {
+      border-color: rgba(0, 133, 104, 0.26);
+      background: var(--green-2);
+    }
+
+    .kicker {
+      display: inline-flex;
+      margin-bottom: 8px;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.72);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    .hero-map {
+      padding: 22px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      gap: 16px;
+    }
+
+    .source-title {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+    }
+
+    .source-title span {
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .menu-window {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      overflow: hidden;
+      background: #fff;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .window-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      padding: 11px 13px;
+      border-bottom: 1px solid var(--line);
+      background: #f8fafc;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .dots {
+      display: flex;
+      gap: 6px;
+    }
+
+    .dots i {
+      width: 9px;
+      height: 9px;
+      border-radius: 50%;
+      background: #cbd5e1;
+    }
+
+    .slash-list {
+      display: grid;
+      padding: 8px;
+      gap: 8px;
+    }
+
+    .slash-row {
+      display: grid;
+      grid-template-columns: 150px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      padding: 11px 12px;
+      border-radius: var(--radius-sm);
+      border: 1px solid transparent;
+      background: #fff;
+    }
+
+    .slash-row.command {
+      border-color: rgba(31, 100, 214, 0.22);
+      background: var(--blue-2);
+    }
+
+    .slash-row.skill {
+      border-color: rgba(0, 133, 104, 0.22);
+      background: var(--green-2);
+    }
+
+    .slash-row strong {
+      font-family: var(--mono);
+      font-size: 15px;
+    }
+
+    .slash-row small {
+      color: var(--muted);
+      font-weight: 700;
+    }
+
+    .badge {
+      padding: 3px 8px;
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.76);
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .mini-legend {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .legend-card {
+      padding: 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: #fff;
+    }
+
+    .legend-card strong {
+      display: block;
+      margin-bottom: 4px;
+    }
+
+    .legend-card p {
+      color: var(--muted);
+      font-size: 13px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 10px;
+      z-index: 10;
+      margin: 10px 0 24px;
+      padding: 8px;
+      border: 1px solid rgba(217, 224, 236, 0.90);
+      border-radius: 999px;
+      background: rgba(255, 255, 255, 0.88);
+      box-shadow: 0 12px 36px rgba(16, 24, 40, 0.08);
+      backdrop-filter: blur(12px);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 8px;
+    }
+
+    .nav a {
+      padding: 8px 12px;
+      border-radius: 999px;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 900;
+    }
+
+    .nav a:hover {
+      background: var(--blue-2);
+      color: var(--blue);
+    }
+
+    section {
+      margin-top: 24px;
+      padding: clamp(22px, 4vw, 34px);
+    }
+
+    .section-head {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      align-items: flex-start;
+      margin-bottom: 20px;
+    }
+
+    .section-head p {
+      max-width: 720px;
+      color: var(--muted);
+    }
+
+    .chips {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .chip {
+      display: inline-flex;
+      align-items: center;
+      min-height: 28px;
+      padding: 5px 9px;
+      border-radius: 999px;
+      border: 1px solid var(--line);
+      background: #fff;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .chip.command {
+      border-color: rgba(31, 100, 214, 0.26);
+      background: var(--blue-2);
+      color: var(--blue);
+    }
+
+    .chip.skill {
+      border-color: rgba(0, 133, 104, 0.26);
+      background: var(--green-2);
+      color: var(--green);
+    }
+
+    .chip.dep {
+      border-color: rgba(114, 70, 198, 0.26);
+      background: var(--purple-2);
+      color: var(--purple);
+    }
+
+    .chip.fallback {
+      border-color: rgba(183, 95, 0, 0.26);
+      background: var(--orange-2);
+      color: var(--orange);
+    }
+
+    .chip.out {
+      border-color: rgba(192, 58, 80, 0.24);
+      background: var(--red-2);
+      color: var(--red);
+    }
+
+    .two-paths {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .path-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      overflow: hidden;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .path-card.command {
+      border-color: rgba(31, 100, 214, 0.25);
+    }
+
+    .path-card.skill {
+      border-color: rgba(0, 133, 104, 0.25);
+    }
+
+    .path-top {
+      padding: 16px;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .path-card.command .path-top {
+      background: var(--blue-2);
+    }
+
+    .path-card.skill .path-top {
+      background: var(--green-2);
+    }
+
+    .path-steps {
+      padding: 16px;
+      display: grid;
+      gap: 12px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 34px 1fr;
+      gap: 10px;
+      align-items: start;
+    }
+
+    .num {
+      width: 34px;
+      height: 34px;
+      display: grid;
+      place-items: center;
+      border-radius: 50%;
+      background: #eef2f7;
+      color: var(--muted);
+      font-weight: 900;
+      font-size: 13px;
+    }
+
+    .step p {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .stack {
+      display: grid;
+      gap: 12px;
+      position: relative;
+      margin-top: 20px;
+    }
+
+    .stack::before {
+      content: "";
+      position: absolute;
+      left: 20px;
+      top: 24px;
+      bottom: 24px;
+      width: 3px;
+      border-radius: 999px;
+      background: linear-gradient(var(--blue), var(--green), var(--purple), var(--red));
+    }
+
+    .stack-row {
+      display: grid;
+      grid-template-columns: 44px minmax(180px, 0.36fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: stretch;
+      position: relative;
+    }
+
+    .stack-dot {
+      width: 42px;
+      height: 42px;
+      display: grid;
+      place-items: center;
+      border: 3px solid #fff;
+      border-radius: 50%;
+      box-shadow: 0 0 0 1px var(--line);
+      background: #fff;
+      color: var(--muted);
+      font-weight: 900;
+      z-index: 1;
+    }
+
+    .stack-title,
+    .stack-body {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius-sm);
+      background: #fff;
+    }
+
+    .stack-title {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      font-weight: 900;
+    }
+
+    .stack-title small {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .stack-body {
+      color: var(--muted);
+    }
+
+    .route-board {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .command-card {
+      min-height: 318px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--soft-shadow);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .command-card::before {
+      content: "";
+      position: absolute;
+      inset: 0 auto 0 0;
+      width: 6px;
+      background: var(--blue);
+    }
+
+    .command-card.controller::before { background: var(--blue); }
+    .command-card.backend::before { background: var(--teal); }
+    .command-card.frontend::before { background: var(--orange); }
+    .command-card.review::before { background: var(--purple); }
+    .command-card.owner::before { background: var(--red); }
+
+    .command-card header {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 10px;
+      padding-left: 4px;
+    }
+
+    .command-card h3 {
+      font-family: var(--mono);
+      font-size: 17px;
+    }
+
+    .role {
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: #f2f4f7;
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 900;
+      white-space: nowrap;
+    }
+
+    .route-line {
+      display: flex;
+      align-items: center;
+      gap: 7px;
+      flex-wrap: wrap;
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .route-line span {
+      color: #98a2b3;
+      font-weight: 900;
+    }
+
+    .when {
+      padding: 11px 12px;
+      border-radius: var(--radius-sm);
+      background: #f8fafc;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .deps {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 7px;
+      margin-top: auto;
+    }
+
+    .dep {
+      padding: 4px 7px;
+      border: 1px solid rgba(114, 70, 198, 0.24);
+      border-radius: 999px;
+      background: var(--purple-2);
+      color: #57319b;
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 900;
+    }
+
+    .surface-grid,
+    .fix-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .surface-card,
+    .fix-card {
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      padding: 18px;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .surface-card.plugin { border-color: rgba(31, 100, 214, 0.25); background: linear-gradient(180deg, var(--blue-2), #fff 46%); }
+    .surface-card.fallback { border-color: rgba(183, 95, 0, 0.25); background: linear-gradient(180deg, var(--orange-2), #fff 46%); }
+    .surface-card.adapter { border-color: rgba(0, 120, 138, 0.25); background: linear-gradient(180deg, var(--teal-2), #fff 46%); }
+
+    .surface-card ul,
+    .fix-card ul {
+      margin: 12px 0 0;
+      padding-left: 18px;
+      color: var(--muted);
+    }
+
+    .surface-card li + li,
+    .fix-card li + li {
+      margin-top: 6px;
+    }
+
+    .fix-card.problem { border-color: rgba(141, 106, 0, 0.28); background: var(--yellow-2); }
+    .fix-card.wrong { border-color: rgba(192, 58, 80, 0.28); background: var(--red-2); }
+    .fix-card.right { border-color: rgba(0, 133, 104, 0.28); background: var(--green-2); }
+
+    .bank {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 14px;
+    }
+
+    .bank-card {
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #fff;
+      box-shadow: var(--soft-shadow);
+    }
+
+    .bank-card .deps {
+      margin-top: 10px;
+    }
+
+    .note {
+      margin-top: 18px;
+      padding: 15px 17px;
+      border-left: 5px solid var(--blue);
+      border-radius: var(--radius-sm);
+      background: var(--blue-2);
+      color: #173a70;
+    }
+
+    .footer {
+      margin-top: 26px;
+      color: var(--muted);
+      text-align: center;
+      font-size: 13px;
+    }
+
+    @media (max-width: 1040px) {
+      .hero,
+      .two-paths,
+      .surface-grid,
+      .fix-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .route-board {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .bank {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 720px) {
+      .page {
+        width: min(100% - 20px, 1220px);
+      }
+
+      .verdict,
+      .mini-legend,
+      .route-board,
+      .bank {
+        grid-template-columns: 1fr;
+      }
+
+      .slash-row {
+        grid-template-columns: 1fr;
+      }
+
+      .stack-row {
+        grid-template-columns: 40px 1fr;
+      }
+
+      .stack-body {
+        grid-column: 2;
+      }
+
+      .nav {
+        position: static;
+        border-radius: var(--radius);
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="hero" id="top">
+      <div class="hero-main">
+        <div>
+          <div class="eyebrow">DIAYN Claude Code Plugin Runtime Map</div>
+          <h1>Commands、Workflow Skills、Dependency Skills 到底怎么连起来</h1>
+          <p class="lead">
+            这页只解释当前 DIAYN Claude Code plugin 的调用逻辑：为什么 slash 菜单里同时有
+            <code>/diayn:init</code> 和 <code>/diayn-init</code>，以及 12 条 <code>/diayn:*</code>
+            commands 如何按需路由到第三方 <code>agent-skills</code>。
+          </p>
+        </div>
+
+        <div class="verdict">
+          <div class="verdict-card no">
+            <span class="kicker">不是这样</span>
+            <h3><code>/diayn:init</code> → <code>/diayn-init</code></h3>
+            <p>
+              <code>/diayn:init</code> 不应该理解成在用户界面里再执行一次裸 slash 命令
+              <code>/diayn-init</code>。
+            </p>
+          </div>
+          <div class="verdict-card yes">
+            <span class="kicker">实际是这样</span>
+            <h3>command → workflow skill → router → dependency skills</h3>
+            <p>
+              <code>/diayn:init</code> 加载 command adapter，然后进入底层 DIAYN workflow skill；
+              需要第三方工程方法时，再 native 调用 dependency skills。
+            </p>
+          </div>
+        </div>
+      </div>
+
+      <aside class="hero-map" aria-label="slash menu summary">
+        <div class="source-title">
+          <h2>当前看到的现象</h2>
+          <span>source: diayn</span>
+        </div>
+        <div class="menu-window">
+          <div class="window-bar">
+            <span>User slash menu</span>
+            <span class="dots"><i></i><i></i><i></i></span>
+          </div>
+          <div class="slash-list">
+            <div class="slash-row command">
+              <strong>/diayn:init</strong>
+              <small>plugin command</small>
+              <span class="badge">推荐主入口</span>
+            </div>
+            <div class="slash-row skill">
+              <strong>/diayn-init</strong>
+              <small>user-invocable workflow skill</small>
+              <span class="badge">当前也可见</span>
+            </div>
+            <div class="slash-row command">
+              <strong>/diayn:frontend</strong>
+              <small>plugin command</small>
+              <span class="badge">推荐主入口</span>
+            </div>
+            <div class="slash-row skill">
+              <strong>/diayn-frontend</strong>
+              <small>user-invocable workflow skill</small>
+              <span class="badge">当前也可见</span>
+            </div>
+          </div>
+        </div>
+        <div class="mini-legend">
+          <div class="legend-card">
+            <strong>为什么都显示 diayn？</strong>
+            <p>因为两者都可能来自 DIAYN plugin，不一定是 project-local fallback。</p>
+          </div>
+          <div class="legend-card">
+            <strong>问题在哪里？</strong>
+            <p>不是 skills 不该安装，而是用户可见入口没有分层隐藏好。</p>
+          </div>
+        </div>
+      </aside>
+    </header>
+
+    <nav class="nav" aria-label="page sections">
+      <a href="#two-entries">两套入口</a>
+      <a href="#main-chain">主调用链</a>
+      <a href="#routing">12 命令路由</a>
+      <a href="#surfaces">安装方式</a>
+      <a href="#fix">修复方向</a>
+      <a href="#bank">第三方 skill 池</a>
+    </nav>
+
+    <section id="two-entries">
+      <div class="section-head">
+        <div>
+          <h2>1. 两个入口来自两种不同 surface</h2>
+          <p>
+            <code>/diayn:init</code> 和 <code>/diayn-init</code> 背后可以进入相近的 DIAYN init 能力，
+            但入口来源不同：一个来自 plugin command，一个来自 plugin-visible workflow skill。
+          </p>
+        </div>
+      </div>
+
+      <div class="two-paths">
+        <article class="path-card command">
+          <div class="path-top">
+            <span class="kicker">Plugin command path</span>
+            <h3><code>/diayn:init</code> 是 Claude plugin 推荐主入口</h3>
+          </div>
+          <div class="path-steps">
+            <div class="step">
+              <span class="num">1</span>
+              <div>
+                <h3>用户输入 <code>/diayn:init</code></h3>
+                <p>Claude Code 识别这是 DIAYN plugin 的 command。</p>
+              </div>
+            </div>
+            <div class="step">
+              <span class="num">2</span>
+              <div>
+                <h3>加载 <code>.claude/commands/init.md</code></h3>
+                <p>command adapter 确认平台、入口文件和 DIAYN 命令身份。</p>
+              </div>
+            </div>
+            <div class="step">
+              <span class="num">3</span>
+              <div>
+                <h3>进入 <code>diayn:diayn-init</code> workflow skill</h3>
+                <p>这是 native skill 能力调用，不是再触发用户可见的 <code>/diayn-init</code>。</p>
+              </div>
+            </div>
+          </div>
+        </article>
+
+        <article class="path-card skill">
+          <div class="path-top">
+            <span class="kicker">Workflow skill path</span>
+            <h3><code>/diayn-init</code> 是 workflow skill 的用户可见入口</h3>
+          </div>
+          <div class="path-steps">
+            <div class="step">
+              <span class="num">1</span>
+              <div>
+                <h3>用户输入 <code>/diayn-init</code></h3>
+                <p>Claude Code 直接把它当作可调用 skill 入口。</p>
+              </div>
+            </div>
+            <div class="step">
+              <span class="num">2</span>
+              <div>
+                <h3>加载 <code>skills/diayn-init/SKILL.md</code></h3>
+                <p>直接按 skill 说明执行 DIAYN init workflow。</p>
+              </div>
+            </div>
+            <div class="step">
+              <span class="num">3</span>
+              <div>
+                <h3>它不是 plugin 官方推荐主入口</h3>
+                <p>plugin 场景中，理想状态是让 workflow skills 后台可调用，而不是作为用户主入口展示。</p>
+              </div>
+            </div>
+          </div>
+        </article>
+      </div>
+
+      <div class="note">
+        结论：现在同时出现两套入口，是因为 DIAYN plugin 同时暴露了 plugin commands 和 user-invocable workflow skills。
+        这叫“入口可见性没收敛好”，不是“dependency skills 污染”，也不是“应该删除 skills”。
+      </div>
+    </section>
+
+    <section id="main-chain">
+      <div class="section-head">
+        <div>
+          <h2>2. 推荐主入口的完整调用链</h2>
+          <p>
+            这条链路解释了用户输入 <code>/diayn:init</code> 后，DIAYN 如何保持主控权，并在需要时才路由到第三方 skills。
+          </p>
+        </div>
+        <div class="chips">
+          <span class="chip command">command</span>
+          <span class="chip skill">workflow skill</span>
+          <span class="chip dep">dependency skills</span>
+          <span class="chip out">project docs</span>
+        </div>
+      </div>
+
+      <div class="stack">
+        <div class="stack-row">
+          <div class="stack-dot">1</div>
+          <div class="stack-title">User command <small>slash menu</small></div>
+          <div class="stack-body"><code>/diayn:init</code>、<code>/diayn:backend</code>、<code>/diayn:review-frontend</code> 等 12 条 plugin commands。</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-dot">2</div>
+          <div class="stack-title">Command adapter <small>.claude/commands/*.md</small></div>
+          <div class="stack-body">确认当前是 Claude Code plugin 场景，加载对应 adapter，例如 <code>.claude/commands/init.md</code>。</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-dot">3</div>
+          <div class="stack-title">DIAYN workflow skill <small>diayn:diayn-*</small></div>
+          <div class="stack-body">进入底层 workflow skill，例如 <code>diayn:diayn-init</code>。这里才是真正的 DIAYN command 业务逻辑。</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-dot">4</div>
+          <div class="stack-title">DIAYN guardrails <small>role / lane / state</small></div>
+          <div class="stack-body">确认角色、lane、worktree、写入范围、TODO 状态、OwnerGate、review/integration 边界。第三方 skills 不能覆盖这些规则。</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-dot">5</div>
+          <div class="stack-title">Skill Router <small>smallest useful set</small></div>
+          <div class="stack-body">读取 <code>.diayn/dependency-routing/upstream-routing-map.md</code> 或包内 routing map，只选择当前任务真正需要的第三方 skills。</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-dot">6</div>
+          <div class="stack-title">Native skill call <small>agent-skills dependency</small></div>
+          <div class="stack-body">Claude plugin 场景下按需调用 <code>diayn:&lt;dependency-skill&gt;</code>。直接读 vendored <code>SKILL.md</code> 只能算 fallback/reference。</div>
+        </div>
+        <div class="stack-row">
+          <div class="stack-dot">7</div>
+          <div class="stack-title">Durable outputs <small>project harness</small></div>
+          <div class="stack-body">生成或更新 <code>CLAUDE.md</code>、<code>TODO.md</code>、<code>.diayn/*</code>、<code>docs/project/*</code>、review log、integration summary 或 Owner-facing HTML。</div>
+        </div>
+      </div>
+    </section>
+
+    <section id="routing">
+      <div class="section-head">
+        <div>
+          <h2>3. 12 条 commands 到第三方 skills 的路由地图</h2>
+          <p>
+            每张卡片都按同一逻辑读：用户执行 <code>/diayn:*</code>，command adapter 进入对应
+            <code>diayn-*</code> workflow skill；只有在当前任务需要时，才调用下面列出的 dependency skills。
+          </p>
+        </div>
+        <div class="chips">
+          <span class="chip command">/diayn:*</span>
+          <span class="chip skill">diayn-*</span>
+          <span class="chip dep">agent-skills</span>
+        </div>
+      </div>
+
+      <div class="route-board">
+        <article class="command-card controller">
+          <header><h3>/diayn:init</h3><span class="role">Controller</span></header>
+          <div class="route-line"><code>init.md</code><span>→</span><code>diayn-init</code><span>→</span><code>router</code></div>
+          <p class="when">模糊 idea / 需求澄清 / 既有项目 retrofit audit / harness scaffold 初始化。</p>
+          <div class="deps">
+            <span class="dep">interview-me</span><span class="dep">idea-refine</span><span class="dep">spec-driven-development</span><span class="dep">deprecation-and-migration</span><span class="dep">documentation-and-adrs</span><span class="dep">context-engineering</span><span class="dep">git-workflow-and-versioning</span>
+          </div>
+        </article>
+
+        <article class="command-card controller">
+          <header><h3>/diayn:plan</h3><span class="role">Controller</span></header>
+          <div class="route-line"><code>plan.md</code><span>→</span><code>diayn-plan</code><span>→</span><code>router</code></div>
+          <p class="when">把已确认需求拆成 stage、lane slice、shared contract、验收标准和 worker 可执行任务。</p>
+          <div class="deps">
+            <span class="dep">planning-and-task-breakdown</span><span class="dep">context-engineering</span><span class="dep">documentation-and-adrs</span><span class="dep">api-and-interface-design</span>
+          </div>
+        </article>
+
+        <article class="command-card controller">
+          <header><h3>/diayn:worktrees</h3><span class="role">Controller</span></header>
+          <div class="route-line"><code>worktrees.md</code><span>→</span><code>diayn-worktrees</code><span>→</span><code>router</code></div>
+          <p class="when">创建或检查 lane worktree、dirty preflight、fresh-session context、worktree manifest。</p>
+          <div class="deps">
+            <span class="dep">git-workflow-and-versioning</span><span class="dep">context-engineering</span>
+          </div>
+        </article>
+
+        <article class="command-card backend">
+          <header><h3>/diayn:backend</h3><span class="role">Backend worker</span></header>
+          <div class="route-line"><code>backend.md</code><span>→</span><code>diayn-backend</code><span>→</span><code>router</code></div>
+          <p class="when">后端会话执行一个可审查 slice，需要 TDD、接口契约、调试恢复、安全或权威资料判断。</p>
+          <div class="deps">
+            <span class="dep">incremental-implementation</span><span class="dep">test-driven-development</span><span class="dep">source-driven-development</span><span class="dep">api-and-interface-design</span><span class="dep">debugging-and-error-recovery</span><span class="dep">security-and-hardening</span>
+          </div>
+        </article>
+
+        <article class="command-card frontend">
+          <header><h3>/diayn:frontend</h3><span class="role">Frontend worker</span></header>
+          <div class="route-line"><code>frontend.md</code><span>→</span><code>diayn-frontend</code><span>→</span><code>router</code></div>
+          <p class="when">前端会话执行 UI/runtime slice，需要 UI 工程、浏览器验证、TDD、调试或性能证据。</p>
+          <div class="deps">
+            <span class="dep">incremental-implementation</span><span class="dep">test-driven-development</span><span class="dep">source-driven-development</span><span class="dep">frontend-ui-engineering</span><span class="dep">browser-testing-with-devtools</span><span class="dep">performance-optimization</span>
+          </div>
+        </article>
+
+        <article class="command-card review">
+          <header><h3>/diayn:review-backend</h3><span class="role">Reviewer</span></header>
+          <div class="route-line"><code>review-backend.md</code><span>→</span><code>diayn-review-backend</code><span>→</span><code>router</code></div>
+          <p class="when">后端 reviewer 像测试开发/QA 一样独立审查、补测试、怀疑性验证、分类失败。</p>
+          <div class="deps">
+            <span class="dep">code-review-and-quality</span><span class="dep">doubt-driven-development</span><span class="dep">test-driven-development</span><span class="dep">security-and-hardening</span><span class="dep">debugging-and-error-recovery</span>
+          </div>
+        </article>
+
+        <article class="command-card review">
+          <header><h3>/diayn:review-frontend</h3><span class="role">Reviewer</span></header>
+          <div class="route-line"><code>review-frontend.md</code><span>→</span><code>diayn-review-frontend</code><span>→</span><code>router</code></div>
+          <p class="when">前端 reviewer 独立验证 UI、交互、浏览器 runtime、可访问性、测试和安全边界。</p>
+          <div class="deps">
+            <span class="dep">code-review-and-quality</span><span class="dep">doubt-driven-development</span><span class="dep">test-driven-development</span><span class="dep">browser-testing-with-devtools</span><span class="dep">frontend-ui-engineering</span><span class="dep">security-and-hardening</span>
+          </div>
+        </article>
+
+        <article class="command-card controller">
+          <header><h3>/diayn:sync</h3><span class="role">Controller</span></header>
+          <div class="route-line"><code>sync.md</code><span>→</span><code>diayn-sync</code><span>→</span><code>router</code></div>
+          <p class="when">同步 durable state、TODO、handoff、lane 文档和上下文包；明确不合并业务代码。</p>
+          <div class="deps">
+            <span class="dep">context-engineering</span><span class="dep">documentation-and-adrs</span>
+          </div>
+        </article>
+
+        <article class="command-card controller">
+          <header><h3>/diayn:integration</h3><span class="role">Controller</span></header>
+          <div class="route-line"><code>integration.md</code><span>→</span><code>diayn-integration</code><span>→</span><code>router</code></div>
+          <p class="when">review 通过后检查合并状态、contract、build/lint/smoke/E2E、冲突归属和 readiness。</p>
+          <div class="deps">
+            <span class="dep">code-review-and-quality</span><span class="dep">api-and-interface-design</span><span class="dep">git-workflow-and-versioning</span><span class="dep">ci-cd-and-automation</span><span class="dep">debugging-and-error-recovery</span><span class="dep">shipping-and-launch</span><span class="dep">security-and-hardening</span><span class="dep">performance-optimization</span>
+          </div>
+        </article>
+
+        <article class="command-card owner">
+          <header><h3>/diayn:bug</h3><span class="role">Controller triage</span></header>
+          <div class="route-line"><code>bug.md</code><span>→</span><code>diayn-bug</code><span>→</span><code>router</code></div>
+          <p class="when">Owner 验收失败、缺陷、回滚影响、失败分类和 lane 重新分派需要结构化分析。</p>
+          <div class="deps">
+            <span class="dep">debugging-and-error-recovery</span><span class="dep">doubt-driven-development</span><span class="dep">test-driven-development</span><span class="dep">security-and-hardening</span><span class="dep">deprecation-and-migration</span>
+          </div>
+        </article>
+
+        <article class="command-card owner">
+          <header><h3>/diayn:new</h3><span class="role">Owner change</span></header>
+          <div class="route-line"><code>new.md</code><span>→</span><code>diayn-new</code><span>→</span><code>router</code></div>
+          <p class="when">Owner 提出新需求、方向变化、依赖变化或废弃旧要求；先澄清，再显式 supersede。</p>
+          <div class="deps">
+            <span class="dep">interview-me</span><span class="dep">idea-refine</span><span class="dep">spec-driven-development</span><span class="dep">planning-and-task-breakdown</span><span class="dep">deprecation-and-migration</span><span class="dep">documentation-and-adrs</span>
+          </div>
+        </article>
+
+        <article class="command-card owner">
+          <header><h3>/diayn:html</h3><span class="role">Owner-facing</span></header>
+          <div class="route-line"><code>html.md</code><span>→</span><code>diayn-html</code><span>→</span><code>router</code></div>
+          <p class="when">生成 Owner-facing 决策页、验收摘要、阶段报告或离线 HTML；Markdown 仍是 durable authority。</p>
+          <div class="deps">
+            <span class="dep">documentation-and-adrs</span><span class="dep">shipping-and-launch</span>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="surfaces">
+      <div class="section-head">
+        <div>
+          <h2>4. 三种安装方式要分清</h2>
+          <p>同一套 DIAYN workflow 语义，在不同平台/安装方式下暴露的用户入口不同。</p>
+        </div>
+      </div>
+
+      <div class="surface-grid">
+        <article class="surface-card plugin">
+          <span class="kicker">Claude Code plugin / marketplace</span>
+          <h3>官方主入口：<code>/diayn:*</code></h3>
+          <ul>
+            <li>用户推荐使用 <code>/diayn:init</code>、<code>/diayn:plan</code>、<code>/diayn:backend</code>。</li>
+            <li>背后仍安装 DIAYN workflow skills 和 dependency skills。</li>
+            <li>生成入口文件：<code>CLAUDE.md</code>。</li>
+          </ul>
+        </article>
+        <article class="surface-card fallback">
+          <span class="kicker">Claude project-local fallback</span>
+          <h3>本地短命令：<code>/diayn-*</code></h3>
+          <ul>
+            <li>用于不走 plugin / marketplace 的项目内安装。</li>
+            <li>用户可以使用 <code>/diayn-init</code>、<code>/diayn-plan</code>。</li>
+            <li>不要因为修 plugin 而破坏 fallback。</li>
+          </ul>
+        </article>
+        <article class="surface-card adapter">
+          <span class="kicker">Codex / OpenCode adapter</span>
+          <h3>按平台能力适配</h3>
+          <ul>
+            <li>目标仍是同一套 12 条 DIAYN 命令体系。</li>
+            <li>生成入口文件：<code>AGENTS.md</code>。</li>
+            <li>平台不支持时不硬造假入口。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="fix">
+      <div class="section-head">
+        <div>
+          <h2>5. 当前问题与正确修复方向</h2>
+          <p>修复目标是“收敛用户入口”，不是“删除能力”。</p>
+        </div>
+      </div>
+
+      <div class="fix-grid">
+        <article class="fix-card problem">
+          <span class="kicker">当前问题</span>
+          <h3>commands + skills 同时用户可见</h3>
+          <ul>
+            <li><code>/diayn:*</code> 和 <code>/diayn-*</code> 同时出现在用户 slash 菜单。</li>
+            <li>用户不知道哪个才是 DIAYN plugin 推荐主入口。</li>
+            <li>如果重复注册，还会出现大量重复项。</li>
+          </ul>
+        </article>
+        <article class="fix-card wrong">
+          <span class="kicker">错误修复</span>
+          <h3>不要把 plugin 改成 command-only</h3>
+          <ul>
+            <li>不要删除 workflow skills。</li>
+            <li>不要把 dependency skills 降级成纯文本参考。</li>
+            <li>不要设置 <code>disable-model-invocation:true</code>。</li>
+            <li>不要说 Skills 为空才正确。</li>
+          </ul>
+        </article>
+        <article class="fix-card right">
+          <span class="kicker">正确修复</span>
+          <h3>隐藏用户入口，保留后台调用</h3>
+          <ul>
+            <li>Claude plugin 用户主入口收敛到 12 个 <code>/diayn:*</code> commands。</li>
+            <li>plugin workflow skills 设置 <code>user-invocable:false</code>。</li>
+            <li>workflow/dependency skills 继续随 plugin 安装并可 native 调用。</li>
+            <li>project-local fallback 继续保留裸 <code>/diayn-*</code>。</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section id="bank">
+      <div class="section-head">
+        <div>
+          <h2>6. 第三方 dependency skills 池</h2>
+          <p>
+            DIAYN 管理的是锁定版本的 <code>agent-skills</code> 依赖副本。DIAYN workflow 根据 routing map
+            按需选择，不允许第三方 skill 覆盖 DIAYN 的 role、lane、state、permission、review、integration 和 Owner authority。
+          </p>
+        </div>
+      </div>
+
+      <div class="bank">
+        <article class="bank-card">
+          <h3>需求与规划</h3>
+          <div class="deps">
+            <span class="dep">interview-me</span><span class="dep">idea-refine</span><span class="dep">spec-driven-development</span><span class="dep">planning-and-task-breakdown</span><span class="dep">context-engineering</span><span class="dep">documentation-and-adrs</span>
+          </div>
+        </article>
+        <article class="bank-card">
+          <h3>实现与工程</h3>
+          <div class="deps">
+            <span class="dep">incremental-implementation</span><span class="dep">test-driven-development</span><span class="dep">source-driven-development</span><span class="dep">api-and-interface-design</span><span class="dep">frontend-ui-engineering</span><span class="dep">browser-testing-with-devtools</span>
+          </div>
+        </article>
+        <article class="bank-card">
+          <h3>审查与恢复</h3>
+          <div class="deps">
+            <span class="dep">code-review-and-quality</span><span class="dep">doubt-driven-development</span><span class="dep">debugging-and-error-recovery</span><span class="dep">security-and-hardening</span><span class="dep">performance-optimization</span><span class="dep">code-simplification</span>
+          </div>
+        </article>
+        <article class="bank-card">
+          <h3>交付与仓库</h3>
+          <div class="deps">
+            <span class="dep">git-workflow-and-versioning</span><span class="dep">ci-cd-and-automation</span><span class="dep">shipping-and-launch</span><span class="dep">deprecation-and-migration</span><span class="dep">using-agent-skills</span>
+          </div>
+        </article>
+      </div>
+
+      <div class="note">
+        Native 调用示例：Claude plugin namespace 场景中，router 可能选择并调用
+        <code>diayn:idea-refine</code>、<code>diayn:test-driven-development</code> 或
+        <code>diayn:code-review-and-quality</code>。直接读取 vendored 文件只是 fallback/reference，不算真正第三方 skill composition 证据。
+      </div>
+    </section>
+
+    <div class="footer">
+      DIAYN Claude Code plugin visual explanation. Generated as a single offline HTML file with inline CSS.
+    </div>
+  </main>
+</body>
+</html>

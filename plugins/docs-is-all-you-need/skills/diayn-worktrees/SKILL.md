@@ -1,6 +1,7 @@
 ---
 name: diayn-worktrees
 description: Runs the DIAYN /diayn-worktrees workflow. Use when Controller needs to prepare backend/frontend lane worktrees, branch guidance, manifests, and session launch instructions after planning.
+user-invocable: false
 ---
 
 # DIAYN Worktrees

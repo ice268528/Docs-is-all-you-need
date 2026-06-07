@@ -104,6 +104,13 @@ function writeFile(target, text) {
   fs.writeFileSync(target, text, "utf8");
 }
 
+function removePluginOnlyVisibilityFlag(skillDir) {
+  const skillPath = path.join(skillDir, "SKILL.md");
+  const text = fs.readFileSync(skillPath, "utf8");
+  const updated = text.replace(/\r?\nuser-invocable:\s*false(?=\r?\n)/, "");
+  if (updated !== text) fs.writeFileSync(skillPath, updated, "utf8");
+}
+
 function yamlQuote(value) {
   return `"${String(value).replace(/\\/g, "\\\\").replace(/"/g, '\\"').replace(/\n/g, "\\n")}"`;
 }
@@ -138,6 +145,7 @@ function main() {
   for (const name of expectedWorkflowSkills) {
     const skillTarget = path.join(packageSkills, name);
     copyDir(path.join(pluginRoot, "skills", name), skillTarget);
+    removePluginOnlyVisibilityFlag(skillTarget);
     writeCodexOpenAiYaml(skillTarget, name);
   }
 

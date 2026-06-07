@@ -30,10 +30,13 @@ Plugin commands use the `diayn` namespace, so the command shape is
 `/diayn:<command>`.
 
 This plugin install registers the 12 DIAYN workflow skills and the bundled
-DIAYN-managed `agent-skills` dependency skills. The 12 commands are the user
-entrypoints; the loaded DIAYN workflow may invoke workflow/dependency skills
-natively when relevant. In Claude Code, `/diayn:init` creates or updates
-`CLAUDE.md` and does not create `AGENTS.md` by default.
+DIAYN-managed `agent-skills` dependency skills. The 12 `/diayn:*` commands are
+the user entrypoints; the workflow skills remain native-callable in the
+background and are not exposed as bare `/diayn-*` user entries in plugin mode.
+In Claude Code, `/diayn:init` creates or updates `CLAUDE.md` and does not
+create `AGENTS.md` by default.
+`CLAUDE.md` and `AGENTS.md` are peer platform entry files; neither one is a
+wrapper for the other.
 
 ### Claude Project-Local Fallback
 
@@ -85,6 +88,8 @@ node maintainers\scripts\install_codex_project_local_package.js --target-codex-h
 ```
 
 Codex init uses `AGENTS.md` and does not create `CLAUDE.md` by default.
+`AGENTS.md` is the Codex/OpenCode/generic entry file, not a wrapper around
+`CLAUDE.md`.
 
 ## Commands
 

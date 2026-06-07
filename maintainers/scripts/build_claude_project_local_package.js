@@ -42,6 +42,13 @@ function writeFile(target, text) {
   fs.writeFileSync(target, text, "utf8");
 }
 
+function removePluginOnlyVisibilityFlag(skillDir) {
+  const skillPath = path.join(skillDir, "SKILL.md");
+  const text = fs.readFileSync(skillPath, "utf8");
+  const updated = text.replace(/\r?\nuser-invocable:\s*false(?=\r?\n)/, "");
+  if (updated !== text) fs.writeFileSync(skillPath, updated, "utf8");
+}
+
 function readSkillDescription(skillName) {
   const skillPath = path.join(pluginRoot, "skills", skillName, "SKILL.md");
   const text = fs.readFileSync(skillPath, "utf8").replace(/^\uFEFF/, "");
@@ -86,7 +93,9 @@ function main() {
   const packageSkills = path.join(packageRoot, ".claude", "skills");
 
   for (const name of expectedWorkflowSkills) {
-    copyDir(path.join(pluginRoot, "skills", name), path.join(packageSkills, name));
+    const skillTarget = path.join(packageSkills, name);
+    copyDir(path.join(pluginRoot, "skills", name), skillTarget);
+    removePluginOnlyVisibilityFlag(skillTarget);
     writeFile(path.join(packageCommands, `${name}.md`), commandAdapter(name));
   }
 

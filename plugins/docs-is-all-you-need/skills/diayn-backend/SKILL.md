@@ -1,6 +1,7 @@
 ---
 name: diayn-backend
 description: Runs the DIAYN /diayn-backend workflow. Use when a backend lane worker session must execute one planned backend task slice, update lane evidence, and stop at candidate_done for review.
+user-invocable: false
 ---
 
 # DIAYN Backend

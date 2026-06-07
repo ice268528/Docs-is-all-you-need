@@ -26,10 +26,12 @@ Docs-is-all-you-need，简称 DIAYN，是一个面向多会话 coding agent 协�
 插件安装使用 `diayn` 命名空间，所以命令形式是 `/diayn:<command>`。
 
 这个 plugin 安装会注册 12 个 DIAYN workflow skills，也会注册内置的
-DIAYN-managed `agent-skills` dependency skills。用户主入口仍然只有 12 个
-commands；workflow 加载后会在需要时 native 调用 workflow/dependency skills。
-在 Claude Code 里，`/diayn:init` 会创建或更新 `CLAUDE.md`，不默认创建
-`AGENTS.md`。
+DIAYN-managed `agent-skills` dependency skills。用户主入口是 12 个
+`/diayn:*` commands；workflow skills 保持后台 native-callable，但在 plugin
+模式下不作为裸 `/diayn-*` 用户入口显示。在 Claude Code 里，`/diayn:init`
+会创建或更新 `CLAUDE.md`，不默认创建 `AGENTS.md`。
+`CLAUDE.md` 和 `AGENTS.md` 是不同平台的平级入口文件，不是互相 wrapper
+的关系。
 
 ### Claude Project-Local Fallback
 
@@ -77,6 +79,8 @@ node maintainers\scripts\install_codex_project_local_package.js --target-codex-h
 ```
 
 Codex init 使用 `AGENTS.md`，不默认创建 `CLAUDE.md`。
+`AGENTS.md` 是 Codex / OpenCode / generic 入口文件，不是对 `CLAUDE.md` 的
+包装。
 
 ## 命令
 

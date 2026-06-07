@@ -1,6 +1,7 @@
 ---
 name: diayn-frontend
 description: Runs the DIAYN /diayn-frontend workflow. Use when a frontend lane worker session must execute one planned frontend task slice, update lane evidence, and stop at candidate_done for review.
+user-invocable: false
 ---
 
 # DIAYN Frontend

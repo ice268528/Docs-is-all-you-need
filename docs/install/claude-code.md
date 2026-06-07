@@ -32,10 +32,13 @@ The short plugin namespace is `diayn`. Root command adapters use short command
 file names such as `init.md` and `plan.md`, so the expected user command shape
 is `/diayn:init`, not `/diayn:diayn-init`. Claude Code also discovers the
 repository-root `skills/` directory, which contains the 12 DIAYN workflow
-skills. The manifest's explicit `skills` path registers only the 23 bundled
-DIAYN-managed `agent-skills` dependency skills. This split avoids registering
-the same workflow skills twice while keeping both workflow and dependency
-skills native-callable.
+skills. These workflow skills are marked `user-invocable: false` for plugin
+mode, so they stay native-callable for `/diayn:*` command adapters without
+showing as bare `/diayn-*` workflow entries in the user slash menu. The
+manifest's explicit `skills` path registers only the 23 bundled DIAYN-managed
+`agent-skills` dependency skills. This split avoids registering the same
+workflow skills twice while keeping both workflow and dependency skills
+native-callable.
 
 The project-local fallback remains a separate installation path under
 `packages/claude-project-local/`. Do not point the root plugin manifest at the
@@ -44,9 +47,11 @@ because Claude Code already auto-discovers repository-root `skills/`.
 
 The root plugin install surface must be one authoritative Claude plugin:
 12 short commands, 12 workflow skills, and 23 DIAYN-managed dependency skills.
-`/plugin details diayn` may show these skills, but the same skill names must
-not be registered more than once from root, inner, fallback, or vendored plugin
-paths.
+The user-facing DIAYN workflow entries should be the 12 `/diayn:*` commands;
+workflow skills are background-callable implementation capabilities. `/plugin
+details diayn` may show workflow/dependency skills, but the same skill names
+must not be registered more than once from root, inner, fallback, or vendored
+plugin paths.
 
 DIAYN does not claim Anthropic official marketplace listing. GitHub
 marketplace-style install should use the actual repository:
@@ -80,13 +85,16 @@ Expected plugin commands:
 ```
 
 Plugin mode does not promise bare `/diayn-*`. If a future Claude Code runtime
-exposes bare commands from a plugin install, record it only as observed behavior
-for that Claude Code version until broader support is proven.
+exposes bare DIAYN workflow commands from a plugin install, record it as a
+runtime failure or unsupported behavior for that Claude Code version until a
+separate fix is made.
 
 In plugin mode, `/diayn:init` runs with `platform: claude-code`, creates or
 updates `CLAUDE.md`, and does not create `AGENTS.md` by default. If `AGENTS.md`
 already exists, DIAYN records it as an existing cross-agent entry file and
 preserves it unless the Owner explicitly asks for cross-platform entry updates.
+`CLAUDE.md` must stand alone as the Claude Code cold-start entry file; it must
+not treat `AGENTS.md` as an upstream entry or mandatory wrapper target.
 
 ## Command Naming Boundary
 

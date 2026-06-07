@@ -30,13 +30,15 @@ project-local fallback command surface.
 Claude Code init surfaces use `CLAUDE.md` as the platform entry file. Codex,
 OpenCode, and generic AGENTS.md-based adapters use `AGENTS.md`. DIAYN must not
 default-generate both entry files in one init run.
+`CLAUDE.md` and `AGENTS.md` are peer platform entry files. Do not implement one
+as a wrapper, upstream entry, or mandatory reader of the other.
 
 ## Alpha Surfaces
 
 | Surface | DDDV8 target | Current DDDV8 status |
 | --- | --- | --- |
 | Codex package/install | Alpha target for the current Codex package/install scope: installed workflow skills, DIAYN-managed dependency skills, and routing metadata must be copied into the expected Codex skills shape. | Repository-root `.codex-plugin/plugin.json` now points to `packages/codex-project-local/.codex/skills/`, which contains 12 workflow skills plus 23 DIAYN-managed dependency skills. The inner plugin artifact also exists. Static validation plus executed project-local and Codex-home install fixtures prove package shape, install commands, and installed directory inspection. Codex Desktop app-session runtime discovery/invocation is intentionally not attempted and must not be claimed. |
-| Claude Code CLI | Standard install target is plugin/marketplace install with plugin-namespaced commands. Project-local fallback is kept separately for bare `/diayn-*` short commands. | Repository-root `.claude-plugin/plugin.json` now uses `name: "diayn"`, points short commands such as `init.md` to root `.claude/commands`, and explicitly registers only bundled dependency skills from `plugins/docs-is-all-you-need/dependency-skills/agent-skills/skills/`. Claude Code discovers the 12 workflow skills from root `skills/`, so the plugin has workflow and dependency skills without duplicating workflow registration. The expected plugin command shape is `/diayn:init`, not bare `/diayn-init`. A separate project-local fallback at `packages/claude-project-local/` proves bare `/diayn-init` command-to-`Skill` invocation, all 12 bare command/skill entries, routed `/diayn-init -> idea-refine`, and a complete installed-flow fixture. This fallback is not plugin/marketplace proof. |
+| Claude Code CLI | Standard install target is plugin/marketplace install with plugin-namespaced commands. Project-local fallback is kept separately for bare `/diayn-*` short commands. | Repository-root `.claude-plugin/plugin.json` now uses `name: "diayn"`, points short commands such as `init.md` to root `.claude/commands`, and explicitly registers only bundled dependency skills from `plugins/docs-is-all-you-need/dependency-skills/agent-skills/skills/`. Claude Code discovers the 12 workflow skills from root `skills/`; those workflow skills are marked `user-invocable: false` for plugin mode, so commands can call them natively while the user-facing DIAYN workflow surface remains `/diayn:*`. The expected plugin command shape is `/diayn:init`, not bare `/diayn-init`. A separate project-local fallback at `packages/claude-project-local/` proves bare `/diayn-init` command-to-`Skill` invocation, all 12 bare command/skill entries, routed `/diayn-init -> idea-refine`, and a complete installed-flow fixture. This fallback is not plugin/marketplace proof. |
 | OpenCode CLI | Deferred unless installed workflow skills can be directly triggered through `/diayn-*`. | Deferred for DDDV8. Earlier D6 discovery notes are historical only. |
 | Cursor / Copilot | Out of V1 scope. | No active V1 support claim. |
 
@@ -61,7 +63,7 @@ Alpha package artifact notes:
 
 This repository now contains DDDV8 public workflow skills, progressively disclosed workflow assets, deterministic helpers, alpha package artifacts, and a locked dependency payload plus useful D5/D6 artifacts:
 
-- 12 public workflow skills under `skills/diayn-init/` through `skills/diayn-html/`;
+- 12 workflow skills under `skills/diayn-init/` through `skills/diayn-html/`, hidden from direct user invocation in Claude plugin mode while remaining native-callable;
 - Controller scaffold audit/planning, worktree planning, lane/review/sync/integration, Owner UX, privacy/network, migration, and cleanup dry-run assets;
 - locked DIAYN-managed dependency skills under `plugins/docs-is-all-you-need/dependency-skills/`;
 - internal role/reference skills under `plugins/docs-is-all-you-need/internal-role-skills/`;

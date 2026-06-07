@@ -1,6 +1,7 @@
 ---
 name: diayn-bug
 description: Runs the DIAYN /diayn-bug workflow. Use when Owner acceptance fails, a defect is reported, or accepted behavior needs triage, routing, rollback analysis, or lane assignment.
+user-invocable: false
 ---
 
 # DIAYN Bug

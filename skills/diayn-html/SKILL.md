@@ -1,6 +1,7 @@
 ---
 name: diayn-html
 description: Runs the DIAYN /diayn-html workflow. Use when the Owner asks for a readable HTML decision aid, comparison, report, or acceptance summary while Markdown remains the durable authority.
+user-invocable: false
 ---
 
 # DIAYN HTML

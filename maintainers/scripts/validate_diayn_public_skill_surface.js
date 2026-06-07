@@ -125,13 +125,14 @@ function validateRootSourceInventory(rootSkills) {
 
   const readmePath = path.join(repoRoot, "skills", "README.md");
   if (!fs.existsSync(readmePath)) {
-    errors.push("skills/README.md must explain that root skills/ contains only the public workflow source");
+    errors.push("skills/README.md must explain that root skills/ contains only the DIAYN workflow source");
   } else {
     const readme = fs.readFileSync(readmePath, "utf8");
     for (const phrase of [
-      "public workflow source",
-      "exactly 12 public workflow skills",
-      "12 public workflow skills",
+      "workflow source for DIAYN V1",
+      "exactly 12 DIAYN workflow skills",
+      "hidden from direct user invocation",
+      "Project-local fallback packages keep bare",
       "Internal role/reference source lives in `maintainers/internal-skills/`",
     ]) {
       if (!readme.includes(phrase)) errors.push(`skills/README.md must mention "${phrase}"`);
@@ -139,15 +140,15 @@ function validateRootSourceInventory(rootSkills) {
   }
 
   if (publicWorkflowSkills.length !== expected.length) {
-    errors.push("root skills source inventory must classify exactly 12 public workflow skills");
+    errors.push("root skills source inventory must classify exactly 12 DIAYN workflow skills");
   }
   if (unclassified.length > 0) {
-    errors.push(`root skills source inventory must not contain non-public skill directories: ${unclassified.join(", ")}`);
+    errors.push(`root skills source inventory must not contain non-workflow skill directories: ${unclassified.join(", ")}`);
   }
 
   return {
     root: "skills",
-    purpose: "public_workflow_source_only",
+    purpose: "workflow_source_plugin_hidden_project_local_generated",
     public_workflow_skills: publicWorkflowSkills,
     unclassified,
     readme: "skills/README.md",

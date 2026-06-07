@@ -59,6 +59,23 @@ function treeHash(root) {
   return hash.digest("hex");
 }
 
+function stripPluginOnlyVisibilityFlag(text) {
+  return text.replace(/\r?\nuser-invocable:\s*false(?=\r?\n)/, "");
+}
+
+function normalizeEol(text) {
+  return text.replace(/\r\n/g, "\n");
+}
+
+function filesMatchWithAllowedProjectLocalDiff(packagedFile, sourceFile, relativeFile) {
+  const packagedText = fs.readFileSync(packagedFile, "utf8");
+  const sourceText = fs.readFileSync(sourceFile, "utf8");
+  if (relativeFile === "SKILL.md") {
+    return normalizeEol(packagedText) === normalizeEol(stripPluginOnlyVisibilityFlag(sourceText));
+  }
+  return Buffer.from(packagedText, "utf8").compare(Buffer.from(sourceText, "utf8")) === 0;
+}
+
 function main() {
   const outputIndex = process.argv.indexOf("--json");
   const outputPath = outputIndex >= 0 ? process.argv[outputIndex + 1] : null;
@@ -109,8 +126,8 @@ function main() {
       for (const relativeFile of pluginFiles) {
         const packagedFile = path.join(packagedPath, relativeFile);
         const sourceFile = path.join(pluginPath, relativeFile);
-        if (fs.existsSync(packagedFile) && fs.readFileSync(packagedFile).compare(fs.readFileSync(sourceFile)) !== 0) {
-          errors.push(`Codex project-local workflow skill ${name}/${relativeFile} differs from plugin source`);
+        if (fs.existsSync(packagedFile) && !filesMatchWithAllowedProjectLocalDiff(packagedFile, sourceFile, relativeFile)) {
+          errors.push(`Codex project-local workflow skill ${name}/${relativeFile} differs from plugin source beyond allowed visibility metadata`);
         }
       }
     }

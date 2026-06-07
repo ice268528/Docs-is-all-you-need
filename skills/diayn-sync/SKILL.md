@@ -1,6 +1,7 @@
 ---
 name: diayn-sync
 description: Runs the DIAYN /diayn-sync workflow. Use when Controller must synchronize lane state and documents across worktrees without merging business code.
+user-invocable: false
 ---
 
 # DIAYN Sync

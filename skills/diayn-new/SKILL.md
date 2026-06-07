@@ -1,6 +1,7 @@
 ---
 name: diayn-new
 description: Runs the DIAYN /diayn-new workflow. Use when the Owner introduces a new requirement, scope change, dependency change, or direction change that must be routed without silently overwriting prior requirements.
+user-invocable: false
 ---
 
 # DIAYN New

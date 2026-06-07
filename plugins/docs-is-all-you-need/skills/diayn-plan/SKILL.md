@@ -1,6 +1,7 @@
 ---
 name: diayn-plan
 description: Runs the DIAYN /diayn-plan workflow. Use when confirmed or draft requirements need to become stages, backend/frontend lane plans, task slices, acceptance criteria, and OwnerGate questions.
+user-invocable: false
 ---
 
 # DIAYN Plan

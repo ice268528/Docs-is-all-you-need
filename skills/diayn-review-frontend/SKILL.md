@@ -1,6 +1,7 @@
 ---
 name: diayn-review-frontend
 description: Runs the DIAYN /diayn-review-frontend workflow. Use when a frontend reviewer session must independently verify frontend lane work, write review evidence, approve done, or reject and uncheck TODO items.
+user-invocable: false
 ---
 
 # DIAYN Review Frontend

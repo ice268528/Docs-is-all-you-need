@@ -56,6 +56,19 @@ function listMarkdown(root) {
     .sort();
 }
 
+function readFrontmatter(file) {
+  const text = fs.readFileSync(file, "utf8").replace(/^\uFEFF/, "");
+  const match = text.match(/^---\r?\n([\s\S]*?)\r?\n---/);
+  return match ? match[1] : "";
+}
+
+function hasFrontmatterLine(file, expectedLine) {
+  return readFrontmatter(file)
+    .split(/\r?\n/)
+    .map((line) => line.trim())
+    .includes(expectedLine);
+}
+
 function main() {
   const outputIndex = process.argv.indexOf("--json");
   const outputPath = outputIndex >= 0 ? process.argv[outputIndex + 1] : null;
@@ -87,6 +100,10 @@ function main() {
   const claudeProjectLocalSkills = fs.existsSync(claudeProjectLocalSkillsRoot)
     ? listDirs(claudeProjectLocalSkillsRoot)
     : [];
+  let repositoryRootPluginHiddenWorkflowCount = 0;
+  let innerPluginHiddenWorkflowCount = 0;
+  let claudeProjectLocalUserVisibleWorkflowCount = 0;
+  let codexProjectLocalUserVisibleWorkflowCount = 0;
 
   if (JSON.stringify(publicSkills) !== JSON.stringify([...expected].sort())) {
     errors.push("plugin public skills must be exactly the 12 DIAYN workflow skills");
@@ -183,14 +200,47 @@ function main() {
     }
   }
   for (const name of expected) {
+    const repositoryRootWorkflowSkill = path.join(repoRoot, "skills", name, "SKILL.md");
+    const innerPluginWorkflowSkill = path.join(pluginRoot, "skills", name, "SKILL.md");
+    if (!hasFrontmatterLine(repositoryRootWorkflowSkill, "user-invocable: false")) {
+      errors.push(`repository-root plugin workflow skill ${name} must be hidden from user slash menu with user-invocable: false`);
+    } else {
+      repositoryRootPluginHiddenWorkflowCount += 1;
+    }
+    if (!hasFrontmatterLine(innerPluginWorkflowSkill, "user-invocable: false")) {
+      errors.push(`inner Claude plugin workflow skill ${name} must be hidden from user slash menu with user-invocable: false`);
+    } else {
+      innerPluginHiddenWorkflowCount += 1;
+    }
+    for (const skillPath of [repositoryRootWorkflowSkill, innerPluginWorkflowSkill]) {
+      if (hasFrontmatterLine(skillPath, "disable-model-invocation: true")) {
+        errors.push(`${path.relative(repoRoot, skillPath)} must not set disable-model-invocation: true`);
+      }
+    }
     if (!codexProjectLocalSkills.includes(name)) {
       errors.push(`Codex project-local package missing workflow skill ${name}`);
     }
     if (!fs.existsSync(path.join(codexProjectLocalSkillsRoot, name, "agents", "openai.yaml"))) {
       errors.push(`Codex project-local workflow skill ${name} missing agents/openai.yaml`);
     }
+    const codexProjectLocalWorkflowSkill = path.join(codexProjectLocalSkillsRoot, name, "SKILL.md");
+    if (fs.existsSync(codexProjectLocalWorkflowSkill)) {
+      if (hasFrontmatterLine(codexProjectLocalWorkflowSkill, "user-invocable: false")) {
+        errors.push(`Codex project-local workflow skill ${name} must remain user-visible and must not inherit user-invocable: false`);
+      } else {
+        codexProjectLocalUserVisibleWorkflowCount += 1;
+      }
+    }
     if (!claudeProjectLocalSkills.includes(name)) {
       errors.push(`Claude project-local package missing workflow skill ${name}`);
+    }
+    const claudeProjectLocalWorkflowSkill = path.join(claudeProjectLocalSkillsRoot, name, "SKILL.md");
+    if (fs.existsSync(claudeProjectLocalWorkflowSkill)) {
+      if (hasFrontmatterLine(claudeProjectLocalWorkflowSkill, "user-invocable: false")) {
+        errors.push(`Claude project-local workflow skill ${name} must remain user-visible and must not inherit user-invocable: false`);
+      } else {
+        claudeProjectLocalUserVisibleWorkflowCount += 1;
+      }
     }
   }
   for (const name of dependencyManifest.skills) {
@@ -259,6 +309,7 @@ function main() {
       claude_plugin_name: rootClaudeManifest.name,
       claude_skill_root: path.relative(repoRoot, rootClaudeSkillsRoot).replace(/\\/g, "/"),
       claude_auto_workflow_skill_count: expected.filter((name) => rootClaudeAutoWorkflowSkills.includes(name)).length,
+      claude_auto_workflow_user_invocable_false_count: repositoryRootPluginHiddenWorkflowCount,
       claude_manifest_skill_count: rootClaudeManifestSkills.length,
       claude_manifest_workflow_skill_count: expected.filter((name) => rootClaudeManifestSkills.includes(name)).length,
       claude_manifest_dependency_skill_count: dependencyManifest.skills.filter((name) => rootClaudeManifestSkills.includes(name)).length,
@@ -272,17 +323,20 @@ function main() {
       agents_openai_yaml_count: expected.filter((name) =>
         fs.existsSync(path.join(codexProjectLocalSkillsRoot, name, "agents", "openai.yaml")),
       ).length,
+      user_visible_workflow_skill_count: codexProjectLocalUserVisibleWorkflowCount,
     },
     claude_project_local: {
       install_target: ".claude/skills",
       workflow_skill_count: expected.filter((name) => claudeProjectLocalSkills.includes(name)).length,
       dependency_skill_count: dependencyManifest.skills.filter((name) => claudeProjectLocalSkills.includes(name)).length,
       total_skill_count: claudeProjectLocalSkills.length,
+      user_visible_workflow_skill_count: claudeProjectLocalUserVisibleWorkflowCount,
     },
     claude_manifest: {
       name: claudeManifest.name,
       commands: claudeManifest.commands,
       skills: claudeManifest.skills,
+      inner_plugin_workflow_user_invocable_false_count: innerPluginHiddenWorkflowCount,
     },
     dependency_payload_present: fs.existsSync(path.join(pluginRoot, "dependency-skills", "agent-skills", "skills")),
     errors,
