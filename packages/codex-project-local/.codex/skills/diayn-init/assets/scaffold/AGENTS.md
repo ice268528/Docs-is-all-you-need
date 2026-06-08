@@ -9,7 +9,9 @@
 
 ## 2. How To Use DIAYN Here
 
-Use DIAYN through the public `/diayn-*` workflow commands. Repository documents are the system of record; chat is for coordination and clarification.
+This is the entry file for Codex, OpenCode, and generic coding-agent sessions in this project.
+
+This project uses DIAYN as a document-driven workflow. Use DIAYN through platform-specific DIAYN entrypoints: Claude Code plugin uses `/diayn:*`, Claude project-local fallback uses `/diayn-*`, and Codex/OpenCode adapters use their own adapter-defined DIAYN entrypoints. This file is the Codex/OpenCode/generic peer entry file. `CLAUDE.md` is the Claude Code peer entry file. Neither one is a wrapper or mandatory first read for the other.
 
 ## 3. Cold-Start Questions
 
@@ -23,8 +25,20 @@ Use DIAYN through the public `/diayn-*` workflow commands. Repository documents 
 
 - Current summary: `TODO.md`
 - Project brief: `docs/project/project_brief.md`
-- Worktree manifest: `.diayn/worktree_manifest.md`
-- Scaffold version: `.diayn/scaffold_version.md`
+- File index: `docs/project/file_index.md`
+- Install and support truth: `docs/install/README.md`
+- Multi-session protocol: `docs/meta/multi_session_collaboration_protocol.md`
+- Role authority: `docs/meta/session_roles.md`
+- Document permissions: `docs/meta/agent_doc_permissions.md`
+- Execution workflows: `docs/meta/agent_execution_workflows.md`
+- Status model: `docs/meta/status_model.md`
+- DIAYN command reference index: `docs/meta/diayn_command_reference.md`
+- Platform-specific DIAYN command details: `docs/meta/diayn_commands/`
+- Session identity guard: `docs/meta/session_identity_protocol.md`
+- Worktree lane startup: `docs/meta/diayn_worktree_workflow.md`
+- Owner decision UX: `docs/meta/owner_decision_ux_protocol.md`
+- Owner acceptance UX: `docs/meta/owner_acceptance_protocol.md`
+- Progressive disclosure: `docs/meta/progressive_disclosure_rules.md`
 
 ## 5. Safety Rules
 

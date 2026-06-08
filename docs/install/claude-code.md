@@ -34,7 +34,7 @@ is `/diayn:init`, not `/diayn:diayn-init`. Claude Code also discovers the
 repository-root `skills/` directory, which contains the 12 DIAYN workflow
 skills. These workflow skills are marked `user-invocable: false` for plugin
 mode, so they stay native-callable for `/diayn:*` command adapters without
-showing as bare `/diayn-*` workflow entries in the user slash menu. The
+making bare `/diayn-*` the primary user slash-completion surface. The
 manifest's explicit `skills` path registers only the 23 bundled DIAYN-managed
 `agent-skills` dependency skills. This split avoids registering the same
 workflow skills twice while keeping both workflow and dependency skills
@@ -84,17 +84,21 @@ Expected plugin commands:
 /diayn:html
 ```
 
-Plugin mode does not promise bare `/diayn-*`. If a future Claude Code runtime
-exposes bare DIAYN workflow commands from a plugin install, record it as a
-runtime failure or unsupported behavior for that Claude Code version until a
-separate fix is made.
+Plugin mode does not promise bare `/diayn-*` as the official user surface.
+Routine `/diayn` completion should primarily show `/diayn:*` commands. Current
+Claude Code runtime may still find a workflow skill when the user enters
+`/diayn-init` exactly; that precise lookup is acceptable and is not a runtime
+failure. Treat it as a failure only if bare workflow entries dominate routine
+plugin completion or appear because the project-local fallback was accidentally
+registered with the plugin path.
 
 In plugin mode, `/diayn:init` runs with `platform: claude-code`, creates or
 updates `CLAUDE.md`, and does not create `AGENTS.md` by default. If `AGENTS.md`
-already exists, DIAYN records it as an existing cross-agent entry file and
-preserves it unless the Owner explicitly asks for cross-platform entry updates.
+already exists, DIAYN records it as an existing peer entry file and preserves
+it unless the Owner explicitly asks for cross-platform entry updates.
 `CLAUDE.md` must stand alone as the Claude Code cold-start entry file; it must
-not treat `AGENTS.md` as an upstream entry or mandatory wrapper target.
+not treat `AGENTS.md` as an upstream entry, wrapper target, or required first
+read.
 
 ## Command Naming Boundary
 

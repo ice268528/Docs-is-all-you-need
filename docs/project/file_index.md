@@ -18,8 +18,8 @@ decisions, or Owner acceptance by itself.
 
 | Path | Purpose | Authority note |
 | --- | --- | --- |
-| `AGENTS.md` | Lightweight agent entry file and index. | Owner controlled; keep short. |
-| `CLAUDE.md` | Tool-specific lightweight entry file. | Owner controlled; keep short. |
+| `AGENTS.md` | Codex/OpenCode/generic peer entry file. | Owner controlled; keep concise and parity-aligned with `CLAUDE.md`. |
+| `CLAUDE.md` | Claude Code peer entry file. | Owner controlled; keep concise and parity-aligned with `AGENTS.md`. |
 | `README.md` | Public DIAYN scaffold orientation and truthful user entry. | Owner controlled; keep as an entry point, not a full protocol manual. |
 | `TODO.md` | Controller-owned global summary. | Controller write; worker sessions do not update it by default. |
 
@@ -32,7 +32,7 @@ decisions, or Owner acceptance by itself.
 | `docs/meta/agent_doc_permissions.md` | Document write boundaries. |
 | `docs/meta/multi_session_collaboration_protocol.md` | Multi-session collaboration protocol. |
 | `docs/meta/session_identity_protocol.md` | Session Identity Guard protocol. |
-| `docs/meta/diayn_command_reference.md` | Current `/diayn-*` workflow trigger reference. |
+| `docs/meta/diayn_command_reference.md` | DIAYN workflow and platform-specific command reference. |
 | `docs/meta/controller_sync_integration_protocol.md` | Sync and integration rules. |
 
 ## 3. Project And Shared Docs

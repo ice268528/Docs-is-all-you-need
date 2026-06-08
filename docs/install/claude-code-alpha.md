@@ -76,7 +76,7 @@ Result: the repository-root and inner Claude plugin manifests validate. The
 root plugin runtime surface should show 12 short commands, 12 workflow skills,
 and 23 platform-visible dependency skills without duplicate workflow skill
 registration. The local package validator separately confirms the project-local
-fallback package contains 12 commands, 12 public workflow skills,
+fallback package contains 12 commands, 12 DIAYN workflow skills,
 23 platform-visible dependency skills, and the locked dependency payload.
 
 Historical Phase 9 plugin-dir probe before the namespace rename:

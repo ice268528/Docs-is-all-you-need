@@ -1,8 +1,10 @@
 # Agent Entry File
 
-This file is the lightweight landing page for coding-agent sessions. It is an index, not the full manual.
+This file is the entry file for Codex, OpenCode, and generic coding-agent sessions. It is a peer entry file with `CLAUDE.md`, not an upstream wrapper or mandatory reader.
 
-Docs-is-all-you-need uses repository documents as the long-lived collaboration control plane. Chat can clarify immediate intent, but durable rules, project facts, task state, evidence, and acceptance records should live in the repository.
+Keep this entry file concise, but maintain parity with `CLAUDE.md` on core cold-start rules, constraints, read-first index, and stop conditions.
+
+This project uses DIAYN as a document-driven workflow. Repository documents are the long-lived collaboration control plane. Chat can clarify immediate intent, but durable rules, project facts, task state, evidence, and acceptance records should live in the repository.
 
 ## 1. Project Orientation
 
@@ -28,6 +30,8 @@ Before DIAYN role preflight, answer the five project-level cold-start questions:
 | Where is the work now? | `TODO.md`, lane boards, handoffs, review logs |
 
 These questions are for understanding the project. The DIAYN execution preflight is a second layer for role, lane, worktree, permission, stop condition, and reporting checks.
+
+Claude Code uses `CLAUDE.md`; this file does not depend on `CLAUDE.md` to cold start, though both files may point at the same durable docs.
 
 ## 3. Install, Run, Verify
 
@@ -67,7 +71,7 @@ When using multi-session collaboration, read:
 
 For worktree-based lane startup, also read `docs/meta/diayn_worktree_workflow.md`.
 
-Before any role-specific `/diayn-*` workflow, perform the Session Identity Guard in `docs/meta/session_identity_protocol.md`. If the requested role, lane, directory, or manifest identity does not match, stop and ask the Controller or Owner.
+Before any role-specific DIAYN workflow or platform-specific DIAYN command, perform the Session Identity Guard in `docs/meta/session_identity_protocol.md`. Claude Code plugin uses `/diayn:*`; Claude project-local fallback uses `/diayn-*`; Codex, OpenCode, and generic adapters use their own adapter-defined DIAYN entrypoints. If the requested role, lane, directory, or manifest identity does not match, stop and ask the Controller or Owner.
 
 ## 5. Hard Constraints
 
@@ -93,7 +97,7 @@ Read the smallest set needed for the current task.
 | Execution workflow | `docs/meta/agent_execution_workflows.md` |
 | Document write permission | `docs/meta/agent_doc_permissions.md` |
 | Status meaning | `docs/meta/status_model.md` |
-| `/diayn-*` commands | `docs/meta/diayn_command_reference.md` and the relevant file under `docs/meta/diayn_commands/` |
+| DIAYN workflows / platform-specific DIAYN commands | `docs/meta/diayn_command_reference.md` and the relevant file under `docs/meta/diayn_commands/` |
 | Session identity guard | `docs/meta/session_identity_protocol.md` |
 | Worktree lane startup | `docs/meta/diayn_worktree_workflow.md` |
 | Owner decisions | `docs/meta/owner_decision_ux_protocol.md` |
@@ -116,4 +120,4 @@ Stop and ask when:
 - Existing documents conflict and continuing would silently choose one interpretation.
 - Verification cannot be run and the missing verification affects completion claims.
 
-Keep this entry file short. Put durable rules in `docs/meta/**`, long examples in examples or references, and active task state in the appropriate project or lane documents.
+Keep this entry file concise. Put durable rules in `docs/meta/**`, long examples in examples or references, and active task state in the appropriate project or lane documents.

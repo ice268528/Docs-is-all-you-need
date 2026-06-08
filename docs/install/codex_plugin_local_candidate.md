@@ -9,12 +9,12 @@ plugins/docs-is-all-you-need/
 
 This is not a published plugin and not marketplace support. The repository-root
 manifest points at `packages/codex-project-local/.codex/skills/`, which is the
-platform-visible package shape containing 12 public DIAYN workflow skills plus
-23 DIAYN-managed dependency skills. The 12 public workflow skills in that
+platform-visible package shape containing 12 DIAYN workflow skills plus
+23 DIAYN-managed dependency skills. The 12 workflow skills in that
 generated Codex package also carry Codex-specific `agents/openai.yaml`
 metadata for UI/harness discovery. The inner candidate under
 `plugins/docs-is-all-you-need/` remains available for local packaging
-experiments and packages only the 12 public DIAYN workflow skills. Both Codex
+experiments and packages only the 12 DIAYN workflow skill sources. Both Codex
 manifests include product metadata similar to the `superpowers` Codex manifest
 without referencing fake icon or logo assets.
 

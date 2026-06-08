@@ -7,7 +7,7 @@ Status: `draft`
 - Project root: `<path>`
 - Platform: `<claude-code/codex/opencode/generic>`
 - Entry file this run: `<CLAUDE.md/AGENTS.md>`
-- Other entry file: `<existing_only/not_created_by_default>`
+- Peer entry file: `<existing_only/not_created_by_default>`
 - Git repository: `<yes/no>`
 - Dirty working tree: `<yes/no/Unknown>`
 - Existing DIAYN scaffold: `<yes/no/partial>`
@@ -26,6 +26,8 @@ Status: `draft`
 ## Conflicts
 
 List files where applying DIAYN templates would modify existing content. Ask the Owner what must be preserved before editing.
+
+If the peer platform entry file already exists, record it as existing only. Do not treat it as the default read source or an upstream wrapper.
 
 ## Boundaries
 

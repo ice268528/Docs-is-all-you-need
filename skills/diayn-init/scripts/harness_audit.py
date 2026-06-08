@@ -118,8 +118,8 @@ def resolve_platform(platform: str, entry_file: str | None) -> tuple[str, str, s
     resolved_entry = entry_file or ENTRY_FILE_BY_PLATFORM[normalized]
     if resolved_entry not in {"AGENTS.md", "CLAUDE.md"}:
         raise SystemExit("--entry-file must be AGENTS.md or CLAUDE.md")
-    other_entry = "AGENTS.md" if resolved_entry == "CLAUDE.md" else "CLAUDE.md"
-    return normalized, resolved_entry, other_entry
+    peer_entry = "AGENTS.md" if resolved_entry == "CLAUDE.md" else "CLAUDE.md"
+    return normalized, resolved_entry, peer_entry
 
 
 def scan_project(project_root: Path, max_files: int, max_file_bytes: int) -> dict:
@@ -250,7 +250,7 @@ def main() -> None:
     project_root = Path(args.project_root).resolve()
     if not project_root.exists():
         raise SystemExit(f"project root does not exist: {project_root}")
-    platform, entry_file, other_entry_file = resolve_platform(args.platform, args.entry_file)
+    platform, entry_file, peer_entry_file = resolve_platform(args.platform, args.entry_file)
 
     git_marker_root = find_git_marker(project_root)
     safe_directory = Path(args.git_safe_directory).resolve() if args.git_safe_directory else None
@@ -301,13 +301,13 @@ def main() -> None:
             "entry_file": entry_file,
             "source": args.source,
             "entry_file_override": args.entry_file,
-            "other_entry_file": other_entry_file,
-            "other_entry_exists": (project_root / other_entry_file).exists(),
-            "other_entry_action": "existing_only_no_default_update"
-            if (project_root / other_entry_file).exists()
+            "peer_entry_file": peer_entry_file,
+            "peer_entry_exists": (project_root / peer_entry_file).exists(),
+            "peer_entry_action": "existing_only_no_default_update"
+            if (project_root / peer_entry_file).exists()
             else "not_created_by_default",
-            "non_default_entry_file_policy": "preserve_existing_only",
-            "reason_other_entry_file_not_generated": f"{platform} adapters use {entry_file} by default",
+            "peer_entry_policy": "preserve_existing_only",
+            "reason_peer_entry_file_not_generated": f"{platform} adapters use {entry_file} by default",
         },
         "git": {
             "marker_root": str(git_marker_root) if git_marker_root else None,

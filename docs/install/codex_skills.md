@@ -174,9 +174,9 @@ Current Codex validation stops at the install
 command and installed directory inspection. The current repository proves that
 the right files can be packaged and copied into Codex-compatible shapes:
 
-- all 12 public `/diayn-*` workflow skills are present;
+- all 12 project-local `/diayn-*` workflow skills are present;
 - all 23 DIAYN-managed dependency skills are present;
-- Codex `agents/openai.yaml` metadata exists for the 12 public workflow skills;
+- Codex `agents/openai.yaml` metadata exists for the 12 workflow skills;
 - `.diayn` routing and metadata are copied into the target shape;
 - pre-existing non-package skills are reported and preserved.
 

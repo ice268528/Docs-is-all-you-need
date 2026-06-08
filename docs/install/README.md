@@ -4,7 +4,10 @@ This file states what the DDDV8 implementation may truthfully claim. It replaces
 
 ## Active Target
 
-DIAYN V1 is a skill pack with exactly 12 public workflow skills:
+DIAYN V1 is a skill pack with exactly 12 workflow capabilities. In Claude
+plugin mode, the public user entrypoints are `/diayn:*` commands. The
+underlying workflow skills remain installed and native-callable in the
+background. Project-local fallback exposes bare `/diayn-*`:
 
 ```text
 /diayn-init
@@ -21,7 +24,10 @@ DIAYN V1 is a skill pack with exactly 12 public workflow skills:
 /diayn-html
 ```
 
-The target user experience is one DIAYN install that makes these commands available as real workflow skills. The user should not need to clone the DIAYN source repository into every target project and then run unrelated setup commands before skills can be used.
+The target user experience is one DIAYN install that makes the relevant
+platform-specific DIAYN entrypoints available. The user should not need to clone
+the DIAYN source repository into every target project and then run unrelated
+setup commands before DIAYN can be used.
 
 In Claude Code, the standard plugin path exposes these workflows as short
 plugin-namespaced commands such as `/diayn:init`. Bare `/diayn-*` is the
@@ -31,7 +37,7 @@ Claude Code init surfaces use `CLAUDE.md` as the platform entry file. Codex,
 OpenCode, and generic AGENTS.md-based adapters use `AGENTS.md`. DIAYN must not
 default-generate both entry files in one init run.
 `CLAUDE.md` and `AGENTS.md` are peer platform entry files. Do not implement one
-as a wrapper, upstream entry, or mandatory reader of the other.
+as a wrapper, upstream entry, or mandatory first read of the other.
 
 ## Alpha Surfaces
 
@@ -61,7 +67,7 @@ Alpha package artifact notes:
 - Codex package candidate: `docs/install/codex-alpha.md`
 - Claude Code package candidate and fallback boundary: `docs/install/claude-code-alpha.md`
 
-This repository now contains DDDV8 public workflow skills, progressively disclosed workflow assets, deterministic helpers, alpha package artifacts, and a locked dependency payload plus useful D5/D6 artifacts:
+This repository now contains DDDV8 workflow skill sources, progressively disclosed workflow assets, deterministic helpers, alpha package artifacts, and a locked dependency payload plus useful D5/D6 artifacts:
 
 - 12 workflow skills under `skills/diayn-init/` through `skills/diayn-html/`, hidden from direct user invocation in Claude plugin mode while remaining native-callable;
 - Controller scaffold audit/planning, worktree planning, lane/review/sync/integration, Owner UX, privacy/network, migration, and cleanup dry-run assets;
@@ -72,13 +78,13 @@ This repository now contains DDDV8 public workflow skills, progressively disclos
 - Claude Code and OpenCode adapter notes under `integrations/`;
 - vendored upstream `agent-skills` under `third_party/agent-skills/`.
 
-The repository root `skills/` directory now contains only the 12 public
+The repository root `skills/` directory now contains only the 12 DIAYN
 workflow skill sources. Internal role/router/scaffold sources live under
 `maintainers/internal-skills/` and are copied into package metadata where
 needed. The install surface is determined by the package being installed:
 the Codex plugin candidate exposes only
 `plugins/docs-is-all-you-need/skills/diayn-*`, and the Codex project-local/Home
-package installs 12 public `diayn-*` workflow skills plus 23 DIAYN-managed
+package installs 12 project-local `diayn-*` workflow skills plus 23 DIAYN-managed
 third-party dependency skills. Role-only folders such as `diayn-controller`
 are not extra V1 public commands and should not be treated as proof of a
 correct DIAYN install.
