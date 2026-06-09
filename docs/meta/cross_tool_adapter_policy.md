@@ -48,7 +48,8 @@ DDDV8 adapter priority:
 
 | Surface | Current level | Adapter location | Notes |
 | --- | --- | --- | --- |
-| Codex package/install | `package_install_validated_app_session_runtime_not_attempted` | `.codex-plugin/`, `plugins/docs-is-all-you-need/`, `packages/codex-project-local/`, `validation/phase9_codex_project_local_install_fixture.json`, `validation/phase9_codex_home_install_fixture.json` | Repository-root Codex manifest points at the platform-visible generated skills package. 12 workflow skills plus DIAYN-managed dependency skills are statically packaged; the project-local and Codex-home install fixtures pass. Desktop app-session runtime is intentionally not attempted and not claimed. |
+| Codex skills package/install | `package_install_validated_app_session_runtime_not_attempted` | `packages/codex-project-local/`, `validation/phase9_codex_project_local_install_fixture.json`, `validation/phase9_codex_home_install_fixture.json` | 12 workflow skills plus DIAYN-managed dependency skills are statically packaged; the project-local and Codex-home install fixtures pass. Desktop app-session runtime is intentionally not attempted and not claimed. |
+| Codex plugin marketplace candidate | `candidate_runtime_not_verified` | `.agents/plugins/marketplace.json`, `plugins/diayn/`, `docs/install/codex_plugin_local_candidate.md`, `docs/qa/codex-plugin-runtime-acceptance.md` | Isolated Codex plugin candidate with `skills: ./skills/`, 12 workflow skills, and 23 dependency skills. It must not be claimed as working until Codex Desktop marketplace install and runtime evidence exists. |
 | Claude Code | `project_local_installed_flow_proven` | `.claude-plugin/`, `.claude/commands/`, `skills/`, `plugins/docs-is-all-you-need/`, `packages/claude-project-local/` | Repository-root Claude manifest points commands to root DIAYN adapters and explicitly registers bundled dependency skills; Claude Code discovers the 12 workflow skills from root `skills/`. Project-local package proves all 12 public commands through the installed-flow fixture. |
 | OpenCode | `deferred` | `integrations/opencode/.opencode/` | Historical adapter evidence only; not a DDDV8 alpha surface until direct `/diayn-*` skill invocation is proven. |
 
@@ -65,12 +66,16 @@ Codex package/install work is validated for the current package/install scope:
 - Draft manifest notes are allowed.
 - Static package and scaffold asset plans are allowed.
 - Real Codex Home file-install diagnostics are allowed locally.
+- Isolated Codex plugin marketplace candidate material is allowed when it is
+  clearly marked `candidate` and does not reuse or modify Claude Code plugin
+  paths.
 - Desktop app-session runtime claims require separate future evidence.
 - Readiness and risk checklists are allowed.
 
 Current DIAYN V1 documentation claims Codex package/install support, not
-Codex Desktop app-session runtime support. Core DIAYN document workflow must
-remain usable without Codex-specific features.
+Codex Desktop app-session runtime support. The isolated Codex plugin candidate
+does not upgrade that claim. Core DIAYN document workflow must remain usable
+without Codex-specific features.
 
 ## Lightweight Export Rule
 

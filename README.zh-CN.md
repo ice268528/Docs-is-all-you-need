@@ -9,6 +9,8 @@ Docs-is-all-you-need，简称 DIAYN，是一个面向多会话 coding agent 协�
 - 想把一个想法整理成清晰项目计划的 Owner。
 - 需要多个 agent 会话协作、并保持同一份项目事实的团队。
 - 想用 Claude Code 插件方式开始 DIAYN 的用户。
+- 想在 Codex 中使用当前 skills 安装包的用户；Codex 插件市场形态仍是
+  candidate，需要单独验证。
 
 ## 快速开始
 
@@ -49,6 +51,10 @@ flowchart TD
 如果 review 发现问题，工作会被送回对应 lane 继续处理。
 
 ## 常用命令
+
+下表展示 Claude Code plugin 命令和 Claude project-local fallback 形式。
+Codex 当前已验证的是 skills package；Codex 中直接 slash 调用的行为仍需要
+Desktop runtime 证据。
 
 | Workflow | Command | When to use |
 | --- | --- | --- |
@@ -91,7 +97,12 @@ flowchart LR
 - Claude project-local fallback：当你想在目标项目里直接使用裸
   `/diayn-*` 命令时使用这条路径。详情见
   [docs/install/claude-code.md](docs/install/claude-code.md)。
-- Codex / OpenCode / generic：详情见
+- Codex：当前已验证的是安装到 `.codex/skills/` 或 Codex Home skills
+  的 skills package。Codex plugin marketplace 形态已经作为 candidate
+  准备，但还没有 Codex Desktop runtime 证据。详情见
+  [docs/install/codex_skills.md](docs/install/codex_skills.md) 和
+  [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md)。
+- OpenCode / generic：详情见
   [docs/install/README.md](docs/install/README.md)。
 
 ## 更多文档
@@ -100,6 +111,8 @@ flowchart LR
 
 - [docs/install/README.md](docs/install/README.md)
 - [docs/install/claude-code.md](docs/install/claude-code.md)
+- [docs/install/codex_skills.md](docs/install/codex_skills.md)
+- [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md)
 - [docs/qa/claude-plugin-runtime-acceptance.md](docs/qa/claude-plugin-runtime-acceptance.md)
 - [docs/meta/diayn_command_reference.md](docs/meta/diayn_command_reference.md)
 - [docs/meta/diayn_commands/](docs/meta/diayn_commands/)

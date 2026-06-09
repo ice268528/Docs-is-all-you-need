@@ -12,6 +12,8 @@ and accepted without losing the project truth.
 - Owners who want an idea turned into a clear project plan.
 - Teams that work across multiple agent sessions and want one source of truth.
 - Claude Code users who want a plugin-first workflow.
+- Codex users who want the current skills-package path, with plugin support
+  tracked separately as a candidate.
 
 ## Quick Start
 
@@ -54,6 +56,10 @@ The review step can send work back to a lane when something needs more work.
 
 ## Common Commands
 
+This table shows the Claude Code plugin command and the Claude project-local
+fallback form. Codex currently has a verified skills-package path; direct
+Codex slash behavior still needs Desktop runtime evidence.
+
 | Workflow | Command | When to use |
 | --- | --- | --- |
 | Init / retrofit | `/diayn:init` (`/diayn-init` in fallback) | Start from an idea, or set up DIAYN in an existing project. |
@@ -95,9 +101,13 @@ Typical generated or maintained files include:
 - Claude project-local fallback: use this when you want bare `/diayn-*`
   commands inside a target project. See
   [docs/install/claude-code.md](docs/install/claude-code.md).
-- Codex / OpenCode / generic: see
-  [docs/install/README.md](docs/install/README.md) for the supported paths and
-  setup notes.
+- Codex: the verified path today is the skills package install into
+  `.codex/skills/` or Codex Home skills. The Codex plugin marketplace surface
+  is a candidate and still needs Desktop runtime evidence. See
+  [docs/install/codex_skills.md](docs/install/codex_skills.md) and
+  [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md).
+- OpenCode / generic: see [docs/install/README.md](docs/install/README.md)
+  for the supported paths and setup notes.
 
 ## More Docs
 
@@ -105,6 +115,8 @@ If you want the details behind the user-facing quick start, read:
 
 - [docs/install/README.md](docs/install/README.md)
 - [docs/install/claude-code.md](docs/install/claude-code.md)
+- [docs/install/codex_skills.md](docs/install/codex_skills.md)
+- [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md)
 - [docs/qa/claude-plugin-runtime-acceptance.md](docs/qa/claude-plugin-runtime-acceptance.md)
 - [docs/meta/diayn_command_reference.md](docs/meta/diayn_command_reference.md)
 - [docs/meta/diayn_commands/](docs/meta/diayn_commands/)

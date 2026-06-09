@@ -1,0 +1,4 @@
+interface:
+  display_name: "DIAYN Bug"
+  short_description: "Triage DIAYN bugs and acceptance gaps"
+  default_prompt: "Use $diayn-bug to triage an Owner bug report or acceptance failure."

@@ -1,0 +1,4 @@
+interface:
+  display_name: "DIAYN Init"
+  short_description: "Initialize or retrofit DIAYN harness"
+  default_prompt: "Use $diayn-init to initialize or retrofit this project with the DIAYN harness."

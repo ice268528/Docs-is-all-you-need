@@ -1,0 +1,4 @@
+interface:
+  display_name: "DIAYN HTML"
+  short_description: "Generate DIAYN Owner-facing HTML"
+  default_prompt: "Use $diayn-html to generate an Owner-facing decision or acceptance HTML report."

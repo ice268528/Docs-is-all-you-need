@@ -1,0 +1,4 @@
+interface:
+  display_name: "DIAYN Backend"
+  short_description: "Run one DIAYN backend lane slice"
+  default_prompt: "Use $diayn-backend to work one backend lane task slice with evidence."

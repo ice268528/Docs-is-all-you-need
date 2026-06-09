@@ -1,0 +1,4 @@
+interface:
+  display_name: "DIAYN Review Backend"
+  short_description: "Review DIAYN backend lane work"
+  default_prompt: "Use $diayn-review-backend to review backend lane work and update its status."

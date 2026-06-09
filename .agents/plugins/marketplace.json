@@ -1,0 +1,20 @@
+{
+  "name": "diayn-local-alpha",
+  "interface": {
+    "displayName": "DIAYN Local Alpha"
+  },
+  "plugins": [
+    {
+      "name": "diayn",
+      "source": {
+        "source": "local",
+        "path": "./plugins/diayn"
+      },
+      "policy": {
+        "installation": "AVAILABLE",
+        "authentication": "ON_INSTALL"
+      },
+      "category": "Productivity"
+    }
+  ]
+}

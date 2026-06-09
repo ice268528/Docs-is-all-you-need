@@ -3,21 +3,24 @@
 DDDV8 Codex pre-alpha package shape lives under:
 
 ```text
-plugins/docs-is-all-you-need/
 packages/codex-project-local/
+plugins/diayn/
 ```
 
 Relevant package files:
 
 ```text
-.codex-plugin/plugin.json
-skills/diayn-*/
-dependency-skills/
 packages/codex-project-local/.codex/skills/
 packages/codex-project-local/diayn-package.json
+.agents/plugins/marketplace.json
+plugins/diayn/.codex-plugin/plugin.json
+plugins/diayn/skills/
 ```
 
-The Codex plugin manifest points its public skill surface at `./skills/`, which contains exactly the 12 DIAYN workflow skills. The dependency payload is packaged separately under `dependency-skills/` so later installation/registration logic can make it platform-visible where native nested skill invocation requires that.
+The isolated Codex plugin candidate manifest points its public skill surface at
+`./skills/`, which contains the 12 DIAYN workflow skills plus the 23 locked
+DIAYN-managed `agent-skills` dependency skills. This candidate lives under
+`plugins/diayn/` and is registered by `.agents/plugins/marketplace.json`.
 
 The project-local Codex package points at `.codex/skills/` and contains exactly 12 DIAYN workflow skills plus the 23 locked DIAYN-managed `agent-skills` dependency skills.
 
@@ -26,6 +29,7 @@ Validation performed in Phase 4:
 ```text
 node maintainers\scripts\validate_diayn_alpha_package.js --json validation\phase4_alpha_package.json
 node maintainers\scripts\validate_diayn_codex_project_local_package.js --json validation\phase9_codex_project_local_package.json
+node maintainers\scripts\validate_diayn_codex_plugin_candidate.js
 node maintainers\scripts\install_codex_project_local_package.js --fixture --execute --json validation\phase9_codex_project_local_install_fixture.json
 node maintainers\scripts\install_codex_project_local_package.js --codex-home-fixture --execute --json validation\phase9_codex_home_install_fixture.json
 node maintainers\scripts\validate_codex_runtime_external_evidence.js --json validation\phase9_codex_runtime_external_evidence.json

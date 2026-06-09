@@ -1,0 +1,4 @@
+interface:
+  display_name: "DIAYN Plan"
+  short_description: "Plan DIAYN stages and lane slices"
+  default_prompt: "Use $diayn-plan to turn accepted requirements into stages and lane task slices."

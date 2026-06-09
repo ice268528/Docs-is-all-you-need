@@ -51,39 +51,47 @@ Result: both repository-root and inner plugin validation passed.
 
 ## 2. Codex Package
 
-The Codex package candidate remains:
+The Codex package/install surface remains:
 
 ```text
-.codex-plugin/plugin.json
-plugins/docs-is-all-you-need/.codex-plugin/plugin.json
 packages/codex-project-local/
 ```
 
-The repository-root Codex manifest points to the platform-visible generated
-skills package:
+The historical repository-root Codex manifest points to the platform-visible
+generated skills package:
 
 ```json
 "skills": "./packages/codex-project-local/.codex/skills/"
 ```
 
-The repository-root and inner Codex manifests also carry Codex product metadata
-following the `superpowers` style: homepage, repository, license, keywords,
-`Interactive`/`Read`/`Write` capabilities, website and policy URLs, brand color,
-and screenshots metadata. They deliberately omit `composerIcon` and `logo`
-until real assets exist.
+That root manifest is legacy candidate material and is not the current isolated
+Codex plugin marketplace surface.
 
 The generated Codex package adds `agents/openai.yaml` to the 12 public DIAYN
 workflow skills so Codex gets product-specific display/default-prompt metadata.
 The locked third-party dependency skills remain upstream-compatible and are not
 modified with DIAYN-authored Codex UI metadata.
 
-The inner local candidate points to the plugin public skill surface:
+The isolated Codex plugin marketplace candidate is:
+
+```text
+.agents/plugins/marketplace.json
+plugins/diayn/
+plugins/diayn/.codex-plugin/plugin.json
+plugins/diayn/skills/
+```
+
+It points to the plugin skill surface with:
 
 ```json
 "skills": "./skills/"
 ```
 
-The plugin public skill directory contains exactly the 12 workflow skills. Codex direct discovery could not be tested in this environment, so direct `/diayn-*` invocation still requires current or reloaded app-session evidence.
+The isolated candidate skill directory contains the 12 workflow skills plus the
+23 DIAYN-managed dependency skills. Codex direct discovery could not be tested
+in this environment, so direct `/diayn-*` invocation and plugin-installed
+dependency-skill invocation still require current or reloaded app-session
+evidence.
 
 The Codex project-local package candidate uses the target `.codex/skills` shape:
 
@@ -114,6 +122,7 @@ Local package validator:
 ```text
 node maintainers\scripts\validate_diayn_alpha_package.js --json validation\phase4_alpha_package.json
 node maintainers\scripts\validate_diayn_codex_project_local_package.js --json validation\phase9_codex_project_local_package.json
+node maintainers\scripts\validate_diayn_codex_plugin_candidate.js
 node maintainers\scripts\install_codex_project_local_package.js --fixture --execute --json validation\phase9_codex_project_local_install_fixture.json
 node maintainers\scripts\install_codex_project_local_package.js --codex-home-fixture --execute --json validation\phase9_codex_home_install_fixture.json
 ```
@@ -126,8 +135,10 @@ Validation checks:
 - Claude plugin command directories have exactly 12 short command files;
 - each Claude plugin command invokes the matching namespaced public workflow skill;
 - repository-root Claude manifest points commands to root DIAYN command adapters and explicitly registers only the bundled dependency skills;
-- Codex manifest points at the public skill directory;
-- repository-root Codex manifest points at the generated platform-visible Codex package;
+- legacy Codex manifests remain candidate material, not runtime proof;
+- isolated Codex plugin candidate points at `plugins/diayn/skills/`;
+- isolated Codex plugin candidate contains the 12 workflow skills and 23 dependency skills;
+- repository-root Codex manifest remains historical and points at the generated platform-visible Codex package;
 - Codex project-local package points at `.codex/skills`;
 - Codex project-local package contains the 12 workflow skills and 23 DIAYN-managed dependency skills;
 - Codex project-local package contains `agents/openai.yaml` for all 12 public DIAYN workflow skills;

@@ -1,0 +1,4 @@
+interface:
+  display_name: "DIAYN Review Frontend"
+  short_description: "Review DIAYN frontend lane work"
+  default_prompt: "Use $diayn-review-frontend to review frontend lane work and UI evidence."

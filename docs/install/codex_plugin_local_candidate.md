@@ -1,78 +1,131 @@
-# Codex Plugin Local Candidate
+# Codex Plugin Candidate
 
-DIAYN has a local Codex plugin candidate at:
+DIAYN has a Codex plugin candidate, but it is not yet a verified Codex Desktop
+runtime surface.
+
+## Current Truth
+
+| Item | Status | Meaning |
+| --- | --- | --- |
+| Codex `AGENTS.md` entry file | `verified` | Codex/generic agents use `AGENTS.md` as the peer entry file. |
+| Codex skills package install | `verified` | `packages/codex-project-local/` can install the 12 DIAYN workflow skills plus 23 dependency skills into `.codex/skills/` or Codex Home skills. |
+| Codex plugin marketplace candidate | `candidate` | `.agents/plugins/marketplace.json` points at `plugins/diayn/`, but Codex Desktop install/runtime evidence is still missing. |
+| Direct Codex `/diayn-*` slash behavior | `unknown` | Do not claim this until Codex Desktop runtime evidence proves it. |
+| Codex native dependency-skill invocation after plugin install | `unknown` | Do not claim this until runtime evidence proves it. |
+
+## Candidate Layout
 
 ```text
-.codex-plugin/plugin.json
+.agents/plugins/marketplace.json
+plugins/diayn/
+plugins/diayn/.codex-plugin/plugin.json
+plugins/diayn/skills/
+plugins/diayn/dependency-routing/
+plugins/diayn/dependency-references/
+plugins/diayn/internal-role-skills/
+plugins/diayn/licenses/
+plugins/diayn/dependency-skills-manifest.json
+```
+
+The plugin manifest uses the Codex plugin shape:
+
+```json
+"skills": "./skills/"
+```
+
+The candidate `skills/` directory contains:
+
+- the 12 public DIAYN workflow skills;
+- the 23 DIAYN-managed dependency skills.
+
+Dependency skills are installed as skills, not downgraded to plain text
+references. The dependency routing and internal-role directories are supporting
+material for DIAYN workflow routing; they are not public DIAYN commands.
+
+## Legacy Codex Paths
+
+The repository still contains older Codex candidate material:
+
+```text
+.codex-plugin/
+plugins/docs-is-all-you-need/.codex-plugin/
 plugins/docs-is-all-you-need/
 ```
 
-This is not a published plugin and not marketplace support. The repository-root
-manifest points at `packages/codex-project-local/.codex/skills/`, which is the
-platform-visible package shape containing 12 DIAYN workflow skills plus
-23 DIAYN-managed dependency skills. The 12 workflow skills in that
-generated Codex package also carry Codex-specific `agents/openai.yaml`
-metadata for UI/harness discovery. The inner candidate under
-`plugins/docs-is-all-you-need/` remains available for local packaging
-experiments and packages only the 12 DIAYN workflow skill sources. Both Codex
-manifests include product metadata similar to the `superpowers` Codex manifest
-without referencing fake icon or logo assets.
-
-## Candidate Contents
+These are kept for compatibility and history, but the isolated Codex candidate
+surface is now:
 
 ```text
-.codex-plugin/plugin.json
-plugins/docs-is-all-you-need/.codex-plugin/plugin.json
-plugins/docs-is-all-you-need/skills/diayn-init/
-plugins/docs-is-all-you-need/skills/diayn-plan/
-plugins/docs-is-all-you-need/skills/diayn-worktrees/
-plugins/docs-is-all-you-need/skills/diayn-backend/
-plugins/docs-is-all-you-need/skills/diayn-frontend/
-plugins/docs-is-all-you-need/skills/diayn-review-backend/
-plugins/docs-is-all-you-need/skills/diayn-review-frontend/
-plugins/docs-is-all-you-need/skills/diayn-sync/
-plugins/docs-is-all-you-need/skills/diayn-integration/
-plugins/docs-is-all-you-need/skills/diayn-bug/
-plugins/docs-is-all-you-need/skills/diayn-new/
-plugins/docs-is-all-you-need/skills/diayn-html/
+.agents/plugins/marketplace.json
+plugins/diayn/
 ```
 
-The plugin candidate keeps internal role skills outside the public workflow
-surface. DIAYN-managed `agent-skills` dependencies are packaged separately
-under `plugins/docs-is-all-you-need/dependency-skills/`.
+Do not use the older paths to claim Codex Desktop plugin runtime support.
 
-The project-local Codex package candidate is:
+## Candidate Install Attempt
+
+In Codex Desktop, the "Add plugin marketplace" dialog can be used for future
+runtime validation. The expected candidate fields are:
 
 ```text
-packages/codex-project-local/.codex/skills/
+Source: ice268528/Docs-is-all-you-need
+Git ref: main
+Sparse path: .agents/plugins
 ```
 
-It contains the same 12 workflow skills plus the 23 locked DIAYN-managed
-dependency skills.
+If Codex Desktop needs the plugin payload in the same sparse checkout, leave the
+sparse path blank or include both the marketplace path and `plugins/diayn/` if
+the UI supports multiple sparse paths. Record the exact setting used. Do not
+turn this into a README quick-start until a real Desktop install succeeds.
 
-## Current Support Level
+After the marketplace is visible, the expected candidate identity is:
 
-Support level: `package_install_validated_app_session_runtime_not_attempted`.
+```text
+diayn@diayn-local-alpha
+```
 
-The local plugin candidate and the project-local `.codex/skills` package pass
-static validation. The project-local install fixture proves the copy shape into
-a temporary `.codex/skills` plus `.diayn` target, and the Codex-home install
-fixture proves the copy shape into temporary `skills/` plus
-`diayn/docs-is-all-you-need/` targets. The external runtime evidence validator
-and selftest remain as optional future app-session evidence tooling. Per Owner
-instruction, this validation does not launch Codex Desktop and does not claim
-app-session runtime discovery or direct `/diayn-*` execution.
+This is still a candidate install string. It is not a release claim until a new
+Codex Desktop session proves install, discovery, and DIAYN workflow execution.
 
-This means the packages can be inspected and used as local candidates, but
-DIAYN can truthfully claim the Codex package/install surface, but cannot claim
-Codex Desktop app-session discovery or `/diayn-*` execution as `working`.
+## Validation
 
-## Manual Use Boundary
+Static candidate validation:
 
-Prefer `docs/install/codex_skills.md` for the current Codex package shape. Use
-this plugin candidate only for local plugin packaging experiments or later
-smoke tests.
+```text
+node maintainers\scripts\validate_diayn_codex_plugin_candidate.js
+```
 
-Do not publish, push, or install this candidate into a marketplace until a later
-validation pass proves local plugin discovery and records the exact command and
-environment evidence.
+Project-local skills package validation remains separate:
+
+```text
+node maintainers\scripts\validate_diayn_codex_project_local_package.js
+```
+
+Runtime acceptance is documented in:
+
+```text
+docs/qa/codex-plugin-runtime-acceptance.md
+docs/install/codex_desktop_runtime_evidence_runbook.md
+```
+
+## Claim Boundary
+
+Current verified Codex claim:
+
+```text
+Codex skills package/install is validated by package shape, install fixtures,
+and installed directory inspection.
+```
+
+Current unverified Codex plugin claims:
+
+```text
+Codex Desktop marketplace install
+Codex Desktop plugin discovery
+Direct /diayn-* slash invocation
+Native dependency-skill invocation after plugin install
+Complete DIAYN workflow execution in a Codex Desktop app session
+```
+
+Do not publish or advertise the Codex plugin path as complete until those
+runtime claims have evidence.

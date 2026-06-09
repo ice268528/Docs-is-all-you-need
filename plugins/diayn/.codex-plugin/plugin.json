@@ -1,0 +1,43 @@
+{
+  "id": "diayn",
+  "name": "diayn",
+  "version": "0.1.0",
+  "description": "DIAYN Codex plugin candidate for document-driven multi-session coding-agent workflows.",
+  "author": {
+    "name": "DIAYN maintainers"
+  },
+  "homepage": "https://github.com/ice268528/Docs-is-all-you-need",
+  "repository": "https://github.com/ice268528/Docs-is-all-you-need",
+  "license": "MIT",
+  "keywords": [
+    "skills",
+    "workflow",
+    "multi-session",
+    "planning",
+    "review",
+    "codex"
+  ],
+  "skills": "./skills/",
+  "interface": {
+    "displayName": "DIAYN",
+    "shortDescription": "Document-driven multi-session workflow skills for Codex.",
+    "longDescription": "Installs the 12 DIAYN workflow skills plus DIAYN-managed dependency skills as a Codex plugin candidate. Runtime discovery and slash-command behavior still require Codex Desktop acceptance evidence before release claims.",
+    "developerName": "DIAYN maintainers",
+    "category": "Productivity",
+    "capabilities": [
+      "Interactive",
+      "Read",
+      "Write"
+    ],
+    "defaultPrompt": [
+      "$diayn-init initialize this project",
+      "$diayn-plan create a staged DIAYN plan",
+      "$diayn-review-frontend review the frontend lane"
+    ],
+    "websiteURL": "https://github.com/ice268528/Docs-is-all-you-need",
+    "privacyPolicyURL": "https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement",
+    "termsOfServiceURL": "https://docs.github.com/en/site-policy/github-terms/github-terms-of-service",
+    "brandColor": "#2563EB",
+    "screenshots": []
+  }
+}

@@ -8,7 +8,7 @@ The Codex package artifact is:
 packages/codex-project-local/
 ```
 
-The repository-root Codex plugin entrypoint is:
+The historical repository-root Codex plugin entrypoint is:
 
 ```text
 .codex-plugin/plugin.json
@@ -20,12 +20,17 @@ It points at:
 packages/codex-project-local/.codex/skills/
 ```
 
-This root entrypoint mirrors the `superpowers` style of a repository-root
-Codex manifest while keeping the app-session runtime boundary honest. It includes
-repository/homepage/license/keyword metadata and Codex UI fields such as
-`Read`/`Write` capabilities, website URL, policy URLs, brand color, and an
-empty screenshots list. It intentionally does not point at `composerIcon` or
-`logo` paths until real assets are committed.
+This root entrypoint is retained as legacy candidate material. The isolated
+Codex plugin candidate is now documented separately at
+`docs/install/codex_plugin_local_candidate.md` and lives under:
+
+```text
+.agents/plugins/marketplace.json
+plugins/diayn/
+```
+
+Do not use the historical root entrypoint as proof of Codex Desktop plugin
+runtime support.
 
 It is shaped for project-local installation into:
 
@@ -221,29 +226,34 @@ before a Desktop app-session runtime claim could be made.
 
 ## First Use
 
-After installation, open the target project in Codex and begin with:
+After installation, open the target project in Codex and prefer explicit skill
+invocation first:
 
 ```text
-/diayn-init
+$diayn-init initialize this project with DIAYN
 ```
 
-If Codex does not select a DIAYN skill automatically, name the skill:
+Natural language can also work when Codex selects the skill:
 
 ```text
-Use diayn-init and follow /diayn-init.
+Use the diayn-init skill and initialize this project with DIAYN.
 ```
 
-Then continue with the canonical flow:
+Direct `/diayn-*` slash behavior is not currently a verified Codex Desktop
+runtime claim. If it works in a real Desktop session, record that evidence with
+`docs/qa/codex-plugin-runtime-acceptance.md` before updating release claims.
+
+Then continue with the canonical workflow intent:
 
 ```text
-/diayn-plan
-/diayn-worktrees
-/diayn-backend
-/diayn-frontend
-/diayn-review-backend
-/diayn-review-frontend
-/diayn-sync
-/diayn-integration
+$diayn-plan
+$diayn-worktrees
+$diayn-backend
+$diayn-frontend
+$diayn-review-backend
+$diayn-review-frontend
+$diayn-sync
+$diayn-integration
 ```
 
 The commands are workflow triggers inside chat. They are not shell commands and do not create a hidden agent runtime.
