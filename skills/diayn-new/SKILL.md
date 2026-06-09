@@ -63,6 +63,8 @@ In this mode, run from the Controller root after Owner acceptance has been recor
 5. Update planning records and route to `/diayn-plan`, a lane command, or a future preparation record.
 6. Do not silently alter prior requirements.
 
+When the new request becomes a new stage, write the stage-specific records under `docs/stages/<stage-id>/` and the corresponding lane stage detail files under `docs/lanes/<lane>/stages/<stage-id>/`, while keeping lane root indexes concise.
+
 ## Allowed Writes
 
 May write change records, superseded requirement records, TODO entries, OwnerGate questions, lane handoff updates, backlog/future preparation, and Controller summaries.

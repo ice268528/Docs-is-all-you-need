@@ -22,7 +22,7 @@ The Owner has confirmed enough project facts to plan work.
 - Current controller summary.
 - Relevant stage or batch goals.
 - Shared contracts, if any.
-- Existing backend and frontend lane docs.
+- Existing backend and frontend lane docs, including current lane indexes and current stage detail files when present.
 - `docs/meta/session_roles.md`
 - `docs/meta/status_model.md`
 
@@ -33,6 +33,8 @@ The Owner has confirmed enough project facts to plan work.
 - Lane handoff documents.
 - Shared contract placeholders or issue notes when authorized.
 - Controller summary and Owner question records.
+- Lane root summary/index files when the plan establishes or updates the current stage.
+- Stage-scoped lane detail files under `docs/lanes/<lane>/stages/<stage-id>/`.
 
 Use the bundled `skills/diayn-plan/assets/plan/` templates as the default structures:
 

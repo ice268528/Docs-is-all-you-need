@@ -38,7 +38,7 @@ Every path listed below must be visible from the backend session's worktree befo
 - Allowed paths: `<authorized paths>`
 - Forbidden paths: `<forbidden paths>`
 - Acceptance criteria: `<criteria>`
-- Evidence required: `docs/lanes/backend/evidence.md`
+- Evidence required: `docs/lanes/backend/stages/<stage-id>/evidence.md`; update `docs/lanes/backend/evidence.md` as the current-stage evidence index.
 
 ## Stop Conditions
 

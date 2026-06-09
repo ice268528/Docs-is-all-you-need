@@ -53,6 +53,7 @@ Then stop. This mode only validates package command routing; it does not prove t
 4. Read `docs/meta/diayn_command_reference.md` and `docs/meta/diayn_commands/worktrees.md` when available.
 5. Run or inspect `scripts/worktree_plan.py` when the workflow needs Git preflight, existing-worktree detection, copyable commands, launch prompts, or an authorized `git worktree add`.
 6. Use `assets/worktrees/` only when writing or refreshing session registry, local identity guidance, launch prompts, or entry checklists.
+7. Keep the lane root indexes and current stage detail files together in the launch guidance when a lane has an active stage.
 
 ## Workflow
 

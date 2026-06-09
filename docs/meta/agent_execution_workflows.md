@@ -67,6 +67,9 @@ WIP=1 applies inside each lane.
 - A worker may not start another lane item while its current item remains `doing`.
 - If a lane has multiple `doing` items, reconcile the lane board before implementing more work.
 - The global `TODO.md` summarizes controller state; it is not every lane's detailed workspace.
+- `docs/lanes/<lane>/board.md`, `handoff.md`, `evidence.md`, and `review_log.md` are stable lane-entry indexes.
+- Detailed worklogs, detailed evidence, and detailed review notes live under `docs/lanes/<lane>/stages/<stage-id>/`.
+- Stage-level outcomes and closeout artifacts live under `docs/stages/<stage-id>/`.
 
 ## 6. Controller Workflow
 
@@ -87,9 +90,9 @@ The Controller should not directly implement lane code by default. It should not
 Backend and Frontend Sessions:
 
 1. Confirm role and lane identity.
-2. Read their own lane board, handoff, relevant shared contracts, stage goal, and verification requirements.
+2. Read their own lane board, handoff, current stage detail files, relevant shared contracts, stage goal, and verification requirements.
 3. Implement only authorized lane tasks.
-4. Update same-lane evidence, worklog, handoff notes, and board state.
+4. Update same-lane evidence, worklog, handoff notes, and board state. Keep detailed worklog and evidence in the current stage subdirectory, not in a single unbounded lane root file.
 5. Run or document verification.
 6. Mark completed lane work at most as `candidate_done`.
 7. Stop if the task requires another lane, global summary, shared contract, architecture, scope, or Owner decision changes.
@@ -101,7 +104,7 @@ Worker sessions do not mark `done`, `rejected`, `ready_for_e2e`, or `owner_accep
 Backend and Frontend Review Sessions:
 
 1. Confirm review role and target lane.
-2. Read the target lane board, evidence, worklog, handoff, diff, tests, and acceptance criteria.
+2. Read the target lane board, current stage evidence, current stage worklog, handoff, diff, tests, and acceptance criteria.
 3. Check functional outcome, verification evidence, permission boundaries, and unauthorized changes.
 4. Write review log.
 5. Mark candidate work as `done` or `rejected`.
@@ -116,7 +119,8 @@ Controller Integration Review:
 2. Checks shared contract consistency and merge readiness.
 3. Checks defined build, lint, typecheck, smoke, or E2E evidence.
 4. Writes cross-lane issues to the responsible lane board or shared integration issue document.
-5. Marks `ready_for_e2e` only when reviewed work is integrated enough for Owner-level acceptance.
+5. Writes stage-scoped integration summaries and closeout notes when the project uses them.
+6. Marks `ready_for_e2e` only when reviewed work is integrated enough for Owner-level acceptance.
 
 Integration review must not bypass lane review or treat missing evidence as passing.
 

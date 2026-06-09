@@ -24,6 +24,7 @@ The user has opened the backend worktree and started a new coding-agent session.
 - `.diayn/worktree_manifest.md`, if visible.
 - `docs/lanes/backend/board.md`
 - `docs/lanes/backend/handoff.md`
+- `docs/lanes/backend/stages/<stage-id>/`, when the current stage is known and visible.
 - `docs/shared/**` relevant to the task.
 - `docs/meta/session_roles.md`
 - `docs/meta/status_model.md`
@@ -34,8 +35,8 @@ The user has opened the backend worktree and started a new coding-agent session.
 - Backend implementation and tests authorized by the active task.
 - `docs/lanes/backend/board.md`
 - `docs/lanes/backend/evidence.md`
-- `docs/lanes/backend/worklog.md`
 - Backend handoff notes when needed.
+- Current stage detail files under `docs/lanes/backend/stages/<stage-id>/worklog.md` and `docs/lanes/backend/stages/<stage-id>/evidence.md`.
 
 ## Forbidden
 
@@ -58,6 +59,8 @@ The user has opened the backend worktree and started a new coding-agent session.
 - Backend worklog.
 - Backend board status.
 - Handoff note if the reviewer or Controller needs context.
+
+The lane root files are current-stage indexes. Keep detailed implementation notes in the stage-scoped worklog and evidence files.
 
 ## Stop Conditions
 

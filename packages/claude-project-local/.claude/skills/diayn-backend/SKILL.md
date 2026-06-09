@@ -48,7 +48,7 @@ Then stop. This mode only validates package command routing; it does not prove t
 
 1. Confirm the requested command is `/diayn-backend`.
 2. Run the Identity Guard contract for backend lane worker identity, path, manifest entry, and write boundary.
-3. Read only the backend lane board, backend handoff, relevant shared contracts, and current task slice.
+3. Read only the backend lane board, backend handoff, current stage detail files, relevant shared contracts, and current task slice.
 4. Read `docs/meta/diayn_command_reference.md` and `docs/meta/diayn_commands/backend.md` when available.
 5. Route to DIAYN-managed engineering dependency skills only when implementation, TDD, API, debugging, or security guidance is needed.
    When routing is needed, read the installed routing map from `.diayn/dependency-routing/upstream-routing-map.md` if present; otherwise use `internal-role-skills/diayn-skill-router/references/upstream-routing-map.md` in the active DIAYN package. Resolve the platform-visible skill id before native Skill invocation.
@@ -60,12 +60,14 @@ Then stop. This mode only validates package command routing; it does not prove t
 3. Implement the smallest correct change inside lane boundaries.
 4. Add or update tests where appropriate.
 5. Run targeted verification and broader checks when risk requires them.
-6. Record evidence, worklog, changed files, and handoff notes. Use `assets/lane/` as the default backend worklog/evidence structure when the target project has no stronger local template.
+6. Record evidence, worklog, changed files, and handoff notes. Use `assets/lane/` as the default backend worklog/evidence structure when the target project has no stronger local template, then write the detailed records into `docs/lanes/backend/stages/<stage-id>/`.
 7. Stop at `candidate_done`; do not self-approve.
 
 ## Allowed Writes
 
-May edit backend lane implementation files, backend tests, backend lane board, backend evidence, backend worklog, and backend handoff.
+May edit backend lane implementation files, backend tests, backend lane board, backend evidence index, backend handoff, and the stage-scoped backend worklog and evidence files.
+
+The lane root `board.md`, `evidence.md`, `handoff.md`, and `review_log.md` are current-stage indexes; the detailed backend worklog and evidence belong in `docs/lanes/backend/stages/<stage-id>/`.
 
 Do not edit frontend lane work, global planning docs, integration records, or Owner acceptance records unless the active task explicitly authorizes it.
 

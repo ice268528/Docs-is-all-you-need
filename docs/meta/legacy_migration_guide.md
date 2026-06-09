@@ -39,7 +39,7 @@ evidence exists.
 
 | Legacy location | Current location | Migration rule |
 | --- | --- | --- |
-| `TODO.md` detailed task board | `docs/lanes/<lane>/board.md` | Keep `TODO.md` as a Controller summary; move active lane details to lane boards. |
+| `TODO.md` detailed task board | `docs/lanes/<lane>/board.md` plus `docs/lanes/<lane>/stages/<stage-id>/**` | Keep `TODO.md` as a Controller summary; move active lane detail to lane indexes and stage-scoped lane records. |
 | `docs/templates/task_board_template.md` | `docs/templates/lane_board_template.md` | Use the lane board template for new active multi-session work. |
 | `docs/handoffs/stage_summary_template.md` | `docs/templates/handoff_packet_template.md` and lane handoffs | Preserve old summaries as history; dispatch new lane work through handoff packets. |
 | `docs/testing/manual_test_template.md` | `docs/templates/owner_experience_acceptance_template.md` | Owner acceptance should be business-facing. Engineering verification remains evidence for agents. |
@@ -50,10 +50,10 @@ evidence exists.
 
 1. Inventory active tasks and separate active work from history.
 2. Choose lanes such as `backend`, `frontend`, or another project-specific lane.
-3. Move active task details into `docs/lanes/<lane>/board.md`.
+3. Move current lane summary and task index into `docs/lanes/<lane>/board.md`.
 4. Move dispatch context into `docs/lanes/<lane>/handoff.md`.
-5. Move reproducible evidence into `docs/lanes/<lane>/evidence.md`.
-6. Create or refresh review entries in `docs/lanes/<lane>/review_log.md`.
+5. Move reproducible evidence into `docs/lanes/<lane>/evidence.md` and detailed stage evidence into `docs/lanes/<lane>/stages/<stage-id>/evidence.md`.
+6. Create or refresh review entries in `docs/lanes/<lane>/review_log.md` and stage-scoped review notes in `docs/lanes/<lane>/stages/<stage-id>/review_log.md`.
 7. Map legacy statuses using the table above.
 8. Preserve old task IDs or record a mapping when IDs change.
 9. Summarize cross-lane readiness in `.diayn/sync_log.md` or the Controller

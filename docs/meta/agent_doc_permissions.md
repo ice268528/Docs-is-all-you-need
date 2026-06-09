@@ -15,6 +15,7 @@
 
 - Global `TODO.md` is a Controller-owned summary. Worker sessions do not update it by default.
 - Lane documents are lane-local. A backend session does not write frontend lane documents, and a frontend session does not write backend lane documents.
+- Lane root `board.md`, `evidence.md`, `review_log.md`, and `handoff.md` files are current-stage indexes or dispatch surfaces; detailed stage records live under `docs/lanes/<lane>/stages/<stage-id>/`.
 - Shared contracts and project constraints are controlled documents. Worker sessions may propose changes but must stop before changing them unless explicitly authorized.
 - Review sessions write review logs and lane status decisions; they do not implement fixes by default.
 - Integration issues are written by the Controller to the responsible lane board or shared issue document.
@@ -31,15 +32,17 @@
 | `docs/project/implementation_constraints.md` | Owner controlled | Owner, Planning / Controller during authorized initialization | Long-term constraints require OwnerGate to change. |
 | `docs/project/architecture_overview.md` | Owner controlled | Owner, Planning / Controller with authorization | Architecture changes require explicit approval. |
 | `docs/project/file_index.md` | Controller write | Controller | Should reflect structure without becoming execution authority. |
-| `docs/stages/stage_XX_goal.md` | Owner controlled | Owner, Controller with authorization | Stage scope and acceptance criteria are controlled. |
+| `docs/stages/<stage-id>/**` | Controller write or Owner controlled | Owner, Controller with authorization | Stage plans, summaries, integration records, acceptance records, and closeout. |
 | `docs/shared/contracts/**` | Owner controlled | Controller with Owner authorization | Worker sessions may propose changes but must not silently edit. |
 | `docs/shared/shared_types/**` | Controller write or Owner controlled | Controller; workers only when explicitly authorized | Treat as shared contract when it affects multiple lanes. |
 | `docs/shared/integration_issues.md` | Controller write | Controller Integration Review | Used for cross-lane or contract issues. |
-| `docs/lanes/<lane>/board.md` | Role-local write | Same-lane worker, same-lane reviewer, Controller | Worker may mark up to `candidate_done`; reviewer may mark `done` / `rejected`. |
-| `docs/lanes/<lane>/evidence.md` | Role-local write | Same-lane worker; reviewer may append review evidence | Evidence must be factual and reproducible. |
-| `docs/lanes/<lane>/worklog.md` | Role-local write | Same-lane worker | Process record for lane work. |
+| `docs/lanes/<lane>/board.md` | Role-local write | Same-lane worker, same-lane reviewer, Controller | Current-stage lane summary and task index. |
+| `docs/lanes/<lane>/evidence.md` | Role-local write | Same-lane worker; reviewer may append review evidence | Lane-level evidence index and current-stage summary. |
+| `docs/lanes/<lane>/review_log.md` | Review write | Same-lane review session | Lane-level review summary and current-stage index. |
+| `docs/lanes/<lane>/stages/<stage-id>/worklog.md` | Role-local write | Same-lane worker | Stage-scoped process record for lane work. |
+| `docs/lanes/<lane>/stages/<stage-id>/evidence.md` | Role-local write | Same-lane worker; reviewer may append review evidence | Stage-scoped evidence must be factual and reproducible. |
+| `docs/lanes/<lane>/stages/<stage-id>/review_log.md` | Review write | Same-lane review session | Stage-scoped review decision and rationale. |
 | `docs/lanes/<lane>/handoff.md` | Controller write and role-local append | Controller, same-lane worker | Controller dispatches; worker appends implementation handoff notes. |
-| `docs/lanes/<lane>/review_log.md` | Review write | Same-lane review session | Review decision and rationale. |
 | `docs/testing/test_strategy.md` | Owner controlled | Owner, Controller with authorization | Testing policy and minimum gates. |
 | Active manual test or acceptance docs | Role-local or Controller write | Controller, worker, or acceptance support as authorized | Owner-facing acceptance remains separate from test internals. |
 | `docs/templates/**` | Owner controlled | Owner, Controller with authorization | Templates are not active project facts. |

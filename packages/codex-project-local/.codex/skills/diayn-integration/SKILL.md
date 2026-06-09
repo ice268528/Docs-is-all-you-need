@@ -48,7 +48,7 @@ In this mode, run from the Controller root after `/diayn-sync`. Confirm backend/
 
 1. Confirm the requested command is `/diayn-integration`.
 2. Run the Identity Guard contract for Controller-owned integration.
-3. Read only reviewed lane summaries, review logs, shared contracts, integration issues, manifests, and current stage acceptance criteria.
+3. Read only reviewed lane summaries, stage detail files when needed, review logs, shared contracts, integration issues, manifests, and current stage acceptance criteria.
 4. Read `docs/meta/diayn_command_reference.md` and `docs/meta/diayn_commands/integration.md` when available.
 5. Route to DIAYN-managed review, API, CI, security, performance, or shipping dependency skills only when needed.
    When routing is needed, read the installed routing map from `.diayn/dependency-routing/upstream-routing-map.md` if present; otherwise use `internal-role-skills/diayn-skill-router/references/upstream-routing-map.md` in the active DIAYN package. Resolve the platform-visible skill id before native Skill invocation.
@@ -70,6 +70,8 @@ In this mode, run from the Controller root after `/diayn-sync`. Confirm backend/
 ## Allowed Writes
 
 May write integration summaries, shared integration issues, TODO integration readiness, accepted-baseline preparation, and authorized integration changes.
+
+When the project uses stage-scoped records, write the detailed integration summary, closeout, and acceptance records under `docs/stages/<stage-id>/` and keep lane root indexes short.
 
 Do not integrate unreviewed lane work, silently resolve requirement conflicts, or claim `owner_accepted`.
 

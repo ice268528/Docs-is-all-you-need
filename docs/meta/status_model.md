@@ -72,6 +72,7 @@ Rules:
 - A worker may not start a second lane item while its current item is still `doing`.
 - If multiple items in one lane are `doing`, the lane session should stop implementation and reconcile status first.
 - The global `TODO.md` is a Controller summary and should not force all lanes into a single global active task.
+- Lane root indexes summarize the current stage; detailed execution history belongs in `docs/lanes/<lane>/stages/<stage-id>/`.
 
 ## 5. Evidence Requirements
 
@@ -94,7 +95,7 @@ Status changes must be backed by evidence:
 | `waiting_verify` | `reviewing` or `candidate_done` | Use `candidate_done` before review starts; use `reviewing` while review is active. |
 | `waiting_Owner_test` | `ready_for_e2e` or `owner_gate` | Use `ready_for_e2e` for prepared acceptance; use `owner_gate` when a decision is required. |
 | Global WIP=1 | Lane-level WIP=1 | Preserve focus within each lane while allowing independent lanes to run in parallel. |
-| Global `TODO.md` as all details | Controller summary plus lane boards | Keep high-level status in `TODO.md`; put detailed execution in `docs/lanes/<lane>/board.md`. |
+| Global `TODO.md` as all details | Controller summary plus lane boards plus stage-scoped lane details | Keep high-level status in `TODO.md`; put detailed execution in lane root indexes and `docs/lanes/<lane>/stages/<stage-id>/`. |
 
 ## 7. Naming Rules
 
@@ -102,4 +103,3 @@ Status changes must be backed by evidence:
 - Do not use technology-specific states such as `frontend_built` or `api_deployed` in core status lists.
 - Put implementation-specific detail in evidence, review logs, or lane notes.
 - If a project needs additional local tags, keep them separate from canonical status.
-

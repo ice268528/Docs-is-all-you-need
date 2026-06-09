@@ -47,11 +47,13 @@ Authoritative references:
 
 Worker sessions use:
 
-- `docs/lanes/<lane>/board.md`;
-- `docs/lanes/<lane>/handoff.md`;
-- `docs/lanes/<lane>/evidence.md`;
-- `docs/lanes/<lane>/worklog.md`;
-- `docs/lanes/<lane>/review_log.md` after review.
+- `docs/lanes/<lane>/board.md` as the stable lane index;
+- `docs/lanes/<lane>/handoff.md` as the visible dispatch context;
+- `docs/lanes/<lane>/evidence.md` as the lane evidence index;
+- `docs/lanes/<lane>/review_log.md` as the lane review index after review;
+- `docs/lanes/<lane>/stages/<stage-id>/worklog.md` for detailed stage-scoped worker notes;
+- `docs/lanes/<lane>/stages/<stage-id>/evidence.md` for detailed stage-scoped evidence;
+- `docs/lanes/<lane>/stages/<stage-id>/review_log.md` for detailed stage-scoped review notes.
 
 ## 4. OwnerGate And New Information
 

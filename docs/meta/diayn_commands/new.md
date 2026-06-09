@@ -40,6 +40,8 @@ If deferred:
 - Backlog or future preparation document such as `<backlog_path>` or `<future_stage_preparation_doc>`.
 - Owner-facing explanation.
 
+When the change enters a new stage, prefer writing the stage-specific records under `docs/stages/<stage-id>/` and the corresponding lane stage detail files under `docs/lanes/<lane>/stages/<stage-id>/`, while keeping the lane root indexes short.
+
 ## Forbidden
 
 - Do not silently expand current scope.

@@ -38,7 +38,7 @@ Every path listed below must be visible from the frontend session's worktree bef
 - Allowed paths: `<authorized paths>`
 - Forbidden paths: `<forbidden paths>`
 - Acceptance criteria: `<criteria>`
-- Evidence required: `docs/lanes/frontend/evidence.md`
+- Evidence required: `docs/lanes/frontend/stages/<stage-id>/evidence.md`; update `docs/lanes/frontend/evidence.md` as the current-stage evidence index.
 
 ## Stop Conditions
 

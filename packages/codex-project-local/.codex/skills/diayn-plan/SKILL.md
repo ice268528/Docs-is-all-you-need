@@ -73,6 +73,8 @@ Then stop. This mode only validates package command routing; it does not prove t
 
 May write or update `TODO.md`, stage docs, lane boards, lane handoffs, OwnerGate records, shared contract notes, and Controller planning summaries.
 
+When the plan establishes or updates an active stage, also keep the lane root indexes current and place detailed lane records under `docs/lanes/<lane>/stages/<stage-id>/`.
+
 Do not edit lane implementation code or mark work as complete.
 
 ## Bundled Resources

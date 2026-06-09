@@ -35,7 +35,7 @@ decisions, or Owner acceptance by itself.
 | `docs/meta/diayn_command_reference.md` | DIAYN workflow and platform-specific command reference. |
 | `docs/meta/controller_sync_integration_protocol.md` | Sync and integration rules. |
 
-## 3. Project And Shared Docs
+## 3. Project, Stage, And Shared Docs
 
 | Path | Purpose | Permission |
 | --- | --- | --- |
@@ -43,17 +43,20 @@ decisions, or Owner acceptance by itself.
 | `docs/project/implementation_constraints.md` | Long-term implementation constraints. | Owner controlled. |
 | `docs/project/architecture_overview.md` | Architecture overview. | Owner controlled. |
 | `docs/project/file_index.md` | Navigation index. | Controller write. |
+| `docs/stages/<stage-id>/**` | Stage plans, summaries, integration records, acceptance, and closeout. | Controller write or Owner controlled depending on record type. |
 | `docs/shared/**` | Shared contracts, types, and integration issues. | Controller write or Owner controlled depending on impact. |
 
 ## 4. Lane Docs
 
 | Path | Purpose | Permission |
 | --- | --- | --- |
-| `docs/lanes/<lane>/board.md` | Lane-local task board. | Role-local write; reviewer may write review status. |
+| `docs/lanes/<lane>/board.md` | Lane-local current-stage summary and task index. | Role-local write; reviewer may write review status. |
 | `docs/lanes/<lane>/handoff.md` | Visible dispatch and continuation context. | Controller write and role-local append. |
-| `docs/lanes/<lane>/evidence.md` | Verification evidence. | Role-local write. |
-| `docs/lanes/<lane>/worklog.md` | Worker process notes. | Role-local write. |
-| `docs/lanes/<lane>/review_log.md` | Review decisions. | Review write. |
+| `docs/lanes/<lane>/evidence.md` | Lane-level evidence index and current-stage summary. | Role-local write. |
+| `docs/lanes/<lane>/review_log.md` | Lane-level review summary and current-stage index. | Review write. |
+| `docs/lanes/<lane>/stages/<stage-id>/worklog.md` | Stage-scoped worker process notes. | Role-local write. |
+| `docs/lanes/<lane>/stages/<stage-id>/evidence.md` | Stage-scoped verification evidence. | Role-local write. |
+| `docs/lanes/<lane>/stages/<stage-id>/review_log.md` | Stage-scoped review decisions. | Review write. |
 
 ## 5. Templates And Testing
 

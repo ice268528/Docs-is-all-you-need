@@ -1,6 +1,6 @@
 # Review Log Template
 
-> Copy this template to `docs/lanes/<lane>/review_log.md` or another active review location.
+> Copy this template to `docs/lanes/<lane>/stages/<stage-id>/review_log.md`. The lane root `docs/lanes/<lane>/review_log.md` may keep the current review summary and index.
 
 ## Review Metadata
 
@@ -8,10 +8,12 @@
 | --- | --- |
 | Review ID | `<review_id>` |
 | Reviewed lane | `<lane>` |
+| Stage | `<stage_id>` |
 | Review role | `<Backend Review Session / Frontend Review Session>` |
 | Reviewed task(s) | `<task_id>` |
 | Candidate source | `docs/lanes/<lane>/board.md` |
-| Evidence source | `docs/lanes/<lane>/evidence.md` |
+| Evidence source | `docs/lanes/<lane>/stages/<stage-id>/evidence.md` |
+| Worklog source | `docs/lanes/<lane>/stages/<stage-id>/worklog.md` |
 | Diff scope | `<paths, branch, or commit range>` |
 
 ## Checklist
@@ -48,4 +50,3 @@ Decision must be one of:
 | Task ID | Required rework | Return status |
 | --- | --- | --- |
 | `<task_id>` | `<rework>` | `todo` / `blocked` |
-

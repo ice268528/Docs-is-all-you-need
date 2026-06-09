@@ -89,6 +89,8 @@ Before a lane session starts, the Controller must ensure the lane can see:
 - `docs/meta/agent_doc_permissions.md`
 - Its own `docs/lanes/<lane>/board.md`
 - Its own `docs/lanes/<lane>/handoff.md`
+- Its current `docs/lanes/<lane>/evidence.md` and `docs/lanes/<lane>/review_log.md` summaries, if they exist.
+- Its current stage detail files under `docs/lanes/<lane>/stages/<stage-id>/` when the stage is known.
 - Relevant `docs/shared/**`
 - Relevant project constraints and acceptance criteria.
 

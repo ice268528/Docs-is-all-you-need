@@ -13,6 +13,7 @@
 | Allowed command | `/diayn-review-<lane>` |
 | Worker report required | `yes` |
 | Review log | `docs/lanes/<lane>/review_log.md` |
+| Stage detail dir | `docs/lanes/<lane>/stages/<stage-id>/` |
 
 ## User Startup Command
 
@@ -53,13 +54,14 @@ Before review:
 - Read docs/meta/agent_doc_permissions.md.
 - Read docs/lanes/<lane>/board.md.
 - Read docs/lanes/<lane>/evidence.md.
-- Read docs/lanes/<lane>/worklog.md.
+- Read docs/lanes/<lane>/stages/<stage-id>/worklog.md.
+- Read docs/lanes/<lane>/stages/<stage-id>/evidence.md.
 - Read docs/lanes/<lane>/handoff.md.
 - Inspect the relevant diff, tests, and acceptance criteria.
 
 Do not merge and do not implement fixes by default.
 
-Decide whether the candidate work becomes done or rejected. Write docs/lanes/<lane>/review_log.md and update only the target lane review status allowed by the permissions document.
+Decide whether the candidate work becomes done or rejected. Write docs/lanes/<lane>/stages/<stage-id>/review_log.md and update the lane root review summary if needed. Update only the target lane review status allowed by the permissions document.
 ```
 
 ## Review Checklist

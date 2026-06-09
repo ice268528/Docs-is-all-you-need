@@ -35,6 +35,8 @@ Status definitions are authoritative in `docs/meta/status_model.md`.
 - `docs/stages/**`, when Owner has authorized planning or updates.
 - `docs/shared/**`, when creating or maintaining shared contracts and integration issues.
 - `docs/lanes/<lane>/handoff.md`, when preparing or updating dispatch context.
+- `docs/lanes/<lane>/board.md`, `docs/lanes/<lane>/evidence.md`, and `docs/lanes/<lane>/review_log.md` when updating the current lane index.
+- `docs/lanes/<lane>/stages/<stage-id>/**` when preparing or updating stage-scoped lane details.
 - `.diayn/worktree_manifest.md`, `.diayn/session_registry.md`, and `.diayn/sync_log.md` when those control files exist.
 
 ### Default Forbidden Actions
@@ -69,9 +71,9 @@ Status definitions are authoritative in `docs/meta/status_model.md`.
 ### Responsibilities
 
 - Confirm the session identity is the backend lane.
-- Read backend lane board, backend handoff, relevant shared contracts, stage goal, and verification instructions.
+- Read backend lane board, backend handoff, current stage detail files, relevant shared contracts, stage goal, and verification instructions.
 - Implement backend-authorized tasks.
-- Update backend lane board, evidence, worklog, and handoff notes.
+- Update backend lane board, evidence index, handoff summary, and current stage detail files.
 - Record verification evidence for the backend lane.
 - Mark completed backend work at most as `candidate_done`.
 
@@ -80,8 +82,9 @@ Status definitions are authoritative in `docs/meta/status_model.md`.
 - Backend implementation and tests within the authorized task.
 - `docs/lanes/backend/board.md`.
 - `docs/lanes/backend/evidence.md`.
-- `docs/lanes/backend/worklog.md`.
 - `docs/lanes/backend/handoff.md`.
+- `docs/lanes/backend/stages/<stage-id>/worklog.md`.
+- `docs/lanes/backend/stages/<stage-id>/evidence.md`.
 
 ### Default Forbidden Actions
 
@@ -93,7 +96,7 @@ Status definitions are authoritative in `docs/meta/status_model.md`.
 
 ### Documents This Role Can Write
 
-- Backend lane board, evidence, worklog, and handoff updates.
+- Backend lane board, evidence index, handoff summary, and stage-scoped worklog/evidence updates.
 - Backend code and tests inside the authorized implementation scope.
 
 ### Statuses This Role Cannot Mark
@@ -117,9 +120,9 @@ Status definitions are authoritative in `docs/meta/status_model.md`.
 ### Responsibilities
 
 - Confirm the session identity is the frontend lane.
-- Read frontend lane board, frontend handoff, relevant shared contracts, stage goal, and verification instructions.
+- Read frontend lane board, frontend handoff, current stage detail files, relevant shared contracts, stage goal, and verification instructions.
 - Implement frontend-authorized tasks.
-- Update frontend lane board, evidence, worklog, and handoff notes.
+- Update frontend lane board, evidence index, handoff summary, and current stage detail files.
 - Record verification evidence for the frontend lane.
 - Mark completed frontend work at most as `candidate_done`.
 
@@ -128,8 +131,9 @@ Status definitions are authoritative in `docs/meta/status_model.md`.
 - Frontend implementation and tests within the authorized task.
 - `docs/lanes/frontend/board.md`.
 - `docs/lanes/frontend/evidence.md`.
-- `docs/lanes/frontend/worklog.md`.
 - `docs/lanes/frontend/handoff.md`.
+- `docs/lanes/frontend/stages/<stage-id>/worklog.md`.
+- `docs/lanes/frontend/stages/<stage-id>/evidence.md`.
 
 ### Default Forbidden Actions
 
@@ -141,7 +145,7 @@ Status definitions are authoritative in `docs/meta/status_model.md`.
 
 ### Documents This Role Can Write
 
-- Frontend lane board, evidence, worklog, and handoff updates.
+- Frontend lane board, evidence index, handoff summary, and stage-scoped worklog/evidence updates.
 - Frontend code and tests inside the authorized implementation scope.
 
 ### Statuses This Role Cannot Mark
@@ -165,7 +169,7 @@ Status definitions are authoritative in `docs/meta/status_model.md`.
 ### Responsibilities
 
 - Confirm the session identity is backend review.
-- Read backend lane board, backend evidence, backend worklog, backend handoff, diff, tests, and acceptance criteria.
+- Read backend lane board, current stage evidence, current stage worklog, backend handoff, diff, tests, and acceptance criteria.
 - Check whether the backend lane stayed inside its permitted scope.
 - Write backend review log.
 - Mark backend `candidate_done` work as `done` or `rejected`.
@@ -174,6 +178,7 @@ Status definitions are authoritative in `docs/meta/status_model.md`.
 
 - `docs/lanes/backend/review_log.md`.
 - Backend lane board status and review notes.
+- `docs/lanes/backend/stages/<stage-id>/review_log.md`.
 - Small documentation notes needed to explain the review decision.
 
 ### Default Forbidden Actions
@@ -188,6 +193,7 @@ Status definitions are authoritative in `docs/meta/status_model.md`.
 
 - Backend review log.
 - Backend lane board review status and rejection reasons.
+- Backend stage-scoped review log and current-stage summary updates.
 
 ### Statuses This Role Cannot Mark
 
@@ -208,7 +214,7 @@ Status definitions are authoritative in `docs/meta/status_model.md`.
 ### Responsibilities
 
 - Confirm the session identity is frontend review.
-- Read frontend lane board, frontend evidence, frontend worklog, frontend handoff, diff, tests, and acceptance criteria.
+- Read frontend lane board, current stage evidence, current stage worklog, frontend handoff, diff, tests, and acceptance criteria.
 - Check whether the frontend lane stayed inside its permitted scope.
 - Write frontend review log.
 - Mark frontend `candidate_done` work as `done` or `rejected`.
@@ -217,6 +223,7 @@ Status definitions are authoritative in `docs/meta/status_model.md`.
 
 - `docs/lanes/frontend/review_log.md`.
 - Frontend lane board status and review notes.
+- `docs/lanes/frontend/stages/<stage-id>/review_log.md`.
 - Small documentation notes needed to explain the review decision.
 
 ### Default Forbidden Actions
@@ -231,6 +238,7 @@ Status definitions are authoritative in `docs/meta/status_model.md`.
 
 - Frontend review log.
 - Frontend lane board review status and rejection reasons.
+- Frontend stage-scoped review log and current-stage summary updates.
 
 ### Statuses This Role Cannot Mark
 
@@ -262,6 +270,7 @@ Status definitions are authoritative in `docs/meta/status_model.md`.
 - `TODO.md` global integration summary.
 - `docs/shared/integration_issues.md`, when present.
 - Relevant lane board entries for integration issues.
+- `docs/stages/<stage-id>/**` integration summaries, closeout records, and acceptance records when authorized.
 - Controller sync and integration summaries.
 
 ### Default Forbidden Actions
@@ -323,4 +332,3 @@ The Owner can authorize `owner_accepted`, but should not be used as a substitute
 - Acceptance evidence is missing.
 - The requested decision is actually an engineering review responsibility.
 - The outcome would change project scope, long-term constraints, cost, provider choice, release behavior, or safety posture.
-

@@ -19,7 +19,7 @@ The Controller checks cross-lane integration after lane review has accepted enou
 ## Required Reading
 
 - Lane review logs.
-- Lane evidence.
+- Lane root evidence indexes and current stage evidence.
 - Shared contracts.
 - Shared integration issues.
 - Build, lint, typecheck, smoke, or E2E evidence.
@@ -32,7 +32,7 @@ The Controller checks cross-lane integration after lane review has accepted enou
 - `docs/shared/integration_issues.md`
 - Responsible lane boards or handoffs when writing back integration issues.
 - Controller summary.
-- Stage-scoped integration summary, failure classification, `partial_attempt`, authorized-command, and closeout records.
+- Stage-scoped integration summary, failure classification, `partial_attempt`, authorized-command, closeout, and Owner acceptance records under `docs/stages/<stage-id>/`.
 
 When the target project has no stronger local templates, use:
 
@@ -68,6 +68,8 @@ If an authorized action cannot run, provide a copyable command with explicit wor
 - Shared contract routing.
 - Authorized command and cleanup records when side-effecting commands are needed.
 - Stage closeout and next-stage accepted-baseline refresh after Owner acceptance.
+
+When a stage-scoped integration summary exists, keep the lane root indexes short and link to the stage record rather than duplicating the whole integration history.
 
 ## Stop Conditions
 

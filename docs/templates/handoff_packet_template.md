@@ -37,15 +37,16 @@ Every required document listed in this packet must be visible from the receiving
 - Allowed paths: `<authorized paths>`
 - Forbidden paths: `<forbidden paths>`
 - Acceptance criteria: `<criteria>`
+- Current stage detail dir: `docs/lanes/<lane>/stages/<stage-id>/`
 
 ## Evidence Requirements
 
 | Evidence | Required? | Destination |
 | --- | --- | --- |
-| Verification command output | `<yes/no>` | `docs/lanes/<lane>/evidence.md` |
+| Verification command output | `<yes/no>` | `docs/lanes/<lane>/stages/<stage-id>/evidence.md` |
 | Manual verification notes | `<yes/no>` | `<path>` |
 | Screenshots or artifacts | `<yes/no>` | `<path>` |
-| Known limitation notes | `<yes/no>` | `docs/lanes/<lane>/handoff.md` |
+| Known limitation notes | `<yes/no>` | `docs/lanes/<lane>/handoff.md` or the current stage detail dir |
 
 ## Stop Conditions
 
@@ -60,4 +61,3 @@ Stop and ask Controller or Owner if:
 ## Completion Expectation
 
 Worker sessions may mark at most `candidate_done`. Review sessions decide `done` or `rejected`. Owner Acceptance decides `owner_accepted`.
-

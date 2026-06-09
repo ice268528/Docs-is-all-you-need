@@ -649,14 +649,11 @@ function main() {
       const producedFiles = Array.isArray(lane.produced_required_files) ? lane.produced_required_files : [];
       const hasWorklog = lane.has_worklog_artifact === true ||
         producedFiles.some((relative) =>
-          relative === `docs/lanes/${laneName}/worklog.md` ||
-          (relative.startsWith(`docs/lanes/${laneName}/`) && relative.endsWith("/worklog.md"))
+          relative.startsWith(`docs/lanes/${laneName}/stages/`) && relative.endsWith("/worklog.md")
         );
       const hasEvidence = lane.has_evidence_artifact === true ||
         producedFiles.some((relative) =>
-          relative === `docs/lanes/${laneName}/evidence.md` ||
-          relative.startsWith(`docs/lanes/${laneName}/evidence/`) ||
-          (relative.startsWith(`docs/lanes/${laneName}/`) && relative.endsWith("/evidence.md"))
+          relative.startsWith(`docs/lanes/${laneName}/stages/`) && relative.endsWith("/evidence.md")
         );
       if (!hasWorklog) {
         errors.push(`Phase 11 installed-flow fixture ${commandName} did not produce a ${laneName} worklog artifact`);
@@ -689,7 +686,7 @@ function main() {
         errors.push(`Phase 11 installed-flow fixture ${commandName} must run in the same ${laneName} worktree`);
         continue;
       }
-      const reviewLog = `docs/lanes/${laneName}/review_log.md`;
+      const reviewLog = `docs/lanes/${laneName}/stages/stage-1-auth-fixture/review_log.md`;
       if (!Array.isArray(lane.produced_required_files) || !lane.produced_required_files.includes(reviewLog)) {
         errors.push(`Phase 11 installed-flow fixture ${commandName} did not produce ${reviewLog}`);
       }
@@ -716,9 +713,9 @@ function main() {
         errors.push("Phase 11 installed-flow fixture /diayn-sync must run in the Controller root");
       } else {
         for (const required of [
-          "docs/stages/stage-1-auth-fixture/sync_log.md",
-          "docs/lanes/backend/review_log.md",
-          "docs/lanes/frontend/review_log.md",
+          ".diayn/sync_log.md",
+          "docs/lanes/backend/stages/stage-1-auth-fixture/review_log.md",
+          "docs/lanes/frontend/stages/stage-1-auth-fixture/review_log.md",
         ]) {
           if (!Array.isArray(sync.produced_required_files) || !sync.produced_required_files.includes(required)) {
             errors.push(`Phase 11 installed-flow fixture /diayn-sync did not produce ${required}`);
@@ -1105,16 +1102,13 @@ function main() {
             (
               lane.has_worklog_artifact === true ||
               lane.produced_required_files.some((relative) =>
-                relative === `docs/lanes/${laneName}/worklog.md` ||
-                (relative.startsWith(`docs/lanes/${laneName}/`) && relative.endsWith("/worklog.md"))
+                relative.startsWith(`docs/lanes/${laneName}/stages/`) && relative.endsWith("/worklog.md")
               )
             ) &&
             (
               lane.has_evidence_artifact === true ||
               lane.produced_required_files.some((relative) =>
-                relative === `docs/lanes/${laneName}/evidence.md` ||
-                relative.startsWith(`docs/lanes/${laneName}/evidence/`) ||
-                (relative.startsWith(`docs/lanes/${laneName}/`) && relative.endsWith("/evidence.md"))
+                relative.startsWith(`docs/lanes/${laneName}/stages/`) && relative.endsWith("/evidence.md")
               )
             ) &&
             lane.board_has_candidate_done === true &&
@@ -1139,7 +1133,7 @@ function main() {
           lane &&
             lane.worktree_path &&
             Array.isArray(lane.produced_required_files) &&
-            lane.produced_required_files.includes(`docs/lanes/${laneName}/review_log.md`) &&
+            lane.produced_required_files.includes(`docs/lanes/${laneName}/stages/stage-1-auth-fixture/review_log.md`) &&
             (lane.board_has_review_done === true || lane.review_log_decision_done === true) &&
             lane.board_has_rejected === false &&
             lane.review_log_decision_rejected === false &&
@@ -1159,9 +1153,9 @@ function main() {
       phase11InstalledFlowFixture.flow_artifacts.sync &&
       phase11InstalledFlowFixture.flow_artifacts.sync.worktree_path &&
       Array.isArray(phase11InstalledFlowFixture.flow_artifacts.sync.produced_required_files) &&
-      phase11InstalledFlowFixture.flow_artifacts.sync.produced_required_files.includes("docs/stages/stage-1-auth-fixture/sync_log.md") &&
-      phase11InstalledFlowFixture.flow_artifacts.sync.produced_required_files.includes("docs/lanes/backend/review_log.md") &&
-      phase11InstalledFlowFixture.flow_artifacts.sync.produced_required_files.includes("docs/lanes/frontend/review_log.md") &&
+      phase11InstalledFlowFixture.flow_artifacts.sync.produced_required_files.includes(".diayn/sync_log.md") &&
+      phase11InstalledFlowFixture.flow_artifacts.sync.produced_required_files.includes("docs/lanes/backend/stages/stage-1-auth-fixture/review_log.md") &&
+      phase11InstalledFlowFixture.flow_artifacts.sync.produced_required_files.includes("docs/lanes/frontend/stages/stage-1-auth-fixture/review_log.md") &&
       phase11InstalledFlowFixture.flow_artifacts.sync.backend_review_done_synced === true &&
       phase11InstalledFlowFixture.flow_artifacts.sync.frontend_review_done_synced === true &&
       phase11InstalledFlowFixture.flow_artifacts.sync.sync_log_says_no_business_code_merge === true &&

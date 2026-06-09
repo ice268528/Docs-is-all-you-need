@@ -25,6 +25,7 @@ Do not copy the same long explanation into multiple places.
 - Install, run, test, and verification placeholders or links.
 - Hard constraints and stop conditions.
 - A small read-first index.
+- Stable pointers to the lane-root indexes and current stage summaries.
 - Links to the multi-session protocol, workflow, permissions, and `docs/meta/diayn_command_reference.md`.
 
 They should not contain:
@@ -34,6 +35,7 @@ They should not contain:
 - Long examples.
 - Full `/diayn` command semantics.
 - Tool-specific implementation details beyond the entry file's own tool context.
+- Full lane execution history; that belongs in `docs/lanes/<lane>/stages/<stage-id>/` and `docs/stages/<stage-id>/`.
 
 ## 3. Meta Documents
 

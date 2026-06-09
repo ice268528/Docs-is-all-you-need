@@ -19,8 +19,8 @@ The Controller should not directly implement lane code by default.
 
 For `/diayn-sync`, read:
 
-- Backend lane board, worklog, evidence, handoff, and review log.
-- Frontend lane board, worklog, evidence, handoff, and review log.
+- Backend lane board, evidence index, handoff, review log, and current stage detail files.
+- Frontend lane board, evidence index, handoff, review log, and current stage detail files.
 - Shared contracts.
 - `docs/shared/integration_issues.md`
 - `.diayn/worktree_manifest.md`
@@ -51,7 +51,7 @@ Sync result categories:
 For `/diayn-integration`, read:
 
 - Lane review logs for affected work.
-- Lane evidence.
+- Lane root evidence indexes and current stage evidence.
 - Shared contracts and shared types.
 - Integration issue records.
 - Build, lint, typecheck, smoke, or E2E evidence defined by the project.
@@ -64,6 +64,7 @@ For `/diayn-integration`, read:
 - Shared contract mismatches become shared integration issues or lane rework.
 - Cross-lane issues must be written where the responsible lane can see them.
 - Integration readiness can become `ready_for_e2e`; it does not become `owner_accepted`.
+- When the project uses stage-scoped integration records, write them under `docs/stages/<stage-id>/`.
 
 If integration finds a lane issue:
 
@@ -123,6 +124,7 @@ Controller sync and integration commands should write:
 - `.diayn/sync_log.md` for sync and integration events.
 - `docs/shared/integration_issues.md` for cross-lane issues.
 - Responsible lane boards or handoffs for lane-specific rework.
+- `docs/stages/<stage-id>/integration_summary.md`, `stage_closeout.md`, or `owner_acceptance_record.md` when the stage workflow requires them.
 - Owner question or backlog records for unresolved decisions.
 - Controller summary for short global state.
 

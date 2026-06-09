@@ -21,7 +21,8 @@ The user pastes the latest backend worker report under the command.
 ## Required Reading
 
 - User-pasted backend report.
-- Backend board, evidence, worklog, handoff, and review log.
+- Backend board, evidence index, handoff, review index, and the current stage detail files.
+- `docs/lanes/backend/stages/<stage-id>/`, including the stage-scoped worklog, evidence, and review log when present.
 - Relevant diff or commit range.
 - Relevant shared contracts.
 - `docs/meta/status_model.md`
@@ -30,6 +31,7 @@ The user pastes the latest backend worker report under the command.
 ## Allowed Writes
 
 - `docs/lanes/backend/review_log.md`
+- `docs/lanes/backend/stages/<stage-id>/review_log.md`
 - Backend board review fields and status.
 
 ## Forbidden
@@ -51,6 +53,8 @@ The user pastes the latest backend worker report under the command.
 - Findings and rework requirements.
 - Evidence checked.
 - Permission boundary check.
+
+The lane root review log may keep the current-stage summary; the detailed review decision belongs in the stage-scoped review log.
 
 ## Stop Conditions
 

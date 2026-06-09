@@ -14,6 +14,7 @@
 | Controller | `<controller_session_id>` |
 | Handoff | `docs/lanes/<lane>/handoff.md` |
 | Lane board | `docs/lanes/<lane>/board.md` |
+| Current stage detail dir | `docs/lanes/<lane>/stages/<stage-id>/` |
 
 ## User Startup Commands
 
@@ -46,11 +47,12 @@ Before implementation:
 - Read docs/meta/agent_doc_permissions.md.
 - Read docs/lanes/<lane>/board.md.
 - Read docs/lanes/<lane>/handoff.md.
+- Read docs/lanes/<lane>/stages/<stage-id>/ when it exists and the current stage is known.
 - Read relevant docs/shared/**.
 
 Then evaluate whether the next lane task is reasonable, feasible, and sufficiently specified.
 
-Execute only one clear task slice. After that slice, update same-lane evidence, worklog, board, and handoff notes as needed. Mark at most candidate_done. Stop and report so the user can send the work to review.
+Execute only one clear task slice. After that slice, update same-lane evidence index, stage worklog, board, and handoff notes as needed. Mark at most candidate_done. Stop and report so the user can send the work to review.
 ```
 
 ## Required Visibility Check
@@ -62,6 +64,7 @@ Execute only one clear task slice. After that slice, update same-lane evidence, 
 | `docs/meta/session_identity_protocol.md` | `<yes/no>` | `<notes>` |
 | `docs/lanes/<lane>/board.md` | `<yes/no>` | `<notes>` |
 | `docs/lanes/<lane>/handoff.md` | `<yes/no>` | `<notes>` |
+| `docs/lanes/<lane>/stages/<stage-id>/` | `<yes/no/not-applicable>` | `<notes>` |
 | `docs/shared/**` relevant to the task | `<yes/no/not-applicable>` | `<notes>` |
 
 ## Stop Reminder

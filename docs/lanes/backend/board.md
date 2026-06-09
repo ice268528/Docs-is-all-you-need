@@ -11,15 +11,16 @@
 | Current batch | `<batch_id>` |
 | WIP limit | 1 active `doing` item in this lane |
 | Handoff | `docs/lanes/backend/handoff.md` |
-| Evidence | `docs/lanes/backend/evidence.md` |
-| Worklog | `docs/lanes/backend/worklog.md` |
-| Review log | `docs/lanes/backend/review_log.md` |
+| Evidence index | `docs/lanes/backend/evidence.md` |
+| Stage worklog | `docs/lanes/backend/stages/<stage-id>/worklog.md` |
+| Stage review log | `docs/lanes/backend/stages/<stage-id>/review_log.md` |
+| Review summary index | `docs/lanes/backend/review_log.md` |
 
 ## Authorized Scope
 
 | Area | Allowed? | Notes |
 | --- | --- | --- |
-| Backend lane documents | Yes | Board, handoff updates, evidence, worklog |
+| Backend lane documents | Yes | Board, handoff updates, evidence index, stage-scoped worklog/evidence |
 | Backend implementation and tests | When authorized | Stay inside the task handoff |
 | Shared contracts | Stop first | Requires Controller or Owner authorization |
 | Frontend lane documents or code | No | Ask Controller |

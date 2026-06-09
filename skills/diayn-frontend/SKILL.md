@@ -49,7 +49,7 @@ Then stop. This mode only validates package command routing; it does not prove t
 
 1. Confirm the requested command is `/diayn-frontend`.
 2. Run the Identity Guard contract for frontend lane worker identity, path, manifest entry, and write boundary.
-3. Read only the frontend lane board, frontend handoff, relevant shared contracts, and current task slice.
+3. Read only the frontend lane board, frontend handoff, current stage detail files, relevant shared contracts, and current task slice.
 4. Read `docs/meta/diayn_command_reference.md` and `docs/meta/diayn_commands/frontend.md` when available.
 5. Route to DIAYN-managed engineering dependency skills only when UI, browser testing, TDD, debugging, accessibility, or performance guidance is needed.
    When routing is needed, read the installed routing map from `.diayn/dependency-routing/upstream-routing-map.md` if present; otherwise use `internal-role-skills/diayn-skill-router/references/upstream-routing-map.md` in the active DIAYN package. Resolve the platform-visible skill id before native Skill invocation.
@@ -61,12 +61,14 @@ Then stop. This mode only validates package command routing; it does not prove t
 3. Implement the smallest correct user-facing change inside lane boundaries.
 4. Add or update tests or browser checks where appropriate.
 5. Run targeted verification and broader checks when risk requires them.
-6. Record evidence, worklog, changed files, and handoff notes. Use `assets/lane/` as the default frontend worklog/evidence structure when the target project has no stronger local template.
+6. Record evidence, worklog, changed files, and handoff notes. Use `assets/lane/` as the default frontend worklog/evidence structure when the target project has no stronger local template, then write the detailed records into `docs/lanes/frontend/stages/<stage-id>/`.
 7. Stop at `candidate_done`; do not self-approve.
 
 ## Allowed Writes
 
-May edit frontend lane implementation files, frontend tests, frontend lane board, frontend evidence, frontend worklog, and frontend handoff.
+May edit frontend lane implementation files, frontend tests, frontend lane board, frontend evidence index, frontend handoff, and the stage-scoped frontend worklog and evidence files.
+
+The lane root `board.md`, `evidence.md`, `handoff.md`, and `review_log.md` are current-stage indexes; the detailed frontend worklog and evidence belong in `docs/lanes/frontend/stages/<stage-id>/`.
 
 Do not edit backend lane work, global planning docs, integration records, or Owner acceptance records unless the active task explicitly authorizes it.
 

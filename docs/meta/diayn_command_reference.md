@@ -131,16 +131,16 @@ The response must include:
 | Command | Evidence | Worklog | Review log | Sync log or Controller record |
 | --- | --- | --- | --- | --- |
 | `/diayn-init` | Source paths and quality findings when useful | Not required unless the project has a Controller worklog | Not applicable | Controller summary, Owner questions, draft project docs |
-| `/diayn-plan` | Planning rationale and acceptance criteria sources | Not required unless the project has a Controller worklog | Not applicable | Controller summary, lane boards, lane handoffs |
+| `/diayn-plan` | Planning rationale and acceptance criteria sources | Not required unless the project has a Controller worklog | Not applicable | Controller summary, lane boards, lane handoffs, stage plan |
 | `/diayn-worktrees` | Visibility check results | Not required unless the project has a Controller worklog | Not applicable | `.diayn/worktree_manifest.md`, `.diayn/session_registry.md` |
-| `/diayn-backend` | `docs/lanes/backend/evidence.md` | `docs/lanes/backend/worklog.md` | Not written by worker | Backend board and handoff notes |
-| `/diayn-frontend` | `docs/lanes/frontend/evidence.md` | `docs/lanes/frontend/worklog.md` | Not written by worker | Frontend board and handoff notes |
-| `/diayn-review-backend` | Evidence checked, recorded in review entry | Not required | `docs/lanes/backend/review_log.md` | Backend board review status |
-| `/diayn-review-frontend` | Evidence checked, recorded in review entry | Not required | `docs/lanes/frontend/review_log.md` | Frontend board review status |
-| `/diayn-sync` | Source lane states and review records | Not required | Not written by Controller sync | `.diayn/sync_log.md`, Controller summary |
-| `/diayn-integration` | Build, lint, typecheck, smoke, E2E, contract, and lane evidence checked | Not required | Lane review logs are read, not overwritten | `.diayn/sync_log.md`, `docs/shared/integration_issues.md`, Controller summary |
+| `/diayn-backend` | `docs/lanes/backend/evidence.md` as lane index; detailed evidence under `docs/lanes/backend/stages/<stage-id>/evidence.md` | `docs/lanes/backend/stages/<stage-id>/worklog.md` | Not written by worker | Backend board and handoff summary; current stage index |
+| `/diayn-frontend` | `docs/lanes/frontend/evidence.md` as lane index; detailed evidence under `docs/lanes/frontend/stages/<stage-id>/evidence.md` | `docs/lanes/frontend/stages/<stage-id>/worklog.md` | Not written by worker | Frontend board and handoff summary; current stage index |
+| `/diayn-review-backend` | Evidence checked from `docs/lanes/backend/stages/<stage-id>/evidence.md` and current lane index | Not required | `docs/lanes/backend/stages/<stage-id>/review_log.md`; lane root review summary/index | Backend board review status |
+| `/diayn-review-frontend` | Evidence checked from `docs/lanes/frontend/stages/<stage-id>/evidence.md` and current lane index | Not required | `docs/lanes/frontend/stages/<stage-id>/review_log.md`; lane root review summary/index | Frontend board review status |
+| `/diayn-sync` | Source lane root indexes plus current stage details and review records | Not required | Not written by Controller sync | `.diayn/sync_log.md`, Controller summary |
+| `/diayn-integration` | Build, lint, typecheck, smoke, E2E, contract, lane root indexes, and current stage evidence checked | Not required | Lane review logs are read, not overwritten | `.diayn/sync_log.md`, `docs/shared/integration_issues.md`, `docs/stages/<stage-id>/integration_summary.md`, Controller summary |
 | `/diayn-bug` | Owner feedback and acceptance failure details | Not required unless routed to a lane | Not applicable | Controller triage record, lane board/handoff, backlog or future preparation |
-| `/diayn-new` | Owner request and scope impact details | Not required unless routed to a lane | Not applicable | Controller triage record, lane board/handoff, backlog or future preparation |
+| `/diayn-new` | Owner request and scope impact details | Not required unless routed to a lane | Not applicable | Controller triage record, lane board/handoff, stage closeout or future preparation |
 | `/diayn-html` | Source report or decision docs used | Not required | Not applicable | HTML output pointer and any later Owner decision record |
 
 ## 5. Command Detail Index

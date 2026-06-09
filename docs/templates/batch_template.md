@@ -24,6 +24,8 @@ This template describes a bounded package of work. It does not override
   - `docs/lanes/<lane>/board.md`
 - Related handoff packets:
   - `docs/lanes/<lane>/handoff.md`
+- Related stage-scoped detail:
+  - `docs/lanes/<lane>/stages/<stage-id>/`
 
 ## 3. Allowed Work
 
@@ -40,8 +42,8 @@ This template describes a bounded package of work. It does not override
 ## 5. Verification And Evidence
 
 - Agent Engineering Verification: `<commands, checks, or inspection steps>`
-- Evidence location: `<docs/lanes/<lane>/evidence.md or equivalent>`
-- Review evidence: `<docs/lanes/<lane>/review_log.md or equivalent>`
+- Evidence location: `<docs/lanes/<lane>/stages/<stage-id>/evidence.md or equivalent>`
+- Review evidence: `<docs/lanes/<lane>/stages/<stage-id>/review_log.md or equivalent>`
 - Integration evidence: `<.diayn/sync_log.md / docs/shared/integration_issues.md / other>`
 
 ## 6. Status Boundary

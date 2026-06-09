@@ -219,23 +219,23 @@ function promptFor(commandName, targetRoot) {
     "diayn-init":
       "Initialize the minimal DIAYN harness documents for this existing fixture. Use the supplied facts as Owner-confirmed. Owner approval is granted to create missing DIAYN baseline scaffold files immediately when the audit reports no overwrite conflicts. Do not ask project_slug or scaffold-creation confirmation again.",
     "diayn-plan":
-      "Plan one stage for the auth fixture with backend and frontend task slices, review expectations, sync, integration, Owner acceptance, closeout, and next-stage baseline refresh. Resolve any existing OG-001 or OG-002 entries using the Owner-confirmed facts in this prompt. Do not leave open OwnerGate items for project slug, Owner, scope, stage goal, or lane applicability. Do not mark lane tasks candidate_done or done during planning; every planned lane task status must be todo. Write only these planning artifact types: one docs/stages/<stage-id>/stage_plan.md, docs/lanes/backend/board.md, docs/lanes/backend/handoff.md, docs/lanes/frontend/board.md, docs/lanes/frontend/handoff.md, and one docs/shared/<contract>.md shared contract note. After writing those files and updating TODO.md pointers, stop with a concise report.",
+      "Plan one stage for the auth fixture with backend and frontend task slices, review expectations, sync, integration, Owner acceptance, closeout, and next-stage baseline refresh. Resolve any existing OG-001 or OG-002 entries using the Owner-confirmed facts in this prompt. Do not leave open OwnerGate items for project slug, Owner, scope, stage goal, or lane applicability. Write these exact planning files first, before any long explanation: docs/stages/stage-1-auth-fixture/stage_plan.md, docs/lanes/backend/board.md, docs/lanes/backend/handoff.md, docs/lanes/frontend/board.md, docs/lanes/frontend/handoff.md, docs/shared/fixture_api_contract.md. Keep each file short. Backend board must contain BE-001 todo and BE-002 todo. Frontend board must contain FE-001 todo. Do not mark lane tasks candidate_done or done during planning. Update TODO.md pointers, then stop with a concise report.",
     "diayn-worktrees":
       `Prepare backend and frontend lane worktrees for stage-1-auth-fixture. Worktree creation is Owner-authorized for this clean automated fixture. First verify the controller working tree is clean, then run python .claude/skills/diayn-worktrees/scripts/worktree_plan.py --project-root . --project-slug minimal-fullstack-fixture --stage-id stage-1-auth-fixture --worktree-root ${fixtureWorktreeRoot} --execute --output .diayn/worktree_plan.json. Update .diayn/worktree_manifest.md with the resulting backend/frontend worktree paths, branches, and ready status. Write .diayn/session_registry.md. Write docs/lanes/backend/launch_prompt.md and docs/lanes/frontend/launch_prompt.md. Do not implement business code or start hidden worker/reviewer sessions.`,
     "diayn-backend":
-      "You are running from the registered backend lane worktree. Execute only backend task BE-001, the baseline evidence/worklog task. Do not introduce the intentional BE-002 defect yet. Do not change product behavior unless the existing verification requires a tiny backend-only fix. Run python validation/run_e2e.py --output docs/lanes/backend/stages/stage-1-auth-fixture/e2e_backend.json or an equivalent local fixture E2E command, create/update docs/lanes/backend/worklog.md and docs/lanes/backend/evidence.md, update docs/lanes/backend/board.md so BE-001 is candidate_done, leave BE-002 todo, and stop for /diayn-review-backend. Do not self-review, integrate, edit frontend files, or start hidden sessions.",
+      "You are running from the registered backend lane worktree. Execute only backend task BE-001, the baseline evidence/worklog task. Do not introduce the intentional BE-002 defect yet. Do not change product behavior unless the existing verification requires a tiny backend-only fix. Run python validation/run_e2e.py --output docs/lanes/backend/stages/stage-1-auth-fixture/e2e_backend.json or an equivalent local fixture E2E command, create/update docs/lanes/backend/stages/stage-1-auth-fixture/worklog.md and docs/lanes/backend/stages/stage-1-auth-fixture/evidence.md, update docs/lanes/backend/evidence.md as the current-stage evidence index, update docs/lanes/backend/board.md so BE-001 is exactly candidate_done, leave BE-002 todo, and stop for /diayn-review-backend. Do not write done, reviewed, approved, owner_accepted, or accepted for BE-001. If the backend board already says done or owner_accepted for BE-001, replace that with candidate_done before stopping. Do not self-review, integrate, edit frontend files, or start hidden sessions.",
     "diayn-frontend":
-      "You are running from the registered frontend lane worktree. Execute only frontend task FE-001, the baseline evidence/worklog task. Do not change product behavior unless the existing verification requires a tiny frontend-only fix. Run python validation/run_e2e.py --output docs/lanes/frontend/stages/stage-1-auth-fixture/e2e_frontend.json or an equivalent local fixture E2E command, create/update docs/lanes/frontend/worklog.md and docs/lanes/frontend/evidence.md, update docs/lanes/frontend/board.md so FE-001 is candidate_done, and stop for /diayn-review-frontend. Do not self-review, integrate, edit backend files, or start hidden sessions.",
+      "You are running from the registered frontend lane worktree. Execute only frontend task FE-001, the baseline evidence/worklog task. Do not change product behavior unless the existing verification requires a tiny frontend-only fix. First create the directory docs/lanes/frontend/stages/stage-1-auth-fixture. Run python validation/run_e2e.py --output docs/lanes/frontend/stages/stage-1-auth-fixture/e2e_frontend.json or an equivalent local fixture E2E command. Then write both required stage-scoped files: docs/lanes/frontend/stages/stage-1-auth-fixture/worklog.md and docs/lanes/frontend/stages/stage-1-auth-fixture/evidence.md. Also update docs/lanes/frontend/evidence.md only as the current-stage evidence index. Update docs/lanes/frontend/board.md so FE-001 is exactly candidate_done, and stop for /diayn-review-frontend. Do not self-review, integrate, edit backend files, or start hidden sessions.",
     "diayn-review-backend":
-      "You are running from the same registered backend lane worktree after backend worker activity has stopped. Review only backend-001 candidate_done evidence. Treat the backend board, worklog, evidence.md, and E2E JSON as the worker report for this fixture. Inspect the relevant diff and run python validation/run_e2e.py --output docs/lanes/backend/stages/stage-1-auth-fixture/review_e2e_backend.json or inspect equivalent local evidence. Write docs/lanes/backend/review_log.md with decision done or rejected, failure classification if relevant, tests/checks run, and next command. If evidence is credible, update docs/lanes/backend/board.md so backend-001 is done; keep backend-002 todo. Do not fix implementation, integrate, edit frontend files, or mark Owner acceptance.",
+      "You are running from the same registered backend lane worktree after backend worker activity has stopped. Review only backend-001 candidate_done evidence. Treat the backend board, stage-scoped worklog, stage-scoped evidence, lane evidence index, and E2E JSON as the worker report for this fixture. Inspect the relevant diff and run python validation/run_e2e.py --output docs/lanes/backend/stages/stage-1-auth-fixture/review_e2e_backend.json or inspect equivalent local evidence. Write docs/lanes/backend/stages/stage-1-auth-fixture/review_log.md with decision done or rejected, failure classification if relevant, tests/checks run, and next command; update docs/lanes/backend/review_log.md only as a current-stage summary index. If evidence is credible, update docs/lanes/backend/board.md so backend-001 is done; keep backend-002 todo. Do not fix implementation, integrate, edit frontend files, or mark Owner acceptance.",
     "diayn-review-frontend":
-      "You are running from the same registered frontend lane worktree after frontend worker activity has stopped. Review only frontend-001 candidate_done evidence. Treat the frontend board, worklog, evidence.md, and E2E JSON as the worker report for this fixture. Inspect the relevant diff and run python validation/run_e2e.py --output docs/lanes/frontend/stages/stage-1-auth-fixture/review_e2e_frontend.json or inspect equivalent local evidence. Write docs/lanes/frontend/review_log.md with decision done or rejected, failure classification if relevant, tests/checks run, and next command. If evidence is credible, update docs/lanes/frontend/board.md so frontend-001 is done. Do not fix implementation, integrate, edit backend files, or mark Owner acceptance.",
+      "You are running from the same registered frontend lane worktree after frontend worker activity has stopped. Review only frontend-001 candidate_done evidence. Treat the frontend board, stage-scoped worklog, stage-scoped evidence, lane evidence index, and E2E JSON as the worker report for this fixture. Inspect the relevant diff and run python validation/run_e2e.py --output docs/lanes/frontend/stages/stage-1-auth-fixture/review_e2e_frontend.json or inspect equivalent local evidence. Write docs/lanes/frontend/stages/stage-1-auth-fixture/review_log.md with decision done or rejected, failure classification if relevant, tests/checks run, and next command; update docs/lanes/frontend/review_log.md only as a current-stage summary index. If evidence is credible, update docs/lanes/frontend/board.md so frontend-001 is done. Do not fix implementation, integrate, edit backend files, or mark Owner acceptance.",
     "diayn-sync":
-      "You are running from the Controller root after backend and frontend review have stopped. Read .diayn/worktree_plan.json, then read backend/frontend board, worklog, evidence.md, review_log.md, and review E2E JSON from the registered lane worktrees. Synchronize documents/state only into the Controller root: copy or update docs/lanes/backend/review_log.md, docs/lanes/frontend/review_log.md, and any needed lane evidence pointers, write docs/stages/stage-1-auth-fixture/sync_log.md, and update TODO.md lane snapshots if needed. Do not edit backend/, frontend/, shared/, or validation/. Do not merge branches, integrate business code, run /diayn-integration, mark Owner acceptance, or start hidden sessions.",
+      `You are running from the Controller root after backend and frontend review have stopped. Keep this command short. Read .diayn/worktree_plan.json only to confirm the registered lane worktree paths. Then synchronize documents/state only into the Controller root. Copy or recreate these two review logs in the Controller root: docs/lanes/backend/stages/stage-1-auth-fixture/review_log.md from ${fixtureWorktreeRoot}/backend/docs/lanes/backend/stages/stage-1-auth-fixture/review_log.md, and docs/lanes/frontend/stages/stage-1-auth-fixture/review_log.md from ${fixtureWorktreeRoot}/frontend/docs/lanes/frontend/stages/stage-1-auth-fixture/review_log.md. If direct copy is awkward, write concise equivalent summaries that say backend review done and frontend review done. Write .diayn/sync_log.md with this exact sentence: No business code was merged. This was document/state sync only. Also mention backend review: done and frontend review: done. Skip nonessential lane root summary rewrites if time is tight. Do not edit backend/, frontend/, shared/, or validation/. Do not merge branches, integrate business code, run /diayn-integration, mark Owner acceptance, or start hidden sessions.`,
     "diayn-integration":
-      "You are running from the Controller root after /diayn-sync. Confirm backend and frontend review logs are done. Since the baseline lane slices should not contain product-code changes, record merge status as no-op/already aligned when appropriate rather than inventing a merge. Run python validation/run_e2e.py --output docs/stages/stage-1-auth-fixture/integration_e2e.json. Write docs/stages/stage-1-auth-fixture/integration_summary.md with reviewed lane inputs, merge status, shared contract consistency, build/lint/smoke/E2E evidence, failure classification, and next action toward Owner acceptance. Do not mark Owner acceptance, create closeout, start a new stage, or edit lane worktrees.",
+      "You are running from the Controller root after /diayn-sync. Confirm backend and frontend review logs are done. First write docs/stages/stage-1-auth-fixture/integration_summary.md with these short headings: Merge status, Contract consistency, Backend review: done, Frontend review: done, Build/lint/smoke/E2E evidence, Integration issues, Next action: Owner acceptance. Since the baseline lane slices should not contain product-code changes, record merge status as no-op / already aligned when appropriate rather than inventing a merge. Then run python validation/run_e2e.py --output docs/stages/stage-1-auth-fixture/integration_e2e.json and update the summary if needed. Do not mark Owner acceptance, create closeout, start a new stage, or edit lane worktrees.",
     "diayn-bug":
-      "You are running from the Controller root after Owner acceptance has been recorded for stage-1-auth-fixture. This is a Phase 12 side scenario: no active defect is being filed. Write docs/stages/stage-1-auth-fixture/bug_triage_noop.md with classification no_active_bug, affected scope none, responsible owner none, no rollback, no lane reassignment, and next action proceed_to_closeout. Do not edit implementation code, rewrite requirements, uncheck accepted TODO items, close the stage, delete worktrees, or start the next stage.",
+      "You are running from the Controller root after Owner acceptance has been recorded for stage-1-auth-fixture. This is a Phase 12 side scenario: no active defect is being filed. Write docs/stages/stage-1-auth-fixture/bug_triage_noop.md with these exact lines: Classification: no_active_bug. Affected scope: none. Responsible owner: none. Lane owner: none. No lane reassignment. Next action: proceed_to_closeout. Do not edit implementation code, rewrite requirements, uncheck accepted TODO items, close the stage, delete worktrees, or start the next stage.",
     "diayn-new":
       "You are running from the Controller root after Owner acceptance has been recorded for stage-1-auth-fixture. Treat the Owner-confirmed next-stage request as future preparation only: next stage id stage-2-follow-up, goal: keep a baseline refresh record for later validation without starting implementation. Write docs/stages/stage-1-auth-fixture/stage_closeout.md with accepted baseline, integration summary, Owner acceptance record, final evidence links, unresolved follow-ups, and worktree/branch retention notes. Write docs/stages/stage-2-follow-up/baseline_refresh.md showing that the next stage starts from the accepted baseline. Update TODO.md with closeout and next-stage pointers only. Do not implement code, re-plan lanes, delete worktrees, or alter accepted requirements.",
     "diayn-html":
@@ -463,17 +463,19 @@ function isBusinessCodePath(relative) {
 
 function collectLaneWorkerArtifact(laneRoot, laneName) {
   const boardPath = `docs/lanes/${laneName}/board.md`;
-  const worklogPath = `docs/lanes/${laneName}/worklog.md`;
-  const evidencePath = `docs/lanes/${laneName}/evidence.md`;
+  const stagePrefix = `docs/lanes/${laneName}/stages/stage-1-auth-fixture/`;
+  const worklogPath = `${stagePrefix}worklog.md`;
+  const evidencePath = `${stagePrefix}evidence.md`;
+  const evidenceIndexPath = `docs/lanes/${laneName}/evidence.md`;
   const lanePrefix = `docs/lanes/${laneName}/`;
   const laneFiles = laneRoot ? listRelativeFiles(laneRoot) : [];
   const worklogFiles = laneFiles.filter((relative) =>
-    relative === worklogPath || (relative.startsWith(lanePrefix) && relative.endsWith("/worklog.md")),
+    relative === worklogPath || (relative.startsWith(`${lanePrefix}stages/`) && relative.endsWith("/worklog.md")),
   );
   const evidenceFiles = laneFiles.filter((relative) =>
     relative === evidencePath ||
-    (relative.startsWith(`${lanePrefix}evidence/`) && !relative.endsWith("/")) ||
-    (relative.startsWith(lanePrefix) && relative.endsWith("/evidence.md")),
+    relative === evidenceIndexPath ||
+    (relative.startsWith(`${lanePrefix}stages/`) && relative.endsWith("/evidence.md")),
   );
   const boardText = laneRoot ? readRelativeFile(laneRoot, boardPath) : "";
   const worklogText = laneRoot ? worklogFiles.map((relative) => readRelativeFile(laneRoot, relative)).join("\n") : "";
@@ -485,8 +487,8 @@ function collectLaneWorkerArtifact(laneRoot, laneName) {
     produced_required_files: [...worklogFiles, ...evidenceFiles],
     produced_worklog_files: worklogFiles,
     produced_evidence_files: evidenceFiles,
-    has_worklog_artifact: worklogFiles.length > 0,
-    has_evidence_artifact: evidenceFiles.length > 0,
+    has_worklog_artifact: worklogFiles.includes(worklogPath),
+    has_evidence_artifact: evidenceFiles.includes(evidencePath),
     board_has_candidate_done: boardHasStatus(boardText, "candidate_done"),
     board_has_self_approved_done: boardHasStatus(boardText, "done") || boardHasStatus(boardText, "owner_accepted"),
     evidence_mentions_e2e: /validation\/run_e2e\.py|validation\\run_e2e\.py|E2E validation result|E2E output file|7\/7 checks|e2e_.*\.json/i.test(
@@ -498,7 +500,7 @@ function collectLaneWorkerArtifact(laneRoot, laneName) {
 
 function collectLaneReviewArtifact(laneRoot, laneName) {
   const boardPath = `docs/lanes/${laneName}/board.md`;
-  const reviewLogPath = `docs/lanes/${laneName}/review_log.md`;
+  const reviewLogPath = `docs/lanes/${laneName}/stages/stage-1-auth-fixture/review_log.md`;
   const laneFiles = laneRoot ? listRelativeFiles(laneRoot) : [];
   const boardText = laneRoot ? readRelativeFile(laneRoot, boardPath) : "";
   const reviewLogText = laneRoot ? readRelativeFile(laneRoot, reviewLogPath) : "";
@@ -518,9 +520,9 @@ function collectLaneReviewArtifact(laneRoot, laneName) {
 }
 
 function collectSyncArtifact(controllerRoot, checkpoint) {
-  const syncLogPath = "docs/stages/stage-1-auth-fixture/sync_log.md";
-  const backendReviewLogPath = "docs/lanes/backend/review_log.md";
-  const frontendReviewLogPath = "docs/lanes/frontend/review_log.md";
+  const syncLogPath = ".diayn/sync_log.md";
+  const backendReviewLogPath = "docs/lanes/backend/stages/stage-1-auth-fixture/review_log.md";
+  const frontendReviewLogPath = "docs/lanes/frontend/stages/stage-1-auth-fixture/review_log.md";
   const files = controllerRoot ? listRelativeFiles(controllerRoot) : [];
   const syncText = controllerRoot ? readRelativeFile(controllerRoot, syncLogPath) : "";
   const backendReviewLogText = controllerRoot ? readRelativeFile(controllerRoot, backendReviewLogPath) : "";
@@ -534,7 +536,7 @@ function collectSyncArtifact(controllerRoot, checkpoint) {
     ),
     backend_review_done_synced: reviewLogHasDecision(backendReviewLogText, "done") || /backend[\s\S]{0,120}\bdone\b/i.test(syncText),
     frontend_review_done_synced: reviewLogHasDecision(frontendReviewLogText, "done") || /frontend[\s\S]{0,120}\bdone\b/i.test(syncText),
-    sync_log_says_no_business_code_merge: /no business[- ]code (?:merge|merged)|did not merge business code|document\/state sync only|document\/state only|documents\/state only/i.test(syncText),
+    sync_log_says_no_business_code_merge: /no business[- ]code (?:merge|merged|was merged)|did not merge business code|document\/state sync only|document\/state only|documents\/state only/i.test(syncText),
     changed_paths: changedPaths,
     business_code_changed: changedPaths.some(isBusinessCodePath),
   };
@@ -594,7 +596,7 @@ function collectBugArtifact(controllerRoot, checkpoint) {
     required_files: [recordPath],
     produced_required_files: [recordPath].filter((relative) => files.includes(relative)),
     classification_no_active_bug: /no_active_bug|no active (?:defect|bug)|no bug intake/i.test(recordText),
-    records_no_scope_or_lane_owner: /affected scope\s*:?\s*`?none`?|responsible owner\s*:?\s*`?none`?|no lane reassignment/i.test(recordText),
+    records_no_scope_or_lane_owner: /affected scope\s*(?:[:|])\s*`?none`?|responsible owner\s*(?:[:|])\s*`?none`?|lane owner\s*(?:[:|])\s*`?none`?|no lane reassignment/i.test(recordText),
     next_action_closeout: /proceed_to_closeout|closeout/i.test(recordText),
     changed_paths: changedPaths,
     business_code_changed: changedPaths.some(isBusinessCodePath),

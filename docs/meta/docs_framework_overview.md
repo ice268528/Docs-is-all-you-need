@@ -49,7 +49,9 @@ these layers separate so entry files remain readable.
 | Controller summary | Global status and next-action summary | `TODO.md` |
 | Project facts | Goals, constraints, architecture, file index | `docs/project/**` |
 | Shared facts | Contracts, shared types, integration issues | `docs/shared/**` |
-| Lane work | Lane board, handoff, evidence, worklog, review log | `docs/lanes/<lane>/**` |
+| Lane entry indexes | Stable current-stage summary and dispatch surface | `docs/lanes/<lane>/board.md`, `handoff.md`, `evidence.md`, `review_log.md` |
+| Lane stage details | Stage-scoped worklog, evidence, and review records | `docs/lanes/<lane>/stages/<stage-id>/**` |
+| Stage results | Stage plans, integration results, acceptance, and closeout | `docs/stages/<stage-id>/**` |
 | Protocol | Roles, permissions, status, command semantics | `docs/meta/**` |
 | Templates | Copyable structures, not active state | `docs/templates/**` |
 | Examples | Non-core examples | `docs/examples/**` |
@@ -66,7 +68,7 @@ these layers separate so entry files remain readable.
 - next recommended action.
 
 Worker sessions do not update global `TODO.md` by default. Detailed execution
-belongs in lane boards, evidence, worklogs, and review logs.
+belongs in lane entry indexes, lane stage detail files, and review logs.
 
 ## 6. Status Authority
 
@@ -111,4 +113,4 @@ A new DIAYN project should have at least:
 - `docs/meta/status_model.md`;
 - `docs/meta/session_roles.md`;
 - `docs/meta/agent_doc_permissions.md`;
-- lane docs under `docs/lanes/<lane>/` when worker sessions are used.
+- lane entry indexes under `docs/lanes/<lane>/` and stage-scoped lane details under `docs/lanes/<lane>/stages/<stage-id>/` when worker sessions are used.

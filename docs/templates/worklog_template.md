@@ -1,61 +1,62 @@
 ---
-文档定位: "通用 Worklog 模板。"
-模板说明:
-  - "这是通用模板，不是当前项目实例。"
-  - "实际项目应复制到对应 stage / batch 目录后再填写。"
-  - "模板内的 stage_XX、B-XX-YY、T-001 等只是占位示例，不代表真实任务。"
+document_role: "Stage-scoped worklog template"
+template_status: "Generic template"
+permission: "Owner controlled template"
 ---
 
 # Worklog
 
-## 1. 来源
+> Copy this template to `docs/lanes/<lane>/stages/<stage-id>/worklog.md`. The lane root `docs/lanes/<lane>/board.md` remains the current index; do not let one worklog grow forever.
 
-- 阶段：`<stage_XX>`
-- Batch：`<B-XX-YY / 无>`
-- 关联 TODO：`/TODO.md`
-- 关联 Task Board：`<此处填写；无则写 无>`
-- 维护者：`<Coding Agent / Owner>`
+## 1. Source
 
-## 2. 时间线
+- Stage: `<stage_id>`
+- Lane: `<lane>`
+- Current lane index: `docs/lanes/<lane>/board.md`
+- Current handoff: `docs/lanes/<lane>/handoff.md`
+- Current lane evidence index: `docs/lanes/<lane>/evidence.md`
+- Current lane review index: `docs/lanes/<lane>/review_log.md`
+- Maintainer: `<Coding Agent / Owner / Controller>`
 
-| 时间 | 操作者 | 事件 | 关联任务 | 摘要 |
-|---|---|---|---|---|
-| `<YYYY-MM-DD HH:mm>` | `<Coding Agent>` | `<开始 / 修改 / 验证 / 阻塞 / 恢复 / 收尾>` | `<T-001>` | `<简短摘要>` |
+## 2. Timeline
 
-## 3. 任务执行记录
+| Time | Actor | Event | Task | Summary |
+| --- | --- | --- | --- | --- |
+| `<YYYY-MM-DD HH:mm>` | `<Coding Agent>` | `<start / modify / verify / block / recover / closeout>` | `<T-001>` | `<short summary>` |
 
-### T-001：<任务标题>
+## 3. Task Notes
 
-- 目标：`<behavior / expected outcome 摘要>`
-- 实际处理：`<此处填写关键实现或文档处理过程>`
-- 失败尝试：`<此处填写失败尝试摘要；无则写 无>`
-- 影响文件：`<此处填写路径摘要>`
+### T-001 `<task title>`
 
-## 4. 验证记录
+- Goal: `<behavior or expected outcome>`
+- What changed: `<implementation or document detail>`
+- Verification: `<command, check, or inspection>`
+- Follow-up: `<anything the next session must know>`
 
-| 时间 | 关联任务 | 命令 / 方式 | 结果 | evidence |
-|---|---|---|---|---|
-| `<YYYY-MM-DD HH:mm>` | `<T-001>` | `<命令 / 检查方式>` | `<pass / fail / skipped>` | `<日志摘要 / 截图 / 路径 / 未执行原因>` |
+## 4. Verification
 
-## 5. 真实外部调用记录
+| Time | Task | Command or check | Result | Evidence |
+| --- | --- | --- | --- | --- |
+| `<YYYY-MM-DD HH:mm>` | `<T-001>` | `<command or check>` | `<pass / fail / skipped>` | `<log summary, screenshot, path, or missing-evidence note>` |
 
-| 时间 | 调用对象 | 授权来源 | 结果 | 备注 |
-|---|---|---|---|---|
-| `<YYYY-MM-DD HH:mm>` | `<真实 API / provider / 服务>` | `<Owner 明确授权记录>` | `<结果摘要>` | `<成本 / 风险 / 回滚说明>` |
+## 5. External Calls
 
-如果没有真实外部调用，写：`无`。
+| Time | Target | Authorization source | Result | Notes |
+| --- | --- | --- | --- | --- |
+| `<YYYY-MM-DD HH:mm>` | `<real API / provider / service>` | `<Owner decision or n/a>` | `<result summary>` | `<cost, risk, rollback note>` |
 
-## 6. 遗留风险
+If there were no real external calls, write `none`.
 
-- `<此处填写风险、限制或后续验证建议；无则写 无>`
+## 6. Risks
 
-## 7. 迁移 / 归档说明
+- `<risks, limits, or follow-up verification suggestions>`
 
-- `<此处填写哪些内容已同步到 TODO / handoff / owner_questions / archive；无则写 无>`
+## 7. Archive Or Migration Notes
 
-## 8. 使用规则
+- `<what was synced to TODO, handoff, owner questions, archive, or stage closeout>`
 
-- worklog 可以记录详细命令、输出摘要、失败尝试和修复过程。
-- TODO 只保留一句话摘要和当前状态。
-- 不要把 worklog 当成新的超长 TODO；按阶段或 Batch 分区。
+## 8. Use Rules
 
+- The worklog may record detailed commands, outputs, failure attempts, and recovery steps.
+- `TODO.md` should keep only a short status summary.
+- Move stage-specific detail into a new stage file instead of expanding one forever-growing root worklog.

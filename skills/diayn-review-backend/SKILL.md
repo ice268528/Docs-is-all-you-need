@@ -30,7 +30,7 @@ Ask only when the fact is absent, ambiguous, contradicted by repository evidence
 
 If command arguments contain `DIAYN_PHASE11_INSTALLED_FLOW_FIXTURE`, this is an automated validation fixture. Use explicit Owner-confirmed command facts as final for this run when they match repository evidence. Do not ask again for project slug, Owner name, stage id, lane applicability, authorization facts, or a pasted worker report when backend lane board, worklog, evidence, and `candidate_done` task state are present in the current backend worktree.
 
-When this marker is present, review only the next backend `candidate_done` task slice. Compare the board, worklog, evidence, E2E artifact, and relevant backend diff. Run or inspect local verification as needed. Write `docs/lanes/backend/review_log.md`, decide `done` or `rejected`, update only backend review/board fields, and stop. Do not fix implementation, merge code, edit frontend work, start hidden sessions, or mark Owner acceptance.
+When this marker is present, review only the next backend `candidate_done` task slice. Compare the board, current stage worklog, current stage evidence, E2E artifact, and relevant backend diff. Run or inspect local verification as needed. Write `docs/lanes/backend/stages/<stage-id>/review_log.md`, decide `done` or `rejected`, update only backend review/board fields, and stop. Do not fix implementation, merge code, edit frontend work, start hidden sessions, or mark Owner acceptance.
 
 ## Validation Probe Mode
 
@@ -49,7 +49,7 @@ Then stop. This mode only validates package command routing; it does not prove t
 
 1. Confirm the requested command is `/diayn-review-backend`.
 2. Run the Identity Guard contract for backend review identity, path, manifest entry, and write boundary.
-3. Read the worker report, backend lane board, backend evidence, backend worklog, backend handoff, and relevant diff.
+3. Read the worker report, backend lane board, backend evidence index, backend handoff, current stage worklog/evidence/review detail, and relevant diff.
 4. Read `docs/meta/diayn_command_reference.md` and `docs/meta/diayn_commands/review_backend.md` when available.
 5. Route to DIAYN-managed review/testing/security/debugging dependency skills only when needed.
    When routing is needed, read the installed routing map from `.diayn/dependency-routing/upstream-routing-map.md` if present; otherwise use `internal-role-skills/diayn-skill-router/references/upstream-routing-map.md` in the active DIAYN package. Resolve the platform-visible skill id before native Skill invocation.
@@ -65,7 +65,9 @@ Then stop. This mode only validates package command routing; it does not prove t
 
 ## Allowed Writes
 
-May write backend review log, backend lane board review fields, review evidence, test files in approved test locations, and TODO uncheck/rejection notes when review fails.
+May write the stage-scoped backend review log, backend lane board review fields, review evidence, test files in approved test locations, and TODO uncheck/rejection notes when review fails.
+
+The lane root review log is the current-stage index. Write the detailed review decision in `docs/lanes/backend/stages/<stage-id>/review_log.md` and summarize back to the lane root only when needed.
 
 Do not merge code, approve Owner acceptance, or perform implementation fixes by default.
 

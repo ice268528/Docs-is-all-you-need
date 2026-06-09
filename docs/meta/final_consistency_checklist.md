@@ -28,7 +28,7 @@ When files disagree, resolve them in this order:
 | Done vs Owner acceptance | `done` is independent review acceptance; `owner_accepted` is business acceptance by the Owner. | Pass. |
 | Integration readiness | `ready_for_e2e` requires reviewed work and integration evidence. | Pass. |
 | Worktree path | Default path is `../worktrees/<project_slug>/<lane>`. | Pass. No stage-bound backend/frontend worktree path is required. |
-| Worker visibility | Worker launch and handoff docs require lane board, handoff, and shared docs to be visible. | Pass. |
+| Worker visibility | Worker launch and handoff docs require lane board, handoff, current stage detail, and shared docs to be visible. | Pass. |
 | `.diayn/` boundary | Shared `.diayn/*.md` files may be project authority; `.diayn/local/**` is local-only. | Pass. |
 | Entry files | `AGENTS.md`, `CLAUDE.md`, and `SKILL.md` stay short and link outward. | Pass. |
 | Project neutrality | Core protocol uses placeholders and lanes, not a specific product or stack. | Pass. |
@@ -44,7 +44,7 @@ Some older scaffold files still contain single-session terms such as
 
 - `docs/meta/status_model.md` defines canonical multi-session states.
 - `docs/meta/legacy_migration_guide.md` explains how to migrate older state names.
-- New lane work uses `docs/lanes/**` and the lane board template.
+- New lane work uses lane root indexes plus `docs/lanes/<lane>/stages/<stage-id>/**` and the lane board template.
 
 Do not silently rewrite legacy project history. Migrate active work deliberately
 and preserve evidence links.

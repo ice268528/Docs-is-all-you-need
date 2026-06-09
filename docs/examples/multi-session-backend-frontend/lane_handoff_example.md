@@ -18,8 +18,9 @@ Required reads:
 
 - `docs/lanes/backend/board.md`
 - `docs/lanes/backend/handoff.md`
-- `docs/lanes/backend/evidence.md`
-- `docs/lanes/backend/worklog.md`
+- `docs/lanes/backend/evidence.md` as the lane evidence index
+- `docs/lanes/backend/stages/<stage-id>/worklog.md`
+- `docs/lanes/backend/stages/<stage-id>/evidence.md`
 - `docs/shared/**` relevant to the task
 
 Worker report shape:

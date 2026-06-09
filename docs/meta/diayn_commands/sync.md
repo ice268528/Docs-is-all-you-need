@@ -17,9 +17,10 @@ The Controller needs to summarize lane state after worker or review activity.
 
 ## Required Reading
 
-- Backend and frontend boards.
+- Backend and frontend boards and current-stage indexes.
 - Backend and frontend review logs.
 - Shared integration issues.
+- Current stage detail files when the sync needs them.
 - Global controller summary.
 - `.diayn/sync_log.md`
 - `docs/meta/controller_sync_integration_protocol.md`
@@ -29,6 +30,7 @@ The Controller needs to summarize lane state after worker or review activity.
 - `.diayn/sync_log.md`
 - Global controller summary.
 - Lane board sync fields when Controller authority applies.
+- Lane root summary/index files when Controller authority applies.
 - Owner question or blocker records.
 
 ## Forbidden
@@ -49,6 +51,8 @@ The Controller needs to summarize lane state after worker or review activity.
 - Lane status snapshot.
 - Open blockers and OwnerGate items.
 - Next recommended command.
+
+When the project uses stage-scoped details, record the current stage id and the lane detail paths that were synchronized.
 
 ## Stop Conditions
 

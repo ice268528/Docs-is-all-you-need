@@ -42,13 +42,13 @@ Then stop. This mode only validates package command routing; it does not prove t
 
 If the command arguments or current user message contain `DIAYN_PHASE11_INSTALLED_FLOW_FIXTURE`, use the provided Owner-confirmed facts for the controlled fixture and do not ask for already supplied project identity, stage, lane, or approval facts.
 
-In this mode, run from the Controller root after backend/frontend review has stopped. Read `.diayn/worktree_plan.json`, the lane boards, worklogs, evidence files, and review logs from the registered backend/frontend worktrees. Synchronize only DIAYN documents and state into the Controller root, then write `docs/stages/stage-1-auth-fixture/sync_log.md`. Update `TODO.md` lane snapshots only if needed. Do not edit `backend/`, `frontend/`, `shared/`, or `validation/`; do not merge branches or business code; do not run integration; do not mark Owner acceptance.
+In this mode, run from the Controller root after backend/frontend review has stopped. Read `.diayn/worktree_plan.json`, the lane root indexes, current stage worklogs, evidence files, and review logs from the registered backend/frontend worktrees. Synchronize only DIAYN documents and state into the Controller root, then write `.diayn/sync_log.md`. Update `TODO.md` lane snapshots only if needed. Do not edit `backend/`, `frontend/`, `shared/`, or `validation/`; do not merge branches or business code; do not run integration; do not mark Owner acceptance.
 
 ## Progressive Startup
 
 1. Confirm the requested command is `/diayn-sync`.
 2. Run the Identity Guard contract for a Controller sync workflow.
-3. Read lane boards, review logs, handoffs, manifest entries, and current Controller summary only as needed.
+3. Read lane boards, review logs, handoffs, manifest entries, current stage detail files when needed, and current Controller summary only as needed.
 4. Read `docs/meta/diayn_command_reference.md` and `docs/meta/diayn_commands/sync.md` when available.
 
 ## Workflow
@@ -56,7 +56,7 @@ In this mode, run from the Controller root after backend/frontend review has sto
 1. Collect reviewed lane state, blockers, handoff updates, and OwnerGate changes.
 2. Synchronize state and documents between Controller and lane worktrees.
 3. Do not merge business code or claim integration.
-4. Record sync summary, conflicts, and next action using `assets/sync/sync_log.md` when no target-project template exists.
+4. Record sync summary, conflicts, and next action using `assets/sync/sync_log.md` when no target-project template exists. Keep lane root indexes short when stage-scoped details exist.
 5. If both applicable lanes are reviewed, prepare for `/diayn-integration`.
 
 ## Allowed Writes
