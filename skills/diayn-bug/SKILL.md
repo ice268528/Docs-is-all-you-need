@@ -22,15 +22,15 @@ Treat explicit facts in the current command arguments or current user message as
 
 The literal phrase `Owner-confirmed project_slug = <value>` is a direct Owner answer. Use `<value>` as the project slug and do not ask for it again unless repository evidence contradicts it.
 
-If the command arguments say scaffold creation is approved, or say all OwnerGate choices needed for the automated fixture are approved, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
+If the command arguments say scaffold creation is approved, or explicitly resolve all OwnerGate choices needed for this run, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
 
 Ask only when the fact is absent, ambiguous, contradicted by repository evidence, or would cause existing user content to be overwritten without a preservation decision.
 
-## Phase 11 Installed-Flow Fixture Mode
+## Explicit Owner-Confirmed Execution Mode
 
-If command arguments contain `DIAYN_PHASE11_INSTALLED_FLOW_FIXTURE`, this is an automated validation side scenario. Use explicit Owner-confirmed command facts as final for this run when they match repository evidence.
+If command arguments include explicit Owner-confirmed defect or acceptance facts, use them when they match repository evidence.
 
-In this mode, run from the Controller root after Owner acceptance has been recorded. If the command states that no active defect is being filed, write `docs/stages/stage-1-auth-fixture/bug_triage_noop.md` with classification `no_active_bug`, affected scope `none`, responsible owner `none`, no rollback, no lane reassignment, and next action `proceed_to_closeout`. Do not edit implementation code, rewrite requirements, uncheck accepted TODO items, close the stage, delete worktrees, or start the next stage.
+In this mode, run from the Controller root after Owner acceptance has been recorded. If the command states that no active defect is being filed, write `docs/stages/<stage-id>/bug_triage_noop.md` with classification `no_active_bug`, affected scope `none`, responsible owner `none`, no rollback, no lane reassignment, and next action `proceed_to_closeout`. Do not edit implementation code, rewrite requirements, uncheck accepted TODO items, close the stage, delete worktrees, or start the next stage.
 
 ## Validation Probe Mode
 

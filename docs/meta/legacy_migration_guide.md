@@ -41,9 +41,9 @@ evidence exists.
 | --- | --- | --- |
 | `TODO.md` detailed task board | `docs/lanes/<lane>/board.md` plus `docs/lanes/<lane>/stages/<stage-id>/**` | Keep `TODO.md` as a Controller summary; move active lane detail to lane indexes and stage-scoped lane records. |
 | `docs/templates/task_board_template.md` | `docs/templates/lane_board_template.md` | Use the lane board template for new active multi-session work. |
-| `docs/handoffs/stage_summary_template.md` | `docs/templates/handoff_packet_template.md` and lane handoffs | Preserve old summaries as history; dispatch new lane work through handoff packets. |
-| `docs/testing/manual_test_template.md` | `docs/templates/owner_experience_acceptance_template.md` | Owner acceptance should be business-facing. Engineering verification remains evidence for agents. |
-| `docs/reports/codex_prompt_handoffs/**` | historical archive or example-only material | Do not make historical prompt handoffs required active protocol. |
+| Older handoff summary files | `docs/templates/handoff_packet_template.md` and lane handoffs | Preserve old summaries as history; dispatch new lane work through handoff packets. |
+| Older manual test templates | `docs/templates/owner_experience_acceptance_template.md` | Owner acceptance should be business-facing. Engineering verification remains evidence for agents. |
+| Historical prompt handoff reports | local archive or example-only material | Do not make historical prompt handoffs required active protocol. |
 | local identity notes | `.diayn/local/session_identity.md` | Keep local-only; do not commit `.diayn/local/**`. |
 
 ## Migration Steps

@@ -1,4 +1,4 @@
----
+﻿---
 name: diayn-html
 description: Runs the DIAYN /diayn-html workflow. Use when the Owner asks for a readable HTML decision aid, comparison, report, or acceptance summary while Markdown remains the durable authority.
 ---
@@ -21,7 +21,7 @@ Treat explicit facts in the current command arguments or current user message as
 
 The literal phrase `Owner-confirmed project_slug = <value>` is a direct Owner answer. Use `<value>` as the project slug and do not ask for it again unless repository evidence contradicts it.
 
-If the command arguments say scaffold creation is approved, or say all OwnerGate choices needed for the automated fixture are approved, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
+If the command arguments say scaffold creation is approved, or explicitly resolve all OwnerGate choices needed for this run, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
 
 Ask only when the fact is absent, ambiguous, contradicted by repository evidence, or would cause existing user content to be overwritten without a preservation decision.
 
@@ -38,11 +38,11 @@ FIRST_STOP: The request is really for a durable requirement change and no Markdo
 
 Then stop. This mode only validates package command routing; it does not prove the full workflow.
 
-## Phase 11 Installed-Flow Fixture Mode
+## Explicit Owner-Confirmed Execution Mode
 
-If the command arguments or current user message contain `DIAYN_PHASE11_INSTALLED_FLOW_FIXTURE`, use the provided Owner-confirmed facts for the controlled fixture and do not ask for already supplied project identity, stage, lane, integration, or acceptance facts.
+If the command arguments or current user message include explicit Owner-confirmed project facts, use them when they match repository evidence and do not ask for already supplied project identity, stage, lane, integration, or acceptance facts.
 
-In this mode, run from the Controller root after `/diayn-integration`. If the command states that the Owner accepts `stage-1-auth-fixture`, read the integration summary and write the durable Markdown acceptance record at `docs/stages/stage-1-auth-fixture/owner_acceptance_record.md`. The record must include the sentence: `This Markdown record is authoritative; any HTML is only a readable aid.` Optionally write `docs/stages/stage-1-auth-fixture/owner_acceptance_summary.html` as a readable aid. Do not change implementation code, rewrite requirements, close the stage, delete worktrees, or start the next stage.
+In this mode, run from the Controller root after `/diayn-integration`. If the command states that the Owner accepts the current stage, read the integration summary and write the durable Markdown acceptance record at `docs/stages/<stage-id>/owner_acceptance_record.md`. The record must include the sentence: `This Markdown record is authoritative; any HTML is only a readable aid.` Optionally write `docs/stages/<stage-id>/owner_acceptance_summary.html` as a readable aid. Do not change implementation code, rewrite requirements, close the stage, delete worktrees, or start the next stage.
 
 ## Progressive Startup
 

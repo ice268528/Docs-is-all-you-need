@@ -10,7 +10,7 @@ This project uses DIAYN as a document-driven workflow. Repository documents are 
 
 - Project name: `<project name>`
 - Project goal: `docs/project/project_brief.md`
-- Current stage: `docs/stages/stage_XX_goal.md`
+- Current stage: none in this source repository; target projects create `docs/stages/<stage-id>/` during DIAYN runs.
 - Controller summary: `TODO.md`
 - Long-term constraints: `docs/project/implementation_constraints.md`
 - Multi-session protocol: `docs/meta/multi_session_collaboration_protocol.md`
@@ -24,10 +24,10 @@ Before DIAYN role preflight, answer the five project-level cold-start questions:
 | Question | Primary source |
 | --- | --- |
 | What system is this? | `README.md`, `docs/project/project_brief.md` |
-| How is it organized? | This file, `docs/project/file_index.md`, `docs/lanes/**`, `docs/shared/**` |
+| How is it organized? | This file, `docs/project/file_index.md`, package/plugin directories, `skills/**` |
 | How do I run it? | This file, project tool files, project docs |
-| How do I verify it? | `docs/testing/test_strategy.md`, lane evidence, Owner acceptance docs |
-| Where is the work now? | `TODO.md`, lane boards, handoffs, review logs |
+| How do I verify it? | Install docs plus platform runtime checks selected by the Owner |
+| Where is the work now? | `TODO.md` and the current request |
 
 These questions are for understanding the project. The DIAYN execution preflight is a second layer for role, lane, worktree, permission, stop condition, and reporting checks.
 
@@ -51,7 +51,8 @@ Fill these commands during project initialization. Do not infer them from chat h
 <lint or typecheck command>
 ```
 
-Verification policy: `docs/testing/test_strategy.md`.
+Verification policy: use the relevant platform install guide and the active
+Owner acceptance notes for the current run.
 
 ## 4. Multi-Session Rules
 
@@ -102,7 +103,7 @@ Read the smallest set needed for the current task.
 | Worktree lane startup | `docs/meta/diayn_worktree_workflow.md` |
 | Owner decisions | `docs/meta/owner_decision_ux_protocol.md` |
 | Owner acceptance | `docs/meta/owner_acceptance_protocol.md` |
-| Testing and acceptance | `docs/testing/test_strategy.md` and active acceptance docs |
+| Testing and acceptance | platform install docs and active Owner acceptance notes |
 | Code style and edit boundary | `docs/meta/agent_code_style_guide.md` |
 | Reporting and clean state | `docs/meta/agent_reporting_guide.md` |
 | Progressive disclosure | `docs/meta/progressive_disclosure_rules.md` |
@@ -120,4 +121,4 @@ Stop and ask when:
 - Existing documents conflict and continuing would silently choose one interpretation.
 - Verification cannot be run and the missing verification affects completion claims.
 
-Keep this entry file concise. Put durable rules in `docs/meta/**`, long examples in examples or references, and active task state in the appropriate project or lane documents.
+Keep this entry file concise. Put durable rules in `docs/meta/**`. Target projects may generate lane, stage, shared, and acceptance documents during DIAYN runs; this source repository should stay focused on public install surfaces, workflow skills, package payloads, and user documentation.

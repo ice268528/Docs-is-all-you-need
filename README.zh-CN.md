@@ -2,41 +2,51 @@
 
 [English](README.md)
 
-Docs-is-all-you-need，简称 DIAYN，是一个面向多会话 coding agent 协作的文档驱动 workflow pack。它帮助你把一个模糊想法或需求，逐步变成一个可以规划、分工、审查、同步和验收的项目，而且不会让项目事实在多轮对话中漂移。
+DIAYN 是一个面向多会话 coding agent 的文档驱动工作流包。它会把一个
+模糊想法或需求，逐步整理成可以规划、分工、审查、同步、集成和 Owner
+验收的阶段化项目。
+
+DIAYN 不是应用框架。它是一个 skill/plugin 包，用来帮助 coding agent
+把需求、工作状态、证据和验收记录放在离项目代码足够近的位置。
+
+## 当前状态
+
+| 平台 | 状态 | 用户主入口 |
+| --- | --- | --- |
+| Claude Code plugin | 已支持 | `/diayn:init`、`/diayn:plan`、`/diayn:backend` 等 |
+| Codex Desktop plugin | 已支持 | Codex skills，例如 `$diayn-init`、`$diayn-plan`、`$diayn-backend` |
+| Claude project-local fallback | 已支持的备用方式 | 裸 `/diayn-init`、`/diayn-plan`、`/diayn-backend` |
+| Codex project-local package | 已支持的备用方式 | 项目内 Codex skills，例如 `$diayn-init` |
+| OpenCode | TODO | 暂不声明支持 |
+
+DIAYN 还内置了一组锁定版本的 `agent-skills` 依赖 skills。使用已支持的
+DIAYN 安装方式时，用户不需要再单独安装 `agent-skills`。
 
 ## 适合谁
 
-- 想把一个想法整理成清晰项目计划的 Owner。
-- 需要多个 agent 会话协作、并保持同一份项目事实的团队。
-- 想用 Claude Code 插件方式开始 DIAYN 的用户。
-- 想在 Codex 中使用当前 skills 安装包，或想测试 Codex Desktop 插件
-  candidate 的用户。
+- 想把原始想法整理成清晰实现计划的 Owner。
+- 需要多个 coding-agent 会话协作的人，例如后端、前端、审查、集成和验收。
+- 想在 Claude Code 里使用 `/diayn:*` 插件工作流的用户。
+- 想在 Codex Desktop 里把 DIAYN 作为 skills 安装使用的用户。
 
 ## 快速开始
 
-### Claude Code 插件安装
+### Claude Code 插件
 
-把下面两行复制到 Claude Code 里执行：
+把下面几行复制到 Claude Code 里执行：
 
 ```text
 /plugin marketplace add ice268528/Docs-is-all-you-need
-/plugin install diayn@diayn-local-alpha
-```
-
-然后从这里开始：
-
-```text
+/plugin install diayn@diayn
 /diayn:init
 ```
 
-DIAYN 会在需要时继续追问你，帮助澄清需求，然后创建项目所需的文档和起始文件。
+Claude Code 插件模式使用带命名空间的命令，例如 `/diayn:init` 和
+`/diayn:plan`。
 
-### Codex Desktop 插件 candidate
+### Codex Desktop 插件
 
-Codex Desktop 当前通过应用界面添加插件市场；这个插件 candidate 不要求你使用
-Codex CLI。
-
-在 Codex Desktop 里打开“添加插件市场”，填写：
+打开 Codex Desktop，选择“添加插件市场”，按下面填写：
 
 ```text
 来源：git@github.com:ice268528/Docs-is-all-you-need.git
@@ -46,98 +56,115 @@ Git 引用：main
 plugins/diayn
 ```
 
-这样稀疏拉取后，Codex 市场文件会落在
-`.agents/plugins/marketplace.json`，插件载荷会保留在 `plugins/diayn/`。
+两个稀疏路径要填在同一个“稀疏路径”输入框里，每行一个。第一行提供
+marketplace manifest，第二行提供 DIAYN 插件负载。
 
-然后把插件列表筛选器从 `Built by OpenAI` 切到全部或对应市场，再搜索
-`diayn`。这条路径仍是 candidate，只有新的 Codex Desktop 安装、发现和调用
-证据跑通后，才能声明 runtime 已验证。
+安装 DIAYN 插件后，在目标项目里从这里开始：
+
+```text
+$diayn-init initialize this project with DIAYN
+```
+
+后续按流程继续使用 `$diayn-plan`、`$diayn-worktrees`、`$diayn-backend`、
+`$diayn-frontend`、`$diayn-review-backend`、`$diayn-review-frontend`、
+`$diayn-sync` 和 `$diayn-integration`。
 
 ## 核心工作流
 
 ```mermaid
 flowchart TD
-  A["想法 / 需求"] --> B["/diayn:init"]
-  B --> C["项目简报 + 起始文档"]
-  C --> D["/diayn:plan"]
-  D --> E["worktrees"]
-  E --> F["后端 lane"]
-  E --> G["前端 lane"]
-  F --> H["review"]
+  A["想法或需求"] --> B["初始化"]
+  B --> C["项目简报和起始文档"]
+  C --> D["规划阶段和 lane 任务"]
+  D --> E["准备 worktrees"]
+  E --> F["Backend lane"]
+  E --> G["Frontend lane"]
+  F --> H["Lane review"]
   G --> H
-  H --> I["/diayn:sync"]
-  I --> J["/diayn:integration"]
-  J --> K["Owner acceptance"]
+  H --> I["同步文档和状态"]
+  I --> J["集成检查"]
+  J --> K["Owner 验收"]
 ```
 
-如果 review 发现问题，工作会被送回对应 lane 继续处理。
+如果证据、测试、contract 或验收标准不够，审查阶段可以把工作退回对应
+lane 继续处理。
 
-## 常用命令
+## 命令对照
 
-下表展示 Claude Code plugin 命令和 Claude project-local fallback 形式。
-Codex 当前已验证的是 skills package；Codex 中直接 slash 调用的行为仍需要
-Desktop runtime 证据。
+| 工作流 | Claude plugin | Codex plugin | Project-local fallback |
+| --- | --- | --- | --- |
+| 初始化 / 改造 | `/diayn:init` | `$diayn-init` | `/diayn-init` 或 `$diayn-init` |
+| 规划 | `/diayn:plan` | `$diayn-plan` | `/diayn-plan` 或 `$diayn-plan` |
+| 准备 worktrees | `/diayn:worktrees` | `$diayn-worktrees` | `/diayn-worktrees` 或 `$diayn-worktrees` |
+| 后端 lane | `/diayn:backend` | `$diayn-backend` | `/diayn-backend` 或 `$diayn-backend` |
+| 前端 lane | `/diayn:frontend` | `$diayn-frontend` | `/diayn-frontend` 或 `$diayn-frontend` |
+| 后端审查 | `/diayn:review-backend` | `$diayn-review-backend` | `/diayn-review-backend` 或 `$diayn-review-backend` |
+| 前端审查 | `/diayn:review-frontend` | `$diayn-review-frontend` | `/diayn-review-frontend` 或 `$diayn-review-frontend` |
+| 同步文档 / 状态 | `/diayn:sync` | `$diayn-sync` | `/diayn-sync` 或 `$diayn-sync` |
+| 集成 | `/diayn:integration` | `$diayn-integration` | `/diayn-integration` 或 `$diayn-integration` |
+| Bug 分流 | `/diayn:bug` | `$diayn-bug` | `/diayn-bug` 或 `$diayn-bug` |
+| 新阶段 / 需求变更 | `/diayn:new` | `$diayn-new` | `/diayn-new` 或 `$diayn-new` |
+| HTML 报告 | `/diayn:html` | `$diayn-html` | `/diayn-html` 或 `$diayn-html` |
 
-| Workflow | Command | When to use |
-| --- | --- | --- |
-| 初始化 / 改造 | `/diayn:init`（fallback 中是 `/diayn-init`） | 从一个想法开始，或者把 DIAYN 接入现有项目。 |
-| 计划 | `/diayn:plan`（`/diayn-plan`） | 把当前目标拆成阶段、任务和分工。 |
-| worktrees | `/diayn:worktrees`（`/diayn-worktrees`） | 在真正开发前准备 lane 工作区。 |
-| 后端 lane | `/diayn:backend`（`/diayn-backend`） | 处理当前阶段的后端任务。 |
-| 前端 lane | `/diayn:frontend`（`/diayn-frontend`） | 处理当前阶段的前端任务。 |
-| 后端审查 | `/diayn:review-backend`（`/diayn-review-backend`） | 在合并或交接前审查后端结果。 |
-| 前端审查 | `/diayn:review-frontend`（`/diayn-review-frontend`） | 在合并或交接前审查前端结果。 |
-| 同步文档 / 状态 | `/diayn:sync`（`/diayn-sync`） | 同步 lane 状态、文档和共享项目事实。 |
-| 集成 | `/diayn:integration`（`/diayn-integration`） | 在结束一个阶段前检查最终合并结果。 |
-| Bug 分流 | `/diayn:bug`（`/diayn-bug`） | 处理新 bug 或意外失败。 |
-| 新阶段 | `/diayn:new`（`/diayn-new`） | 开始下一阶段，或者记录一块新的工作。 |
-| HTML 报告 | `/diayn:html`（`/diayn-html`） | 生成或刷新 DIAYN 文档的 HTML 视图。 |
+fallback 列只适用于 project-local package 安装。Claude Code plugin 模式请使用
+`/diayn:*`；Codex Desktop plugin 模式请使用 Codex 从插件里安装出来的 DIAYN
+skills。
 
-## DIAYN 会给项目添加什么
+## DIAYN 会给目标项目添加什么
 
 ```mermaid
 flowchart LR
-  P["你的项目"] --> A["CLAUDE.md 或 AGENTS.md"]
+  P["目标项目"] --> A["CLAUDE.md 或 AGENTS.md"]
   P --> B["TODO.md"]
   P --> C[".diayn/"]
   P --> D["docs/project/"]
   P --> E["docs/stages/"]
-  P --> F["lane / review / acceptance docs"]
+  P --> F["docs/lanes/"]
+  P --> G["review 和 acceptance 记录"]
 ```
 
-常见会生成或维护的文件包括：
+通常会生成或维护这些文件：
 
-- 平台入口文件：`CLAUDE.md` 或 `AGENTS.md`
-- `TODO.md`：当前项目摘要
-- `.diayn/`：DIAYN 控制文件和元数据
-- `docs/project/`：项目简报和文件索引
-- `docs/stages/`：阶段级文档
-- lane、review、acceptance 文档：用于当前工作流
+- 平台入口文件：Claude Code 使用 `CLAUDE.md`，Codex、OpenCode 和通用 agent
+  使用 `AGENTS.md`；
+- `TODO.md`：当前项目摘要；
+- `.diayn/`：DIAYN 控制文件和元数据；
+- `docs/project/`：项目简报、文件索引和 harness audit；
+- `docs/stages/`：阶段计划、集成总结、收尾和 Owner 验收记录；
+- `docs/lanes/`：backend/frontend lane board、handoff、evidence 和 review log。
 
-## 其他安装方式
+这些文件是在 DIAYN 运行的目标项目里生成的，不要求全部出现在这个源码仓库里。
 
-- Claude project-local fallback：当你想在目标项目里直接使用裸
-  `/diayn-*` 命令时使用这条路径。详情见
-  [docs/install/claude-code.md](docs/install/claude-code.md)。
-- Codex：当前已验证的是安装到 `.codex/skills/` 或 Codex Home skills
-  的 skills package。Codex Desktop plugin marketplace candidate 使用
-  两行稀疏路径：`.agents/plugins` 和 `plugins/diayn`；但还没有 runtime 证据。详情见
-  [docs/install/codex_skills.md](docs/install/codex_skills.md) 和
-  [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md)。
-- OpenCode / generic：详情见
-  [docs/install/README.md](docs/install/README.md)。
+## 公开仓库结构
+
+| 路径 | 用途 |
+| --- | --- |
+| `.claude-plugin/` 和 `.claude/commands/` | Claude Code 插件 manifest 和 `/diayn:*` command adapter |
+| `.agents/plugins/` 和 `plugins/diayn/` | Codex Desktop marketplace manifest 和插件负载 |
+| `skills/` | 12 个 DIAYN workflow skills 的权威来源 |
+| `packages/claude-project-local/` | Claude project-local fallback 包 |
+| `packages/codex-project-local/` | Codex project-local fallback 包 |
+| `docs/install/` | 安装文档 |
+| `docs/meta/` 和 `docs/templates/` | 稳定工作流协议和模板 |
+
+维护者专用的源快照、验证证据、adapter 实验和旧候选包，不放进公开远程仓库。
+如果维护者本机需要保留，它们放在被忽略的 `docs/local-maintainer/` 目录下。
+这不代表运行时依赖 skills 被删除了；打包后的第三方 dependency skills 仍然保留在
+plugin 和 fallback package 的安装负载里。
+
+## 参考项目
+
+DIAYN 的 skill 打包方式和跨 agent 安装面，参考了这两个项目：
+
+- [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)
+- [obra/superpowers](https://github.com/obra/superpowers)
 
 ## 更多文档
 
-如果你想看用户入口背后的细节，可以继续读：
-
-- [docs/install/README.md](docs/install/README.md)
-- [docs/install/claude-code.md](docs/install/claude-code.md)
-- [docs/install/codex_skills.md](docs/install/codex_skills.md)
-- [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md)
-- [docs/install/codex_desktop_marketplace_fix_report.md](docs/install/codex_desktop_marketplace_fix_report.md)
-- [docs/qa/claude-plugin-runtime-acceptance.md](docs/qa/claude-plugin-runtime-acceptance.md)
-- [docs/meta/diayn_command_reference.md](docs/meta/diayn_command_reference.md)
-- [docs/meta/diayn_commands/](docs/meta/diayn_commands/)
-- [docs/meta/diayn_v1_implementation_plan.md](docs/meta/diayn_v1_implementation_plan.md)
-- [docs/project/file_index.md](docs/project/file_index.md)
+- [安装总览](docs/install/README.md)
+- [Claude Code 安装](docs/install/claude-code.md)
+- [Codex Desktop plugin 安装](docs/install/codex_plugin.md)
+- [Codex project-local skills package](docs/install/codex_skills.md)
+- [OpenCode 状态](docs/install/opencode.md)
+- [DIAYN 命令参考](docs/meta/diayn_command_reference.md)
+- [项目文件索引](docs/project/file_index.md)

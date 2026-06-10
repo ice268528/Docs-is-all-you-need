@@ -31,7 +31,7 @@ Skill name resolution:
 - Claude plugin namespace installs use the plugin namespace, such as `diayn:idea-refine`, when the native Skill tool requires namespaced skill ids.
 - Codex installed package surfaces use the discovered Codex skill id. In the current package shape, dependency skill folders are installed beside DIAYN workflow skills under the selected skills root.
 
-Reading `third_party/agent-skills/skills/<name>/SKILL.md` directly is fallback/reference behavior only. It may help a maintainer diagnose or adapt a platform, but it does not count as real third-party skill invocation and must not be reported as native composition evidence.
+Reading a packaged dependency skill `SKILL.md` directly is fallback/reference behavior only. It may help a maintainer diagnose or adapt a platform, but it does not count as real third-party skill invocation and must not be reported as native composition evidence.
 
 ## Workflow
 

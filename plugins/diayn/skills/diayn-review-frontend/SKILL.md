@@ -1,4 +1,4 @@
----
+﻿---
 name: diayn-review-frontend
 description: Runs the DIAYN /diayn-review-frontend workflow. Use when a frontend reviewer session must independently verify frontend lane work, write review evidence, approve done, or reject and uncheck TODO items.
 ---
@@ -21,13 +21,13 @@ Treat explicit facts in the current command arguments or current user message as
 
 The literal phrase `Owner-confirmed project_slug = <value>` is a direct Owner answer. Use `<value>` as the project slug and do not ask for it again unless repository evidence contradicts it.
 
-If the command arguments say scaffold creation is approved, or say all OwnerGate choices needed for the automated fixture are approved, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
+If the command arguments say scaffold creation is approved, or explicitly resolve all OwnerGate choices needed for this run, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
 
 Ask only when the fact is absent, ambiguous, contradicted by repository evidence, or would cause existing user content to be overwritten without a preservation decision.
 
-## Phase 11 Installed-Flow Fixture Mode
+## Explicit Owner-Confirmed Execution Mode
 
-If command arguments contain `DIAYN_PHASE11_INSTALLED_FLOW_FIXTURE`, this is an automated validation fixture. Use explicit Owner-confirmed command facts as final for this run when they match repository evidence. Do not ask again for project slug, Owner name, stage id, lane applicability, authorization facts, or a pasted worker report when frontend lane board, worklog, evidence, and `candidate_done` task state are present in the current frontend worktree.
+If command arguments include explicit Owner-confirmed project facts, use them when they match repository evidence. Do not ask again for project slug, Owner name, stage id, lane applicability, authorization facts, or a pasted worker report when frontend lane board, worklog, evidence, and `candidate_done` task state are already present in the current frontend worktree.
 
 When this marker is present, review only the next frontend `candidate_done` task slice. Compare the board, current stage worklog, current stage evidence, E2E artifact, UI/API-contract facts, and relevant frontend diff. Run or inspect local verification as needed. Write `docs/lanes/frontend/stages/<stage-id>/review_log.md`, decide `done` or `rejected`, update only frontend review/board fields, and stop. Do not fix implementation, merge code, edit backend work, start hidden sessions, or mark Owner acceptance.
 

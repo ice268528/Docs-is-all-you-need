@@ -1,6 +1,6 @@
-# DIAYN Codex Plugin Candidate
+# DIAYN Codex Plugin
 
-This directory is the isolated Codex plugin candidate for DIAYN.
+This directory is the isolated Codex plugin payload for DIAYN.
 
 It is intentionally separate from the verified Claude Code plugin paths. Do not
 use this directory to change Claude Code commands, Claude manifests, or Claude
@@ -28,7 +28,7 @@ workflow routing. They are not additional public DIAYN commands.
 
 ## Status
 
-Status: `candidate`.
+Status: `supported`.
 
 This directory follows the Codex plugin manifest shape with:
 
@@ -36,6 +36,6 @@ This directory follows the Codex plugin manifest shape with:
 "skills": "./skills/"
 ```
 
-It has not yet proven Codex Desktop app-session runtime discovery, direct
-`/diayn-*` slash behavior, or dependency-skill native invocation after plugin
-install. Those claims require separate runtime acceptance evidence.
+Codex Desktop installs the skills from this payload through the repository
+marketplace manifest. Keep this directory isolated from Claude Code plugin and
+project-local fallback files.

@@ -53,14 +53,14 @@ and usable by an Owner and multiple agent sessions.
 ## Packaging And Adapters
 
 - [ ] DIAYN-owned skills exist under `skills/**`.
-- [ ] `third_party/agent-skills/**` is vendor reference material only.
-- [ ] Tool adapters live under `integrations/**`.
+- [ ] Packaged dependency skills are treated as DIAYN-managed dependencies, not DIAYN-owned workflow protocol.
+- [ ] Public install surfaces expose only supported runtime paths; maintainer-only adapter experiments live outside the public remote surface, typically under ignored `docs/local-maintainer/integrations/`.
 - [ ] Core protocol remains usable without plugin installation.
-- [ ] Codex plugin documents are draft preparation only until validated.
+- [ ] Codex plugin documents describe the supported Codex plugin install surface, while unvalidated experiments remain maintainer-local.
 
 ## Examples And Migration
 
-- [ ] Examples are isolated under `docs/examples/**`.
+- [ ] Optional examples are isolated from active protocol and are not required for user installation.
 - [ ] Legacy state migration rules are available.
 - [ ] Old single-session records are preserved or marked superseded instead of
       silently deleted.

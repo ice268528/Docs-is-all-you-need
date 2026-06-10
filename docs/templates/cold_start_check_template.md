@@ -19,7 +19,7 @@ current session may act.
 | What system is this? | `<short answer>` | `<README.md or docs/project/project_brief.md>` |
 | How is it organized? | `<short answer>` | `<AGENTS.md, docs/project/file_index.md, docs/lanes/**, docs/shared/**>` |
 | How do I run it? | `<short answer or Unknown>` | `<entry file or project docs>` |
-| How do I verify it? | `<short answer or Unknown>` | `<docs/testing/test_strategy.md, evidence docs, acceptance docs>` |
+| How do I verify it? | `<short answer or Unknown>` | `<install docs, evidence docs, acceptance docs>` |
 | Where is the work now? | `<short answer>` | `<TODO.md, lane board, handoff, review log>` |
 
 ## 2. Missing Information

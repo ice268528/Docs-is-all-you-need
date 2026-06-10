@@ -24,7 +24,7 @@ the exact changed paths.
 ## Inventory
 
 - Entry files: `README.md`, `AGENTS.md`, `CLAUDE.md`, and other tool instruction files.
-- Project docs: `docs/project/**`, `docs/stages/**`, `docs/testing/**`.
+- Project docs: `docs/project/**`, `docs/stages/**`, and target-project verification docs when present.
 - Lane docs: `docs/lanes/**`.
 - Shared docs: `docs/shared/**`.
 - Meta docs: `docs/meta/**`.

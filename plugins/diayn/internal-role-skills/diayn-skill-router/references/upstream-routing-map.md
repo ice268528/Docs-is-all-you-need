@@ -21,7 +21,7 @@ Skill id resolution:
 
 Fallback only:
 
-- Directly reading `third_party/agent-skills/skills/<name>/SKILL.md` is fallback/reference behavior.
+- Directly reading a packaged dependency skill `SKILL.md` is fallback/reference behavior.
 - A fallback read does not count as native third-party skill composition evidence.
 - Do not silently substitute an uncontrolled user-installed `agent-skills` copy.
 

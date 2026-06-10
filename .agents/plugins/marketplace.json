@@ -1,7 +1,7 @@
 {
-  "name": "diayn-local-alpha",
+  "name": "diayn",
   "interface": {
-    "displayName": "DIAYN Local Alpha"
+    "displayName": "DIAYN"
   },
   "plugins": [
     {

@@ -22,17 +22,17 @@ Treat explicit facts in the current command arguments or current user message as
 
 The literal phrase `Owner-confirmed project_slug = <value>` is a direct Owner answer. Use `<value>` as the project slug and do not ask for it again unless repository evidence contradicts it.
 
-If command arguments explicitly resolve a known OwnerGate item, such as Owner name, stage goal, lane applicability, requirement source, or fixture scope, update the generated project documents with that resolution and do not recreate the same OwnerGate as open. If the arguments say all OwnerGate choices needed for an automated fixture are approved and list the resolved facts, treat matching scaffold identity and scope questions as resolved for that run.
+If command arguments explicitly resolve a known OwnerGate item, such as Owner name, stage goal, lane applicability, requirement source, or project scope, update the generated project documents with that resolution and do not recreate the same OwnerGate as open. If the arguments explicitly resolve all OwnerGate choices needed for this run and list the resolved facts, treat matching scaffold identity and scope questions as resolved for that run.
 
-If the command arguments say scaffold creation is approved, or say all OwnerGate choices needed for the automated fixture are approved, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
+If the command arguments say scaffold creation is approved, or explicitly resolve all OwnerGate choices needed for this run, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
 
 Ask only when the fact is absent, ambiguous, contradicted by repository evidence, or would cause existing user content to be overwritten without a preservation decision.
 
-## Phase 11 Installed-Flow Fixture Mode
+## Explicit Owner-Confirmed Execution Mode
 
-If command arguments contain `DIAYN_PHASE11_INSTALLED_FLOW_FIXTURE`, this is an automated validation fixture, not a normal ambiguous Owner conversation. Use explicit Owner-confirmed command facts as final for this run. Do not create open OwnerGate items for project slug, Owner name, stage goal, requirement source, fixture scope, or backend/frontend lane applicability when those facts are present in the command arguments. It is acceptable to record an OwnerGate table with `none` or `resolved` entries, but the next command must not be blocked by questions already answered in the arguments.
+If command arguments include explicit Owner-confirmed project facts, use them when they match repository evidence. Do not create open OwnerGate items for project slug, Owner name, stage goal, requirement source, project scope, or backend/frontend lane applicability when those facts are present in the command arguments. It is acceptable to record an OwnerGate table with `none` or `resolved` entries, but the next command must not be blocked by questions already answered in the arguments.
 
-This fixture marker means run the installed-flow workflow with tools and writes. It must not be answered with a probe-only `COMMAND` / `FIRST_STOP` response.
+When the Owner explicitly approves execution and no overwrite conflicts are present, run the workflow with tools and writes. Do not answer with a probe-only `COMMAND` / `FIRST_STOP` response.
 
 ## Validation Probe Mode
 

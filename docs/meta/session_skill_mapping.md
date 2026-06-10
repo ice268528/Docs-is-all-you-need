@@ -1,6 +1,6 @@
 # DIAYN Skill And Dependency Mapping
 
-> DDDV8 changes DIAYN from a public role-skill install set into a public workflow-skill install set. Roles remain real execution concepts, but they are internal/shared references rather than the user's main installed command surface.
+> DIAYN V1 uses a public workflow-skill install set. Roles remain real execution concepts, but they are internal/shared references rather than the user's main installed command surface.
 
 ## 1. Public Workflow Skill Surface
 
@@ -21,12 +21,11 @@ The V1 public surface is exactly 12 workflow skills. Each supported platform sho
 | `/diayn-new` | Controller, Owner UX, Identity Guard | routed after triage | command `new`, change intake references |
 | `/diayn-html` | Owner UX, Controller, Identity Guard | none | command `html`, HTML generator |
 
-Implementation note: role/router/scaffold source such as `diayn-controller`,
+Implementation note: role/router/scaffold references such as `diayn-controller`,
 `diayn-executor`, `diayn-reviewer`, `diayn-integrator`,
 `diayn-identity-guard`, `diayn-owner-ux`, and `diayn-skill-router` lives under
-`maintainers/internal-skills/` and may be packaged as
-`.diayn/internal-role-skills` metadata. It is not the user-installed DIAYN
-skill surface.
+the public plugin/package `internal-role-skills` metadata. It is not the
+user-installed DIAYN workflow surface.
 
 The repository root `skills/` directory is not the install contract by itself.
 It contains only the 12 public workflow sources. The public V1 install surface
@@ -68,7 +67,7 @@ Rules:
 The routing map lives at:
 
 ```text
-maintainers/internal-skills/diayn-skill-router/references/upstream-routing-map.md
+plugins/diayn/internal-role-skills/diayn-skill-router/references/upstream-routing-map.md
 ```
 
 That map should state, for every vendored upstream skill:

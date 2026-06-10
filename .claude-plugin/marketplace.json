@@ -1,6 +1,6 @@
 {
-  "name": "diayn-local-alpha",
-  "description": "Local alpha marketplace manifest for the DIAYN repository-root skill-pack candidate.",
+  "name": "diayn",
+  "description": "Marketplace manifest for the DIAYN document-driven workflow pack.",
   "owner": {
     "name": "DIAYN maintainers"
   },

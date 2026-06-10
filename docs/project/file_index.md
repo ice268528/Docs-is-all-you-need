@@ -35,7 +35,7 @@ decisions, or Owner acceptance by itself.
 | `docs/meta/diayn_command_reference.md` | DIAYN workflow and platform-specific command reference. |
 | `docs/meta/controller_sync_integration_protocol.md` | Sync and integration rules. |
 
-## 3. Project, Stage, And Shared Docs
+## 3. Source Repository Docs
 
 | Path | Purpose | Permission |
 | --- | --- | --- |
@@ -43,13 +43,16 @@ decisions, or Owner acceptance by itself.
 | `docs/project/implementation_constraints.md` | Long-term implementation constraints. | Owner controlled. |
 | `docs/project/architecture_overview.md` | Architecture overview. | Owner controlled. |
 | `docs/project/file_index.md` | Navigation index. | Controller write. |
-| `docs/stages/<stage-id>/**` | Stage plans, summaries, integration records, acceptance, and closeout. | Controller write or Owner controlled depending on record type. |
-| `docs/shared/**` | Shared contracts, types, and integration issues. | Controller write or Owner controlled depending on impact. |
 
-## 4. Lane Docs
+## 4. Generated Target-Project Docs
+
+These paths are created in target projects during DIAYN runs. They are not
+active state in this public source repository.
 
 | Path | Purpose | Permission |
 | --- | --- | --- |
+| `docs/stages/<stage-id>/**` | Stage plans, summaries, integration records, acceptance, and closeout. | Controller write or Owner controlled depending on record type. |
+| `docs/shared/**` | Shared contracts, types, and integration issues. | Controller write or Owner controlled depending on impact. |
 | `docs/lanes/<lane>/board.md` | Lane-local current-stage summary and task index. | Role-local write; reviewer may write review status. |
 | `docs/lanes/<lane>/handoff.md` | Visible dispatch and continuation context. | Controller write and role-local append. |
 | `docs/lanes/<lane>/evidence.md` | Lane-level evidence index and current-stage summary. | Role-local write. |
@@ -65,9 +68,7 @@ decisions, or Owner acceptance by itself.
 | `docs/templates/lane_board_template.md` | Default lane board template for multi-session work. | Preferred for new lane work. |
 | `docs/templates/task_board_template.md` | Generic compatibility task board template. | Not active state. |
 | `docs/templates/owner_experience_acceptance_template.md` | Owner-facing acceptance template. | Use for business acceptance. |
-| `docs/testing/test_strategy.md` | Verification and acceptance strategy. | Distinguishes worker verification, review, integration, and Owner acceptance. |
-| `docs/testing/manual_test_template.md` | Compatibility pointer to Owner experience acceptance. | Not the default active acceptance template. |
-| `docs/handoffs/stage_summary_template.md` | Stage or batch summary template. | Controller-owned summary; not lane dispatch authority. |
+| `docs/templates/handoff_packet_template.md` | Stage or batch handoff packet template. | Controller-owned summary; not lane dispatch authority. |
 
 ## 6. Status Authority Quick Reference
 

@@ -22,7 +22,7 @@ Treat explicit facts in the current command arguments or current user message as
 
 The literal phrase `Owner-confirmed project_slug = <value>` is a direct Owner answer. Use `<value>` as the project slug and do not ask for it again unless repository evidence contradicts it.
 
-If the command arguments say scaffold creation is approved, or say all OwnerGate choices needed for the automated fixture are approved, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
+If the command arguments say scaffold creation is approved, or explicitly resolve all OwnerGate choices needed for this run, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
 
 Ask only when the fact is absent, ambiguous, contradicted by repository evidence, or would cause existing user content to be overwritten without a preservation decision.
 
@@ -39,11 +39,11 @@ FIRST_STOP: Any applicable lane review is missing or rejected.
 
 Then stop. This mode only validates package command routing; it does not prove the full workflow.
 
-## Phase 11 Installed-Flow Fixture Mode
+## Explicit Owner-Confirmed Execution Mode
 
-If the command arguments or current user message contain `DIAYN_PHASE11_INSTALLED_FLOW_FIXTURE`, use the provided Owner-confirmed facts for the controlled fixture and do not ask for already supplied project identity, stage, lane, or approval facts.
+If the command arguments or current user message include explicit Owner-confirmed project facts, use them when they match repository evidence and do not ask for already supplied project identity, stage, lane, or approval facts.
 
-In this mode, run from the Controller root after `/diayn-sync`. Confirm backend/frontend review logs are `done`, read the synced lane documents and shared contract note, and run `python validation/run_e2e.py --output docs/stages/stage-1-auth-fixture/integration_e2e.json` or an equivalent local fixture check. Because the baseline fixture review slice should not contain business-code changes, record a no-op or already-aligned merge status when appropriate instead of inventing a merge. Write `docs/stages/stage-1-auth-fixture/integration_summary.md` with merge status, contract consistency, build/lint/smoke/E2E evidence, failure classification, and next action. Do not mark Owner acceptance, create closeout, or start a new stage.
+In this mode, run from the Controller root after `/diayn-sync`. Confirm backend/frontend review logs are `done`, read the synced lane documents and shared contract note, and run the target project's agreed build, lint, smoke, E2E, or project-specific verification checks. Record the exact commands, evidence locations, merge status, contract consistency, failure classification, and next action in `docs/stages/<stage-id>/integration_summary.md`. If no business-code merge is needed, record a no-op or already-aligned merge status instead of inventing a merge. Do not mark Owner acceptance, create closeout, or start a new stage.
 
 ## Progressive Startup
 
@@ -84,7 +84,6 @@ Do not integrate unreviewed lane work, silently resolve requirement conflicts, o
 - `assets/integration/partial_attempt.md`: interrupted-command recovery template.
 - `assets/integration/shared_issue.md`: Controller-owned shared contract/integration issue template.
 - `assets/integration/authorized_command_record.md`: cross-platform command, authorization, background-process, and cleanup record.
-- `scripts/validate_stage_flow.py`: maintainer/fixture validator for rejection loop, document-only sync, reviewed-code integration, Owner acceptance, closeout, and next-stage baseline refresh.
 
 ## Stop Conditions
 

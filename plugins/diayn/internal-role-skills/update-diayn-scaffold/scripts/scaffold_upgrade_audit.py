@@ -39,7 +39,6 @@ SKIP_DIRS = {
     "node_modules",
     "dist",
     "build",
-    "third_party",
 }
 
 CORE_ARTIFACTS = [

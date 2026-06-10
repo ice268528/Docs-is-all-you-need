@@ -24,17 +24,17 @@ The literal phrase `Owner-confirmed project_slug = <value>` is a direct Owner an
 
 If command arguments explicitly resolve existing OwnerGate items, update the relevant planning documents and continue instead of stopping on stale open questions. Do not ask again for OwnerGate facts that the current command arguments answer directly unless repository evidence contradicts them.
 
-If the command arguments say scaffold creation is approved, or say all OwnerGate choices needed for the automated fixture are approved, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
+If the command arguments say scaffold creation is approved, or explicitly resolve all OwnerGate choices needed for this run, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
 
 Ask only when the fact is absent, ambiguous, contradicted by repository evidence, or would cause existing user content to be overwritten without a preservation decision.
 
-## Phase 11 Installed-Flow Fixture Mode
+## Explicit Owner-Confirmed Execution Mode
 
-If command arguments contain `DIAYN_PHASE11_INSTALLED_FLOW_FIXTURE`, this is an automated validation fixture, not a normal ambiguous Owner conversation. Use explicit Owner-confirmed command facts as final for this run, resolve matching existing OwnerGate entries, and continue planning. Do not create open OwnerGate items for project slug, Owner name, stage goal, requirement source, fixture scope, or backend/frontend lane applicability when those facts are present in the command arguments.
+If command arguments include explicit Owner-confirmed project facts, use them when they match repository evidence, resolve matching existing OwnerGate entries, and continue planning. Do not create open OwnerGate items for project slug, Owner name, stage goal, requirement source, project scope, or backend/frontend lane applicability when those facts are present in the command arguments.
 
 In this mode, write only planning and shared-context artifacts, not business code. Use the requested stage id when it is explicit; if the workflow chooses a project-specific stage id, use it consistently in `TODO.md`, stage plans, lane boards, and handoffs. Create the canonical artifact types requested by the command arguments, initialize lane task statuses as `todo`, and do not mark lane work as `candidate_done`, `done`, or reviewed during planning.
 
-This fixture marker means run the installed-flow workflow with tools and writes. It must not be answered with a probe-only `COMMAND` / `FIRST_STOP` response.
+When the Owner explicitly approves execution and no overwrite conflicts are present, run the workflow with tools and writes. Do not answer with a probe-only `COMMAND` / `FIRST_STOP` response.
 
 ## Validation Probe Mode
 

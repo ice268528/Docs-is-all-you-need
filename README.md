@@ -2,45 +2,55 @@
 
 [中文](README.zh-CN.md)
 
-Docs-is-all-you-need, or DIAYN, is a document-driven workflow pack for
-multi-session coding-agent work. It helps you turn a vague idea or requirement
-into a project that can be planned, split into lanes, reviewed, synchronized,
-and accepted without losing the project truth.
+DIAYN is a document-driven workflow pack for multi-session coding agents. It
+turns a vague idea or requirement into a staged project with planning, lane
+execution, review, synchronization, integration, and Owner acceptance.
+
+DIAYN is not an application framework. It is a skill/plugin package that helps
+coding agents keep requirements, work state, evidence, and acceptance records
+close to the project they are changing.
+
+## Status
+
+| Platform | Status | Main user entry |
+| --- | --- | --- |
+| Claude Code plugin | Supported | `/diayn:init`, `/diayn:plan`, `/diayn:backend`, etc. |
+| Codex Desktop plugin | Supported | Codex skills such as `$diayn-init`, `$diayn-plan`, `$diayn-backend` |
+| Claude project-local fallback | Supported fallback | bare `/diayn-init`, `/diayn-plan`, `/diayn-backend` |
+| Codex project-local package | Supported fallback | project-local Codex skills such as `$diayn-init` |
+| OpenCode | TODO | not claimed yet |
+
+DIAYN also bundles a locked set of DIAYN-managed dependency skills from
+`agent-skills`. Users do not need to install `agent-skills` separately for the
+supported DIAYN install paths.
 
 ## Who It Is For
 
-- Owners who want an idea turned into a clear project plan.
-- Teams that work across multiple agent sessions and want one source of truth.
-- Claude Code users who want a plugin-first workflow.
-- Codex users who want the current skills-package path or want to test the
-  Codex Desktop plugin candidate.
+- Owners who want a raw idea turned into a clear implementation plan.
+- Teams using multiple coding-agent sessions for backend, frontend, review,
+  integration, and acceptance.
+- Claude Code users who want a plugin-first `/diayn:*` workflow.
+- Codex users who want DIAYN available as installable Codex skills.
 
 ## Quick Start
 
-### Claude Code Plugin Install
+### Claude Code Plugin
 
 Copy these commands into Claude Code:
 
 ```text
 /plugin marketplace add ice268528/Docs-is-all-you-need
-/plugin install diayn@diayn-local-alpha
-```
-
-Then start with:
-
-```text
+/plugin install diayn@diayn
 /diayn:init
 ```
 
-DIAYN will ask clarifying questions when needed, then create the project docs
-and starter files it needs.
+Claude Code plugin mode uses namespaced commands such as `/diayn:init` and
+`/diayn:plan`.
 
-### Codex Desktop Plugin Candidate
+### Codex Desktop Plugin
 
-Codex Desktop currently uses the app UI for marketplace installation; this
-repository does not require a Codex CLI for the plugin candidate.
-
-In Codex Desktop, open **Add plugin marketplace** and use:
+Open Codex Desktop, choose "Add plugin marketplace", and fill the fields like
+this:
 
 ```text
 Source: git@github.com:ice268528/Docs-is-all-you-need.git
@@ -50,101 +60,122 @@ Sparse path:
 plugins/diayn
 ```
 
-That sparse checkout keeps the Codex marketplace file at
-`.agents/plugins/marketplace.json` together with the plugin payload under
-`plugins/diayn/`.
+Put both sparse paths in the same "Sparse path" field, one per line. The first
+path provides the marketplace manifest, and the second path provides the DIAYN
+plugin payload.
 
-Then switch the plugin list filter away from "Built by OpenAI" if needed and
-look for `diayn`. This path is still a candidate until a fresh Codex Desktop
-install, discovery, and invocation run is recorded.
+After installing the DIAYN plugin, start in a target project with:
+
+```text
+$diayn-init initialize this project with DIAYN
+```
+
+Then continue with `$diayn-plan`, `$diayn-worktrees`, `$diayn-backend`,
+`$diayn-frontend`, `$diayn-review-backend`, `$diayn-review-frontend`,
+`$diayn-sync`, and `$diayn-integration` as the workflow progresses.
 
 ## Core Workflow
 
 ```mermaid
 flowchart TD
-  A["Idea / requirement"] --> B["/diayn:init"]
-  B --> C["Project brief + starter docs"]
-  C --> D["/diayn:plan"]
-  D --> E["Worktrees"]
+  A["Idea or requirement"] --> B["Init"]
+  B --> C["Project brief and starter docs"]
+  C --> D["Plan stages and lane slices"]
+  D --> E["Prepare worktrees"]
   E --> F["Backend lane"]
   E --> G["Frontend lane"]
-  F --> H["Review"]
+  F --> H["Lane review"]
   G --> H
-  H --> I["/diayn:sync"]
-  I --> J["/diayn:integration"]
+  H --> I["Sync docs and state"]
+  I --> J["Integration checks"]
   J --> K["Owner acceptance"]
 ```
 
-The review step can send work back to a lane when something needs more work.
+Review can send work back to the responsible lane when evidence, tests,
+contracts, or acceptance criteria are not good enough.
 
-## Common Commands
+## Command Reference
 
-This table shows the Claude Code plugin command and the Claude project-local
-fallback form. Codex currently has a verified skills-package path; direct
-Codex slash behavior still needs Desktop runtime evidence.
+| Workflow | Claude plugin | Codex plugin | Project-local fallback |
+| --- | --- | --- | --- |
+| Init / retrofit | `/diayn:init` | `$diayn-init` | `/diayn-init` or `$diayn-init` |
+| Plan | `/diayn:plan` | `$diayn-plan` | `/diayn-plan` or `$diayn-plan` |
+| Worktrees | `/diayn:worktrees` | `$diayn-worktrees` | `/diayn-worktrees` or `$diayn-worktrees` |
+| Backend lane | `/diayn:backend` | `$diayn-backend` | `/diayn-backend` or `$diayn-backend` |
+| Frontend lane | `/diayn:frontend` | `$diayn-frontend` | `/diayn-frontend` or `$diayn-frontend` |
+| Backend review | `/diayn:review-backend` | `$diayn-review-backend` | `/diayn-review-backend` or `$diayn-review-backend` |
+| Frontend review | `/diayn:review-frontend` | `$diayn-review-frontend` | `/diayn-review-frontend` or `$diayn-review-frontend` |
+| Sync docs/state | `/diayn:sync` | `$diayn-sync` | `/diayn-sync` or `$diayn-sync` |
+| Integration | `/diayn:integration` | `$diayn-integration` | `/diayn-integration` or `$diayn-integration` |
+| Bug triage | `/diayn:bug` | `$diayn-bug` | `/diayn-bug` or `$diayn-bug` |
+| New stage/change | `/diayn:new` | `$diayn-new` | `/diayn-new` or `$diayn-new` |
+| HTML report | `/diayn:html` | `$diayn-html` | `/diayn-html` or `$diayn-html` |
 
-| Workflow | Command | When to use |
-| --- | --- | --- |
-| Init / retrofit | `/diayn:init` (`/diayn-init` in fallback) | Start from an idea, or set up DIAYN in an existing project. |
-| Plan | `/diayn:plan` (`/diayn-plan`) | Turn the current goal into stages, tasks, and ownership. |
-| Worktrees | `/diayn:worktrees` (`/diayn-worktrees`) | Prepare lane workspaces before implementation starts. |
-| Backend lane | `/diayn:backend` (`/diayn-backend`) | Work on backend tasks for the current stage. |
-| Frontend lane | `/diayn:frontend` (`/diayn-frontend`) | Work on frontend tasks for the current stage. |
-| Backend review | `/diayn:review-backend` (`/diayn-review-backend`) | Review backend work before merge or handoff. |
-| Frontend review | `/diayn:review-frontend` (`/diayn-review-frontend`) | Review frontend work before merge or handoff. |
-| Sync docs/state | `/diayn:sync` (`/diayn-sync`) | Sync lane state, docs, and shared project truth. |
-| Integration | `/diayn:integration` (`/diayn-integration`) | Check the combined result before closing a stage. |
-| Bug triage | `/diayn:bug` (`/diayn-bug`) | Route a new bug or a surprising failure. |
-| New stage | `/diayn:new` (`/diayn-new`) | Start the next stage or capture a new chunk of work. |
-| HTML report | `/diayn:html` (`/diayn-html`) | Generate or refresh the HTML view of DIAYN docs. |
+The fallback column is only for project-local package installs. In Claude Code
+plugin mode, use `/diayn:*`. In Codex Desktop plugin mode, use the DIAYN skills
+that Codex installs from the plugin.
 
-## What DIAYN Adds To Your Project
+## What DIAYN Adds To A Target Project
 
 ```mermaid
 flowchart LR
-  P["Your project"] --> A["CLAUDE.md or AGENTS.md"]
+  P["Target project"] --> A["CLAUDE.md or AGENTS.md"]
   P --> B["TODO.md"]
   P --> C[".diayn/"]
   P --> D["docs/project/"]
   P --> E["docs/stages/"]
-  P --> F["lane / review / acceptance docs"]
+  P --> F["docs/lanes/"]
+  P --> G["review and acceptance records"]
 ```
 
 Typical generated or maintained files include:
 
-- a platform entry file: `CLAUDE.md` or `AGENTS.md`
-- `TODO.md` for the current project summary
-- `.diayn/` for DIAYN control files and metadata
-- `docs/project/` for the project brief and file index
-- `docs/stages/` for stage-level docs
-- lane, review, and acceptance docs for active work
+- a platform entry file: `CLAUDE.md` for Claude Code, or `AGENTS.md` for Codex,
+  OpenCode, and generic agents;
+- `TODO.md` for the current project summary;
+- `.diayn/` for DIAYN control files and metadata;
+- `docs/project/` for the project brief, file index, and harness audit;
+- `docs/stages/` for stage plans, integration summaries, closeout, and Owner
+  acceptance records;
+- `docs/lanes/` for backend/frontend lane boards, handoffs, evidence, and
+  review logs.
 
-## Other Installation Paths
+These files are generated in the target project where DIAYN runs. They are not
+all expected to exist in this source repository.
 
-- Claude project-local fallback: use this when you want bare `/diayn-*`
-  commands inside a target project. See
-  [docs/install/claude-code.md](docs/install/claude-code.md).
-- Codex: the verified path today is the skills package install into
-  `.codex/skills/` or Codex Home skills. The Codex Desktop plugin marketplace
-  candidate uses a two-line sparse path, `.agents/plugins` plus
-  `plugins/diayn`, and still needs runtime evidence.
-  See
-  [docs/install/codex_skills.md](docs/install/codex_skills.md) and
-  [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md).
-- OpenCode / generic: see [docs/install/README.md](docs/install/README.md)
-  for the supported paths and setup notes.
+## Public Repository Shape
+
+| Path | Purpose |
+| --- | --- |
+| `.claude-plugin/` and `.claude/commands/` | Claude Code plugin manifest and `/diayn:*` command adapters |
+| `.agents/plugins/` and `plugins/diayn/` | Codex Desktop marketplace manifest and plugin payload |
+| `skills/` | Authoritative 12 DIAYN workflow skills |
+| `packages/claude-project-local/` | Claude project-local fallback package |
+| `packages/codex-project-local/` | Codex project-local fallback package |
+| `docs/install/` | Install guides |
+| `docs/meta/` and `docs/templates/` | Durable workflow protocol and templates |
+
+Maintainer-only source snapshots, validation evidence, adapter experiments, and
+old candidate payloads are intentionally excluded from the public remote
+surface. If they exist on a maintainer machine, they live under the ignored
+`docs/local-maintainer/` directory. This does not remove runtime dependency
+skills from DIAYN installs; packaged dependency skills remain in the plugin and
+fallback package payloads.
+
+## Reference Projects
+
+DIAYN's skill packaging and cross-agent installation surface were informed by
+these projects:
+
+- [addyosmani/agent-skills](https://github.com/addyosmani/agent-skills)
+- [obra/superpowers](https://github.com/obra/superpowers)
 
 ## More Docs
 
-If you want the details behind the user-facing quick start, read:
-
-- [docs/install/README.md](docs/install/README.md)
-- [docs/install/claude-code.md](docs/install/claude-code.md)
-- [docs/install/codex_skills.md](docs/install/codex_skills.md)
-- [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md)
-- [docs/install/codex_desktop_marketplace_fix_report.md](docs/install/codex_desktop_marketplace_fix_report.md)
-- [docs/qa/claude-plugin-runtime-acceptance.md](docs/qa/claude-plugin-runtime-acceptance.md)
-- [docs/meta/diayn_command_reference.md](docs/meta/diayn_command_reference.md)
-- [docs/meta/diayn_commands/](docs/meta/diayn_commands/)
-- [docs/meta/diayn_v1_implementation_plan.md](docs/meta/diayn_v1_implementation_plan.md)
-- [docs/project/file_index.md](docs/project/file_index.md)
+- [Install overview](docs/install/README.md)
+- [Claude Code install](docs/install/claude-code.md)
+- [Codex Desktop plugin install](docs/install/codex_plugin.md)
+- [Codex project-local skills package](docs/install/codex_skills.md)
+- [OpenCode status](docs/install/opencode.md)
+- [DIAYN command reference](docs/meta/diayn_command_reference.md)
+- [Project file index](docs/project/file_index.md)

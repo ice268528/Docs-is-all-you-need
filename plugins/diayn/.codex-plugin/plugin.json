@@ -1,7 +1,7 @@
 {
   "name": "diayn",
   "version": "0.1.0",
-  "description": "DIAYN Codex plugin candidate for document-driven multi-session coding-agent workflows.",
+  "description": "DIAYN Codex plugin for document-driven multi-session coding-agent workflows.",
   "author": {
     "name": "DIAYN maintainers"
   },
@@ -20,7 +20,7 @@
   "interface": {
     "displayName": "DIAYN",
     "shortDescription": "Document-driven multi-session workflow skills for Codex.",
-    "longDescription": "Installs the 12 DIAYN workflow skills plus DIAYN-managed dependency skills as a Codex plugin candidate. Runtime discovery and slash-command behavior still require Codex Desktop acceptance evidence before release claims.",
+    "longDescription": "Installs the 12 DIAYN workflow skills plus DIAYN-managed dependency skills as a Codex Desktop plugin for document-driven multi-session coding-agent workflows.",
     "developerName": "DIAYN maintainers",
     "category": "Productivity",
     "capabilities": [

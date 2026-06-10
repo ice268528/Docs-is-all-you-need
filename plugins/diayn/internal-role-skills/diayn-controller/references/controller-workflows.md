@@ -31,7 +31,7 @@ Use `diayn-skill-router` only after Controller identity and write authority are 
 | `/diayn-sync` or `/diayn-integration` | `code-review-and-quality`, `api-and-interface-design`, `ci-cd-and-automation`, `git-workflow-and-versioning` | Missing lane review or evidence blocks readiness. |
 | `/diayn-bug` or `/diayn-new` triage | `debugging-and-error-recovery`, `deprecation-and-migration`, `documentation-and-adrs` | Current-scope insertion vs backlog is a Controller/Owner decision. |
 
-Do not claim upstream guidance was applied unless the local `third_party/agent-skills/skills/<name>/SKILL.md` file was read or intentionally skipped with a reason.
+Do not claim upstream guidance was applied unless the packaged dependency skill guidance was read or intentionally skipped with a reason.
 
 ## Worktree Dry-Run Helper
 

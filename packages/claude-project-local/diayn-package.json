@@ -1,6 +1,6 @@
 {
   "schema": "diayn.claude_project_local_package.v1",
-  "generated_from": "plugins/docs-is-all-you-need",
+  "generated_from": "DIAYN public workflow skills plus maintainer-local package source",
   "command_surface": "bare /diayn-* project-local Claude commands",
   "platform": "claude-code",
   "entry_file": "CLAUDE.md",
@@ -20,7 +20,7 @@
     "diayn-new",
     "diayn-html"
   ],
-  "dependency_source": "plugins/docs-is-all-you-need/dependency-skills/agent-skills",
+  "dependency_source": "DIAYN-managed locked agent-skills baseline; maintainer source snapshot is local-only",
   "dependency_routing": ".diayn/dependency-routing/upstream-routing-map.md",
   "internal_role_references": ".diayn/internal-role-skills",
   "install_target": {

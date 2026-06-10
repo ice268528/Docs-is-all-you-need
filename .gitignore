@@ -1,9 +1,28 @@
-docs/reports/codex_prompt_handoffs/
-validation/
+# OS and editor noise.
+.DS_Store
+Thumbs.db
+*.swp
+*.swo
 
-# DIAYN local-only session identity and scratch files.
-.diayn/local/
-.diayn/tmp/
+# Dependency and test caches.
+node_modules/
+.venv/
+venv/
+__pycache__/
+*.py[cod]
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Maintainer-only archive and validation output.
+/docs/local-maintainer/
+/validation/
+/docs/reports/codex_prompt_handoffs/
+
+# Root-only generated state. Do not ignore nested scaffold templates such as
+# skills/diayn-init/assets/scaffold/.diayn/.
+/.diayn/
+/.codex-plugin/
 
 # Local-only Codex Desktop runtime/manual validation artifacts.
-docs/install/codex_desktop_runtime_evidence_runbook.md
+/docs/install/codex_desktop_runtime_evidence_runbook.md

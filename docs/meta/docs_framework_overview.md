@@ -54,7 +54,7 @@ these layers separate so entry files remain readable.
 | Stage results | Stage plans, integration results, acceptance, and closeout | `docs/stages/<stage-id>/**` |
 | Protocol | Roles, permissions, status, command semantics | `docs/meta/**` |
 | Templates | Copyable structures, not active state | `docs/templates/**` |
-| Examples | Non-core examples | `docs/examples/**` |
+| Examples | Optional non-core examples | keep outside the public release surface unless they are explicitly maintained |
 
 ## 5. TODO.md Authority
 

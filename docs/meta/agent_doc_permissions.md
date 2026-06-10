@@ -43,14 +43,12 @@
 | `docs/lanes/<lane>/stages/<stage-id>/evidence.md` | Role-local write | Same-lane worker; reviewer may append review evidence | Stage-scoped evidence must be factual and reproducible. |
 | `docs/lanes/<lane>/stages/<stage-id>/review_log.md` | Review write | Same-lane review session | Stage-scoped review decision and rationale. |
 | `docs/lanes/<lane>/handoff.md` | Controller write and role-local append | Controller, same-lane worker | Controller dispatches; worker appends implementation handoff notes. |
-| `docs/testing/test_strategy.md` | Owner controlled | Owner, Controller with authorization | Testing policy and minimum gates. |
 | Active manual test or acceptance docs | Role-local or Controller write | Controller, worker, or acceptance support as authorized | Owner-facing acceptance remains separate from test internals. |
 | `docs/templates/**` | Owner controlled | Owner, Controller with authorization | Templates are not active project facts. |
-| `docs/handoffs/**` | Controller write | Controller; worker may append only when authorized | Handoffs must be visible to the receiving session. |
-| `docs/reports/**` | Read only unless authorized | Planning, Controller, or assigned session | Reports inform decisions but do not directly authorize work. |
-| `docs/changes/REQ_*.md` | Read only | Owner or Planning | Requirement input; not automatic execution scope. |
-| `docs/bugs/open/BUG_*.md` | Read only | Owner or bug triage role | Bug input and acceptance source. |
-| `docs/bugs/closed/BUG_*.md` | Archive only | Controller with explicit trigger | Historical record. |
+| Target-project handoff docs | Controller write | Controller; worker may append only when authorized | Handoffs must be visible to the receiving session. |
+| Target-project report docs | Read only unless authorized | Planning, Controller, or assigned session | Reports inform decisions but do not directly authorize work. |
+| Requirement change records | Read only | Owner or Planning | Requirement input; not automatic execution scope. |
+| Bug records | Read only or archive only | Owner, bug triage role, or Controller | Bug input, acceptance source, and historical record. |
 | `docs/TODO_backup/**` | Archive only | Controller with explicit trigger | Snapshots, not active state. |
 | `.diayn/worktree_manifest.md` | Controller write | Controller | Shared control metadata when present. |
 | `.diayn/session_registry.md` | Controller write | Controller | Shared session registry when present. |

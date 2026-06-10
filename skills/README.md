@@ -24,6 +24,7 @@ plugin commands are `/diayn:*`. Project-local fallback packages keep bare
 `/diayn-*` user-visible entries by installing generated copies under the target
 project's skills root.
 
-Internal role/reference source lives in `maintainers/internal-skills/`. It is
-used by maintainers and package builders as shared implementation material, but
-it is not installable and must not be exposed as extra public DIAYN skills.
+Packaged internal role/reference material lives under
+`plugins/diayn/internal-role-skills/` and in the project-local package metadata.
+It is shared implementation material, but it is not installable as a public
+workflow and must not be exposed as extra public DIAYN skills.

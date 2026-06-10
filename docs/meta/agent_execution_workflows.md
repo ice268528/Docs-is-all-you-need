@@ -30,7 +30,7 @@ Primary sources:
 | What system is this? | `README.md`, `docs/project/project_brief.md` |
 | How is it organized? | `AGENTS.md`, `docs/project/file_index.md`, `docs/lanes/**`, `docs/shared/**` |
 | How do I run it? | Entry files, project tool files, project docs |
-| How do I verify it? | `docs/testing/test_strategy.md`, lane evidence, Owner acceptance docs |
+| How do I verify it? | install docs, lane evidence, integration evidence, and Owner acceptance docs |
 | Where is the work now? | `TODO.md`, lane boards, handoffs, review logs |
 
 Cold start is lightweight. Do not print a long checklist unless useful. If missing information affects scope, authorization, verification, identity, or acceptance, stop and ask.

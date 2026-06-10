@@ -4,7 +4,7 @@
   "dependency_name": "agent-skills",
   "dependency_type": "platform-visible-native-skill-dependency",
   "public_diayn_command_surface": false,
-  "source_vendor_path": "../../../third_party/agent-skills",
+  "source_vendor_path": "maintainer-local only; not part of the public remote surface",
   "packaged_skills_path": "./agent-skills/skills",
   "packaged_references_path": "./agent-skills/references",
   "license_path": "./agent-skills/LICENSE",

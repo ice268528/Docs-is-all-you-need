@@ -22,13 +22,13 @@ Treat explicit facts in the current command arguments or current user message as
 
 The literal phrase `Owner-confirmed project_slug = <value>` is a direct Owner answer. Use `<value>` as the project slug and do not ask for it again unless repository evidence contradicts it.
 
-If the command arguments say scaffold creation is approved, or say all OwnerGate choices needed for the automated fixture are approved, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
+If the command arguments say scaffold creation is approved, or explicitly resolve all OwnerGate choices needed for this run, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
 
 Ask only when the fact is absent, ambiguous, contradicted by repository evidence, or would cause existing user content to be overwritten without a preservation decision.
 
-## Phase 11 Installed-Flow Fixture Mode
+## Explicit Owner-Confirmed Execution Mode
 
-If command arguments contain `DIAYN_PHASE11_INSTALLED_FLOW_FIXTURE`, this is an automated validation fixture, not a normal ambiguous Owner conversation. Use explicit Owner-confirmed command facts as final for this run. Do not ask again for project slug, Owner name, stage id, lane applicability, worktree root, or authorization facts that are present in the command arguments.
+If command arguments include explicit Owner-confirmed project facts, use them when they match repository evidence. Do not ask again for project slug, Owner name, stage id, lane applicability, worktree root, or authorization facts that are present in the command arguments.
 
 When this marker is present and command arguments say worktree creation is authorized, run `scripts/worktree_plan.py` with `--execute` after verifying the controller working tree is clean. Use the worktree root from command arguments when provided. Write `.diayn/worktree_plan.json`, update `.diayn/worktree_manifest.md`, write `.diayn/session_registry.md`, and create backend/frontend launch prompts. Do not implement business code or start hidden worker/reviewer sessions.
 

@@ -22,15 +22,15 @@ Treat explicit facts in the current command arguments or current user message as
 
 The literal phrase `Owner-confirmed project_slug = <value>` is a direct Owner answer. Use `<value>` as the project slug and do not ask for it again unless repository evidence contradicts it.
 
-If the command arguments say scaffold creation is approved, or say all OwnerGate choices needed for the automated fixture are approved, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
+If the command arguments say scaffold creation is approved, or explicitly resolve all OwnerGate choices needed for this run, and the audit reports only missing DIAYN baseline files with no overwrite conflicts, create the missing baseline scaffold files in the same run instead of asking for another confirmation.
 
 Ask only when the fact is absent, ambiguous, contradicted by repository evidence, or would cause existing user content to be overwritten without a preservation decision.
 
-## Phase 11 Installed-Flow Fixture Mode
+## Explicit Owner-Confirmed Execution Mode
 
-If command arguments contain `DIAYN_PHASE11_INSTALLED_FLOW_FIXTURE`, this is an automated validation fixture. Use explicit Owner-confirmed command facts as final for this run when they match repository evidence. Do not ask again for project slug, Owner name, stage id, lane applicability, authorization facts, or the next task slice if the backend lane board already contains one `todo` backend task.
+If command arguments include explicit Owner-confirmed project facts, use them when they match repository evidence. Do not ask again for project slug, Owner name, stage id, lane applicability, authorization facts, or the next task slice if the backend lane board already contains one `todo` backend task.
 
-When this marker is present, execute only the next backend `todo` task slice in the current backend lane worktree. For baseline-evidence tasks, do not invent new product behavior; run the local fixture verification requested by the lane board, create or update backend worklog/evidence files, mark only the executed backend slice as `candidate_done`, and stop for `/diayn-review-backend`. Do not self-review, integrate, edit frontend work, or start hidden sessions.
+When explicit Owner-confirmed facts are present, execute only the next backend `todo` task slice in the current backend lane worktree. For verification tasks, do not invent new product behavior; run the local verification requested by the lane board, create or update backend worklog/evidence files, mark only the executed backend slice as `candidate_done`, and stop for `/diayn-review-backend`. Do not self-review, integrate, edit frontend work, or start hidden sessions.
 
 ## Validation Probe Mode
 
