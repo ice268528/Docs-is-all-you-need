@@ -14,9 +14,9 @@ close to the project they are changing.
 
 | Platform | Status | Main user entry |
 | --- | --- | --- |
-| Claude Code plugin | Supported | `/diayn:init`, `/diayn:plan`, `/diayn:backend`, etc. |
-| Codex Desktop plugin | Supported | Codex skills such as `$diayn-init`, `$diayn-plan`, `$diayn-backend` |
-| Claude project-local fallback | Supported fallback | bare `/diayn-init`, `/diayn-plan`, `/diayn-backend` |
+| Claude Code plugin | Supported | `/diayn:*` commands |
+| Codex Desktop plugin | Supported | DIAYN Codex skills, starting with `$diayn-init` |
+| Claude project-local fallback | Supported fallback | bare `/diayn-*` commands |
 | Codex project-local package | Supported fallback | project-local Codex skills such as `$diayn-init` |
 | OpenCode | TODO | not claimed yet |
 
@@ -44,8 +44,7 @@ Copy these commands into Claude Code:
 /diayn:init
 ```
 
-Claude Code plugin mode uses namespaced commands such as `/diayn:init` and
-`/diayn:plan`.
+Claude Code plugin mode uses `/diayn:*` namespaced commands.
 
 ### Codex Desktop Plugin
 
@@ -70,9 +69,8 @@ After installing the DIAYN plugin, start in a target project with:
 $diayn-init initialize this project with DIAYN
 ```
 
-Then continue with `$diayn-plan`, `$diayn-worktrees`, `$diayn-backend`,
-`$diayn-frontend`, `$diayn-review-backend`, `$diayn-review-frontend`,
-`$diayn-sync`, and `$diayn-integration` as the workflow progresses.
+After init, continue with the next DIAYN skill shown in the command reference
+below.
 
 ## Core Workflow
 
@@ -154,13 +152,6 @@ all expected to exist in this source repository.
 | `packages/codex-project-local/` | Codex project-local fallback package |
 | `docs/install/` | Install guides |
 | `docs/meta/` and `docs/templates/` | Durable workflow protocol and templates |
-
-Maintainer-only source snapshots, validation evidence, adapter experiments, and
-old candidate payloads are intentionally excluded from the public remote
-surface. If they exist on a maintainer machine, they live under the ignored
-`docs/local-maintainer/` directory. This does not remove runtime dependency
-skills from DIAYN installs; packaged dependency skills remain in the plugin and
-fallback package payloads.
 
 ## Reference Projects
 

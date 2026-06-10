@@ -13,9 +13,9 @@ DIAYN 不是应用框架。它是一个 skill/plugin 包，用来帮助 coding a
 
 | 平台 | 状态 | 用户主入口 |
 | --- | --- | --- |
-| Claude Code plugin | 已支持 | `/diayn:init`、`/diayn:plan`、`/diayn:backend` 等 |
-| Codex Desktop plugin | 已支持 | Codex skills，例如 `$diayn-init`、`$diayn-plan`、`$diayn-backend` |
-| Claude project-local fallback | 已支持的备用方式 | 裸 `/diayn-init`、`/diayn-plan`、`/diayn-backend` |
+| Claude Code plugin | 已支持 | `/diayn:*` 命令 |
+| Codex Desktop plugin | 已支持 | DIAYN Codex skills，从 `$diayn-init` 开始 |
+| Claude project-local fallback | 已支持的备用方式 | 裸 `/diayn-*` 命令 |
 | Codex project-local package | 已支持的备用方式 | 项目内 Codex skills，例如 `$diayn-init` |
 | OpenCode | TODO | 暂不声明支持 |
 
@@ -41,8 +41,7 @@ DIAYN 安装方式时，用户不需要再单独安装 `agent-skills`。
 /diayn:init
 ```
 
-Claude Code 插件模式使用带命名空间的命令，例如 `/diayn:init` 和
-`/diayn:plan`。
+Claude Code 插件模式使用 `/diayn:*` 这种带命名空间的命令。
 
 ### Codex Desktop 插件
 
@@ -65,9 +64,7 @@ marketplace manifest，第二行提供 DIAYN 插件负载。
 $diayn-init initialize this project with DIAYN
 ```
 
-后续按流程继续使用 `$diayn-plan`、`$diayn-worktrees`、`$diayn-backend`、
-`$diayn-frontend`、`$diayn-review-backend`、`$diayn-review-frontend`、
-`$diayn-sync` 和 `$diayn-integration`。
+初始化之后，按下面的命令对照表继续选择下一条 DIAYN skill。
 
 ## 核心工作流
 
@@ -146,11 +143,6 @@ flowchart LR
 | `packages/codex-project-local/` | Codex project-local fallback 包 |
 | `docs/install/` | 安装文档 |
 | `docs/meta/` 和 `docs/templates/` | 稳定工作流协议和模板 |
-
-维护者专用的源快照、验证证据、adapter 实验和旧候选包，不放进公开远程仓库。
-如果维护者本机需要保留，它们放在被忽略的 `docs/local-maintainer/` 目录下。
-这不代表运行时依赖 skills 被删除了；打包后的第三方 dependency skills 仍然保留在
-plugin 和 fallback package 的安装负载里。
 
 ## 参考项目
 
