@@ -9,14 +9,14 @@ runtime surface.
 | --- | --- | --- |
 | Codex `AGENTS.md` entry file | `verified` | Codex/generic agents use `AGENTS.md` as the peer entry file. |
 | Codex skills package install | `verified` | `packages/codex-project-local/` can install the 12 DIAYN workflow skills plus 23 dependency skills into `.codex/skills/` or Codex Home skills. |
-| Codex plugin marketplace candidate | `candidate` | `marketplace.json` points at `plugins/diayn/`. This shape is intended for the Codex Desktop marketplace flow with the sparse path field left empty, but runtime evidence is still missing until a fresh Desktop install succeeds. |
+| Codex plugin marketplace candidate | `candidate` | `.agents/plugins/marketplace.json` points at `plugins/diayn/`. This shape is intended for the Codex Desktop marketplace flow with the two-line sparse path `.agents/plugins` + `plugins/diayn`, but runtime evidence is still missing until a fresh Desktop install succeeds. |
 | Direct Codex `/diayn-*` slash behavior | `unknown` | Do not claim this until Codex Desktop runtime evidence proves it. |
 | Codex native dependency-skill invocation after plugin install | `unknown` | Do not claim this until runtime evidence proves it. |
 
 ## Candidate Layout
 
 ```text
-marketplace.json
+.agents/plugins/marketplace.json
 plugins/diayn/
 plugins/diayn/.codex-plugin/plugin.json
 plugins/diayn/skills/
@@ -27,10 +27,11 @@ plugins/diayn/licenses/
 plugins/diayn/dependency-skills-manifest.json
 ```
 
-The repository root is the Codex Desktop marketplace root. It contains
-`marketplace.json`, and that manifest points at `./plugins/diayn`. This follows
-the `plugin-creator` marketplace convention where the marketplace root contains
-the manifest and plugin entries resolve through `./plugins/<plugin-name>`.
+The `.agents/plugins/` subtree is the Codex Desktop marketplace root. It
+contains `.agents/plugins/marketplace.json`, and that manifest points at
+`./plugins/diayn`. This follows the `plugin-creator` marketplace convention
+where the marketplace root contains the manifest and plugin entries resolve
+through `./plugins/<plugin-name>`.
 
 The plugin manifest uses the Codex plugin shape:
 
@@ -61,22 +62,29 @@ These are kept for compatibility and history, but the isolated Codex candidate
 surface is now:
 
 ```text
-marketplace.json
+.agents/plugins/marketplace.json
 plugins/diayn/
 ```
 
 Do not use the older paths to claim Codex Desktop plugin runtime support.
 
-Do not use the previous `.agents/plugins/marketplace.json` candidate path for
-Codex Desktop testing. It separated the marketplace manifest from the plugin
-payload and could not be installed reliably from the Desktop "Add plugin
-marketplace" dialog.
+Do not use the old repository-root `marketplace.json` candidate path for Codex
+Desktop testing. It separated the marketplace manifest from the plugin payload
+and could not be installed reliably from the Desktop "Add plugin marketplace"
+dialog.
 
-Add the repository root as the Codex Desktop marketplace root for this
-candidate, and leave the sparse path field empty. Do not use the previous
-`plugins/codex` sparse-path candidate; Codex Desktop keeps the sparse path
-nested under the staging root, so the checkout root does not contain a supported
-marketplace manifest.
+Add the repository source as the Codex Desktop marketplace candidate with the
+two-line sparse path:
+
+```text
+.agents/plugins
+plugins/diayn
+```
+
+Do not leave the sparse path field empty, because Codex Desktop may also scan
+Claude marketplace files under `.claude-plugin/`. Do not use the previous
+`plugins/codex` sparse-path candidate either; that shape leaves the Codex
+marketplace manifest nested below the staging root.
 
 ## Candidate Install Attempt
 
@@ -87,6 +95,8 @@ runtime validation. The expected candidate fields are:
 Source: git@github.com:ice268528/Docs-is-all-you-need.git
 Git ref: main
 Sparse path:
+.agents/plugins
+plugins/diayn
 ```
 
 HTTPS source is also acceptable if the environment cannot use SSH:
@@ -95,12 +105,14 @@ HTTPS source is also acceptable if the environment cannot use SSH:
 Source: https://github.com/ice268528/Docs-is-all-you-need.git
 Git ref: main
 Sparse path:
+.agents/plugins
+plugins/diayn
 ```
 
 If the marketplace name `diayn-local-alpha` is already added from an older
 source, remove that marketplace first and clear any stale cache before adding it
 again. Otherwise Codex Desktop may keep using an old checkout that does not
-contain `marketplace.json`.
+contain `.agents/plugins/marketplace.json`.
 
 After the marketplace is visible, the expected candidate identity is:
 

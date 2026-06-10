@@ -42,7 +42,12 @@ Codex CLI。
 来源：git@github.com:ice268528/Docs-is-all-you-need.git
 Git 引用：main
 稀疏路径：
+.agents/plugins
+plugins/diayn
 ```
+
+这样稀疏拉取后，Codex 市场文件会落在
+`.agents/plugins/marketplace.json`，插件载荷会保留在 `plugins/diayn/`。
 
 然后把插件列表筛选器从 `Built by OpenAI` 切到全部或对应市场，再搜索
 `diayn`。这条路径仍是 candidate，只有新的 Codex Desktop 安装、发现和调用
@@ -116,7 +121,7 @@ flowchart LR
   [docs/install/claude-code.md](docs/install/claude-code.md)。
 - Codex：当前已验证的是安装到 `.codex/skills/` 或 Codex Home skills
   的 skills package。Codex Desktop plugin marketplace candidate 使用
-  仓库根目录，并且稀疏路径留空；但还没有 runtime 证据。详情见
+  两行稀疏路径：`.agents/plugins` 和 `plugins/diayn`；但还没有 runtime 证据。详情见
   [docs/install/codex_skills.md](docs/install/codex_skills.md) 和
   [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md)。
 - OpenCode / generic：详情见

@@ -75,7 +75,7 @@ modified with DIAYN-authored Codex UI metadata.
 The isolated Codex plugin marketplace candidate is:
 
 ```text
-marketplace.json
+.agents/plugins/marketplace.json
 plugins/diayn/
 plugins/diayn/.codex-plugin/plugin.json
 plugins/diayn/skills/

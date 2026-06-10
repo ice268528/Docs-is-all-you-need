@@ -8,7 +8,7 @@ for the current skills-package install claim.
 The candidate under test is:
 
 ```text
-marketplace.json
+.agents/plugins/marketplace.json
 plugins/diayn/
 ```
 
@@ -43,6 +43,8 @@ The expected candidate values are:
 Source: git@github.com:ice268528/Docs-is-all-you-need.git
 Git ref: main
 Sparse path:
+.agents/plugins
+plugins/diayn
 ```
 
 HTTPS source is acceptable if SSH is unavailable:
@@ -51,15 +53,19 @@ HTTPS source is acceptable if SSH is unavailable:
 Source: https://github.com/ice268528/Docs-is-all-you-need.git
 Git ref: main
 Sparse path:
+.agents/plugins
+plugins/diayn
 ```
 
-Use the repository root for this candidate and leave the sparse path field
-empty. Do not use the old `.agents/plugins` path or the previous
-`plugins/codex` sparse-path candidate. The `plugins/codex` shape leaves
-`marketplace.json` nested below the Codex staging root and can produce
-`marketplace root does not contain a supported manifest`. Record the exact
-successful form. Do not claim runtime support until this succeeds in Codex
-Desktop.
+Use the two-line sparse path so the checkout contains the marketplace manifest
+and the plugin payload together. Do not leave the sparse path field empty,
+because the full checkout includes Claude marketplace files that Codex Desktop
+may scan as Codex marketplaces. Do not use the old repository-root
+`marketplace.json` path or the previous `plugins/codex` sparse-path candidate.
+The `plugins/codex` shape leaves the manifest nested below the Codex staging
+root and can produce `marketplace root does not contain a supported manifest`.
+Record the exact successful form. Do not claim runtime support until this
+succeeds in Codex Desktop.
 
 ## Discovery Evidence
 

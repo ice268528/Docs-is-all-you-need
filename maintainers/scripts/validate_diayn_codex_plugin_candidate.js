@@ -5,7 +5,9 @@ const fs = require("fs");
 const path = require("path");
 
 const repoRoot = path.resolve(__dirname, "..", "..");
-const marketplacePath = path.join(repoRoot, "marketplace.json");
+const marketplacePath = path.join(repoRoot, ".agents", "plugins", "marketplace.json");
+const legacyRootMarketplacePath = path.join(repoRoot, "marketplace.json");
+const rootPluginManifestPath = path.join(repoRoot, ".codex-plugin", "plugin.json");
 const pluginRoot = path.join(repoRoot, "plugins", "diayn");
 const pluginManifestPath = path.join(pluginRoot, ".codex-plugin", "plugin.json");
 const skillsRoot = path.join(pluginRoot, "skills");
@@ -54,10 +56,15 @@ function main() {
   if (outputIndex >= 0 && !outputPath) throw new Error("--json requires an output path");
 
   const errors = [];
-  const marketplace = readJson(marketplacePath, errors, "marketplace.json");
+  const marketplace = readJson(marketplacePath, errors, ".agents/plugins/marketplace.json");
+  const rootPluginManifest = readJson(rootPluginManifestPath, errors, ".codex-plugin/plugin.json");
   const pluginManifest = readJson(pluginManifestPath, errors, "plugins/diayn/.codex-plugin/plugin.json");
   const candidateSkills = listSkillDirs(skillsRoot);
   const dependencySkills = listSkillDirs(dependencySource);
+
+  if (fs.existsSync(legacyRootMarketplacePath)) {
+    errors.push("legacy root marketplace.json must be removed; Codex marketplace manifest belongs at .agents/plugins/marketplace.json");
+  }
 
   if (marketplace) {
     if (marketplace.name !== "diayn-local-alpha") errors.push("marketplace name must be diayn-local-alpha");
@@ -73,7 +80,19 @@ function main() {
     }
   }
 
+  if (rootPluginManifest) {
+    if (rootPluginManifest.id) errors.push("repository-root Codex plugin manifest must not use legacy id field");
+    if (rootPluginManifest.name !== "diayn") errors.push("repository-root Codex plugin name must be diayn");
+    if (rootPluginManifest.skills !== "./plugins/diayn/skills/") {
+      errors.push("repository-root Codex plugin skills path must be ./plugins/diayn/skills/");
+    }
+    if (JSON.stringify(rootPluginManifest.interface && rootPluginManifest.interface.defaultPrompt || []).includes("/diayn")) {
+      errors.push("repository-root Codex default prompts must not claim verified /diayn-* slash commands");
+    }
+  }
+
   if (pluginManifest) {
+    if (pluginManifest.id) errors.push("Codex candidate plugin manifest must not use legacy id field");
     if (pluginManifest.name !== "diayn") errors.push("Codex candidate plugin name must be diayn");
     if (pluginManifest.skills !== "./skills/") errors.push("Codex candidate plugin skills path must be ./skills/");
     if (JSON.stringify(pluginManifest.interface && pluginManifest.interface.defaultPrompt || []).includes("/diayn")) {
@@ -110,8 +129,10 @@ function main() {
   const result = {
     ok: errors.length === 0,
     schema: "diayn.codex_plugin_candidate.v1",
-    marketplace: "marketplace.json",
+    marketplace: ".agents/plugins/marketplace.json",
     marketplace_name: marketplace && marketplace.name,
+    root_plugin_manifest: ".codex-plugin/plugin.json",
+    root_plugin_skills: rootPluginManifest && rootPluginManifest.skills,
     plugin_root: "plugins/diayn",
     plugin_name: pluginManifest && pluginManifest.name,
     plugin_status: "candidate",

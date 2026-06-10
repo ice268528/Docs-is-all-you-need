@@ -10,8 +10,7 @@ packaging. Status values are limited to `verified`, `candidate`, `legacy`, and
 | `.codex-plugin/` | yes | Codex | Repository-root historical Codex manifest pointing at the project-local package. | `legacy` |
 | `plugins/docs-is-all-you-need/.codex-plugin/` | yes | Codex | Older inner Codex local candidate with `skills: ./skills/`. | `legacy` |
 | `packages/codex-project-local/` | yes | Codex | Verified skills package for project-local or Codex Home installation. | `verified` |
-| `.agents/` | no active file | Codex | Previous DIAYN-owned marketplace catalog candidate. It is no longer the Codex Desktop candidate because the sparse checkout did not include the plugin payload. | `legacy` |
-| `marketplace.json` | yes | Codex | Repository-root Codex Desktop marketplace manifest pointing at `./plugins/diayn`. | `candidate` |
+| `.agents/plugins/marketplace.json` | yes | Codex | Codex Desktop marketplace manifest pointing at `./plugins/diayn`. | `candidate` |
 | `plugins/diayn/` | yes | Codex | Isolated Codex plugin candidate with workflow and dependency skills. | `candidate` |
 | `docs/install/codex_skills.md` | yes | Codex | Verified skills-package install documentation. | `verified` |
 | `docs/install/codex_plugin_local_candidate.md` | yes | Codex | Candidate plugin marketplace documentation. | `candidate` |
@@ -30,16 +29,19 @@ Confirmed Codex capability in this repository:
 
 DIAYN-owned candidate structure:
 
-- `marketplace.json`
+- `.agents/plugins/marketplace.json`
 - `plugins/diayn/.codex-plugin/plugin.json`
 - `plugins/diayn/skills/`
 
-Codex Desktop should add this candidate from the repository root with the
-sparse path field left empty.
-The repository root is the intended marketplace root because Codex Desktop
-checks the checkout root for `marketplace.json`. The Claude marketplace
-material remains in Claude-specific paths and is not the Codex marketplace
-entrypoint.
+Codex Desktop should add this candidate with the two-line sparse path:
+
+```text
+.agents/plugins
+plugins/diayn
+```
+
+That sparse checkout keeps the Codex marketplace manifest plus the plugin
+payload, while excluding Claude marketplace material under `.claude-plugin/`.
 
 Unknown until runtime evidence exists:
 
