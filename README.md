@@ -45,7 +45,7 @@ In Codex Desktop, open **Add plugin marketplace** and use:
 ```text
 Source: git@github.com:ice268528/Docs-is-all-you-need.git
 Git ref: main
-Sparse path: plugins/codex
+Sparse path:
 ```
 
 Then switch the plugin list filter away from "Built by OpenAI" if needed and
@@ -120,7 +120,8 @@ Typical generated or maintained files include:
   [docs/install/claude-code.md](docs/install/claude-code.md).
 - Codex: the verified path today is the skills package install into
   `.codex/skills/` or Codex Home skills. The Codex Desktop plugin marketplace
-  candidate uses `Sparse path: plugins/codex` and still needs runtime evidence.
+  candidate uses the repository root with the sparse path field left empty and
+  still needs runtime evidence.
   See
   [docs/install/codex_skills.md](docs/install/codex_skills.md) and
   [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md).

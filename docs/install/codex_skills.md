@@ -25,14 +25,13 @@ Codex plugin candidate is now documented separately at
 `docs/install/codex_plugin_local_candidate.md` and lives under:
 
 ```text
-plugins/codex/
-plugins/codex/marketplace.json
-plugins/codex/plugins/diayn/
+marketplace.json
+plugins/diayn/
 ```
 
 Do not use the historical root entrypoint as proof of Codex Desktop plugin
 runtime support. For Codex Desktop plugin testing, add the marketplace with
-`Sparse path: plugins/codex`; do not use this skills-package document as the
+the sparse path field left empty; do not use this skills-package document as the
 plugin installation procedure.
 
 It is shaped for project-local installation into:

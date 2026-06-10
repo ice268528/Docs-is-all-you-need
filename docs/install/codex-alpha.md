@@ -4,8 +4,7 @@ DDDV8 Codex pre-alpha package shape lives under:
 
 ```text
 packages/codex-project-local/
-plugins/codex/
-plugins/codex/plugins/diayn/
+plugins/diayn/
 ```
 
 Relevant package files:
@@ -13,17 +12,19 @@ Relevant package files:
 ```text
 packages/codex-project-local/.codex/skills/
 packages/codex-project-local/diayn-package.json
-plugins/codex/marketplace.json
-plugins/codex/plugins/diayn/.codex-plugin/plugin.json
-plugins/codex/plugins/diayn/skills/
+marketplace.json
+plugins/diayn/.codex-plugin/plugin.json
+plugins/diayn/skills/
 ```
 
 The isolated Codex plugin candidate manifest points its public skill surface at
 `./skills/`, which contains the 12 DIAYN workflow skills plus the 23 locked
 DIAYN-managed `agent-skills` dependency skills. This candidate lives under
-`plugins/codex/plugins/diayn/` and is registered by
-`plugins/codex/marketplace.json`. In Codex Desktop, `plugins/codex` is the
-marketplace root and should be entered as the sparse path.
+`plugins/diayn/` and is registered by the repository-root `marketplace.json`.
+In Codex Desktop, add the repository as the marketplace and leave the sparse
+path field empty. Codex Desktop currently checks the checkout root for the
+marketplace manifest; a sparse path such as `plugins/codex` leaves
+`marketplace.json` nested below the staging root and fails marketplace parsing.
 
 The project-local Codex package points at `.codex/skills/` and contains exactly 12 DIAYN workflow skills plus the 23 locked DIAYN-managed `agent-skills` dependency skills.
 

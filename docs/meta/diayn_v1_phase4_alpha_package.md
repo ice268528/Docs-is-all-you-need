@@ -75,10 +75,10 @@ modified with DIAYN-authored Codex UI metadata.
 The isolated Codex plugin marketplace candidate is:
 
 ```text
-plugins/codex/marketplace.json
-plugins/codex/plugins/diayn/
-plugins/codex/plugins/diayn/.codex-plugin/plugin.json
-plugins/codex/plugins/diayn/skills/
+marketplace.json
+plugins/diayn/
+plugins/diayn/.codex-plugin/plugin.json
+plugins/diayn/skills/
 ```
 
 It points to the plugin skill surface with:
@@ -136,7 +136,7 @@ Validation checks:
 - each Claude plugin command invokes the matching namespaced public workflow skill;
 - repository-root Claude manifest points commands to root DIAYN command adapters and explicitly registers only the bundled dependency skills;
 - legacy Codex manifests remain candidate material, not runtime proof;
-- isolated Codex plugin candidate points at `plugins/codex/plugins/diayn/skills/`;
+- isolated Codex plugin candidate points at `plugins/diayn/skills/`;
 - isolated Codex plugin candidate contains the 12 workflow skills and 23 dependency skills;
 - repository-root Codex manifest remains historical and points at the generated platform-visible Codex package;
 - Codex project-local package points at `.codex/skills`;

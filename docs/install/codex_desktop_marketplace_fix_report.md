@@ -16,33 +16,31 @@ Codex Desktop 当前环境没有可用的 Codex CLI，因此本次判断以 Code
 
 - Codex 配置中只有 `marketplaces.diayn-local-alpha`，没有
   `plugins."diayn@diayn-local-alpha"`，说明 marketplace 被添加了，但插件未安装。
-- Codex marketplace 缓存中出现的是仓库里的 Claude marketplace material，例如
-  `.claude-plugin/marketplace.json`，而不是 Codex 专用 candidate。
-- 旧 Codex candidate 使用 `.agents/plugins/marketplace.json` 指向
-  `plugins/diayn/`。这个布局对 Codex Desktop 的“稀疏路径”不友好：如果稀疏路径
-  只取 `.agents/plugins`，Codex 只能看到 marketplace manifest，看不到插件
-  payload；如果取仓库根目录，Codex 又可能先发现 Claude marketplace material。
+- 历史 `.agents/plugins/marketplace.json` candidate 会把 marketplace manifest
+  和 plugin payload 分开；某些稀疏路径只能取到 manifest，取不到 payload。
+- 后续 `plugins/codex` candidate 把 manifest 和 payload 放在同一子目录下，但
+  Codex Desktop 实测会把 sparse path 保留在 staging 目录下，而不是把它提升为
+  marketplace root。结果是 checkout 根目录没有 `marketplace.json`，并报：
 
-因此，旧布局会造成“marketplace 可添加，但插件列表无法解析出 diayn 插件”的状态。
+```text
+marketplace root does not contain a supported manifest
+```
+
+因此，Codex Desktop 需要在 checkout 根目录直接看到 Codex marketplace manifest。
 
 ## 修复方案
 
-新增并采用 Codex Desktop 专用 marketplace root：
+采用仓库根目录作为 Codex Desktop marketplace root，并在根目录放置 Codex
+marketplace manifest：
 
 ```text
-plugins/codex/
+marketplace.json
+plugins/diayn/
+plugins/diayn/.codex-plugin/plugin.json
+plugins/diayn/skills/
 ```
 
-该目录现在同时包含 marketplace manifest 和 plugin payload：
-
-```text
-plugins/codex/marketplace.json
-plugins/codex/plugins/diayn/
-plugins/codex/plugins/diayn/.codex-plugin/plugin.json
-plugins/codex/plugins/diayn/skills/
-```
-
-`plugins/codex/marketplace.json` 中的插件入口保持 Codex marketplace 规范：
+`marketplace.json` 中的插件入口保持 Codex marketplace 规范：
 
 ```json
 {
@@ -54,8 +52,12 @@ plugins/codex/plugins/diayn/skills/
 }
 ```
 
-这样当 Codex Desktop 使用 `Sparse path: plugins/codex` 时，`./plugins/diayn`
-就在同一个 sparse checkout 内，可被解析和安装。
+这样 Codex Desktop 从仓库根目录添加 marketplace 时，checkout 根目录就能直接看到
+`marketplace.json`，并且 `./plugins/diayn` 能从同一个根目录解析到 plugin payload。
+
+上一版 `plugins/codex` 稀疏路径方案已废弃：Codex Desktop 会把 sparse path 保留在
+staging 目录下，而不是把它提升为 marketplace root，因此会出现
+`marketplace root does not contain a supported manifest`。
 
 ## 未改动的 Claude 功能
 
@@ -81,7 +83,7 @@ packages/claude-project-local/
 ```text
 来源：git@github.com:ice268528/Docs-is-all-you-need.git
 Git 引用：main
-稀疏路径：plugins/codex
+稀疏路径：
 ```
 
 如果 SSH 不可用，可以使用 HTTPS：
@@ -89,7 +91,7 @@ Git 引用：main
 ```text
 来源：https://github.com/ice268528/Docs-is-all-you-need.git
 Git 引用：main
-稀疏路径：plugins/codex
+稀疏路径：
 ```
 
 添加后在插件页把筛选器从 `Built by OpenAI` 切到全部或对应 marketplace，再搜索

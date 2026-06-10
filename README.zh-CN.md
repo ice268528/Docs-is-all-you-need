@@ -41,7 +41,7 @@ Codex CLI。
 ```text
 来源：git@github.com:ice268528/Docs-is-all-you-need.git
 Git 引用：main
-稀疏路径：plugins/codex
+稀疏路径：
 ```
 
 然后把插件列表筛选器从 `Built by OpenAI` 切到全部或对应市场，再搜索
@@ -116,7 +116,7 @@ flowchart LR
   [docs/install/claude-code.md](docs/install/claude-code.md)。
 - Codex：当前已验证的是安装到 `.codex/skills/` 或 Codex Home skills
   的 skills package。Codex Desktop plugin marketplace candidate 使用
-  `稀疏路径：plugins/codex`，但还没有 runtime 证据。详情见
+  仓库根目录，并且稀疏路径留空；但还没有 runtime 证据。详情见
   [docs/install/codex_skills.md](docs/install/codex_skills.md) 和
   [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md)。
 - OpenCode / generic：详情见

@@ -9,28 +9,28 @@ runtime surface.
 | --- | --- | --- |
 | Codex `AGENTS.md` entry file | `verified` | Codex/generic agents use `AGENTS.md` as the peer entry file. |
 | Codex skills package install | `verified` | `packages/codex-project-local/` can install the 12 DIAYN workflow skills plus 23 dependency skills into `.codex/skills/` or Codex Home skills. |
-| Codex plugin marketplace candidate | `candidate` | `plugins/codex/marketplace.json` points at `plugins/codex/plugins/diayn/`. This shape is intended for the Codex Desktop "Sparse path: plugins/codex" marketplace flow, but runtime evidence is still missing until a fresh Desktop install succeeds. |
+| Codex plugin marketplace candidate | `candidate` | `marketplace.json` points at `plugins/diayn/`. This shape is intended for the Codex Desktop marketplace flow with the sparse path field left empty, but runtime evidence is still missing until a fresh Desktop install succeeds. |
 | Direct Codex `/diayn-*` slash behavior | `unknown` | Do not claim this until Codex Desktop runtime evidence proves it. |
 | Codex native dependency-skill invocation after plugin install | `unknown` | Do not claim this until runtime evidence proves it. |
 
 ## Candidate Layout
 
 ```text
-plugins/codex/marketplace.json
-plugins/codex/plugins/diayn/
-plugins/codex/plugins/diayn/.codex-plugin/plugin.json
-plugins/codex/plugins/diayn/skills/
-plugins/codex/plugins/diayn/dependency-routing/
-plugins/codex/plugins/diayn/dependency-references/
-plugins/codex/plugins/diayn/internal-role-skills/
-plugins/codex/plugins/diayn/licenses/
-plugins/codex/plugins/diayn/dependency-skills-manifest.json
+marketplace.json
+plugins/diayn/
+plugins/diayn/.codex-plugin/plugin.json
+plugins/diayn/skills/
+plugins/diayn/dependency-routing/
+plugins/diayn/dependency-references/
+plugins/diayn/internal-role-skills/
+plugins/diayn/licenses/
+plugins/diayn/dependency-skills-manifest.json
 ```
 
-`plugins/codex/` is the Codex Desktop marketplace root. It intentionally
-contains both the marketplace manifest and the plugin payload. This avoids the
-failed shape where a sparse checkout could see a marketplace manifest but not
-the `diayn` plugin directory.
+The repository root is the Codex Desktop marketplace root. It contains
+`marketplace.json`, and that manifest points at `./plugins/diayn`. This follows
+the `plugin-creator` marketplace convention where the marketplace root contains
+the manifest and plugin entries resolve through `./plugins/<plugin-name>`.
 
 The plugin manifest uses the Codex plugin shape:
 
@@ -61,8 +61,8 @@ These are kept for compatibility and history, but the isolated Codex candidate
 surface is now:
 
 ```text
-plugins/codex/marketplace.json
-plugins/codex/plugins/diayn/
+marketplace.json
+plugins/diayn/
 ```
 
 Do not use the older paths to claim Codex Desktop plugin runtime support.
@@ -72,10 +72,11 @@ Codex Desktop testing. It separated the marketplace manifest from the plugin
 payload and could not be installed reliably from the Desktop "Add plugin
 marketplace" dialog.
 
-Do not add the repository root as the Codex Desktop marketplace root for this
-candidate. The repository root also contains Claude marketplace material, and a
-root-level add may let Codex cache the wrong marketplace manifest before it ever
-sees the Codex-specific candidate.
+Add the repository root as the Codex Desktop marketplace root for this
+candidate, and leave the sparse path field empty. Do not use the previous
+`plugins/codex` sparse-path candidate; Codex Desktop keeps the sparse path
+nested under the staging root, so the checkout root does not contain a supported
+marketplace manifest.
 
 ## Candidate Install Attempt
 
@@ -85,7 +86,7 @@ runtime validation. The expected candidate fields are:
 ```text
 Source: git@github.com:ice268528/Docs-is-all-you-need.git
 Git ref: main
-Sparse path: plugins/codex
+Sparse path:
 ```
 
 HTTPS source is also acceptable if the environment cannot use SSH:
@@ -93,13 +94,13 @@ HTTPS source is also acceptable if the environment cannot use SSH:
 ```text
 Source: https://github.com/ice268528/Docs-is-all-you-need.git
 Git ref: main
-Sparse path: plugins/codex
+Sparse path:
 ```
 
 If the marketplace name `diayn-local-alpha` is already added from an older
 source, remove that marketplace first and clear any stale cache before adding it
 again. Otherwise Codex Desktop may keep using an old checkout that does not
-contain `plugins/codex/marketplace.json`.
+contain `marketplace.json`.
 
 After the marketplace is visible, the expected candidate identity is:
 
