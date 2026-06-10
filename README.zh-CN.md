@@ -9,8 +9,8 @@ Docs-is-all-you-need，简称 DIAYN，是一个面向多会话 coding agent 协�
 - 想把一个想法整理成清晰项目计划的 Owner。
 - 需要多个 agent 会话协作、并保持同一份项目事实的团队。
 - 想用 Claude Code 插件方式开始 DIAYN 的用户。
-- 想在 Codex 中使用当前 skills 安装包的用户；Codex 插件市场形态仍是
-  candidate，需要单独验证。
+- 想在 Codex 中使用当前 skills 安装包，或想测试 Codex Desktop 插件
+  candidate 的用户。
 
 ## 快速开始
 
@@ -30,6 +30,23 @@ Docs-is-all-you-need，简称 DIAYN，是一个面向多会话 coding agent 协�
 ```
 
 DIAYN 会在需要时继续追问你，帮助澄清需求，然后创建项目所需的文档和起始文件。
+
+### Codex Desktop 插件 candidate
+
+Codex Desktop 当前通过应用界面添加插件市场；这个插件 candidate 不要求你使用
+Codex CLI。
+
+在 Codex Desktop 里打开“添加插件市场”，填写：
+
+```text
+来源：git@github.com:ice268528/Docs-is-all-you-need.git
+Git 引用：main
+稀疏路径：plugins/codex
+```
+
+然后把插件列表筛选器从 `Built by OpenAI` 切到全部或对应市场，再搜索
+`diayn`。这条路径仍是 candidate，只有新的 Codex Desktop 安装、发现和调用
+证据跑通后，才能声明 runtime 已验证。
 
 ## 核心工作流
 
@@ -98,8 +115,8 @@ flowchart LR
   `/diayn-*` 命令时使用这条路径。详情见
   [docs/install/claude-code.md](docs/install/claude-code.md)。
 - Codex：当前已验证的是安装到 `.codex/skills/` 或 Codex Home skills
-  的 skills package。Codex plugin marketplace 形态已经作为 candidate
-  准备，但还没有 Codex Desktop runtime 证据。详情见
+  的 skills package。Codex Desktop plugin marketplace candidate 使用
+  `稀疏路径：plugins/codex`，但还没有 runtime 证据。详情见
   [docs/install/codex_skills.md](docs/install/codex_skills.md) 和
   [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md)。
 - OpenCode / generic：详情见
@@ -113,6 +130,7 @@ flowchart LR
 - [docs/install/claude-code.md](docs/install/claude-code.md)
 - [docs/install/codex_skills.md](docs/install/codex_skills.md)
 - [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md)
+- [docs/install/codex_desktop_marketplace_fix_report.md](docs/install/codex_desktop_marketplace_fix_report.md)
 - [docs/qa/claude-plugin-runtime-acceptance.md](docs/qa/claude-plugin-runtime-acceptance.md)
 - [docs/meta/diayn_command_reference.md](docs/meta/diayn_command_reference.md)
 - [docs/meta/diayn_commands/](docs/meta/diayn_commands/)

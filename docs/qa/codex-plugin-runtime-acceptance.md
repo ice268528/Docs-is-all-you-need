@@ -8,8 +8,8 @@ for the current skills-package install claim.
 The candidate under test is:
 
 ```text
-.agents/plugins/marketplace.json
-plugins/diayn/
+plugins/codex/marketplace.json
+plugins/codex/plugins/diayn/
 ```
 
 This checklist must not modify Claude Code plugin files, Claude command files,
@@ -40,15 +40,24 @@ Sparse path:
 The expected candidate values are:
 
 ```text
-Source: ice268528/Docs-is-all-you-need
+Source: git@github.com:ice268528/Docs-is-all-you-need.git
 Git ref: main
-Sparse path: .agents/plugins
+Sparse path: plugins/codex
 ```
 
-If Codex Desktop cannot resolve `plugins/diayn/` from that sparse path, retry
-with a blank sparse path or with both required paths if the UI supports it.
-Record the exact successful form. Do not rewrite user-facing README quick-starts
-until the successful form is known.
+HTTPS source is acceptable if SSH is unavailable:
+
+```text
+Source: https://github.com/ice268528/Docs-is-all-you-need.git
+Git ref: main
+Sparse path: plugins/codex
+```
+
+Do not use the repository root or the old `.agents/plugins` path for this
+candidate. The Codex Desktop marketplace root must be `plugins/codex` so the
+manifest and plugin payload are in the same sparse checkout. Record the exact
+successful form. Do not claim runtime support until this succeeds in Codex
+Desktop.
 
 ## Discovery Evidence
 

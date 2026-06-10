@@ -9,23 +9,28 @@ runtime surface.
 | --- | --- | --- |
 | Codex `AGENTS.md` entry file | `verified` | Codex/generic agents use `AGENTS.md` as the peer entry file. |
 | Codex skills package install | `verified` | `packages/codex-project-local/` can install the 12 DIAYN workflow skills plus 23 dependency skills into `.codex/skills/` or Codex Home skills. |
-| Codex plugin marketplace candidate | `candidate` | `.agents/plugins/marketplace.json` points at `plugins/diayn/`, but Codex Desktop install/runtime evidence is still missing. |
+| Codex plugin marketplace candidate | `candidate` | `plugins/codex/marketplace.json` points at `plugins/codex/plugins/diayn/`. This shape is intended for the Codex Desktop "Sparse path: plugins/codex" marketplace flow, but runtime evidence is still missing until a fresh Desktop install succeeds. |
 | Direct Codex `/diayn-*` slash behavior | `unknown` | Do not claim this until Codex Desktop runtime evidence proves it. |
 | Codex native dependency-skill invocation after plugin install | `unknown` | Do not claim this until runtime evidence proves it. |
 
 ## Candidate Layout
 
 ```text
-.agents/plugins/marketplace.json
-plugins/diayn/
-plugins/diayn/.codex-plugin/plugin.json
-plugins/diayn/skills/
-plugins/diayn/dependency-routing/
-plugins/diayn/dependency-references/
-plugins/diayn/internal-role-skills/
-plugins/diayn/licenses/
-plugins/diayn/dependency-skills-manifest.json
+plugins/codex/marketplace.json
+plugins/codex/plugins/diayn/
+plugins/codex/plugins/diayn/.codex-plugin/plugin.json
+plugins/codex/plugins/diayn/skills/
+plugins/codex/plugins/diayn/dependency-routing/
+plugins/codex/plugins/diayn/dependency-references/
+plugins/codex/plugins/diayn/internal-role-skills/
+plugins/codex/plugins/diayn/licenses/
+plugins/codex/plugins/diayn/dependency-skills-manifest.json
 ```
+
+`plugins/codex/` is the Codex Desktop marketplace root. It intentionally
+contains both the marketplace manifest and the plugin payload. This avoids the
+failed shape where a sparse checkout could see a marketplace manifest but not
+the `diayn` plugin directory.
 
 The plugin manifest uses the Codex plugin shape:
 
@@ -56,11 +61,21 @@ These are kept for compatibility and history, but the isolated Codex candidate
 surface is now:
 
 ```text
-.agents/plugins/marketplace.json
-plugins/diayn/
+plugins/codex/marketplace.json
+plugins/codex/plugins/diayn/
 ```
 
 Do not use the older paths to claim Codex Desktop plugin runtime support.
+
+Do not use the previous `.agents/plugins/marketplace.json` candidate path for
+Codex Desktop testing. It separated the marketplace manifest from the plugin
+payload and could not be installed reliably from the Desktop "Add plugin
+marketplace" dialog.
+
+Do not add the repository root as the Codex Desktop marketplace root for this
+candidate. The repository root also contains Claude marketplace material, and a
+root-level add may let Codex cache the wrong marketplace manifest before it ever
+sees the Codex-specific candidate.
 
 ## Candidate Install Attempt
 
@@ -68,15 +83,23 @@ In Codex Desktop, the "Add plugin marketplace" dialog can be used for future
 runtime validation. The expected candidate fields are:
 
 ```text
-Source: ice268528/Docs-is-all-you-need
+Source: git@github.com:ice268528/Docs-is-all-you-need.git
 Git ref: main
-Sparse path: .agents/plugins
+Sparse path: plugins/codex
 ```
 
-If Codex Desktop needs the plugin payload in the same sparse checkout, leave the
-sparse path blank or include both the marketplace path and `plugins/diayn/` if
-the UI supports multiple sparse paths. Record the exact setting used. Do not
-turn this into a README quick-start until a real Desktop install succeeds.
+HTTPS source is also acceptable if the environment cannot use SSH:
+
+```text
+Source: https://github.com/ice268528/Docs-is-all-you-need.git
+Git ref: main
+Sparse path: plugins/codex
+```
+
+If the marketplace name `diayn-local-alpha` is already added from an older
+source, remove that marketplace first and clear any stale cache before adding it
+again. Otherwise Codex Desktop may keep using an old checkout that does not
+contain `plugins/codex/marketplace.json`.
 
 After the marketplace is visible, the expected candidate identity is:
 
@@ -106,6 +129,12 @@ Runtime acceptance is documented in:
 ```text
 docs/qa/codex-plugin-runtime-acceptance.md
 docs/install/codex_desktop_runtime_evidence_runbook.md
+```
+
+The current Codex Desktop marketplace layout repair is recorded in:
+
+```text
+docs/install/codex_desktop_marketplace_fix_report.md
 ```
 
 ## Claim Boundary

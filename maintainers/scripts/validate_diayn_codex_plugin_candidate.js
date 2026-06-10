@@ -5,8 +5,8 @@ const fs = require("fs");
 const path = require("path");
 
 const repoRoot = path.resolve(__dirname, "..", "..");
-const marketplacePath = path.join(repoRoot, ".agents", "plugins", "marketplace.json");
-const pluginRoot = path.join(repoRoot, "plugins", "diayn");
+const marketplacePath = path.join(repoRoot, "plugins", "codex", "marketplace.json");
+const pluginRoot = path.join(repoRoot, "plugins", "codex", "plugins", "diayn");
 const pluginManifestPath = path.join(pluginRoot, ".codex-plugin", "plugin.json");
 const skillsRoot = path.join(pluginRoot, "skills");
 const dependencySource = path.join(repoRoot, "plugins", "docs-is-all-you-need", "dependency-skills", "agent-skills", "skills");
@@ -54,8 +54,8 @@ function main() {
   if (outputIndex >= 0 && !outputPath) throw new Error("--json requires an output path");
 
   const errors = [];
-  const marketplace = readJson(marketplacePath, errors, ".agents/plugins/marketplace.json");
-  const pluginManifest = readJson(pluginManifestPath, errors, "plugins/diayn/.codex-plugin/plugin.json");
+  const marketplace = readJson(marketplacePath, errors, "plugins/codex/marketplace.json");
+  const pluginManifest = readJson(pluginManifestPath, errors, "plugins/codex/plugins/diayn/.codex-plugin/plugin.json");
   const candidateSkills = listSkillDirs(skillsRoot);
   const dependencySkills = listSkillDirs(dependencySource);
 
@@ -110,9 +110,9 @@ function main() {
   const result = {
     ok: errors.length === 0,
     schema: "diayn.codex_plugin_candidate.v1",
-    marketplace: ".agents/plugins/marketplace.json",
+    marketplace: "plugins/codex/marketplace.json",
     marketplace_name: marketplace && marketplace.name,
-    plugin_root: "plugins/diayn",
+    plugin_root: "plugins/codex/plugins/diayn",
     plugin_name: pluginManifest && pluginManifest.name,
     plugin_status: "candidate",
     runtime_validation: {

@@ -12,8 +12,8 @@ and accepted without losing the project truth.
 - Owners who want an idea turned into a clear project plan.
 - Teams that work across multiple agent sessions and want one source of truth.
 - Claude Code users who want a plugin-first workflow.
-- Codex users who want the current skills-package path, with plugin support
-  tracked separately as a candidate.
+- Codex users who want the current skills-package path or want to test the
+  Codex Desktop plugin candidate.
 
 ## Quick Start
 
@@ -34,6 +34,23 @@ Then start with:
 
 DIAYN will ask clarifying questions when needed, then create the project docs
 and starter files it needs.
+
+### Codex Desktop Plugin Candidate
+
+Codex Desktop currently uses the app UI for marketplace installation; this
+repository does not require a Codex CLI for the plugin candidate.
+
+In Codex Desktop, open **Add plugin marketplace** and use:
+
+```text
+Source: git@github.com:ice268528/Docs-is-all-you-need.git
+Git ref: main
+Sparse path: plugins/codex
+```
+
+Then switch the plugin list filter away from "Built by OpenAI" if needed and
+look for `diayn`. This path is still a candidate until a fresh Codex Desktop
+install, discovery, and invocation run is recorded.
 
 ## Core Workflow
 
@@ -102,8 +119,9 @@ Typical generated or maintained files include:
   commands inside a target project. See
   [docs/install/claude-code.md](docs/install/claude-code.md).
 - Codex: the verified path today is the skills package install into
-  `.codex/skills/` or Codex Home skills. The Codex plugin marketplace surface
-  is a candidate and still needs Desktop runtime evidence. See
+  `.codex/skills/` or Codex Home skills. The Codex Desktop plugin marketplace
+  candidate uses `Sparse path: plugins/codex` and still needs runtime evidence.
+  See
   [docs/install/codex_skills.md](docs/install/codex_skills.md) and
   [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md).
 - OpenCode / generic: see [docs/install/README.md](docs/install/README.md)
@@ -117,6 +135,7 @@ If you want the details behind the user-facing quick start, read:
 - [docs/install/claude-code.md](docs/install/claude-code.md)
 - [docs/install/codex_skills.md](docs/install/codex_skills.md)
 - [docs/install/codex_plugin_local_candidate.md](docs/install/codex_plugin_local_candidate.md)
+- [docs/install/codex_desktop_marketplace_fix_report.md](docs/install/codex_desktop_marketplace_fix_report.md)
 - [docs/qa/claude-plugin-runtime-acceptance.md](docs/qa/claude-plugin-runtime-acceptance.md)
 - [docs/meta/diayn_command_reference.md](docs/meta/diayn_command_reference.md)
 - [docs/meta/diayn_commands/](docs/meta/diayn_commands/)
