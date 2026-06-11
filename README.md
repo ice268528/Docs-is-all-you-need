@@ -113,6 +113,26 @@ The fallback column is only for project-local package installs. In Claude Code
 plugin mode, use `/diayn:*`. In Codex Desktop plugin mode, use the DIAYN skills
 that Codex installs from the plugin.
 
+## Example Prompts for the 12 Skills
+
+These examples show the kind of request that fits each workflow. They are
+starting points, not fixed scripts.
+
+| Workflow | When to use | Example prompt |
+| --- | --- | --- |
+| Init | You have a vague idea or an existing repo to retrofit | `/diayn:init This repo only has a rough idea. Ask the right questions, draft the project brief, and create the starter docs.` |
+| Plan | The requirement is clear enough to break into stages and lanes | `/diayn:plan Turn this into stage plans, backend/frontend lanes, and acceptance criteria.` |
+| Worktrees | You need lane workspaces ready before parallel execution | `/diayn:worktrees Prepare backend and frontend worktrees for the current stage.` |
+| Backend | You want one backend task slice implemented in the backend lane | `/diayn:backend Implement the backend slice for the new sync endpoint and stop at candidate_done.` |
+| Frontend | You want one frontend task slice implemented in the frontend lane | `/diayn:frontend Build the settings screen slice and update the lane evidence.` |
+| Backend review | You want an independent review of backend lane work | `/diayn:review-backend Review the backend lane evidence and reject anything that does not meet the acceptance criteria.` |
+| Frontend review | You want an independent review of frontend lane work | `/diayn:review-frontend Review the frontend lane evidence and uncheck TODO items if the slice is not done.` |
+| Sync | You need docs and lane state aligned, without merging business code | `/diayn:sync Sync the current lane state, TODO, and docs only.` |
+| Integration | Both lanes passed review and need contract/build/smoke checks | `/diayn:integration Check the reviewed backend and frontend work, then produce an integration summary.` |
+| Bug | You need to route a defect, regression, or acceptance gap | `/diayn:bug Triage this regression and decide whether it belongs to backend, frontend, or a shared issue.` |
+| New | The owner changed scope or introduced a new requirement | `/diayn:new Capture this scope change without overwriting the accepted baseline.` |
+| HTML | You need a readable owner-facing report | `/diayn:html Turn the decision and acceptance notes into a clean HTML summary.` |
+
 ## What DIAYN Adds To A Target Project
 
 ```mermaid

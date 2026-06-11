@@ -107,6 +107,26 @@ fallback 列只适用于 project-local package 安装。Claude Code plugin 模�
 `/diayn:*`；Codex Desktop plugin 模式请使用 Codex 从插件里安装出来的 DIAYN
 skills。
 
+## 12 个技能的示例用法
+
+下面这些例子展示的是“什么场景适合哪个 workflow”。它们是起点，不是固定
+模板。
+
+| 工作流 | 适用场景 | 示例提示词 |
+| --- | --- | --- |
+| Init | 只有模糊想法，或者已有仓库需要改造成 DIAYN | `/diayn:init 这个仓库只有一个粗想法。请先提问澄清，再整理项目简报并生成起始文档。` |
+| Plan | 需求已经比较清楚，可以拆成阶段和 lane | `/diayn:plan 把这个需求拆成阶段计划、后端/前端 lane 和验收标准。` |
+| Worktrees | 需要先准备 lane 的并行工作区 | `/diayn:worktrees 为当前阶段准备 backend 和 frontend worktrees。` |
+| Backend | 需要在 backend lane 里完成一段后端任务 | `/diayn:backend 实现新的同步接口这段 backend slice，完成后停在 candidate_done。` |
+| Frontend | 需要在 frontend lane 里完成一段前端任务 | `/diayn:frontend 实现设置页这一段 frontend slice，并更新 lane 证据。` |
+| Backend review | 需要独立审查 backend lane 的工作 | `/diayn:review-backend 审查 backend lane 的证据，不符合验收标准的地方直接打回。` |
+| Frontend review | 需要独立审查 frontend lane 的工作 | `/diayn:review-frontend 审查 frontend lane 的证据，如果没完成就取消勾选 TODO。` |
+| Sync | 只需要同步文档和 lane 状态，不合并业务代码 | `/diayn:sync 只同步当前 lane 状态、TODO 和文档。` |
+| Integration | 两个 lane 都过审了，需要做合同、构建和冒烟检查 | `/diayn:integration 检查已通过审查的后端和前端工作，并生成集成总结。` |
+| Bug | 需要分流缺陷、回归或验收缺口 | `/diayn:bug 处理这个回归，判断它属于 backend、frontend 还是 shared issue。` |
+| New | Owner 改了范围，或者提出了新需求 | `/diayn:new 记录这次范围变更，不要覆盖已验收的基线。` |
+| HTML | 需要一个给 Owner 看的易读报告 | `/diayn:html 把决策和验收记录整理成一份清晰的 HTML 总结。` |
+
 ## DIAYN 会给目标项目添加什么
 
 ```mermaid
